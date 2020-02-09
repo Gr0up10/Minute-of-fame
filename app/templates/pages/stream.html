@@ -7,14 +7,68 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
 
     <meta charset="UTF-8">
     <title>Minute of cringe</title>
 </head>
 <body>
 
-    <h1>Kek or cringe?</h1>
+    <div class="content-container">
+        <div class="menu-container">
+            <img id="logo"class="center-align inline-block" src="{% static 'logo.svg' %}">
+            <h1 id="title" class="center-align inline-block">Kek or cringe?</h1>
+        </div>
+
+        <div class="d-flex align-items-stretch">
+            <div class="stream-container flex-fill">
+                <div id="stream-figure-overlay"></div>
+                <h4 id="stream-timer-overlay">5:12</h4>
+                <div id="stream-box">
+                    <!-- Перед вставкой видеопотока убрать в классе #stream-box в styles.css захардкоженую высоту (height: 500px;)            -->
+                </div>
+
+                <div class="d-flex flex-row justify-content-center align-items-center">
+                    <div id="stream-info-container" class="flex-fill bd-highlight w-50">
+                        <h1>Stream title</h1>
+                        <br>
+                        <h5 class="secondary-text">Streamer alias: <b>UltimateDoge487</b></h5>
+                        <h5 class="secondary-text">Viewers: <b>80082</b></h5>
+                    </div>
+
+                    <button id="like-stream" class="flex-sm-fill btn btn-outline-success align-self-stretch">
+                        <img class="like-img inline-block center-align" src="{% static 'thumb-green.svg' %}">
+                        <h3 class="inline-block center-align">Kek</h3>
+                    </button>
+
+                    <button id="dislike-stream" class="flex-sm-fill btn btn-outline-danger align-self-stretch">
+                        <img class="dislike-img inline-block center-align" src="{% static 'thumb-red.svg' %}">
+                        <h3 class="inline-block center-align">Cringe</h3>
+                    </button>
+                </div>
+
+                </div>
+
+            <div class="chat-container flex-fill">
+
+                <div id="chat-box">
+                    <div class="chat-message d-flex">
+                        <p><b>Somebody: </b> once told me</p>
+                    </div>
+                    <div class="chat-message d-flex">
+                        <p><b>this_world: </b>is gonna roll me</p>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <input id="chat-message-input" class="inline-block flex-fill">
+                    <button type="button" class="btn btn-dark inline-block" id="send-chat-message">
+                        <img src="{% static 'send.svg' %}">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
