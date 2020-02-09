@@ -21,11 +21,11 @@ html, html > * {
 .menu-container{
     margin-bottom: 20px;
     margin-left: 5vw;
-    padding: 10px;
+    padding: 40px;
 }
 
 #logo {
-    width: 100px;
+    width: 80px;
 }
 #title{
     margin-left: 20px;
