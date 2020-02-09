@@ -121,3 +121,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = "minute_of_fame/static"
+
+STATICFILES_DIRS = [
+    "app/static",
+]
