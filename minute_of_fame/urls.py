@@ -26,6 +26,22 @@ from app import views
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('login/', views.login_page),
-                  path('register/', views.register),
+                  path('logout/', auth_views.LogoutView.as_view()),
+                  path('register/', views.register_page),
+                  path('password-reset/',
+                       auth_views.PasswordResetView.as_view(
+                           template_name='registration/password-reset/reset/reset.html'),
+                       name='password_reset'),
+                  path('password-reset/done/',
+                       auth_views.PasswordResetDoneView.as_view(template_name='registration/password-reset/done.html'),
+                       name='password_reset_done'),
+                  path('reset/<uidb64>/<token>/',
+                       auth_views.PasswordResetConfirmView.as_view(
+                           template_name='registration/password-reset/confirm.html'),
+                       name='password_reset_confirm'),
+                  path('reset/done/',
+                       auth_views.PasswordResetCompleteView.as_view(
+                           template_name='registration/password-reset/reset/done.html'),
+                       name='password_reset_complete'),
                   path('', views.stream_page),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

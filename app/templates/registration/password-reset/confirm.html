@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1> Придумайте новый пароль </h1>
+    <div class="col mt-3">
+        <form method="POST">
+            {% csrf_token %}
+            {% for i in form %}
+            <table>
+                <tbody>
+                <tr>
+                    <td>{{i.label}}:</td>
+                </tr>
+                <tr>
+                    <td>{{ i }}</td>
+                </tr>
+                </tbody>
+            </table>
+            {% endfor %}
+            <div class="col mt-3">
+                <input class="btn btn-success" type="submit" value="Изменить мой пароль">
+            </div>
+        </form>
+    </div>
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

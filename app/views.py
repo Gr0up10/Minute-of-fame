@@ -12,13 +12,13 @@ def get_menu_context():
         {'url': '/about/', 'name': 'About'},
     ]
 
+
 def stream_page(request):
     context = {
         'pagename': 'Главная',
         'menu': get_menu_context(),
     }
     return render(request, 'pages/stream.html', context)
-
 
 
 def login_page(request):
@@ -40,7 +40,7 @@ def login_page(request):
     return redirect('registration/login')
 
 
-def register(request):
+def register_page(request):
     context = dict()
     if request.method == 'POST':
         form = RegisterFormView(request.POST)
