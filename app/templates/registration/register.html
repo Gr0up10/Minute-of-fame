@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Регистрация</title>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col mt-3">
+			<form method="POST">
+				{% csrf_token %}
+				{% for item in form %}
+				<p>{{item.label}}: {{item}}</p>
+				{% endfor %}
+				<button class="btn btn-success" type="submit">Зарегистрироваться</button>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col mt-3">
+			{% if form.errors %}
+			<div class="alert alert-danger">
+				<ul>
+					{% for field, errors in form.errors.items %}
+					{% for error in errors %}
+					<li>{{ error }}</li>
+					{% endfor %}
+					{% endfor %}
+				</ul>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+</body>
+</html>
