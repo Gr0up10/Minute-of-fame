@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-
+from .forms import LoginForm
 from .forms import *
 
 
@@ -22,6 +22,10 @@ def stream_page(request):
 
 
 def login_page(request):
+    context = {
+        'pagename': 'Вход',
+        'menu': get_menu_context(),
+    }
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
@@ -30,6 +34,7 @@ def login_page(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
+                return redirect('index')
                 # messages.add_message(request, messages.SUCCESS, "Авторизация успешна")
             else:
                 pass
@@ -37,7 +42,10 @@ def login_page(request):
         else:
             pass
             # messages.add_message(request, messages.ERROR, "Некорректные данные в форме авторизации")
-    return redirect('/login/')
+    else:
+        login_form = LoginForm()
+        context['form'] = login_form
+    return render(request, 'registration/login.html', context)
 
 
 def register_page(request):
@@ -52,7 +60,7 @@ def register_page(request):
             _user = authenticate(username=username, password=my_password)
             if _user.is_active:
                 login(request, _user)
-                return render(request, 'index.html', context)
+                return redirect('index')
         return render(request, 'registration/register.html', context)
     else:
         form = RegisterFormView()
