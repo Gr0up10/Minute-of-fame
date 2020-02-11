@@ -37,7 +37,7 @@ def login_page(request):
         else:
             pass
             # messages.add_message(request, messages.ERROR, "Некорректные данные в форме авторизации")
-    return redirect('registration/login')
+    return redirect('/login/')
 
 
 def register_page(request):
