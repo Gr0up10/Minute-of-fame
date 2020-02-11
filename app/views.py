@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from .forms import LoginForm
 from .forms import *
@@ -46,6 +46,12 @@ def login_page(request):
         login_form = LoginForm()
         context['form'] = login_form
     return render(request, 'registration/login.html', context)
+
+
+def logout_page(request):
+    logout(request)
+    # messages.add_message(request, messages.INFO, "Вы успешно вышли из аккаунта")
+    return redirect('index')
 
 
 def register_page(request):

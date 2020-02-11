@@ -24,7 +24,7 @@ from app import views
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('login/', views.login_page, name='login'),
-                  path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+                  path('logout/', views.logout_page, name='logout'),
                   path('register/', views.register_page),
                   path('password-reset/',
                        auth_views.PasswordResetView.as_view(
