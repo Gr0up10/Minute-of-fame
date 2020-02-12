@@ -22,4 +22,5 @@ from app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('prototype/video-streaming/<int:num>', views.stream_test),
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
