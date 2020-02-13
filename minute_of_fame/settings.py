@@ -137,10 +137,13 @@ LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = '/home/'
 LOGOUT_REDIRECT_URL = '/home/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
-
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'minute.of.fame@yandex.ru'
+EMAIL_HOST_PASSWORD = 'FTyNm.6GK*-vT,/'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 STATICFILES_DIRS = [
     "app/static",
 ]
