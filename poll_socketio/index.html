@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+  </head>
+  <body>
+
+
+    <form action="">
+        <input id="n1" type="button" value="kek"/>
+        <input id="n2" type="button" value="cringe"/>
+    </form>
+     <p></p>
+    <p1></p1>
+     <p2></p2>
+    <ul id="messages"></ul>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      $(function () {
+        var socket = io();
+        var likes=0;
+        var dis=0;
+        var choices=0;
+        var res;
+        const para = document.querySelector('p');
+        const para1 = document.querySelector('p1');
+        const para2 = document.querySelector('p2');
+
+        $('form').submit(function(){
+          socket.emit('chat message', $('#para1').textContent);
+          socket.emit('chat message', $('#para2').textContent);
+          $('#m').val('');
+          return false;
+        });
+
+
+        function handler1() {
+            likes+=1;
+            choices+=1;
+            res=(likes/choices)*100;
+            socket.emit('chat message',Math.round (res));
+        };
+
+        function handler2() {
+            dis+=1;
+            choices+=1;
+            res=(likes/choices)*100;
+            socket.emit('chat message', Math.round (res));
+         }
+        n1.addEventListener("click", handler1);
+        n2.addEventListener("click", handler2);
+        socket.on('chat message', function(msg){
+          para.textContent=msg;
+           para1.textContent=likes;
+            para2.textContent=choices;
+
+        });
+      });
+    </script>
+
+  </body>
+</html>
