@@ -1,6 +1,7 @@
 let connection = new RTCMultiConnection();
 // v3.4.7 or newer
-connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+connection.socketURL = 'http://localhost:9001/';
+connection.videosContainer = document.getElementById('videos-container');
 
 connection.session = {
     audio: true,

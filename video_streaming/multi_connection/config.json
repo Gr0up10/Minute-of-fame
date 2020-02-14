@@ -5,7 +5,7 @@
   "socketMessageEvent": "RTCMultiConnection-Message",
   "socketCustomEvent": "RTCMultiConnection-Custom-Message",
   "port": "9001",
-  "enableLogs": "false",
+  "enableLogs": "true",
   "autoRebootServerOnFailure": "false",
   "isUseHTTPs": "false",
   "sslKey": "./fake-keys/privatekey.pem",
