@@ -18,6 +18,7 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       $(function () {
+
         var socket = io();
         var likes=0;
         var dis=0;
@@ -39,23 +40,25 @@
             likes+=1;
             choices+=1;
             res=(likes/choices)*100;
-            socket.emit('chat message',Math.round (res));
+            socket.emit('chat message', Math.round (res)+'/'+likes+'/'+choices);
         };
 
         function handler2() {
             dis+=1;
             choices+=1;
             res=(likes/choices)*100;
-            socket.emit('chat message', Math.round (res));
+            socket.emit('chat message', Math.round (res)+'/'+likes+'/'+choices);
          }
         n1.addEventListener("click", handler1);
         n2.addEventListener("click", handler2);
+
         socket.on('chat message', function(msg){
-          para.textContent=msg;
-           para1.textContent=likes;
-            para2.textContent=choices;
+          msg.split("/");
+          para.textContent= Math.round((msg.split("/")[1]/msg.split("/")[2])*100);
+
 
         });
+
       });
     </script>
 
