@@ -1,0 +1,52 @@
+{% extends 'bases/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col mt-3">
+			<h1>Авторизация</h1>
+			<form method="POST">
+				{% csrf_token %}
+				<div class="container">
+					<form method="POST" id="add_form" action="">{% csrf_token %}
+						<div class="form-group">
+							<label>Имя пользователя</label>
+							<div class="input"><input type="text" name="username" required="required"></div>
+							<div class="clear"></div>
+						</div>
+						<div class="form-group">
+							<label>Пароль</label>
+							<div class="input"><input type="password" name="password" required="required"></div>
+							<div class="clear"></div>
+						</div>
+						<div class="form-group">
+							<label></label>
+							<div class="submit">
+								<button type="submit" class="btn btn-success">Войти</button>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</form>
+				</div>
+				<a class="btn btn-success" href="#" name="remind_password">Восстановить пароль</a>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col mt-3">
+			{% if form.errors %}
+			<div class="alert alert-danger">
+				<ul>
+					{% for field, errors in form.errors.items %}
+					{% for error in errors %}
+					<li>{{ error }}</li>
+					{% endfor %}
+					{% endfor %}
+				</ul>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}
