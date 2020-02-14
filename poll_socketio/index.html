@@ -7,12 +7,10 @@
 
 
     <form action="">
-        <input id="n1" type="button" value="kek"/>
-        <input id="n2" type="button" value="cringe"/>
+        <input id="btn_like" type="button" value="kek"/>
+        <input id="btn_dislike" type="button" value="cringe"/>
     </form>
-     <p></p>
-    <p1></p1>
-     <p2></p2>
+     <p id="poll_result"></p>
     <ul id="messages"></ul>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -20,43 +18,18 @@
       $(function () {
 
         var socket = io();
-        var likes=0;
-        var dis=0;
-        var choices=0;
-        var res;
-        const para = document.querySelector('p');
-        const para1 = document.querySelector('p1');
-        const para2 = document.querySelector('p2');
-
-        $('form').submit(function(){
-          socket.emit('chat message', $('#para1').textContent);
-          socket.emit('chat message', $('#para2').textContent);
-          $('#m').val('');
-          return false;
-        });
-
-
-        function handler1() {
-            likes+=1;
-            choices+=1;
-            res=(likes/choices)*100;
-            socket.emit('chat message', Math.round (res)+'/'+likes+'/'+choices);
+        const poll_result_paragraph = document.querySelector('p');
+        function send_like() {
+            socket.emit('like',1);
         };
-
-        function handler2() {
-            dis+=1;
-            choices+=1;
-            res=(likes/choices)*100;
-            socket.emit('chat message', Math.round (res)+'/'+likes+'/'+choices);
+        function send_dislike() {
+            socket.emit('dislike',1);
          }
-        n1.addEventListener("click", handler1);
-        n2.addEventListener("click", handler2);
+        btn_like.addEventListener("click", send_like);
+        btn_dislike.addEventListener("click", send_dislike);
 
-        socket.on('chat message', function(msg){
-          msg.split("/");
-          para.textContent= Math.round((msg.split("/")[1]/msg.split("/")[2])*100);
-
-
+        socket.on('updateInfo', function(msg){
+          poll_result_paragraph.textContent=msg;
         });
 
       });
