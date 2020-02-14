@@ -1,8 +1,8 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .forms import LoginForm
+
 from .forms import *
-from django.contrib import messages
 
 
 # Create your views here.
@@ -32,6 +32,11 @@ def login_page(request):
         if login_form.is_valid():
             username = login_form.data['username']
             password = login_form.data['password']
+            if User.objects.filter(email=login_form.data['username']).exists():
+                # если пользователь найден, то в поле username вставить пользователя из бд
+                user = User.objects.get(email=login_form.data['username'])
+                username = str(user.username)
+
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)

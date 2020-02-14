@@ -47,3 +47,6 @@ class LoginForm(forms.Form):
             }
         )
     )
+
+    def is_valid(self):
+        return super().is_valid() or '@' in self.data['username']
