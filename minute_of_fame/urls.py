@@ -42,4 +42,6 @@ urlpatterns = [
                            template_name='registration/password-reset/reset/done.html'),
                        name='password_reset_complete'),
                   path('', views.stream_page, name='index'),
-              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('profile/', views.profile_page),
+]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
