@@ -23,4 +23,5 @@ from app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.stream_page),
+    path('profile/', views.profile_page),
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
