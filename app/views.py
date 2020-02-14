@@ -81,3 +81,9 @@ def profile_page(req):
     context = {}
 
     return render(req, 'pages/profile.html', context)
+
+
+def about_page(req):
+    context = {}
+
+    return render(req, 'pages/about.html', context)

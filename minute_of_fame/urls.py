@@ -43,5 +43,6 @@ urlpatterns = [
                        name='password_reset_complete'),
                   path('', views.stream_page, name='index'),
     path('profile/', views.profile_page),
+    path('about/', views.about_page),
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
