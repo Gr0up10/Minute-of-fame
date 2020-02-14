@@ -5,11 +5,11 @@ from .forms import *
 from django.contrib import messages
 
 
-# Create your views here.
+
 def get_menu_context():
     return [
         {'url': '/', 'name': 'Home'},
-        {'url': '/categories', 'name': 'Categories'},
+        #{'url': '/categories', 'name': 'Categories'},
         {'url': '/about/', 'name': 'About'},
     ]
 
@@ -20,7 +20,6 @@ def stream_page(request):
         'menu': get_menu_context(),
     }
     return render(request, 'pages/stream.html', context)
-
 
 def login_page(request):
     context = {
@@ -76,3 +75,9 @@ def register_page(request):
         form = RegisterFormView()
         context['form'] = form
         return render(request, 'registration/register.html', context)
+
+
+def profile_page(req):
+    context = {}
+
+    return render(req, 'pages/profile.html', context)
