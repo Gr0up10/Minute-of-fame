@@ -66,14 +66,17 @@ def register_page(request):
         form = RegisterFormView(request.POST)
         context['form'] = form
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            my_password = form.cleaned_data.get('password1')
-            _user = authenticate(username=username, password=my_password)
-            if _user.is_active:
-                login(request, _user)
-                messages.add_message(request, messages.SUCCESS, 'Вы успешно зарегистрировались')
-                return redirect('index')
+            if form.unique_email():
+                form.save()
+                username = form.cleaned_data.get('username')
+                my_password = form.cleaned_data.get('password1')
+                _user = authenticate(username=username, password=my_password)
+                if _user.is_active:
+                    login(request, _user)
+                    messages.add_message(request, messages.SUCCESS, 'Вы успешно зарегистрировались')
+                    return redirect('index')
+            else:
+                messages.add_message(request, messages.ERROR, 'Аккаунт с этой почтой уже существует')
         else:
             messages.add_message(request, messages.ERROR, 'Вы ввели неверные данные')
         return render(request, 'registration/register.html', context)

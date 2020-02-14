@@ -14,12 +14,11 @@ class RegisterFormView(UserCreationForm):
     template_name = "registration/register.html"
     email = forms.EmailField(max_length=254, help_text='Это поле обязательно')
 
-    # def form_valid(self, form):
-    #     # Создаём пользователя, если данные в форму были введены корректно.
-    #     form.save()
-    #
-    #     # Вызываем метод базового класса
-    #     return super(RegisterFormView, self).form_valid(form)
+    def unique_email(self):
+        if User.objects.filter(email=self.data['email']).exists():
+            return False
+        else:
+            return True
 
     class Meta:
         model = User
