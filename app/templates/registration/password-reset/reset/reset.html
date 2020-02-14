@@ -1,0 +1,27 @@
+{% extends 'bases/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+	<div class="col mt-3">
+		<form method="POST">
+			{% csrf_token %}
+			{{form.as_p}}
+			<input class="btn btn-success" type="submit" value="Восстановить мой пароль">
+		</form>
+	</div>
+</div>
+
+{% if form.errors %}
+<div class="alert alert-danger">
+	<ul>
+		{% for field, errors in form.errors.items %}
+		{% for error in errors %}
+		<li>{{ error }}</li>
+		{% endfor %}
+		{% endfor %}
+	</ul>
+</div>
+{% endif %}
+{% endblock %}

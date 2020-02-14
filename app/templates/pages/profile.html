@@ -1,0 +1,50 @@
+{% extends 'bases/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="d-flex align-items-stretch">
+
+
+    <div id="profile-box" class="profile-container">
+        <div class="row no-gutters">
+        <div class="col-md-3">
+            <img class="d-lg-flex justify-content-lg-center profile-img" src="https://avatars.mds.yandex.net/get-zen_doc/1899089/pub_5d977c8835c8d800ae71e2cd_5d9783f82fda8600b152e235/scale_1200">
+            <i class="fa fa-star profile-star" aria-hidden="true" style="margin-left: 40px"></i>
+            <i class="fa fa-star profile-star" aria-hidden="true" ></i>
+            <i class="fa fa-star profile-star" aria-hidden="true"></i>
+            <i class="fa fa-star-o profile-star" aria-hidden="true"></i>
+            <i class="fa fa-star-o profile-star" aria-hidden="true"></i>
+            <i class="fa fa-thumbs-o-up" aria-hidden="true" id="profile-like"></i> 40
+            <i class="fa fa-thumbs-o-down" aria-hidden="true" id="profile-dislike"></i> 8
+        </div>
+
+
+        <div class="col-md-6">
+            <h4 id="profile-username">%UserName%</h4>
+            <br>
+            <i class="fa fa-map-marker profile-gold" aria-hidden="true"></i>
+            Location
+            <br>
+            <i class="fa fa-envelope profile-gold" aria-hidden="true"></i>
+            Email
+            <br>
+            <h4 id="profile-aboutme">About me:</h4>
+            <p>For example: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+                Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,
+                pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
+                arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.
+                Cras dapibus.</p>
+
+
+
+        </div>
+            <div class="col-md-3">
+                <a href="/password-reset/" class="btn btn-gold" type="button" id="btn-changepass">Change password</a>
+                <button class="btn btn-gold" type="button" id="btn-exit">Exit</button>
+
+            </div>
+    </div>
+    </div>
+
+</div>
+{% endblock %}

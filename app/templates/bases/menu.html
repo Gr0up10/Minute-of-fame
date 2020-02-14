@@ -1,0 +1,47 @@
+{% load static %}
+<div class="menu-container">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+
+        <img id="logo" class="center-align inline-block" src="{% static 'logo.svg' %}">
+        <h1 id="title" class="center-align inline-block">Kek or cringe?</h1>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+
+            <ul class="navbar-nav mr-auto">
+                {% block b_menu %}
+                {% for item in menu %}
+                <li class="nav-item active">
+                    <h4><a class="nav-link" href="{{ item.url }}">{{ item.name }}</a></h4>
+                </li>
+                {% endfor %}
+                {% endblock %}
+            </ul>
+
+            <ul class="navbar-nav mr-1">
+                {% block usermenu %}
+
+                {% if request.user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="true" aria-expanded="false">{{ request.user }}</a>
+                    <div class="dropdown-menu">
+                        <h4><a class="dropdown-item" href="/profile/">View profile</a></h4>
+                        <h4><a class="dropdown-item" href="/setting/">Setting</a></h4>
+                        <h4><a class="dropdown-item" href="/logout/">Logout</a></h4>
+                    </div>
+                </li>
+
+                {% else %}
+                <li class="nav-item">
+                    <div class="row">
+                        <h4><a class="nav-link" href="/register/">Sign up</a></h4>
+                        <h4><a class="nav-link" href="login">Login</a></h4>
+                    </div>
+                </li>
+                {% endif %}
+
+                {% endblock %}
+            </ul>
+        </div>
+    </nav>
+</div>
