@@ -42,6 +42,17 @@ html, html > * {
     color: #DCD0D0;
 }
 
+
+.dropdown-item{
+    background-color: #333645;
+    color: white;
+}
+
+.dropdown-menu{
+    background-color: #333645;
+    color: white;
+}
+
 #chat-box{
     padding: 10px;
     height: 75vh;
