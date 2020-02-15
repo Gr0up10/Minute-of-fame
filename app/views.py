@@ -9,7 +9,7 @@ from .forms import *
 def get_menu_context():
     return [
         {'url': '/', 'name': 'Home'},
-        #{'url': '/categories', 'name': 'Categories'},
+        {'url': '/categories', 'name': 'Categories'},
         {'url': '/about/', 'name': 'About'},
     ]
 
@@ -61,6 +61,7 @@ def logout_page(request):
 
 def register_page(request):
     context = dict()
+    context["menu"] = get_menu_context()
     if request.method == 'POST':
         form = RegisterFormView(request.POST)
         context['form'] = form
@@ -86,12 +87,16 @@ def register_page(request):
 
 
 def profile_page(req):
-    context = {}
+    context = {
+        'menu': get_menu_context()
+    }
 
     return render(req, 'pages/profile.html', context)
 
 
 def about_page(req):
-    context = {}
+    context = {
+        'menu': get_menu_context()
+    }
 
     return render(req, 'pages/about.html', context)
