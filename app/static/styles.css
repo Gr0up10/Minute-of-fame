@@ -19,7 +19,7 @@ html, html > * {
 }
 
 .menu-container{
-    margin-bottom: 20px;
+    margin-bottom: 3vh;
     margin-left: 5vw;
     padding: 40px;
 }
@@ -28,7 +28,7 @@ html, html > * {
     width: 80px;
 }
 #title{
-    margin-left: 20px;
+    margin: 0 30px 0 20px;
 }
 .inline-block {
     display: inline-block;
@@ -41,6 +41,24 @@ html, html > * {
 .secondary-text{
     color: #DCD0D0;
 }
+
+
+.dropdown-item{
+    background-color: #333645;
+    padding-left: 10px;
+    color: #EBEBEB;
+}
+.dropdown-toggle{cursor: pointer;}
+#username{color:#FAEEEE}
+.dropdown-menu{
+    background-color: #333645;
+    color: #EBEBEB;
+}
+.dropdown-hr{margin: 0px;}
+
+.menu-item{margin-left: 1.5vw;}
+.menu-item h3, .nav-item h4{margin: 0;}
+.nav-link{padding: 0;}
 
 #chat-box{
     padding: 10px;
