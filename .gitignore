@@ -1,5 +1,7 @@
 GOLOSOVANIE
-
+db.sqlite3
+/venv/
+node_modules/
 ### Django ###
 *.log
 *.pot
