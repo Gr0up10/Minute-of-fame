@@ -1,8 +1,8 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .forms import LoginForm
+
 from .forms import *
-from django.contrib import messages
 
 
 
@@ -31,6 +31,11 @@ def login_page(request):
         if login_form.is_valid():
             username = login_form.data['username']
             password = login_form.data['password']
+            if User.objects.filter(email=login_form.data['username']).exists():
+                # если пользователь найден, то в поле username вставить пользователя из бд
+                user = User.objects.get(email=login_form.data['username'])
+                username = str(user.username)
+
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
@@ -61,14 +66,17 @@ def register_page(request):
         form = RegisterFormView(request.POST)
         context['form'] = form
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            my_password = form.cleaned_data.get('password1')
-            _user = authenticate(username=username, password=my_password)
-            if _user.is_active:
-                login(request, _user)
-                messages.add_message(request, messages.SUCCESS, 'Вы успешно зарегистрировались')
-                return redirect('index')
+            if form.unique_email():
+                form.save()
+                username = form.cleaned_data.get('username')
+                my_password = form.cleaned_data.get('password1')
+                _user = authenticate(username=username, password=my_password)
+                if _user.is_active:
+                    login(request, _user)
+                    messages.add_message(request, messages.SUCCESS, 'Вы успешно зарегистрировались')
+                    return redirect('index')
+            else:
+                messages.add_message(request, messages.ERROR, 'Аккаунт с этой почтой уже существует')
         else:
             messages.add_message(request, messages.ERROR, 'Вы ввели неверные данные')
         return render(request, 'registration/register.html', context)
