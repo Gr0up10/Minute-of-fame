@@ -13,10 +13,10 @@ connection.sdpConstraints.mandatory = {
     OfferToReceiveVideo: true
 };
 
-let room_id = document.getElementById('room_id')
+let room_id = document.getElementById('room_id');
 //room_id.value = connection.token()
 
 document.getElementById('btn-connect').onclick = function() {
     this.disabled = true;
     connection.openOrJoin(room_id.value || 'predefined-roomid');
-}
+};
