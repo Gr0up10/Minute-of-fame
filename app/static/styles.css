@@ -250,3 +250,10 @@ html, html > * {
     top: -25px;
     height: 80px;
 }
+
+a, a:hover {
+    border: none;
+    outline: 0;
+    color: inherit;
+    text-decoration: none;
+}
