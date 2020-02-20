@@ -14,6 +14,8 @@
             <div id="stream-info-container" class="flex-fill bd-highlight w-50">
                 <h1>Stream title</h1>
                 <br>
+                <button onclick="var cs = new WebSocket('ws://localhost:8001/ws/')">CONNECT</button>
+                <button onclick="cs.send(123)">SEND</button>
                 <h5 class="secondary-text">Streamer alias: <b>UltimateDoge487</b></h5>
                 <h5 class="secondary-text">Viewers: <b>80082</b></h5>
             </div>
