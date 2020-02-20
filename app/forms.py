@@ -49,3 +49,10 @@ class LoginForm(forms.Form):
 
     def is_valid(self):
         return super().is_valid() or '@' in self.data['username']
+
+
+class ReportForm(forms.Form):
+    multi_account = forms.BooleanField(label='multiaccount',required=False,widget= forms.CheckboxInput())
+    offensive = forms.BooleanField(label='offensive', required=False,widget= forms.CheckboxInput())
+    inappropriate_video_content = forms.BooleanField(label='inappropriate video content', required=False,widget= forms.CheckboxInput())
+    additional_information = forms.CharField(max_length=240, min_length=1, required=True, label='additional information')

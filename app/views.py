@@ -4,6 +4,9 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 import requests
 from .forms import *
+from .models import *
+from django.contrib.auth.decorators import login_required
+
 
 
 def stream_test(request, num):
@@ -122,3 +125,23 @@ def about_page(req):
     }
 
     return render(req, 'pages/about.html', context)
+
+@login_required()
+def report_page(request, badass_id):
+    context = {
+        'menu': get_menu_context(),
+        'Form': ReportForm(),
+    }
+    if request.method == 'GET':
+        return render(request,'pages/report.html',context)
+    else:
+        multi_account = bool(request.POST.get('multi_account'))
+        offensive = bool(request.POST.get('offensive'))
+        inappropriate_video_content = bool(request.POST.get('inappropriate_video_content'))
+        additional_information = request.POST.get('additional_information')
+        Report1 = Report(badass_id=User.objects.get(id=badass_id),multi_account=multi_account,
+                         offensive=offensive,inappropriate_video_content=inappropriate_video_content,
+                         additional_information=additional_information,sender_id=request.user)
+        Report1.save()
+        messages.add_message(request, messages.SUCCESS, 'жалоба успешно отправленна')
+        return render(request, 'pages/stream.html', context)
