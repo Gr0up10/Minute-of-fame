@@ -139,9 +139,9 @@ def report_page(request, badass_id):
         offensive = bool(request.POST.get('offensive'))
         inappropriate_video_content = bool(request.POST.get('inappropriate_video_content'))
         additional_information = request.POST.get('additional_information')
-        Report1 = Report(badass_id=User.objects.get(id=badass_id),multi_account=multi_account,
+        report = Report(badass_id=User.objects.get(id=badass_id),multi_account=multi_account,
                          offensive=offensive,inappropriate_video_content=inappropriate_video_content,
                          additional_information=additional_information,sender_id=request.user)
-        Report1.save()
-        messages.add_message(request, messages.SUCCESS, 'жалоба успешно отправленна')
+        report.save()
+        messages.add_message(request, messages.SUCCESS, 'report was sent to our team of (=^･ｪ･^=)')
         return render(request, 'pages/stream.html', context)
