@@ -4,6 +4,9 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 import requests
 from .forms import *
+from .models import *
+from django.contrib.auth.decorators import login_required
+
 
 
 def stream_test(request, num):
@@ -122,3 +125,22 @@ def about_page(req):
     }
 
     return render(req, 'pages/about.html', context)
+
+@login_required()
+def report_page(request, badass_id):
+    context = {
+        'menu': get_menu_context(),
+        'Form': ReportForm(initial={'badass': badass_id,'sender': request.user.id}),
+    }
+    if request.method == 'GET':
+        return render(request,'pages/report.html',context)
+    if request.method == 'POST':
+        report = ReportForm(request.POST)
+        if report.is_valid():
+            report.cleaned_data['sender'] = request.user.id
+            report.save()
+            messages.add_message(request, messages.SUCCESS, 'report was sent to moders team of (=^･ｪ･^=)')
+            return render(request, 'pages/stream.html', context)
+        else:
+            messages.add_message(request, messages.ERROR, 'Form is not valid')
+            return render(request, 'pages/report.html', context)
