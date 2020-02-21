@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 
 
 class Report(models.Model):
-    badass_id = models.ForeignKey(to=User, on_delete=models.CASCADE,related_name='badass_id')
-    sender_id = models.ForeignKey(to=User, on_delete=models.CASCADE,related_name='sender_id')
+    badass = models.ForeignKey(to=User, on_delete=models.CASCADE,related_name='badass_id',null=True)
+    sender = models.ForeignKey(to=User, on_delete=models.CASCADE,related_name='sender_id',null=True)
     date = models.DateTimeField(auto_now=True)
     # reason's
     multi_account = models.BooleanField(default=False)
