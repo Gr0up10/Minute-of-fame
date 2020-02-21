@@ -139,5 +139,8 @@ def report_page(request, badass_id):
         if report.is_valid():
             report.cleaned_data['sender'] = request.user.id
             report.save()
-        messages.add_message(request, messages.SUCCESS, 'report was sent to moders team of (=^･ｪ･^=)')
-        return render(request, 'pages/stream.html', context)
+            messages.add_message(request, messages.SUCCESS, 'report was sent to moders team of (=^･ｪ･^=)')
+            return render(request, 'pages/stream.html', context)
+        else:
+            messages.add_message(request, messages.ERROR, 'Form is not valid')
+            return render(request, 'pages/report.html', context)
