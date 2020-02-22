@@ -263,6 +263,13 @@ a, a:hover {
     color: #FAEEEE;
     width: 600px;
     height: 450px;
+    user-select: None;
+}
+.modal-cont-reg{
+    background-color: #333645;
+    color: #FAEEEE;
+    width: 600px;
+    height: 550px;
 }
 .modal-hea {
     padding: 0;
