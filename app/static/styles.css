@@ -276,3 +276,9 @@ html, html > * {
     }
 }
 
+a, a:hover {
+    border: none;
+    outline: 0;
+    color: inherit;
+    text-decoration: none;
+}
