@@ -1,8 +1,8 @@
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-
 from django import forms
+from .models import *
 
 
 class RegisterFormView(UserCreationForm):
@@ -14,12 +14,11 @@ class RegisterFormView(UserCreationForm):
     template_name = "registration/register.html"
     email = forms.EmailField(max_length=254, help_text='Это поле обязательно')
 
-    # def form_valid(self, form):
-    #     # Создаём пользователя, если данные в форму были введены корректно.
-    #     form.save()
-    #
-    #     # Вызываем метод базового класса
-    #     return super(RegisterFormView, self).form_valid(form)
+    def unique_email(self):
+        if User.objects.filter(email=self.data['email']).exists():
+            return False
+        else:
+            return True
 
     class Meta:
         model = User
@@ -47,3 +46,13 @@ class LoginForm(forms.Form):
             }
         )
     )
+
+    def is_valid(self):
+        return super().is_valid() or '@' in self.data['username']
+
+
+class ReportForm(forms.ModelForm):
+    class Meta:
+        model = Report
+        fields = '__all__'
+        widgets = {'badass': forms.HiddenInput(),'sender': forms.HiddenInput()}
