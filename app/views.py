@@ -25,6 +25,7 @@ def stream_page(request):
     context = {
         'pagename': 'Главная',
         'menu': get_menu_context(),
+        'test': 1
     }
     return render(request, 'pages/stream.html', context)
 
