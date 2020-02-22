@@ -93,7 +93,6 @@ def profile_page(req):
 
     return render(req, 'pages/profile.html', context)
 
-
 def about_page(req):
     context = {
         'menu': get_menu_context()
