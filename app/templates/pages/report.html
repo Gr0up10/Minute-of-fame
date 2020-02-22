@@ -1,0 +1,11 @@
+{% extends 'bases/base.html' %}
+{% load static %}
+
+{% block content %}
+<form method="POST" id="report"
+{{ Form.as_p }}
+<input type="submit"  value="отправить">
+{% csrf_token %}
+<form/>
+
+{% endblock %}
