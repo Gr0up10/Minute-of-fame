@@ -9,50 +9,26 @@ docker-build:
   services:
     - docker:dind
   before_script:
-    - echo "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
-    #- echo "$CI_REGISTRY_USER $CI_REGISTRY_PASSWORD"
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
   script:
     - docker build -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
-    # --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
     - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
-    #"$CI_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_REF_SLUG"
   tags:
     - main
-#  only:
-#    - "master"
+  only:
+    - "master"
 
-    
 deploy:
   stage: deploy
   image: gitlab/dind:latest
-#  only:
-#    - "master"
-#  environment: production
-#  services:
-#    - docker:dind
+
   before_script:
     - apt-get update -qq
-    #- apt-get install -qq git
-    # Setup SSH deploy keys
-    #- 'which ssh-agent || ( apt-get install -qq openssh-client )'
-    #- mkdir -p ~/.ssh
-    #- eval $(ssh-agent -s)
-    #- '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-  #script:
-
-#    - ssh -o StrictHostKeyChecking=no user@"$QA_SERVER" 'rm -rf /var/www/html/*'
-#    - eval $(ssh-agent -s)
-#    - ssh-add <(echo "$DEPLOY_SERVER_PRIVATE_KEY")
-#    - mkdir -p ~/.ssh
-#    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-
   script:
-#    - printf "DATABASE_URL=${DATABASE_URL}\nPORT=80\n" > environment.env
-#    - scp -r ./environment.env ./docker-compose.autodeploy.yml root@${DEPLOYMENT_SERVER_IP}:~/
-    #- ssh-add <(echo "$PRIVATE_KEY")
     - echo "$DEPLOY_SERVER_PRIVATE_KEY" > dkey
     - chmod 700 dkey
     - ssh -o StrictHostKeyChecking=no -i dkey root@$DEPLOYMENT_SERVER_IP "cd minute-of-fame; git checkout "$CI_COMMIT_BRANCH"; git pull; git docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}; docker-compose -f docker-compose.yml stop; docker-compose -f docker-compose.yml rm web; docker pull "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"; docker-compose -f docker-compose.yml up -d"
   tags:
     - main
+  only:
+    - "master"
