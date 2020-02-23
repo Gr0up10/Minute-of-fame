@@ -1,14 +1,16 @@
-@font-face {
-    font-family: 'Norwester Regular';
-    font-style: normal;
-    font-weight: normal;
-    src: local('Norwester Regular'), url('norwester.otf') format('opentype');
-}
+
+@import url('https://fonts.googleapis.com/css?family=Exo+2&display=swap');
 
 html, html > * {
     background-color: #333645;
     color: #FAEEEE;
-    font-family: Norwester Regular;
+    font-family: 'Exo 2', sans-serif;
+}
+h1, h2, h3{
+    font-weight: 700;
+}
+h4, h5{
+    font-weight: 600;
 }
 
 .content-container {
@@ -29,6 +31,7 @@ html, html > * {
 }
 #title{
     margin: 0 30px 0 20px;
+    font-weight: 700;
 }
 .inline-block {
     display: inline-block;
@@ -173,6 +176,7 @@ html, html > * {
 #send-chat-message{
     background: #424556;
     margin-left: 20px;
+    font-family: 'Exo 2', sans-serif;
 }
 #chat-message-input{
     background: #424556;
@@ -193,7 +197,6 @@ html, html > * {
     height: 100%;
 }
 .chat-message *{
-    font-family: Helvetica;
     margin: 0;
 }
 .chat-message b{
@@ -228,6 +231,7 @@ html, html > * {
     text-align: center;
 }
 #stream-timer-overlay{
+    font-weight: 700;
     background-color: none;
     z-index: 30;
     position: absolute;
@@ -235,6 +239,10 @@ html, html > * {
     transform: translate(-50%, 0);
     margin: auto;
     text-align: center;
+}
+
+#dislike-stream *, #like-stream *{
+    font-size: 2em;
 }
 
 #dislike-stream, #like-stream{
@@ -264,14 +272,7 @@ html, html > * {
     height: 50px;
 }
 @media screen and (min-width: 768px){
-    .dislike-img{
-        margin-right: 20px;
-        margin-top: 25px;
-        height: 80px;
-    }
-    .like-img{
-        margin-right: 20px;
-        top: -25px;
+    .dislike-img, .like-img{
         height: 80px;
     }
 }
