@@ -53,6 +53,6 @@ deploy:
     #- ssh-add <(echo "$PRIVATE_KEY")
     - echo "$DEPLOY_SERVER_PRIVATE_KEY" > dkey
     - chmod 700 dkey
-    - ssh -o StrictHostKeyChecking=no -i dkey root@$DEPLOYMENT_SERVER_IP "cd minute-of-fame; git checkout "$CI_COMMIT_REF_SLUG"; git pull; git docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}; docker-compose -f docker-compose.yml stop; docker-compose -f docker-compose.yml rm web; docker pull "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"; docker-compose -f docker-compose.yml up -d"
+    - ssh -o StrictHostKeyChecking=no -i dkey root@$DEPLOYMENT_SERVER_IP "cd minute-of-fame; git checkout "$CI_COMMIT_BRANCH"; git pull; git docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}; docker-compose -f docker-compose.yml stop; docker-compose -f docker-compose.yml rm web; docker pull "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"; docker-compose -f docker-compose.yml up -d"
   tags:
     - main
