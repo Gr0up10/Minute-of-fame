@@ -1,7 +1,7 @@
 # This file is a template, and might need editing before it works on your project.
 docker-build:
   # Official docker image.
-  image: docker:latest
+  image: gitlab/dind:latest
   stage: build
   services:
     - docker:dind
