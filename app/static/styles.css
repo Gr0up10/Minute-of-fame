@@ -128,298 +128,276 @@ html, html > * {
 
 
 
-#profile-box{
-    padding: 10px;
-    weight:100% !important;
+/*Profile*/
+.nowrap {
+    white-space: nowrap;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-container {
+    display: flex;
+    position: relative;
+    width: 1200px;
     height: 100%;
+    padding: 10px;
     background-color: #424556;
     margin-bottom: 20px;
+    top: 50px;
+    border-bottom: 10px solid #d4c074;
 }
-#p-container{
-        padding: 0;
-    }
-.profile-container{
-    position: relative;
-    width: 100%;
-    height: 100%;
+
+.card-exit {
+    width: 1200px;
+    position: absolute;
     display: flex;
+    justify-content: flex-end;
+    transform: translate(0, 40%);
 }
-.profile-img{
-    width: 350px;
-    height: 350px;
-    margin: 40px;
-    margin-bottom: 30px;
+
+.card-exit__pencil {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+}
+
+.card-exit__times {
+    height: 30px;
+    width: 30px;
+}
+
+.card-exit__fa-pencil {
+    font-size: xx-large !important;
+    color: #d4c074;
+}
+
+.card-exit__fa-times {
+    font-size: xx-large !important;
+    color: #d4c074;
+}
+
+.avatar {
+    width: 450px;
+    height: 650px;
+    position: relative;
+    transform: translate(-40%, -10%);
+}
+
+.avatar__img {
+    width: 450px;
+    height: 650px;
     object-fit: cover;
 }
 
-.profile-star{
-    color: #d4c074;
-    font-size: x-large;
+.avatar__upload {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 
-.profile-gold{
+.avatar_camera {
+    font-size: x-large !important;
+}
+
+.avatar__icons {
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+}
+
+.avatar__stars {
+    width: 300px;
+}
+
+.avatar__likes {
+    width: 50%;
+    text-align: end;
+}
+
+.avatar__dislikes {
+    width: 50%;
+    text-align: center;
+}
+
+.avatar__star {
+    color: #d4c074;
+    font-size: x-large !important;
+    margin-right: 0px !important;
+}
+
+.avatar__like {
+    color: green;
+    font-size: x-large !important;
+}
+
+.avatar__dislike {
+    color: red;
+    font-size: x-large !important;
+}
+
+.info {
+    position: relative;
+    transform: translate(-10%);
+}
+
+.info__networks {
+    margin-top: 50px;
+    margin-left: 50px;
+    border-left: 3px solid #333645;
+    padding-left: 30px;
+}
+
+.info__network {
+    font-size: larger !important;
+    margin-right: 10px;
+}
+
+.info__gold-color {
+    font-size: larger !important;
     color: #d4c074;
     margin-right: 5px;
 }
 
-#profile-like{
-    color: green;
-    margin-left: 30px;
-    font-size: x-large;
-}
-
-#profile-dislike{
-    color: #c30505;
-    margin-left: 30px;
-    font-size: x-large;
-}
-
-#profile-username{
+.info__username {
     margin-top: 40px;
     margin-bottom: 10px;
     display: inline-block;
-    border-bottom: solid #d4c074 3px;
+    font-size: 50px;
+    color: #d4c074;
 }
-
-#profile-aboutme{
+.info__container{
+    padding: 0;
+}
+.info__card-aboutme {
+    margin-top: 15%;
+    padding-bottom: 50px;
+    border-bottom: 3px solid #333645;
+}
+.info__text{
+    padding: 0;
+}
+.info__aboutme {
     margin-top: 30px;
     display: inline-block;
     border-bottom: solid #d4c074 3px;
 }
 
-#btn-changepass{
-    margin-left: 120px;
-    margin-bottom: 40px;
-    margin-top:145%;
+.tab {
+    margin-bottom: 30px;
+    margin-top: 10px
 }
 
-#btn-exit{
-    margin-left: 20px;
-    margin-bottom: 40px;
-    margin-top:145%;
+.tab__text {
+    text-align: center;
 }
 
-.star{
-    padding: 0;
-    padding-left: 5%;
+.tab__btn {
+    text-align: center;
 }
 
-.like{
-    padding: 0;
-    left: -5%;
+.tab__last-stream {
+    color: white;
+    font-size: 18px;
+    border-bottom: 2px solid #d4c074;
+    margin-left: 80px;
 }
 
-.btn {
-  border: 2px solid #d4c074;
-  background-color: transparent;
-  padding: 7px 14px;
-  font-size: 16px;
-  cursor: pointer;
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
+.tab__a,
+.tab__a:hover {
+    margin-right: 15px;
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
 }
 
-.btn-gold {
-  border-color: #d4c074;
-  color: #d4c074;
+.tab__a-border {
+    border-bottom: 2px solid #d4c074;
 }
 
-.btn-gold:hover {
-  background-color: #d4c074;
-  color: black;
+.slider {
+    display: flex;
+    justify-content: flex-end;
 }
 
-@media screen and (max-width: 1500px){
-    #btn-changepass{
-        margin-left: 75%;
-        margin-bottom: 40px;
-        margin-top:10%;
-    }
-    #btn-exit{
-        margin-left: 3%;
-        margin-bottom: 40px;
-        margin-right: 40px;
-        margin-top:10%;
-    }
-    .profile-img{
-        width: 400px;
-        height: 400px;
-        display:block;
-        margin: auto;
-        margin-top: 30px;
-        margin-bottom: 30px;
-    }
-    .p-col-6{
-      margin-right:5%;
-      margin-left: 1%;
-    }
-    .like{
-        left: -5%;
-    }
-    .star{
-        text-align: center;
-        padding: 0;
+.slider__size {
+    width: 500px;
+    height: 400px;
+    margin: 0;
+}
 
-    }
+.carousel-caption {
+    text-shadow: 3px 2px black;
 }
-@media screen and (max-width: 1100px){
-    .p-col-6{
-      margin-left: 5%;
-    }
-    #col-6-aboutme{
-        flex: none;
-        max-width: 100%;
-        padding-right: 10%;
-    }
-    #btn-changepass{
-        margin-left: 5%;
-        margin-bottom: 10%;
-        margin-top: 10%;
-    }
-    #btn-exit{
-        margin-left: 5%;
-        margin-bottom: 10%;
-        margin-right: 40px;
-        margin-top:10%;
-    }
-    .profile-img{
-        width: 350px;
-        height: 350px;
-    }
-    #p-aboutme{
-      margin-right:30px;
-    }
-    .like{
-        left: -5%;
-    }
-    .star{
-        text-align: center;
-        padding-left: 15%;
-    }
 
+.slider__photo {
+    width: 470px;
+    height: 294px;
+    object-fit: cover;
+    filter: brightness(50%)
 }
-@media screen and (max-width: 992px){
-    #btn-changepass{
-        margin-left: 45px;
-        margin-bottom: 40px;
-        margin-top:100%;
-    }
-    #btn-exit{
-        margin-left: 20px;
-        margin-bottom: 40px;
-        margin-right: 40px;
-        margin-top:100%;
-    }
-    .profile-img{
-        width: 350px;
-        height: 350px;
-    }
-    #p-aboutme{
-      margin-right:5%;
-    }
-    .star{
-        padding-left: 15%;
-    }
-    .like{
-        left: -10%;
-        padding:0;
-    }
-}
-@media screen and (max-width: 768px){
-    #btn-changepass{
-        margin:30px;
-    }
-    #btn-exit{
-         margin:30px;
-    }
-    .profile-img{
-        width: 250px;
-        height: 250px;
-    }
-    .profile-star{
-        font-size: initial;
-    }
-    #profile-like{
-        font-size: initial;
-        margin-left: 10px;
-    }
-    #profile-dislike{
-        font-size: initial;
-        margin-left: 10px;
-    }
-    .star{
-        padding: 0;
-        padding-left: 15%;
-    }
-    .like{
-        padding: 0;
-        padding-left: 5%;
-    }
-}
-@media screen and (max-width: 576px){
-    p{
-        font-size:14px;
-        line-height: normal;
-        display: inline;
-    }
-    .stars{
-       display:block;
-        margin: auto;
-        text-align:center;
-    }
-    #btn-changepass{
-        margin:10px;
-        margin-top: 15%;
 
-        font-size: 14px;
-    }
-    #btn-exit{
-         margin:10px;
-         margin-top: 15%;
-         font-size: 14px;
-    }
-    .profile-img{
-        width: 250px;
-        height: 250px;
-    }
-    .profile-star{
-        font-size: initial;
-    }
-    #profile-like{
-        font-size: initial;
-    }
-    #profile-dislike{
-        font-size: initial;
-    }
-    #profile-username{
-        border-bottom: solid #d4c074 1px;
-        font-size: 18px;
-    }
-    #profile-aboutme{
-        border-bottom: solid #d4c074 1px;
-        font-size: 18px;
-    }
-    .profile-gold{
-        font-size: small;
-    }
-    .profile-card{
-       display:block;
-        margin: auto;
-    }
-    .star{
-        padding: 0;
-        padding-right: 10px;
-    }
-    .like{
-        padding: 0;
-        padding-left: 10px;
-    }
+.chart {
+    display: flex;
+    justify-content: center;
 }
-@media screen and (max-width: 360px){
-    .profile-img{
-        width: 250px;
-        height: 250px;
-    }
-    .star{
-        text-align: left;
-        left: -15px;
-    }
+
+.chart__js {
+    -webkit-animation: chartjs-render-animation 0.001s;
+    animation: chartjs-render-animation 0.001s;
+}
+
+.chart__size {
+    width: 400px;
+    height: 300px;
+}
+
+.progress {
+    background-color: #333645;
+    border-radius: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 1.25rem;
+    font-size: 1rem;
+}
+.progress__size {
+    width: 400px;
+    height: 300px;
+}
+.progress__share-bg {
+    background-color: #d4c074 !important;
+}
+
+.progress__like {
+    color: green;
+    font-size: x-large;
+}
+
+.progress__dislike {
+    color: red;
+    font-size: x-large;
+}
+
+.progress__share {
+    color: #d4c074;
+    font-size: x-large;
+}
+
+.progress__views {
+    text-align: end;
+    color: #d4c074;
 }
