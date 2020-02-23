@@ -6,13 +6,14 @@ docker-build:
   services:
     - docker:dind
   before_script:
-    - echo "$CI_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_REF_SLUG"
+    - echo "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
     #- echo "$CI_REGISTRY_USER $CI_REGISTRY_PASSWORD"
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
   script:
-    - docker build
+    - docker build -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
     # --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
-    - docker push "$CI_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_REF_SLUG"
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+    #"$CI_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_REF_SLUG"
   tags:
     - main
 
@@ -35,6 +36,6 @@ deploy:
   script:
     - printf "DATABASE_URL=${DATABASE_URL}\nPORT=80\n" > environment.env
     - scp -r ./environment.env ./docker-compose.autodeploy.yml root@${DEPLOYMENT_SERVER_IP}:~/
-    - ssh root@$DEPLOYMENT_SERVER_IP "docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}; docker-compose -f docker-compose.yml stop; docker-compose -f docker-compose.yml rm web --force; docker pull ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest; docker-compose -f docker-compose.yml up -d"
+    - ssh root@$DEPLOYMENT_SERVER_IP "docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}; docker-compose -f docker-compose.yml stop; docker-compose -f docker-compose.yml rm web --force; docker pull ${CI_REGISTRY_IMAGE}:latest; docker-compose -f docker-compose.yml up -d"
   tags:
     - main
