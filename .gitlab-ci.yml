@@ -33,12 +33,12 @@ deploy:
 #    - docker:dind
   before_script:
     - apt-get update -qq
-    - apt-get install -qq git
+    #- apt-get install -qq git
     # Setup SSH deploy keys
-    - 'which ssh-agent || ( apt-get install -qq openssh-client )'
-    - mkdir -p ~/.ssh
-    - eval $(ssh-agent -s)
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    #- 'which ssh-agent || ( apt-get install -qq openssh-client )'
+    #- mkdir -p ~/.ssh
+    #- eval $(ssh-agent -s)
+    #- '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   #script:
 
 #    - ssh -o StrictHostKeyChecking=no user@"$QA_SERVER" 'rm -rf /var/www/html/*'
@@ -50,7 +50,7 @@ deploy:
   script:
 #    - printf "DATABASE_URL=${DATABASE_URL}\nPORT=80\n" > environment.env
 #    - scp -r ./environment.env ./docker-compose.autodeploy.yml root@${DEPLOYMENT_SERVER_IP}:~/
-    - ssh-add <(echo "$PRIVATE_KEY")
-    - ssh -o StrictHostKeyChecking=no root@{$DEPLOYMENT_SERVER_IP} "docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}; docker-compose -f docker-compose.yml stop; docker-compose -f docker-compose.yml rm web --force; docker pull ${CI_REGISTRY_IMAGE}:latest; docker-compose -f docker-compose.yml up -d"
+    #- ssh-add <(echo "$PRIVATE_KEY")
+    - ssh -o StrictHostKeyChecking=no -i "$DEPLOY_SERVER_PRIVATE_KEY_FILE" root@{$DEPLOYMENT_SERVER_IP} "docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}; docker-compose -f docker-compose.yml stop; docker-compose -f docker-compose.yml rm web --force; docker pull ${CI_REGISTRY_IMAGE}:latest; docker-compose -f docker-compose.yml up -d"
   tags:
     - main
