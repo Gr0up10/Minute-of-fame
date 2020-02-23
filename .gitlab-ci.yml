@@ -27,15 +27,18 @@ deploy:
   services:
     - docker:dind
   before_script:
+    - apt-get update -qq
+    - apt-get install -qq git
+    # Setup SSH deploy keys
+    - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$DEPLOY_SERVER_PRIVATE_KEY")
     - mkdir -p ~/.ssh
-    - echo "$DEPLOY_SERVER_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
-    - eval "$(ssh-agent -s)"
-    - ssh-add ~/.ssh/id_rsa
-    - ssh-keyscan -H $DEPLOYMENT_SERVER_IP >> ~/.ssh/known_hosts
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    
   script:
     - printf "DATABASE_URL=${DATABASE_URL}\nPORT=80\n" > environment.env
     - scp -r ./environment.env ./docker-compose.autodeploy.yml root@${DEPLOYMENT_SERVER_IP}:~/
-    - ssh root@$DEPLOYMENT_SERVER_IP "docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}; docker-compose -f docker-compose.yml stop; docker-compose -f docker-compose.yml rm web --force; docker pull ${CI_REGISTRY_IMAGE}:latest; docker-compose -f docker-compose.yml up -d"
+    - ssh root@{$DEPLOYMENT_SERVER_IP} "docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}; docker-compose -f docker-compose.yml stop; docker-compose -f docker-compose.yml rm web --force; docker pull ${CI_REGISTRY_IMAGE}:latest; docker-compose -f docker-compose.yml up -d"
   tags:
     - main
