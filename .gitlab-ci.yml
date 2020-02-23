@@ -16,6 +16,8 @@ docker-build:
     #"$CI_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_REF_SLUG"
   tags:
     - main
+  only:
+    - "master"
 
     
 deploy:
