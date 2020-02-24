@@ -3,26 +3,45 @@
 
 {% block content %}
 
-<div class="d-flex align-items-stretch">
-    <div class="stream-container flex-fill">
-        <div id="stream-figure-overlay"></div>
-        <h4 id="stream-timer-overlay">5:12</h4>
-        <div id="stream-box">
-             Перед вставкой видеопотока убрать в классе #stream-box в styles.css захардкоженую высоту (height: 500px;)
+    <div class="row">
+        <div class="col-md-8">
+
+            <div id="stream-figure-overlay"></div>
+            <h4 id="stream-timer-overlay">5:12</h4>
+                <div id="stream-box">
+                </div>
+
+        <div class="navbar navbar-expand-md mb-3">
+            <div class="container-fluid">
+                <h2>Stream title</h2>
+                <button type="button" class="navbar-toggler btn btn-outline-light" data-toggle="collapse" data-target="#navbarCollapse">
+                    info
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div id="stream-info-container" class="bd-highlight w-50">
+                        <h5 class="secondary-text">Streamer alias: <b>UltimateDoge487</b></h5>
+                        <h5 class="secondary-text">Viewers: <b>80082</b></h5>
+                    </div>
+                    <button onclick="var cs = new WebSocket('ws://localhost:8001/ws/')">CONNECT</button>
+                    <button onclick="cs.send(123)">SEND</button>
+
+
+                    <button id="like-stream" class="flex-sm-fill btn btn-outline-success align-self-stretch">
+                        <img class="like-img inline-block center-align" src="{% static 'thumb-green.svg' %}">
+                        <h4 class="inline-block center-align">Kek</h4>
+                    </button>
+
+                    <button id="dislike-stream" class="flex-sm-fill btn btn-outline-danger align-self-stretch">
+                        <img class="dislike-img inline-block center-align" src="{% static 'thumb-red.svg' %}">
+                        <h4 class="inline-block center-align">Cringe</h4>
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
         </div>
 
-        <div class="d-flex flex-row justify-content-center align-items-center">
-            <div id="stream-info-container" class="flex-fill bd-highlight w-50">
-                <h1>Stream title</h1>
-                <br>
-                <button onclick="var cs = new WebSocket('ws://localhost:8001/ws/')">CONNECT</button>
-                <button onclick="cs.send(123)">SEND</button>
-                <h5 class="secondary-text">Streamer alias: <b>UltimateDoge487</b></h5>
-                <h5 class="secondary-text">Viewers: <b>80082</b></h5>
--->
-            </div>
-
-            </div>
 
         <div class="col-md-4">
 
