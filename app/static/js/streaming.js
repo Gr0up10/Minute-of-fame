@@ -21,7 +21,15 @@ function screen_stream() {
 }
 
 function webcam_stream() {
-    try {
+
+    navigator.getMedia = (navigator.getUserMedia || // use the proper vendor prefix
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia ||
+        navigator.msGetUserMedia);
+
+    navigator.getMedia({video: true, audio: true}, function () {
+        // webcam is available
+        alert("Microphone or webcam are connected with your system");
         connection.session = {
             audio: true,
             video: true
@@ -32,7 +40,24 @@ function webcam_stream() {
             OfferToReceiveVideo: true
         };
         connection.openOrJoin(room_id.value || 'predefined-roomid');
-    } catch (e) {
-        alert("Microphone or webcam not found");
-    }
+
+    }, function () {
+        // webcam is not available
+        alert("Microphone or webcam are not connected with your system");
+
+    });
+}
+
+function removeStream() {
+    connection.getAllParticipants().forEach(function (pid) {
+        connection.disconnectWith(pid);
+    });
+
+    // stop all local cameras
+    connection.attachStreams.forEach(function (localStream) {
+        localStream.stop();
+    });
+
+    // close socket.io connection
+    connection.closeSocket();
 }
