@@ -3,8 +3,8 @@ let connection = new RTCMultiConnection();
 connection.socketURL = 'http://localhost:9001/';
 connection.videosContainer = document.getElementById('stream-box');
 
-//let room_id = document.getElementById('room_id');
-//room_id.value = connection.token()
+let room_id = document.getElementById('room_id');
+room_id.value = connection.token();
 
 function screen_stream() {
     connection.session = {
@@ -16,8 +16,7 @@ function screen_stream() {
         OfferToReceiveAudio: false,
         OfferToReceiveVideo: false
     };
-    connection.openOrJoin(room_id.value || 'predefined-roomid');
-
+    connection.openOrJoin(room_id.value.toString());
 }
 
 function webcam_stream() {
@@ -39,7 +38,7 @@ function webcam_stream() {
             OfferToReceiveAudio: true,
             OfferToReceiveVideo: true
         };
-        connection.openOrJoin(room_id.value || 'predefined-roomid');
+        connection.openOrJoin(room_id.value.toString());
 
     }, function () {
         // webcam is not available
