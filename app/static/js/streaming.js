@@ -4,7 +4,7 @@ connection.socketURL = 'http://localhost:9001/';
 connection.videosContainer = document.getElementById('stream-box');
 
 let room_id = document.getElementById('room_id');
-room_id.value = connection.token();
+room_id.value = "asdf";
 
 function screen_stream() {
     connection.session = {
@@ -59,4 +59,17 @@ function removeStream() {
 
     // close socket.io connection
     connection.closeSocket();
+}
+
+function watchStream() {
+    connection.session = {
+        data: true
+    };
+
+    connection.sdpConstraints.mandatory = {
+        OfferToReceiveAudio: true,
+        OfferToReceiveVideo: true
+    };
+    connection.join("asdf");
+
 }
