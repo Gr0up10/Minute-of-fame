@@ -14,7 +14,8 @@
 			<div id="stream-figure-overlay"></div>
 			<h4 id="stream-timer-overlay">5:12</h4>
 			<div id="stream-box">
-				<input type="hidden" id="room_id" value="2">
+				<input type="hidden" id="user_room_id" value={{ user.username}}>
+				<input type="text" id="input_room_id" value=''>
 
 				<div id="videos-container"></div>
 				<script src="https://rawgit.com/muaz-khan/RTCMultiConnection/master/dist/RTCMultiConnection.min.js"></script>

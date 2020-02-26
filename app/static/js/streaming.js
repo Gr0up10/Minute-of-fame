@@ -3,8 +3,7 @@ let connection = new RTCMultiConnection();
 connection.socketURL = 'http://localhost:9001/';
 connection.videosContainer = document.getElementById('stream-box');
 
-let room_id = document.getElementById('room_id');
-room_id.value = "asdf";
+let user_room_id = document.getElementById('user_room_id');
 
 function screen_stream() {
     connection.session = {
@@ -16,7 +15,7 @@ function screen_stream() {
         OfferToReceiveAudio: false,
         OfferToReceiveVideo: false
     };
-    connection.openOrJoin(room_id.value.toString());
+    connection.openOrJoin(user_room_id.value.toString());
 }
 
 function webcam_stream() {
@@ -38,7 +37,7 @@ function webcam_stream() {
             OfferToReceiveAudio: true,
             OfferToReceiveVideo: true
         };
-        connection.openOrJoin(room_id.value.toString());
+        connection.openOrJoin(user_room_id.value.toString());
 
     }, function () {
         // webcam is not available
@@ -62,6 +61,8 @@ function removeStream() {
 }
 
 function watchStream() {
+    let input_room_id = document.getElementById('input_room_id');
+
     connection.session = {
         data: true
     };
@@ -70,6 +71,14 @@ function watchStream() {
         OfferToReceiveAudio: true,
         OfferToReceiveVideo: true
     };
-    connection.join("asdf");
+    //connection.join(input_room_id.value.toString());
+
+    connection.checkPresence(input_room_id.value.toString(), function(isRoomExist, room_id) {
+    if (isRoomExist === true) {
+        connection.join(room_id);
+    } else {
+        alert('Такой комнаты не существует!');
+    }
+});
 
 }

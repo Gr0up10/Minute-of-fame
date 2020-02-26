@@ -8,7 +8,7 @@ connection.sdpConstraints.mandatory = {
     OfferToReceiveVideo: true
 };
 
-room_id = document.getElementById('room_id');
+user_room_id = document.getElementById('room_id');
 //room_id.value = connection.token()
 
 document.getElementById('btn-connect-cam').onclick = function() {
