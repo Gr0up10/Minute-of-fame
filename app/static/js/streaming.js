@@ -46,7 +46,7 @@ function webcam_stream() {
     });
 }
 
-function removeStream() {
+function stopStream() {
     connection.getAllParticipants().forEach(function (pid) {
         connection.disconnectWith(pid);
     });
@@ -63,22 +63,21 @@ function removeStream() {
 function watchStream() {
     let input_room_id = document.getElementById('input_room_id');
 
-    connection.session = {
-        data: true
-    };
+    connection.checkPresence(input_room_id.value.toString(), function (isRoomExist, room_id) {
+        if (isRoomExist === true) {
 
-    connection.sdpConstraints.mandatory = {
-        OfferToReceiveAudio: true,
-        OfferToReceiveVideo: true
-    };
-    //connection.join(input_room_id.value.toString());
+            connection.session = {
+                data: true
+            };
 
-    connection.checkPresence(input_room_id.value.toString(), function(isRoomExist, room_id) {
-    if (isRoomExist === true) {
-        connection.join(room_id);
-    } else {
-        alert('Такой комнаты не существует!');
-    }
-});
+            connection.sdpConstraints.mandatory = {
+                OfferToReceiveAudio: true,
+                OfferToReceiveVideo: true
+            };
+            connection.join(room_id);
+        } else {
+            alert('Такой комнаты не существует!');
+        }
+    });
 
 }

@@ -14,8 +14,7 @@
 			<div id="stream-figure-overlay"></div>
 			<h4 id="stream-timer-overlay">5:12</h4>
 			<div id="stream-box">
-				<input type="hidden" id="user_room_id" value={{ user.username}}>
-				<input type="text" id="input_room_id" value=''>
+				<input type="hidden" id="user_room_id" value={{ user.username }}>
 
 				<div id="videos-container"></div>
 				<script src="https://rawgit.com/muaz-khan/RTCMultiConnection/master/dist/RTCMultiConnection.min.js"></script>
@@ -27,8 +26,9 @@
 			</div>
 			<button id="btn-connect-screen" onclick="screen_stream()">Screen stream</button>
 			<button id="btn-connect-webcam" onclick="webcam_stream()">Webcam stream</button>
-			<button id="remove-stream" onclick="removeStream()">Stop stream</button>
-			<button id="remove-stream" onclick="watchStream()">Watch stream</button>
+			<button id="stop-stream" onclick="stopStream()">Stop stream</button>
+			<button id="watch-stream" onclick="watchStream()">Watch stream</button>
+			<input type="text" id="input_room_id" value=''>
 
 			<div class="d-flex flex-row justify-content-center align-items-center">
 				<div id="stream-info-container" class="flex-fill bd-highlight w-50">
