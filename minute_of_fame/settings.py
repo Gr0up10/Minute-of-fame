@@ -35,7 +35,7 @@ SECRET_KEY = 'ecw==078()bm0#u^f6))--6jz3nk27rwy04wb6=2f_3rqrsvq*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -48,10 +48,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    'channels',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -81,7 +83,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'minute_of_fame.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -147,3 +148,12 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 STATICFILES_DIRS = [
     "app/static",
 ]
+
+#RECAPTCHA BACKEND
+RECAPTCHA_SITE_KEY = "6LetidkUAAAAABFq06Yj16QMvjIpfRulOuOg40xR"
+RECAPTCHA_SECRET_KEY = "6LetidkUAAAAANLJj-extHvBVIxsbZ_b4eShKTjZ"
+
+
+ASGI_APPLICATION = 'minute_of_fame.routing.application'
+
+CHANNEL_LAYERS = {}

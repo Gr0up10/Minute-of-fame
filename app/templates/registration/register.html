@@ -5,8 +5,9 @@
 <div class="container">
 	<div class="row">
 		<div class="col mt-3">
-			<form method="POST">
+			<form method="POST" id="registration_form">
 				{% csrf_token %}
+				<input type="hidden" name="g-recaptcha-response" id='recaptcha'>
 				{% for item in form %}
 				<p>{{item.label}}: {{item}}</p>
 				{% endfor %}
@@ -30,4 +31,20 @@
 		</div>
 	</div>
 </div>
+{% endblock %}
+{% block extra_js %}
+<script src="https://www.google.com/recaptcha/api.js?render={{site_key}}"></script>
+
+<script>
+grecaptcha.ready(function() {
+  $('#registration_form').submit(function(e){
+      var form = this;
+      e.preventDefault()
+      grecaptcha.execute('{{site_key}}', {action: 'registration_form'}).then(function(token) {
+          $('#recaptcha').val(token)
+          form.submit()
+      });
+  })
+});
+</script>
 {% endblock %}

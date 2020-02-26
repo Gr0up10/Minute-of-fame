@@ -1,7 +1,9 @@
-GOLOSOVANIE
+/db.sqlite3
+
 db.sqlite3
 /venv/
 node_modules/
+
 ### Django ###
 *.log
 *.pot

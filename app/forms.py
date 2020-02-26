@@ -1,8 +1,8 @@
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-
 from django import forms
+from .models import *
 
 
 class RegisterFormView(UserCreationForm):
@@ -49,3 +49,10 @@ class LoginForm(forms.Form):
 
     def is_valid(self):
         return super().is_valid() or '@' in self.data['username']
+
+
+class ReportForm(forms.ModelForm):
+    class Meta:
+        model = Report
+        fields = '__all__'
+        widgets = {'badass': forms.HiddenInput(),'sender': forms.HiddenInput()}
