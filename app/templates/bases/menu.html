@@ -1,6 +1,7 @@
 {% load static %}
 {% include 'pages/login_modal.html' %}
 {% include 'pages/registration_modal.html' %}
+{% include 'pages/report-modal.html' %}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -59,6 +60,8 @@
                         <div class="row">
                             <h4><a class="nav-link" data-toggle="modal" data-target="#regModal">Sign up</a></h4>
                             <h4><a class="nav-link" data-toggle="modal" data-target="#loginModal">Login</a></h4>
+                            <!-- Report to logged in space-->
+                            <h4><a class="nav-link" data-toggle="modal" data-target="#reportModal">Report</a></h4>
                         </div>
                     </li>
                     {% endif %}

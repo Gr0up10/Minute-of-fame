@@ -581,3 +581,14 @@ input[type="checkbox"] + label:after{
 .sign-up-cust{
     color: #86a3c3;
 }
+
+.modal-content-report{
+    background-color: #333645;
+    color: #FAEEEE;
+    width: 500px;
+    height: 380px;
+}
+.textarea-report{
+    background-color: #2b2c36;
+    border: None;
+}
