@@ -24,15 +24,40 @@
                         </div>
 
 
-                        <button id="like-stream" class="flex-sm-fill btn btn-outline-success align-self-stretch">
+                        <button id="likestream" class="flex-sm-fill btn btn-outline-success align-self-stretch">
                             <img class="like-img inline-block center-align" src="{% static 'thumb-green.svg' %}">
                             <h4 class="inline-block center-align">Kek</h4>
                         </button>
 
-                        <button id="dislike-stream" class="flex-sm-fill btn btn-outline-danger align-self-stretch">
+                        <button id="dislikestream" class="flex-sm-fill btn btn-outline-danger align-self-stretch">
                             <img class="dislike-img inline-block center-align" src="{% static 'thumb-red.svg' %}">
                             <h4 class="inline-block center-align">Cringe</h4>
                         </button>
+
+                        <script>
+
+
+                             likestream.addEventListener("click", send_like);
+                             dislikestream.addEventListener("click", send_dislike);
+
+
+                             var chatSocket = new WebSocket('ws://'+ window.location.host +'/ws');
+
+                             var message="test hello message";
+
+                             function send_like() {
+                                    chatSocket.send(JSON.stringify({'message': "like"}));
+                             };
+                             function send_dislike() {
+                                    chatSocket.send(JSON.stringify({'message': "dislike"}));
+                             }
+
+
+
+
+
+    </script>
+
                             </div>
                 </div>
 <!--
