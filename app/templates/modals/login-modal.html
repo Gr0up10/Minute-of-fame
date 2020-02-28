@@ -9,7 +9,8 @@
 
 			<div class="container login-warning-error mb-3 d-none" id="login-warning">
 				<h5 class="login-warning-text text-center">Incorrect login or password</h5>
-				<p class="text-center">If you forget your password you can <a href="" class="link">Reset it</a></p>
+				<p class="text-center">If you forget your password you can <a href="" class="link" data-toggle="modal"
+																				data-target="#resetIntroModal" data-dismiss="modal">Reset it</a></p>
 			</div>
 				<button onclick="error('login-warning', '500px', '450px')">TMP</button>
 				<div class="container">
@@ -36,7 +37,7 @@
 						</div>
 						<br>
 						<div class="text-center">
-							<h6>Not registered yet, <a href="/register/" class="link">Sing Up</a></h6>
+							<h6>Not registered yet, <a href="" class="link" data-toggle="modal" data-target="#regModal" data-dismiss="modal">Sing Up</a></h6>
 						</div>
 					</form>
 				</div>
