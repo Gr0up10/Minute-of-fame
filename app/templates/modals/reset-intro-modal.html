@@ -1,4 +1,4 @@
-<div class="modal fade" id="resetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="resetIntroModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog  modal-dialog-centered" role="document">
     <div class="modal-content modal-content-reset">
         <div class="modal-header-back modal-header-back-reset"></div>
@@ -7,30 +7,34 @@
           	<div class="row">
 		<div class="col mt-3">
 				<div class="container">
+                    <!-- tmp button opens another modal from current and closes current-->
+<!--                    <button class="btn" data-toggle="modal" data-target="#resetModal" data-dismiss="modal" id="tmp" >TMP</button>-->
+
 					<form method="POST" id="add_form" action="">
                         {% csrf_token %}
                         <div class="col mb-3">
                             <p class="tmp">
-                            Enter your new password
+                            In order to reset your password, you should enter your email and use the link
+                            given in the email
                             </p>
                         </div>
                         <div class="input-group mb-3 login-input">
-								<i class="fas fa-lock login-icons"></i>
-								<input type="text" class="form-control login-input lp" placeholder="Password" aria-label="Password"
-                                                                                aria-describedby="basic-addon1">
-						</div>
-                        <div class="input-group mb-3 login-input">
-								<i class="fas fa-lock login-icons"></i>
-								<input type="text" class="form-control login-input lp" placeholder="Repeat Password" aria-label="Repeat Password"
+                                <i class="fas fa-envelope login-icons"></i>
+								<input type="text" class="form-control login-input lp" placeholder="Email" aria-label="Email"
                                                                                 aria-describedby="basic-addon1">
 						</div>
 
                         <div class="form-group text-center mt-4">
 							<div class="submit">
-								<button type="submit" class="btn btn-lg btn-cust"><h2>RESET</h2></button>
+								<button type="submit" class="btn btn-lg btn-cust"><h2>SEND</h2></button>
 							</div>
 						</div>
-					</form>
+
+                        <div class="form-group text-center">
+							<h6>Go back to <a href="/login/" class="sign-up-cust">LOGIN</a></h6>
+						</div>
+
+                    </form>
 				</div>
 		</div>
 	</div>
