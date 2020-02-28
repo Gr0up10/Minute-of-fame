@@ -550,6 +550,16 @@ a, a:hover {
     background-color: #2b2c36;
     color: white;
 }
+.login-warning-error{
+    border-style: solid;
+    border-width: 1px;
+    border-color: red;
+    border-margin-bottom: 5px;
+
+}
+.login-warning-text{
+    color: red;
+}
 .lp{
     margin-left: 20px;
 }
@@ -582,7 +592,7 @@ input[type="checkbox"] + label:after{
     background-color: #2b2c36;
     color: black;
 }
-.sign-up-cust{
+.link{
     color: #86a3c3;
 }
 
