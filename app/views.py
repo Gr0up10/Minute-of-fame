@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 
 
 def stream_test(request, num):
+    item = PollStat(poll_result=0, likes=0, dislikes=0)
+    item.save()
     return render(request, 'page{}.html'.format(num))
 
 
@@ -22,11 +24,14 @@ def get_menu_context():
 
 
 def stream_page(request):
+
     context = {
         'pagename': 'Главная',
         'menu': get_menu_context(),
         'test': 1
     }
+
+
     return render(request, 'pages/stream.html', context)
 
 

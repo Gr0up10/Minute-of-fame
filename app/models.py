@@ -14,3 +14,10 @@ class Report(models.Model):
     offensive = models.BooleanField(default=False)
     inappropriate_video_content = models.BooleanField(default=False)
     additional_information = models.CharField(max_length=250)
+
+class PollStat(models.Model):
+    poll_result=models.IntegerField()
+    likes=models.IntegerField()
+    dislikes=models.IntegerField()
+
+

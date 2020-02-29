@@ -3,6 +3,7 @@ from channels.layers import get_channel_layer
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
 import json
+from .models import *
 
 
 class PollConsumer(WebsocketConsumer):
@@ -36,6 +37,8 @@ class PollConsumer(WebsocketConsumer):
         self.likes += 1;
         self.poll_result = round(self.likes / (self.likes + self.dislikes) * 100);
         self.send(str(self.poll_result))
+        item = PollStat(poll_result=self.poll_result, likes=self.likes, dislikes=self.dislikes)
+        item.save()
         #print("likes = ", self.likes, "dislikes = ", self.dislikes, "res = ", self.poll_result)
 
 
@@ -43,10 +46,15 @@ class PollConsumer(WebsocketConsumer):
         self.dislikes += 1
         self.poll_result = round(self.likes / (self.likes + self.dislikes) * 100)
         self.send(str(self.poll_result))
+        item = PollStat(poll_result=self.poll_result, likes=self.likes, dislikes=self.dislikes)
+        item.save()
         #print("likes = ",self.likes,"dislikes = ", self.dislikes,"res = ", self.poll_result)
 
     def open(self, packet):
-        self.send(self.poll_result)
+        data = PollStat.objects.last()
+        self.likes=data.likes
+        self.dislikes=data.dislikes
+        self.send(str(data.poll_result))
         #print("open and send: ",self.poll_result)
 
     packet_map = {
