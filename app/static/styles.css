@@ -511,7 +511,7 @@ a, a:hover {
     width: 600px;
     height: 550px;
 }
-.modal-hea {
+.modal-header-back {
     padding: 0;
     border-top: 40px solid rgba(21, 29, 49, 0.5);
     border-left: 25px solid transparent;
@@ -546,6 +546,20 @@ a, a:hover {
     background-color: #2b2c36;
     border: None;
 }
+.login-input:focus{
+    background-color: #2b2c36;
+    color: white;
+}
+.login-warning-error{
+    border-style: solid;
+    border-width: 1px;
+    border-color: red;
+    border-margin-bottom: 5px;
+
+}
+.login-warning-text{
+    color: red;
+}
 .lp{
     margin-left: 20px;
 }
@@ -578,6 +592,35 @@ input[type="checkbox"] + label:after{
     background-color: #2b2c36;
     color: black;
 }
-.sign-up-cust{
+.link{
     color: #86a3c3;
+}
+
+.modal-content-report{
+    background-color: #333645;
+    color: #FAEEEE;
+    width: 500px;
+    height: 500px;
+}
+
+.textarea-report{
+    background-color: #2b2c36;
+    border: None;
+}
+.textarea-report:focus{
+    background-color: #2b2c36;
+    border: None;
+    color: white;
+}
+
+.modal-content-reset{
+    height: 350px;
+}
+
+.modal-header-back-reset{
+    width: 300px;
+}
+
+.tmp{
+    font-size: 1.1em;
 }
