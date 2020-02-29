@@ -136,6 +136,7 @@ html, html > * {
 .center {
     display: flex;
     justify-content: center;
+
 }
 
 .profile-container {
@@ -183,7 +184,38 @@ html, html > * {
     width: 450px;
     height: 650px;
     position: relative;
-    transform: translate(-40%, -10%);
+    transform: translate(-30%, -10%);
+}
+
+.avatar-exit {
+    width: 50%;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    justify-content: flex-end;
+    display:none;
+}
+
+.avatar-exit__pencil {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+}
+
+.avatar-exit__times {
+    height: 30px;
+    width: 30px;
+
+}
+
+.avatar-exit__fa-pencil {
+    font-size: xx-large !important;
+    color: #d4c074;
+}
+
+.avatar-exit__fa-times {
+    font-size: xx-large !important;
+    color: #d4c074;
 }
 
 .avatar__img {
@@ -201,7 +233,7 @@ html, html > * {
 }
 
 .avatar_camera {
-    font-size: x-large !important;
+    font-size: xx-large !important;
 }
 
 .avatar__icons {
@@ -246,7 +278,11 @@ html, html > * {
 
 .info {
     position: relative;
-    transform: translate(-10%);
+    transform: translate(-15%);
+}
+
+info__sm{
+    text-align: left;
 }
 
 .info__networks {
@@ -400,4 +436,297 @@ html, html > * {
 .progress__views {
     text-align: end;
     color: #d4c074;
+}
+
+.mobile{
+    display:none;
+    text-align: center;
+}
+
+@media screen and (max-width: 1500px){
+    .profile-container {
+        width: 900px;
+    }
+    .avatar {
+        width: 400px;
+        height: 600px;
+    }
+
+    .avatar__img {
+        width: 400px;
+        height: 600px;
+    }
+    .info__card-aboutme {
+        padding-right: 0px;
+        padding-bottom: 20px;
+        margin-top: 10%;
+    }
+    .card-exit {
+        width: 900px;
+    }
+    .chart {
+        justify-content: end;
+    }
+    .tab__last-stream {
+        margin-left: 0px;
+    }
+    .info__network {
+        margin-right: 5px;
+    }
+}
+
+@media screen and (max-width: 1200px){
+    .profile-container {
+        width: 850px;
+        transform: translate(5%);
+
+    }
+    .avatar {
+        width: 400px;
+        height: 600px;
+        transform: translate(-25%, -10%);
+    }
+
+    .avatar__img {
+        width: 400px;
+        height: 600px;
+    }
+    .info{
+        transform: translate(-10%);
+    }
+    .info__card-aboutme {
+        padding-right: 0px;
+        padding-bottom: 20px;
+        margin-top: 10%;
+    }
+    .card-exit {
+        width: 850px;
+        transform: translate(5%);
+    }
+    .chart {
+        justify-content: end;
+    }
+    .tab__last-stream {
+        margin-left: 0px;
+    }
+    .info__networks {
+        margin-left: 30px;
+        padding-left: 20px;
+    }
+    .info__username{
+        font-size: 48px;
+    }
+}
+
+@media screen and (max-width: 768px){
+.avatar {
+    width: 60%;
+    height: 50%;
+    transform: translate(30%, 0%);
+}
+
+.avatar__img {
+    width: 100%;
+    height: 50%;
+}
+.profile-container {
+        width: 70%;
+        display: block;
+    }
+    .card-exit {
+        display: none;
+    }
+    .info {
+    position: relative;
+    transform: translate(0%);
+    }
+    .info__sm{
+        text-align: center;
+    }
+    .info__networks {
+        text-align: left;
+        margin-top: 20px;
+        margin-left: 50px;
+        border: none;
+        padding: 0px;
+    }
+    .info__username {
+        margin-top: 20px;
+    }
+    .info__card-aboutme {
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-bottom: 20px;
+        margin-top: 3%;
+        margin-bottom: 5%;
+    }
+    .content-container {
+        width: 100%;
+        margin:0;
+        margin-top: -35px;
+    }
+    .avatar__upload {
+    left: 20px;
+    }
+    .avatar-exit{
+        display: flex;
+    }
+    .avatar_camera {
+    font-size: xx-large !important;
+    }
+    .menu-container {
+        margin:0;
+    }
+    .tab__text{
+        display: none;
+    }
+    .mobile{
+        display:block;
+        margin-bottom: 15px;
+    }
+    .chart {
+        width: 450px !important;
+        height: 400px !important;
+        margin-bottom: 30px;
+        transform: translate(5%);
+        justify-content: center;
+    }
+
+    .chart__size {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        width: 450px !important;
+        height: 400px !important;
+    }
+    .tab{
+        display: none;
+    }
+    .progress__size {
+        margin-top: 30px;
+        width: 450px !important;
+        height: 400px !important;
+    }
+    .slider__size {
+        height: 350px;
+        width: 500px;
+    }
+    .slider-row{
+        justify-content: center;
+    }
+    body{
+        display: unset;
+    }
+    .slider {
+        width: 470px;
+        display: flex;
+        justify-content: center;
+    }
+    .slider__photo {
+        width: 470px !important;
+    }
+}
+
+@media screen and (max-width: 576px){
+    .avatar {
+    width: 100%;
+    height: 50%;
+    transform: translate(0%, 0%);
+}
+
+.avatar__img {
+    width: 100%;
+    height: 50%;
+}
+.profile-container {
+        width: 100%;
+        display: block;
+        padding:0px;
+        transform: translate(0%, 0%);
+    }
+    .card-exit {
+        display: none;
+    }
+    .info {
+    position: relative;
+    transform: translate(0%);
+    }
+    .info__sm{
+        text-align: center;
+    }
+    .info__networks {
+        text-align: left;
+        margin-top: 20px;
+        margin-left: 25px;
+        border: none;
+        padding: 0px;
+    }
+    .info__username {
+        margin-top: 20px;
+    }
+    .info__card-aboutme {
+        padding-left: 35px;
+        padding-right: 35px;
+        padding-bottom: 20px;
+        margin-top: 5%;
+    }
+    .content-container {
+        width: 100%;
+        margin:0;
+        margin-top: -35px;
+    }
+    .avatar__upload {
+    left: 20px;
+    }
+    .avatar-exit{
+        display: flex;
+    }
+    .avatar_camera {
+    font-size: xx-large !important;
+    }
+    .menu-container {
+        margin:0;
+    }
+    .tab__text{
+        display: none;
+    }
+    .mobile{
+        display:block;
+        margin-bottom: 15px;
+    }
+    .container{
+        width: auto;
+    }
+
+    .chart {
+        width: 350px !important;
+        height: 300px !important;
+        margin-bottom: 30px;
+        transform: translate(0%);
+        justify-content: center;
+    }
+
+    .chart__size {
+        margin-top: 10px;
+        width: 350px !important;
+        height: 300px !important;
+    }
+    .tab{
+        display: none;
+    }
+    .progress__size {
+        width: 350px !important;
+        height: 300px !important;
+    }
+    .slider__size {
+        height: 320px;
+    }
+    .slider__photo{
+        width: 100% !important;
+    }
+    body{
+        display: unset;
+    }
+    .row{
+        margin-right: -0px;
+    }
 }

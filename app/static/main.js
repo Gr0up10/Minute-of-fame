@@ -2,7 +2,7 @@ $(document).ready(function() {
  "use strict";
  Chart.defaults.global.defaultFontColor = "#75787c";
  var r = !0;
- $(window).outerWidth() < 576 && (r = !1);
+ //$(window).outerWidth() < 576 && (r = !1);
  var a = $("#lineCahrt"),
   o = (new Chart(a, {
    type: "line",
@@ -115,4 +115,25 @@ $( document ).ready(function() {
   $("#fame").addClass( "show" ).removeClass( "hide" );
   $("#view").addClass( "hide" ).removeClass( "show" );
 });
+});
+$( document ).ready(function() {
+    $("#mview-text").click(function(){
+  $("#mview-text").addClass( "tab__a-border" );
+  $("#mfame-text").removeClass( "tab__a-border" );
+  $("#view").addClass( "show" ).removeClass( "hide" );
+  $("#fame").addClass( "hide" ).removeClass( "show" );
+});
+    $("#mfame-text").click(function(){
+  $("#mfame-text").addClass( "tab__a-border" );
+  $("#mview-text").removeClass( "tab__a-border" );
+  $("#fame").addClass( "show" ).removeClass( "hide" );
+  $("#view").addClass( "hide" ).removeClass( "show" );
+});
+});
+$(function(){
+  if ( $(window).width() <= 768 ) {
+        $("#info").addClass( "col-sm-12" ).removeClass( "col-sm-6" );
+        $("#username").addClass( "col-sm-12" ).removeClass( "col-sm" );
+        $("#networks").addClass( "col-sm-12" ).removeClass( "col-sm" );
+  }
 });
