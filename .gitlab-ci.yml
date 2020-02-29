@@ -1,7 +1,6 @@
 variables:
   DOCKER_DRIVER: overlay
 
-# This file is a template, and might need editing before it works on your project.
 docker-build:
   # Official docker image.
   image: gitlab/dind:latest
@@ -20,14 +19,10 @@ docker-build:
 
 deploy:
   stage: deploy
-  image: gitlab/dind:latest
-
-  before_script:
-    - apt-get update -qq
-  script:
-    - echo "$DEPLOY_SERVER_PRIVATE_KEY" > dkey
-    - chmod 700 dkey
-    - ssh -o StrictHostKeyChecking=no -i dkey root@$DEPLOYMENT_SERVER_IP "cd minute-of-fame; git checkout "$CI_COMMIT_BRANCH"; git pull; git docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}; docker-compose -f docker-compose.yml stop; docker-compose -f docker-compose.yml rm web; docker pull "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"; docker-compose -f docker-compose.yml up -d"
+  trigger:
+    project: 2019-2020/online/s101/group-10/minute-of-fame-production
+    branch: master
+    strategy: depend
   tags:
     - main
   only:
