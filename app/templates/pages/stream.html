@@ -33,28 +33,31 @@
                             <img class="dislike-img inline-block center-align" src="{% static 'thumb-red.svg' %}">
                             <h4 class="inline-block center-align">Cringe</h4>
                         </button>
+                        <p></p>
 
                         <script>
-
-
                              likestream.addEventListener("click", send_like);
                              dislikestream.addEventListener("click", send_dislike);
-
-
-                             var chatSocket = new WebSocket('ws://'+ window.location.host +'/ws');
-
-                             var message="test hello message";
+                             const poll_result_paragraph = document.querySelector('p');
+                             var PollConsumer = new WebSocket('ws://'+ window.location.host +'/ws');
+                             PollConsumer.addEventListener('message', poll_update)
+                             PollConsumer.addEventListener('open', open)
 
                              function send_like() {
-                                    chatSocket.send(JSON.stringify({'message': "like"}));
+                                    PollConsumer.send(JSON.stringify({'message': "like"}));
                              };
+
                              function send_dislike() {
-                                    chatSocket.send(JSON.stringify({'message': "dislike"}));
+                                    PollConsumer.send(JSON.stringify({'message': "dislike"}));
                              }
 
+                             function poll_update() {
+                                    poll_result_paragraph.textContent= event.data;
+                             }
 
-
-
+                             function open() {
+                                    PollConsumer.send(JSON.stringify({'message': "open"}));
+                             }
 
     </script>
 
