@@ -1,0 +1,41 @@
+<div class="modal fade" id="resetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered" role="document">
+    <div class="modal-content modal-content-reset">
+        <div class="modal-header-back modal-header-back-reset"></div>
+        <h3 class="modal-title" id="exampleModalLabel">Reset Password</h3>
+      <div class="modal-body">
+          	<div class="row">
+		<div class="col mt-3">
+				<div class="container">
+					<form method="POST" id="add_form" action="">
+                        {% csrf_token %}
+                        <div class="col mb-3">
+                            <p class="tmp">
+                            Enter your new password
+                            </p>
+                        </div>
+                        <div class="input-group mb-3 login-input">
+								<i class="fas fa-lock login-icons"></i>
+								<input type="text" class="form-control login-input lp" placeholder="Password" aria-label="Password"
+                                                                                aria-describedby="basic-addon1">
+						</div>
+                        <div class="input-group mb-3 login-input">
+								<i class="fas fa-lock login-icons"></i>
+								<input type="text" class="form-control login-input lp" placeholder="Repeat Password" aria-label="Repeat Password"
+                                                                                aria-describedby="basic-addon1">
+						</div>
+
+                        <div class="form-group text-center mt-4">
+							<div class="submit">
+								<button type="submit" class="btn btn-lg btn-cust"><h2>RESET</h2></button>
+							</div>
+						</div>
+					</form>
+				</div>
+		</div>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
