@@ -23,7 +23,7 @@ deploy:
     project: 2019-2020/online/s101/group-10/minute-of-fame-production
     branch: master
     strategy: depend
-  tags:
-    - main
-  only:
-    - "master"
+  #tags:
+  #  - main
+  #only:
+  #  - "master"
