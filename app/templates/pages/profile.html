@@ -14,6 +14,14 @@
         <div class="profile-container">
             <div class="row no-gutters">
                 <div class="avatar">
+                    <div class="avatar-exit">
+                        <div class="avatar-exit__pencil">
+                            <i class="fa fa-pencil-square-o avatar-exit__fa-pencil" aria-hidden="true"></i>
+                        </div>
+                        <div class="avatar-exit__times">
+                            <i class="fa fa-times avatar-exit__fa-times" aria-hidden="true"></i>
+                        </div>
+                    </div>
                     <div class="avatar__upload">
                         <i class="fa fa-camera avatar_camera" aria-hidden="true"></i>
                     </div>
@@ -34,12 +42,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-7 info">
+                <div id="info" class="col-sm-6 info">
                     <div class="row">
-                        <div class="col-sm">
+                        <div id="username" class="col-sm info__sm">
                             <h4 class="info__username">Name<br>Surname</h4>
                         </div>
-                        <div class="col-sm">
+                        <div id="networks" class="col-sm">
                             <div class="container info__networks">
                                 <i class="fa fa-map-marker info__gold-color" aria-hidden="true"></i>
                                 <nobr>Location</nobr>
@@ -85,7 +93,10 @@
                     </div>
                 </div>
                 <div class="col-sm-12">
-                    <div class="row">
+                    <div class="row slider-row">
+                        <div class="container mobile">
+                            <nobr class="tab__last-stream">LAST STREAMS</nobr>
+                        </div>
                         <div class="col-sm-6 slider">
                             <div class="container slider__size">
                                 <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
@@ -133,6 +144,10 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="container mobile">
+                                <a id="mfame-text" href="#fame" class="tab__a tab__a-border">FAME LEVEL</a>
+                                <a id="mview-text" href="#view" class="tab__a">VIEWS</a>
+                            </div>
                         <div class="col-sm-6 chart">
                             <div id="fame" class="conteiner show chart__size">
                                 <canvas id="lineCahrt" width="400" height="300" class="chart__js chart__size"></canvas>
