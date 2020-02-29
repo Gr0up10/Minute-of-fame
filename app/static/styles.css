@@ -167,23 +167,13 @@ a {
 .center {
     display: flex;
     justify-content: center;
+
 }
 
 .profile-container {
     display: flex;
     position: relative;
     width: 1200px;
-    height: 100%;
-    padding: 10px;
-    background-color: #424556;
-    margin-bottom: 20px;
-    top: 50px;
-    border-bottom: 10px solid #d4c074;
-}
-
-#profile-box{
-    padding: 10px;
-    weight:100% !important;
     height: 100%;
     padding: 10px;
     background-color: #424556;
@@ -225,7 +215,7 @@ a {
     width: 450px;
     height: 650px;
     position: relative;
-    transform: translate(-40%, -10%);
+    transform: translate(-30%, -10%);
 }
 
 .avatar__img {
@@ -338,22 +328,13 @@ a {
     margin-top: 10px
 }
 
-<<<<<<< app/static/styles.css
 .tab__text {
     text-align: center;
-=======
-#btn-exit{
-    margin-left: 20px;
-    margin-bottom: 40px;
-    margin-right: 40px;
-    margin-top:145%;
->>>>>>> app/static/styles.css
 }
 
 .tab__btn {
     text-align: center;
 }
-
 
 .tab__last-stream {
     color: white;
@@ -451,38 +432,6 @@ a {
 .progress__views {
     text-align: end;
     color: #d4c074;
-}
-.like{
-    padding: 0;
-    left: -5%;
-}
-
-.btn {
-  border: 2px solid #d4c074;
-  background-color: transparent;
-  padding: 7px 14px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.btn-gold {
-  border-color: #d4c074;
-  color: #d4c074;
-}
-
-.btn-gold:hover {
-  background-color: #d4c074;
-  color: black;
-}
-
-.btn-white {
-  border-color: white;
-  color: white;
-}
-
-.btn-white:hover {
-  background-color: white;
-  color: black;
 }
 
 #send-chat-message{
