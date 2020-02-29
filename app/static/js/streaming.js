@@ -1,6 +1,6 @@
 let connection = new RTCMultiConnection();
 // v3.4.7 or newer
-connection.socketURL = 'http://localhost:9001/';
+connection.socketURL = 'http://' + location.hostname + ':9001/';
 connection.videosContainer = document.getElementById('stream-box');
 
 let user_room_id = document.getElementById('user_room_id');
