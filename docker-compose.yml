@@ -2,9 +2,10 @@ version: '3'
 
 services:
   web:
+    image: maplegend/minute-of-fame
     build: .
-    command: daphne -b 0.0.0.0 -p 8001 minute_of_fame.asgi:application
+    command: daphne -b 0.0.0.0 -p 80 minute_of_fame.asgi:application
     volumes:
       - .:/code
     ports:
-      - "8001:8001"
+      - "80:80"
