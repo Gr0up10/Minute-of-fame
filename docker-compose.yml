@@ -4,8 +4,10 @@ services:
     image: maplegend/minute-of-fame
     build: .
     command: daphne -b 0.0.0.0 -p 80 minute_of_fame.asgi:application
-    volumes:
-      - .:/code
+    env_file:
+      - ./web.env
+    #volumes:
+    #  - .:/code
     ports:
       - "80:80"
     environment:
