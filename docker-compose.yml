@@ -1,5 +1,4 @@
 version: '3'
-
 services:
   web:
     image: maplegend/minute-of-fame
@@ -9,3 +8,33 @@ services:
       - .:/code
     ports:
       - "80:80"
+    environment:
+      - NODE_ENV=production
+      - RHOST=redis
+    networks:
+      - redis-net
+    depends_on:
+      - redis
+
+  multi_connection:
+    image: maplegend/multi_connection:master
+    command: node server --port 9001
+    networks:
+      - redis-net
+    ports:
+      - 9001:9001
+
+  redis:
+    image: redis:4.0.5-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    hostname: redis
+    networks:
+      - redis-net
+    volumes:
+      - redis-data:/data
+
+networks:
+  redis-net:
+
+volumes:
+  redis-data:
