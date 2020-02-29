@@ -1,14 +1,20 @@
-@font-face {
-    font-family: 'Norwester Regular';
-    font-style: normal;
-    font-weight: normal;
-    src: local('Norwester Regular'), url('norwester.otf') format('opentype');
-}
+
+@import url('https://fonts.googleapis.com/css?family=Exo+2&display=swap');
 
 html, html > * {
     background-color: #333645;
     color: #FAEEEE;
-    font-family: Norwester Regular;
+    font-family: 'Exo 2', sans-serif;
+}
+h1, h2, h3{
+    font-weight: 700;
+}
+h4, h5{
+    font-weight: 600;
+}
+
+a {
+    cursor: pointer;
 }
 
 .content-container {
@@ -29,6 +35,7 @@ html, html > * {
 }
 #title{
     margin: 0 30px 0 20px;
+    font-weight: 700;
 }
 .inline-block {
     display: inline-block;
@@ -71,6 +78,7 @@ html, html > * {
         height: 75vh;
     }
 }
+
 
 #send-chat-message{
     background: #424556;
@@ -165,6 +173,17 @@ html, html > * {
     display: flex;
     position: relative;
     width: 1200px;
+    height: 100%;
+    padding: 10px;
+    background-color: #424556;
+    margin-bottom: 20px;
+    top: 50px;
+    border-bottom: 10px solid #d4c074;
+}
+
+#profile-box{
+    padding: 10px;
+    weight:100% !important;
     height: 100%;
     padding: 10px;
     background-color: #424556;
@@ -319,8 +338,16 @@ html, html > * {
     margin-top: 10px
 }
 
+<<<<<<< app/static/styles.css
 .tab__text {
     text-align: center;
+=======
+#btn-exit{
+    margin-left: 20px;
+    margin-bottom: 40px;
+    margin-right: 40px;
+    margin-top:145%;
+>>>>>>> app/static/styles.css
 }
 
 .tab__btn {
@@ -448,6 +475,21 @@ html, html > * {
   color: black;
 }
 
+.btn-white {
+  border-color: white;
+  color: white;
+}
+
+.btn-white:hover {
+  background-color: white;
+  color: black;
+}
+
+#send-chat-message{
+    background: #424556;
+    margin-left: 20px;
+    font-family: 'Exo 2', sans-serif;
+}
 @media screen and (max-width: 1500px){
     #btn-changepass{
         margin-left: 75%;
@@ -665,7 +707,6 @@ html, html > * {
     height: 100%;
 }
 .chat-message *{
-    font-family: Helvetica;
     margin: 0;
 }
 .chat-message b{
@@ -700,6 +741,7 @@ html, html > * {
     text-align: center;
 }
 #stream-timer-overlay{
+    font-weight: 700;
     background-color: none;
     z-index: 30;
     position: absolute;
@@ -707,6 +749,10 @@ html, html > * {
     transform: translate(-50%, 0);
     margin: auto;
     text-align: center;
+}
+
+#dislike-stream *, #like-stream *{
+    font-size: 2em;
 }
 
 #dislike-stream, #like-stream{
@@ -736,14 +782,7 @@ html, html > * {
     height: 50px;
 }
 @media screen and (min-width: 768px){
-    .dislike-img{
-        margin-right: 20px;
-        margin-top: 25px;
-        height: 80px;
-    }
-    .like-img{
-        margin-right: 20px;
-        top: -25px;
+    .dislike-img, .like-img{
         height: 80px;
     }
 }
@@ -753,4 +792,131 @@ a, a:hover {
     outline: 0;
     color: inherit;
     text-decoration: none;
+}
+
+.modal-content {
+    background-color: #333645;
+    color: #FAEEEE;
+    width: 600px;
+    height: 450px;
+    user-select: None;
+}
+.modal-cont-reg{
+    background-color: #333645;
+    color: #FAEEEE;
+    width: 600px;
+    height: 550px;
+}
+.modal-header-back {
+    padding: 0;
+    border-top: 40px solid rgba(21, 29, 49, 0.5);
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    width: 200px;
+    height: 0;
+
+    background-color: none;
+    z-index: 20;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin: auto;
+    text-align: center;
+}
+.modal-title{
+    text-align: center;
+    z-index: 21;
+}
+
+.login-icons{
+    margin-top: 15px;
+    margin-left: 10px;
+    background-color: #2b2c36;
+    width: 10px;
+    border: None;
+    color: #bebebe
+
+}
+.login-input{
+    height: 50px;
+    background-color: #2b2c36;
+    border: None;
+}
+.login-input:focus{
+    background-color: #2b2c36;
+    color: white;
+}
+.login-warning-error{
+    border-style: solid;
+    border-width: 1px;
+    border-color: red;
+    border-margin-bottom: 5px;
+
+}
+.login-warning-text{
+    color: red;
+}
+.lp{
+    margin-left: 20px;
+}
+.custom-control-label{
+    color: #bebebe;
+}
+input[type="checkbox"] + label:before {
+    color: #2b2c36;
+    background-color: #2b2c36;
+    border: None;
+    width: 1.25rem;
+    height: 1.25rem;
+}
+input[type="checkbox"] + label:after{
+    color: #bebebe;
+    background-color: #2b2c36;
+    border: None;
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.btn-cust{
+    background-color: #bebebe;
+    color: #2b2c36;
+    border: None;
+    width: 55%;
+    height: 65px;
+}
+.btn-cust:focus{
+    background-color: #2b2c36;
+    color: black;
+}
+.link{
+    color: #86a3c3;
+}
+
+.modal-content-report{
+    background-color: #333645;
+    color: #FAEEEE;
+    width: 500px;
+    height: 500px;
+}
+
+.textarea-report{
+    background-color: #2b2c36;
+    border: None;
+}
+.textarea-report:focus{
+    background-color: #2b2c36;
+    border: None;
+    color: white;
+}
+
+.modal-content-reset{
+    height: 350px;
+}
+
+.modal-header-back-reset{
+    width: 300px;
+}
+
+.tmp{
+    font-size: 1.1em;
 }
