@@ -135,5 +135,6 @@ $(function(){
         $("#info").addClass( "col-sm-12" ).removeClass( "col-sm-6" );
         $("#username").addClass( "col-sm-12" ).removeClass( "col-sm" );
         $("#networks").addClass( "col-sm-12" ).removeClass( "col-sm" );
+        $("#chart").addClass( "col-sm-12" ).removeClass( "col-sm-6" );
   }
 });
