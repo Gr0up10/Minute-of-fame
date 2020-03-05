@@ -4,13 +4,21 @@ from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
 import json
 from .models import *
+import sched, time
+
+
 
 
 class PollConsumer(WebsocketConsumer):
     likes = 0;
     dislikes = 0;
     poll_result = 0;
-    channel_layer = get_channel_layer()
+    #channel_layer = get_channel_layer()
+
+    s = sched.scheduler(time.time, time.sleep)
+
+
+
     def connect(self):
         self.room='room'
         self.room_group_name = 'ws_%s' % self.room
@@ -55,11 +63,17 @@ class PollConsumer(WebsocketConsumer):
         self.likes=data.likes
         self.dislikes=data.dislikes
         self.send(str(data.poll_result))
-        #print("open and send: ",self.poll_result)
+        print("open and send: ",self.poll_result)
+
+    def update(self, packet):
+        data = PollStat.objects.last()
+        self.send(str(data.poll_result))
+        print("update and send: ", self.poll_result)
 
     packet_map = {
         "message": handle_message,
         "like": like,
         "dislike": dislike,
+        "update": update,
         "open": open,
     }

@@ -35,13 +35,16 @@
                         </button>
                         <p></p>
 
-                        <script>
+                        <script async>
                              likestream.addEventListener("click", send_like);
                              dislikestream.addEventListener("click", send_dislike);
                              const poll_result_paragraph = document.querySelector('p');
                              var PollConsumer = new WebSocket('ws://'+ window.location.host +'/ws');
                              PollConsumer.addEventListener('message', poll_update)
                              PollConsumer.addEventListener('open', open)
+                             var timer=0;
+
+                             setTimeout(poll_update_request, 1000);
 
                              function send_like() {
                                     PollConsumer.send(JSON.stringify({'message': "like"}));
@@ -54,10 +57,29 @@
                              function poll_update() {
                                     poll_result_paragraph.textContent= event.data;
                              }
+                             function poll_update_request() {
+                                    PollConsumer.send(JSON.stringify({'message': "update"}));
+                             }
 
                              function open() {
                                     PollConsumer.send(JSON.stringify({'message': "open"}));
                              }
+                             function sayHi() {
+                                    alert('Привет');
+                             }
+
+
+                            var countDownDate = new Date("Jan 5, 2021 15:37:25").getTime();
+
+                            // Update the count down every 1 second
+                            var x = setInterval(function() {
+
+                            // Get today's date and time
+                            var now = new Date().getTime();
+                            poll_update_request()
+                            }, 1000);
+
+
 
     </script>
 
