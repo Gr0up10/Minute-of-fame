@@ -42,7 +42,6 @@
                              var PollConsumer = new WebSocket('ws://'+ window.location.host +'/ws');
                              PollConsumer.addEventListener('message', poll_update)
                              PollConsumer.addEventListener('open', open)
-                             var timer=0;
 
                              setTimeout(poll_update_request, 1000);
 
@@ -68,16 +67,10 @@
                                     alert('Привет');
                              }
 
-
-                            var countDownDate = new Date("Jan 5, 2021 15:37:25").getTime();
-
-                            // Update the count down every 1 second
+                            // Update the count down every n second
                             var x = setInterval(function() {
-
-                            // Get today's date and time
-                            var now = new Date().getTime();
                             poll_update_request()
-                            }, 1000);
+                            }, 80);
 
 
 

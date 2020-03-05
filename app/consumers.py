@@ -13,17 +13,14 @@ class PollConsumer(WebsocketConsumer):
     likes = 0;
     dislikes = 0;
     poll_result = 0;
-    #channel_layer = get_channel_layer()
-
-    s = sched.scheduler(time.time, time.sleep)
-
-
 
     def connect(self):
         self.room='room'
         self.room_group_name = 'ws_%s' % self.room
-        #print("channel= ", self.channel_layer, self.room_group_name)
         self.accept()
+        #TODO привязать создание записи БД к началу стрима
+        item = PollStat(id=1, poll_result=self.poll_result, likes=self.likes, dislikes=self.dislikes)
+        item.save()
         print("Yes, connected")
 
 
@@ -41,29 +38,27 @@ class PollConsumer(WebsocketConsumer):
     def handle_message(self, packet):
         print(packet,"= message_test is OK")
 
+    def send_poll_result(self):
+        self.poll_result = round(self.likes / (self.likes + self.dislikes) * 100)
+        #self.send(str(self.poll_result))
+        item = PollStat(id=1,poll_result=self.poll_result, likes=self.likes, dislikes=self.dislikes)
+        item.save()
+        # print("likes = ",self.likes,"dislikes = ", self.dislikes,"res = ", self.poll_result)
+
     def like(self, packet):
         self.likes += 1;
-        self.poll_result = round(self.likes / (self.likes + self.dislikes) * 100);
-        self.send(str(self.poll_result))
-        item = PollStat(poll_result=self.poll_result, likes=self.likes, dislikes=self.dislikes)
-        item.save()
-        #print("likes = ", self.likes, "dislikes = ", self.dislikes, "res = ", self.poll_result)
-
+        self.send_poll_result()
 
     def dislike(self, packet):
         self.dislikes += 1
-        self.poll_result = round(self.likes / (self.likes + self.dislikes) * 100)
-        self.send(str(self.poll_result))
-        item = PollStat(poll_result=self.poll_result, likes=self.likes, dislikes=self.dislikes)
-        item.save()
-        #print("likes = ",self.likes,"dislikes = ", self.dislikes,"res = ", self.poll_result)
+        self.send_poll_result()
 
     def open(self, packet):
         data = PollStat.objects.last()
         self.likes=data.likes
         self.dislikes=data.dislikes
         self.send(str(data.poll_result))
-        print("open and send: ",self.poll_result)
+        #print("open and send: ",self.poll_result)
 
     def update(self, packet):
         data = PollStat.objects.last()
