@@ -15,6 +15,10 @@ def stream_test(request, num):
     return render(request, 'page{}.html'.format(num))
 
 
+def screen_share(request):
+    return render(request, 'screen_share_test.html')
+
+
 def get_menu_context():
     return [
         {'url': '/', 'name': 'Home'},
@@ -123,7 +127,6 @@ def profile_page(req):
     }
 
     return render(req, 'pages/profile.html', context)
-
 
 def about_page(req):
     context = {
