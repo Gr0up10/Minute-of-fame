@@ -156,4 +156,11 @@ RECAPTCHA_SECRET_KEY = "6LetidkUAAAAANLJj-extHvBVIxsbZ_b4eShKTjZ"
 
 ASGI_APPLICATION = 'minute_of_fame.routing.application'
 
-CHANNEL_LAYERS = {}
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('redis', 6379)],
+        },
+    },
+}

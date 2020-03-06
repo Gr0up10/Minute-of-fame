@@ -1,74 +1,73 @@
-import channels.layers
-from channels.layers import get_channel_layer
-from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
+from channels.generic.websocket import WebsocketConsumer, AsyncJsonWebsocketConsumer
 import json
+
+from channels.layers import get_channel_layer
+
 from .models import *
-import sched, time
 
 
+class PollConsumer(AsyncJsonWebsocketConsumer):
+    likes = 0
+    dislikes = 0
+    poll_result = 0
 
+    async def connect(self):
+        #self.channel_layer = get_channel_layer()
+        # TODO привязать создание записи БД к началу стрима
+        #item = PollStat(id=1, poll_result=self.poll_result, likes=self.likes, dislikes=self.dislikes)
+        #item.save()
+        print(self.channel_layer)
+        await self.channel_layer.group_add("chat", self.channel_name)
 
-class PollConsumer(WebsocketConsumer):
-    likes = 0;
-    dislikes = 0;
-    poll_result = 0;
-
-    def connect(self):
-        self.room='room'
-        self.room_group_name = 'ws_%s' % self.room
-        self.accept()
-        #TODO привязать создание записи БД к началу стрима
-        item = PollStat(id=1, poll_result=self.poll_result, likes=self.likes, dislikes=self.dislikes)
-        item.save()
-        print("Yes, connected")
-
-
-    def disconnect(self, close_code):
+    async def disconnect(self, close_code):
+        await self.channel_layer.group_discard("chat", self.channel_name)
         print("Disconnected")
 
-
-    def receive(self, text_data):
-        data = json.loads(text_data)
-        packet_name = data['message']
-        self.packet_map[packet_name](self, data)
+    async def receive_json(self, content, **kwargs):
+        packet_name = content['message']
+        self.packet_map[packet_name](self, content)
         #print("receive", data)
 
-
-    def handle_message(self, packet):
-        print(packet,"= message_test is OK")
-
-    def send_poll_result(self):
+    def save_poll_result(self):
         self.poll_result = round(self.likes / (self.likes + self.dislikes) * 100)
         #self.send(str(self.poll_result))
-        item = PollStat(id=1,poll_result=self.poll_result, likes=self.likes, dislikes=self.dislikes)
-        item.save()
+        #item = PollStat(id=1, poll_result=self.poll_result, likes=self.likes, dislikes=self.dislikes)
+        #item.save()
         # print("likes = ",self.likes,"dislikes = ", self.dislikes,"res = ", self.poll_result)
 
-    def like(self, packet):
-        self.likes += 1;
-        self.send_poll_result()
+    async def like(self, packet):
+        self.likes += 1
+        self.save_poll_result()
+        await self.update()
 
-    def dislike(self, packet):
+    async def dislike(self, packet):
         self.dislikes += 1
-        self.send_poll_result()
+        self.save_poll_result()
+        await self.update()
 
-    def open(self, packet):
+    async def open(self, packet):
         data = PollStat.objects.last()
-        self.likes=data.likes
-        self.dislikes=data.dislikes
-        self.send(str(data.poll_result))
+        self.likes = data.likes
+        self.dislikes = data.dislikes
+        await self.send(str(data.poll_result))
         #print("open and send: ",self.poll_result)
 
-    def update(self, packet):
-        data = PollStat.objects.last()
-        self.send(str(data.poll_result))
+    async def update(self):
+        #data = PollStat.objects.last()
+        #await self.channel_layer.group_send('main', self.likes-self.dislikes)
+        await  self.channel_layer.group_send(
+            "chat",
+            {
+                "message": "update",
+                "data": {"dislikes": self.dislikes, "likes": self.likes},
+            },
+        )
+        #self.send(str(data.poll_result))
         print("update and send: ", self.poll_result)
 
     packet_map = {
-        "message": handle_message,
         "like": like,
         "dislike": dislike,
-        "update": update,
         "open": open,
     }
