@@ -7,6 +7,7 @@ let user_room_id = document.getElementById('user_room_id');
 
 function screen_stream() {
     window.send('queue', 'queue')
+    window.streaming = true
 
     connection.session = {
         screen: true,
@@ -27,6 +28,7 @@ function screen_stream() {
 
 function webcam_stream() {
     window.send('queue', 'queue')
+    window.streaming = true
     navigator.getMedia = (navigator.getUserMedia || // use the proper vendor prefix
         navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia ||

@@ -77,17 +77,20 @@ class QueueHandler:
         print(is_streaming)
         if is_streaming:
             print('someone streaming')
-            sender.send_json({"error": "Someone is streaming right now"})
-            return
+            #sender.send_json({"error": "Someone is streaming right now"})
+            #return
+            stream = await sync_to_async(get_current_stream)()
+            stream.active = False
+            await sync_to_async(stream.save)()
         model = Stream(publisher=user)
         await sync_to_async(model.save)()
         print(user.username)
         await self.broadcast_current_stream(sender)
         print('save')
-        await asyncio.sleep(40)
-        model.active = False
-        await sync_to_async(model.save)()
-        print('end')
+        #await asyncio.sleep(40)
+        #model.active = False
+        #await sync_to_async(model.save)()
+        #print('end')
 
 
 class WSConsumer(AsyncJsonWebsocketConsumer):
