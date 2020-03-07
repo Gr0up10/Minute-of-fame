@@ -14,6 +14,14 @@ def get_current_stream():
     return Stream.objects.get(active=True)
 
 
+def get_current_stream_id():
+    return get_current_stream().publisher.username
+
+
+def is_stream_active():
+    return Stream.objects.filter(active=True).exists()
+
+
 class PollHandler:
     @action(command="like")
     async def like(self, sender, packet):
@@ -53,10 +61,9 @@ class PollHandler:
 
 
 class QueueHandler:
-
     @staticmethod
-    def is_streaming():
-        return Stream.objects.filter(active=True).exists()
+    async def broadcast_current_stream(sender):
+        await sender.send_broadcast('set_stream', {"stream": await sync_to_async(get_current_stream_id)()})
 
     @action(command="queue")
     async def queue(self, sender, packet):
@@ -66,7 +73,7 @@ class QueueHandler:
             sender.send_json({"error": "You should be authorized to start stream"})
             print('not logged')
             return
-        is_streaming = await sync_to_async(self.is_streaming)()
+        is_streaming = await sync_to_async(is_stream_active)()
         print(is_streaming)
         if is_streaming:
             print('someone streaming')
@@ -74,6 +81,8 @@ class QueueHandler:
             return
         model = Stream(publisher=user)
         await sync_to_async(model.save)()
+        print(user.username)
+        await self.broadcast_current_stream(sender)
         print('save')
         await asyncio.sleep(40)
         model.active = False
@@ -89,9 +98,16 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
         "queue": QueueHandler()
     }
 
+    async def send_broadcast(self, command, data):
+        await self.channel_layer.group_send(self.GROUP_NAME, {
+            "type": "send.command", "command": command, "data": data
+        })
+
     async def connect(self):
         await self.accept()
         await self.channel_layer.group_add(self.GROUP_NAME, self.channel_name)
+        if await sync_to_async(is_stream_active)():
+            await self.send_packet('set_stream', {"stream": await sync_to_async(get_current_stream_id)()})
         print("connected")
 
     async def disconnect(self, close_code):
@@ -104,19 +120,10 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
         await find_action(self.handlers[handler], packet_name)(self, content)
         print('called')
 
-    async def update(self):
-        await self.channel_layer.group_send(
-            "main",
-            {
-                "type": "poll.update",
-                "data": json.dumps({"dislikes": self.dislikes, "likes": self.likes}),
-            },
-        )
+    async def send_packet(self, command, data):
+        await self.send_json({"command": command, "data": data})
 
     async def send_command(self, event):
         await self.send_json({"command": event["command"], "data": event["data"]})
-
-    async def poll_update(self, event):
-        await self.send_json({"message": "update", "data": event["data"]})
 
 

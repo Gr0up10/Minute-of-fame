@@ -23,7 +23,10 @@ $( document ).ready(function() {
     socket.onmessage = function(event) {
         console.log(event.data)
         pack = JSON.parse(event.data)
-        $('#likes').text(pack.data.likes + ' ' + pack.data.dislikes);
+        if (pack.command == "update")
+            $('#likes').text(pack.data.likes + ' ' + pack.data.dislikes);
+        if(pack.command == "set_stream")
+            window.watchStream(pack.data.stream)
     }
 
     socket.onopen  = function(event) {
