@@ -61,7 +61,7 @@ a {
     background-color: #333645;
     color: #EBEBEB;
 }
-.dropdown-hr{margin: 0px;}
+.dropdown-hr{margin: 0px; height: 6px;}
 
 .menu-item{margin-left: 1.5vw;}
 .menu-item h3, .nav-item h4{margin: 0;}
@@ -883,16 +883,11 @@ info__sm{
 }
 .dislike-img{
     transform: rotate(-180deg);
-    height: 50px;
+    height: 80px;
 }
 .like-img{
-    height: 50px;
+    height: 80px;
     margin-bottom: 20px;
-}
-@media screen and (min-width: 768px){
-    .dislike-img, .like-img{
-        height: 70px;
-    }
 }
 
 a, a:hover {
