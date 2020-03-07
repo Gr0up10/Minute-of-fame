@@ -624,3 +624,13 @@ input[type="checkbox"] + label:after{
 .tmp{
     font-size: 1.1em;
 }
+.dropdown-item:active{
+    background-color: grey;
+}
+.dropdown-item:focus{
+    background-color: grey;
+}
+#dropdownMenuLink{
+    background-color: #2b2c36;
+    border: None;
+}
