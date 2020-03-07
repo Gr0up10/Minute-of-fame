@@ -61,7 +61,7 @@ a {
     background-color: #333645;
     color: #EBEBEB;
 }
-.dropdown-hr{margin: 0px;}
+.dropdown-hr{margin: 0px; height: 6px;}
 
 .menu-item{margin-left: 1.5vw;}
 .menu-item h3, .nav-item h4{margin: 0;}
@@ -109,7 +109,6 @@ a {
     width: 100%;
     height: 600px;
     background-color: #C4C4C4;
-    margin-bottom: 40px;
     box-shadow: 0px 7px 11px -4px rgba(0,0,0,0.36);
 }
 #stream-figure-overlay{
@@ -818,7 +817,6 @@ info__sm{
 }
 #stream-box{
     height: 20vh;
-    margin-bottom: 1vh;
     z-index: 0;
     width: 800px;
     height: 600px;
@@ -865,7 +863,9 @@ info__sm{
 #dislike-stream, #like-stream{
     color: #FAEEEE;
     border: none;
+    padding: 0;
     margin-left: 20px;
+    margin-top: 10px;
 }
 @media screen and (min-width: 768px){
     #dislike-stream, #like-stream{
@@ -883,15 +883,11 @@ info__sm{
 }
 .dislike-img{
     transform: rotate(-180deg);
-    height: 50px;
+    height: 80px;
 }
 .like-img{
-    height: 50px;
-}
-@media screen and (min-width: 768px){
-    .dislike-img, .like-img{
-        height: 80px;
-    }
+    height: 80px;
+    margin-bottom: 20px;
 }
 
 a, a:hover {
@@ -1029,3 +1025,11 @@ input[type="checkbox"] + label:after{
     font-size: 1.1em;
 }
 
+.white_input{
+    background: white;
+    border-radius: 3px;
+    color: black;
+}
+.stream-info{
+    padding-top: 0;
+}
