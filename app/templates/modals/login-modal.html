@@ -14,16 +14,16 @@
 			</div>
 				<button onclick="error('login-warning', '500px', '450px')">TMP</button>
 				<div class="container">
-					<form method="POST" id="add_form" action="">
+					<form method="POST" id="add_form" action="login/">
                         {% csrf_token %}
 						<div class="input-group mb-3 login-input">
 								<i class="fas fa-user login-icons"></i>
-								<input type="text" class="form-control login-input lp" placeholder="Username" aria-label="Username"
+								<input name="username" type="text" class="form-control login-input lp" placeholder="Username" aria-label="Username"
                                                                                 aria-describedby="basic-addon1">
 						</div>
 						<div class="input-group mb-3 login-input">
 								<i class="fas fa-lock login-icons"></i>
-								<input type="text" class="form-control login-input lp" placeholder="Password" aria-label="Password"
+								<input name="password" type="text" class="form-control login-input lp" placeholder="Password" aria-label="Password"
                                                                                 aria-describedby="basic-addon1">
 						</div>
 						<div class="custom-control custom-checkbox mb-3">
