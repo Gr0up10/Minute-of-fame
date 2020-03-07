@@ -21,7 +21,8 @@ function screen_stream() {
 }
 
 connection.onstream = function(event) {
-    window.send('queue', 'start_stream')
+    //window.send('queue', 'start_stream')
+    //window.send('queue', 'start_stream')
 }
 
 function webcam_stream() {
