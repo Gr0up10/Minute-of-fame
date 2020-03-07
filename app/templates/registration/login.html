@@ -9,7 +9,7 @@
 			<form method="POST">
 				{% csrf_token %}
 				<div class="container">
-					<form method="POST" id="add_form" action="">{% csrf_token %}
+					<form method="POST" id="add_form" action="login">{% csrf_token %}
 						<div class="form-group">
 							<label>Имя пользователя</label>
 							<div class="input"><input type="text" name="username" required="required"></div>

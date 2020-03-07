@@ -17,6 +17,8 @@ services:
       - redis-net
     depends_on:
       - redis
+    links:
+      - "redis:db"
 
   multi_connection:
     image: maplegend/multi_connection:master

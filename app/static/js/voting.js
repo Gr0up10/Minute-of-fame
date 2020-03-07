@@ -1,26 +1,35 @@
-$('#like-stream').click(send_like);
-$('#dislike-stream').click(send_dislike);
+$( document ).ready(function() {
+    var socket = new WebSocket('ws://'+ window.location.host +'/ws/');
 
-const poll_result_paragraph = document.querySelector('p');
+    function send(handler, message, packet){
+        console.log(handler, message, packet)
+        socket.send(JSON.stringify({'handler': handler, 'message': message, 'data': packet}))
+    }
 
-var PollConsumer = new WebSocket('ws://'+ window.location.host +'/ws');
+    window.socket = socket
+    window.send = send
 
-PollConsumer.addEventListener('message', poll_update)
-PollConsumer.addEventListener('open', open)
+    //pollConsumer.addEventListener('message', poll_update)
+    //pollConsumer.addEventListener('open', open)
 
-function send_like() {
-    PollConsumer.send(JSON.stringify({'message': "like"}));
-};
+    function send_like() {
+        send('poll', 'like')
+    }
 
-function send_dislike() {
-    PollConsumer.send(JSON.stringify({'message': "dislike"}));
-}
+    function send_dislike() {
+        send('poll', 'dislike')
+    }
 
-function poll_update() {
-    console.log(event.data)
-    poll_result_paragraph.textContent= event.data;
-}
+    socket.onmessage = function(event) {
+        console.log(event.data)
+        pack = JSON.parse(event.data)
+        $('#likes').text(pack.data.likes + ' ' + pack.data.dislikes);
+    }
 
-function open() {
-    PollConsumer.send(JSON.stringify({'message': "open"}));
-}
+    socket.onopen  = function(event) {
+        //socket.send(JSON.stringify({'message': "open"}));
+    }
+
+    $('#like-stream').click(send_like);
+    $('#dislike-stream').click(send_dislike);
+})

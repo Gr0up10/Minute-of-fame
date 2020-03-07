@@ -6,6 +6,8 @@ connection.videosContainer = document.getElementById('stream-box');
 let user_room_id = document.getElementById('user_room_id');
 
 function screen_stream() {
+    window.send('queue', 'queue')
+
     connection.session = {
         screen: true,
         oneway: true
