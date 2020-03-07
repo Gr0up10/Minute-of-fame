@@ -817,7 +817,7 @@ info__sm{
     color: #8DA5FB;
 }
 #stream-box{
-    height: 35vh;
+    height: 20vh;
     margin-bottom: 1vh;
     z-index: 0;
     width: 800px;
@@ -828,6 +828,7 @@ info__sm{
 @media screen and (min-width: 768px){
     #stream-box{
         height: 70vh;
+        width: 58vw;
     }
 }
 #stream-figure-overlay{

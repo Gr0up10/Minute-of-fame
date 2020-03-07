@@ -9,8 +9,8 @@
 		"
 		}
 	</style>
-	<div class="d-flex align-items-stretch">
-		<div class="stream-container flex-fill">
+   <div class="row">
+        <div class="col-md-8">
 			<div id="stream-figure-overlay"></div>
 			<h4 id="stream-timer-overlay">5:12</h4>
 			<div id="stream-box">
@@ -23,8 +23,8 @@
 				{% load static %}
 				<script src="{% static 'js/streaming.js' %}"></script>
 				{#			<script src="{% static 'js/streaming_prototype.js' %}"></script>#}
-				<!-- Перед вставкой видеопотока убрать в классе #stream-box в styles.css захардкоженую высоту (height: 500px;)            -->
 			</div>
+			<button id="btn-connect-screen" onclick="screen_stream()">Screen stream</button>
 			<button id="btn-connect-screen" onclick="screen_stream()">Screen stream</button>
 			<button id="btn-connect-webcam" onclick="webcam_stream()">Webcam stream</button>
 			<button id="stop-stream" onclick="stopStream()">Stop stream</button>
