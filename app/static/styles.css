@@ -6,6 +6,9 @@ html, html > * {
     color: #FAEEEE;
     font-family: 'Exo 2', sans-serif;
 }
+header {
+        background: #333645;
+}
 h1, h2, h3{
     font-weight: 700;
 }
@@ -23,13 +26,16 @@ a {
     margin-top: 20px;
     top: 0;
 }
-
+.menu-container nav{
+    background-color: #333645;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #252833;
+}
 .menu-container{
     margin-bottom: 3vh;
     margin-left: 5vw;
     padding: 40px;
 }
-
 #logo {
     width: 80px;
 }
