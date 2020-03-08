@@ -15,22 +15,24 @@
 			<h4 id="stream-timer-overlay">5:12</h4>
 			<div id="stream-box">
 				<input type="hidden" id="user_room_id" value={{ user.username }}>
-
-
 				<div id="videos-container"></div>
 				<script src="https://rawgit.com/muaz-khan/RTCMultiConnection/master/dist/RTCMultiConnection.min.js"></script>
 				<script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
-				{% load static %}
-				<script src="{% static 'js/streaming.js' %}"></script>
-				{#			<script src="{% static 'js/streaming_prototype.js' %}"></script>#}
 				<!-- Перед вставкой видеопотока убрать в классе #stream-box в styles.css захардкоженую высоту (height: 500px;)            -->
 			</div>
+
             <button type="button" class="btn btn-success" id="btn-connect-webcam" onclick="webcam_stream()">Start stream</button>
+            <button type="button" class="btn btn-light" id="btn-connect-webcam-DO-NOT-USE-THIS" onclick="webcam_stream()">Webcam stream</button>
 			<button type="button" class="btn btn-light" id="btn-connect-screen" onclick="screen_stream()">Screen stream</button>
 			<button type="button" class="btn btn-light" id="stop-stream" onclick="stopStream()">Stop stream</button>
 			<button type="button" class="btn btn-light" id="watch-stream" onclick="watchStream()">Watch stream</button>
             <input id="input_room_id" type="text" placeholder="input room id">
-
+<!--
+			<button id="btn-connect-screen" onclick="screen_stream()">Screen stream</button>
+			<button id="btn-connect-webcam" onclick="webcam_stream()">Webcam stream</button>
+			<button id="stop-stream" onclick="stopStream()">Stop stream</button>
+			<input type="text" id="input_room_id" value=''>
+-->
 
         <div class="navbar navbar-expand-md mb-3">
             <div class="container-fluid">
@@ -46,7 +48,7 @@
                     <button onclick="var cs = new WebSocket('ws://localhost:8001/ws/')">CONNECT</button>
                     <button onclick="cs.send(123)">SEND</button>
 
-
+                    <p id="likes"></p>
                     <button id="like-stream" class="flex-sm-fill btn btn-outline-success align-self-stretch">
                         <img class="like-img inline-block center-align" src="{% static 'thumb-green.svg' %}">
                         <h4 class="inline-block center-align">Kek</h4>
@@ -58,14 +60,9 @@
                     </button>
                 </div>
             </div>
-
-
         </div>
         </div>
-
-
         <div class="col-md-4">
-
             <div id="chat-box">
                 <div class="chat-message d-flex">
                     <p><b>Somebody: </b> once told me</p>
@@ -74,7 +71,6 @@
                     <p><b>this_world: </b>is gonna roll me</p>
                 </div>
             </div>
-
             <div class="d-flex justify-content-between">
                 <textarea type="text" id="chat-message-input" class="inline-block flex-fill"></textarea>
                 <div>
@@ -85,48 +81,10 @@
             </div>
         </div>
     </div>
-<!--
-			<div class="d-flex flex-row justify-content-center align-items-center">
-				<div id="stream-info-container" class="flex-fill bd-highlight w-50">
-					<h1>Stream title</h1>
-					<br>
-					<h5 class="secondary-text">Streamer alias: <b>UltimateDoge487</b></h5>
-					<h5 class="secondary-text">Viewers: <b>80082</b></h5>
-				</div>
+{% endblock %}
 
-				<button id="like-stream" class="flex-sm-fill btn btn-outline-success align-self-stretch">
-					<img class="like-img inline-block center-align" src="{% static 'thumb-green.svg' %}">
-					<h3 class="inline-block center-align">Kek</h3>
-				</button>
-
-				<button id="dislike-stream" class="flex-sm-fill btn btn-outline-danger align-self-stretch">
-					<img class="dislike-img inline-block center-align" src="{% static 'thumb-red.svg' %}">
-					<h3 class="inline-block center-align">Cringe</h3>
-				</button>
-			</div>
-
-		</div>
-
-		<div class="chat-container flex-fill">
-
-			<div id="chat-box">
-				<div class="chat-message d-flex">
-					<p><b>Somebody: </b> once told me</p>
-				</div>
-				<div class="chat-message d-flex">
-					<p><b>this_world: </b>is gonna roll me</p>
-				</div>
-			</div>
-
-			<div class="d-flex justify-content-between">
-				<textarea type="text" id="chat-message-input" class="inline-block flex-fill"></textarea>
-				<div>
-					<button type="button" class="btn btn-dark inline-block" id="send-chat-message">
-						<img src="{% static 'send.svg' %}">
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
--->
+{% block extra_js %}
+    {% load static %}
+    <script src="{% static 'js/streaming.js' %}"></script>
+    <script src="{% static 'js/voting.js' %}"></script>
 {% endblock %}
