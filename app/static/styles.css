@@ -511,6 +511,9 @@ a, a:hover {
     width: 600px;
     height: 550px;
 }
+.modal-cont-set{
+    height: 350px;
+}
 .modal-header-back {
     padding: 0;
     border-top: 40px solid rgba(21, 29, 49, 0.5);
@@ -631,6 +634,10 @@ input[type="checkbox"] + label:after{
     background-color: grey;
 }
 #dropdownMenuLink{
+    width: 50%;
     background-color: #2b2c36;
     border: None;
+}
+.btn-sett{
+    width: 70%;
 }
