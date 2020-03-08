@@ -22,7 +22,7 @@ def screen_share(request):
 def get_menu_context():
     return [
         {'url': '/', 'name': 'Home'},
-        {'url': '/categories', 'name': 'Categories'},
+        # {'url': '/categories', 'name': 'Categories'},
         {'url': '/about/', 'name': 'About'},
     ]
 

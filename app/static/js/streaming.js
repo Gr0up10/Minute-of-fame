@@ -20,9 +20,10 @@ function screen_stream() {
     connection.openOrJoin(user_room_id.value.toString());
 }
 
-connection.onstream = function(event) {
-    window.send('queue', 'start_stream')
-}
+//connection.onstream = function(event) {
+    //window.send('queue', 'start_stream')
+    //window.send('queue', 'start_stream')
+//}
 
 function webcam_stream() {
     window.send('queue', 'queue')
