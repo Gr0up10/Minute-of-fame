@@ -29,19 +29,27 @@ a {
 .menu-container nav{
     background-color: #333645;
     padding-bottom: 20px;
-    border-bottom: 3px solid #252833;
+    border-bottom: 3px solid #333645;
 }
+
 .menu-container{
+    background-color: #333645;
     margin-bottom: 3vh;
-    margin-left: 5vw;
+    margin-left: 6vw;
+    padding-bottom: 20px;
     padding: 40px;
+    border-bottom: 3px solid #333645;
+    diplay: inline-block;
 }
+
 #logo {
     width: 80px;
 }
 #title{
     margin: 0 30px 0 20px;
     font-weight: 700;
+    font-size:200%;
+
 }
 .inline-block {
     display: inline-block;

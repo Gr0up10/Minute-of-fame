@@ -1,18 +1,13 @@
 {% load static %}
-{% include 'modals/login-modal.html' %}
-{% include 'modals/registration-modal.html' %}
-{% include 'modals/report-modal.html' %}
-{% include 'modals/reset-intro-modal.html' %}
-{% include 'modals/reset-modal.html' %}
 <div class="menu-container">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
 
-        <div class="content-container">
+        <a href="/"><img id="logo" class="center-align inline-block" src="{% static 'logo.svg' %}"><h1 id="title" class="center-align inline-block">Kek or cringe?</h1></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span  class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse">
-                <a href="/"><img id="logo" class="center-align inline-block" src="{% static 'logo.svg' %}">
-                <h1 id="title" class="center-align inline-block">Kek or cringe?</h1></a>
-
+            <div class="navbar-collapse collapse" id = "navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     {% block b_menu %}
                     {% for item in menu %}
@@ -22,10 +17,8 @@
                     {% endfor %}
                     {% endblock %}
                 </ul>
-
                 <ul class="navbar-nav mr-1">
                     {% block usermenu %}
-
                     {% if request.user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <h4 class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
@@ -41,20 +34,14 @@
                     {% else %}
                     <li class="nav-item">
                         <div class="row">
-                            <h4><a class="nav-link" data-toggle="modal" data-target="#regModal">Sign up</a></h4>
-                            <h4><a class="nav-link" data-toggle="modal" data-target="#loginModal">Login</a></h4>
-                            <!-- Report to logged in space-->
-                            <h4><a class="nav-link" data-toggle="modal" data-target="#reportModal">Report</a></h4>
-
-
+                            <h4><a class="nav-link" href="/register/">Sign up</a></h4>
+                            <h4><a class="nav-link" href="login">Login</a></h4>
                         </div>
                     </li>
                     {% endif %}
-
                     {% endblock %}
                 </ul>
             </div>
 
-        </div>
     </nav>
 </div>
