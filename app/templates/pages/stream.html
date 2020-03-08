@@ -4,7 +4,7 @@
 {% block content %}
 	<style>
 		video {
-			width: 800px;
+			width: 900px;
 			height: 600px;
 		"
 		}
@@ -20,10 +20,19 @@
 				<script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
 				<!-- Перед вставкой видеопотока убрать в классе #stream-box в styles.css захардкоженую высоту (height: 500px;)            -->
 			</div>
+
+            <button type="button" class="btn btn-success" id="btn-connect-webcam" onclick="webcam_stream()">Start stream</button>
+            <button type="button" class="btn btn-light" id="btn-connect-webcam-DO-NOT-USE-THIS" onclick="webcam_stream()">Webcam stream</button>
+			<button type="button" class="btn btn-light" id="btn-connect-screen" onclick="screen_stream()">Screen stream</button>
+			<button type="button" class="btn btn-light" id="stop-stream" onclick="stopStream()">Stop stream</button>
+			<button type="button" class="btn btn-light" id="watch-stream" onclick="watchStream()">Watch stream</button>
+            <input id="input_room_id" type="text" placeholder="input room id">
+<!--
 			<button id="btn-connect-screen" onclick="screen_stream()">Screen stream</button>
 			<button id="btn-connect-webcam" onclick="webcam_stream()">Webcam stream</button>
 			<button id="stop-stream" onclick="stopStream()">Stop stream</button>
 			<input type="text" id="input_room_id" value=''>
+-->
 
         <div class="navbar navbar-expand-md mb-3">
             <div class="container-fluid">
