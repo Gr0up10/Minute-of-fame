@@ -23,13 +23,27 @@ a {
 .content-container {
     width: 90%;
     margin: auto;
-    margin-top: 20px;
     top: 0;
+    padding-top: 40px;
 }
 .menu-container nav{
     background-color: #333645;
-    padding-bottom: 20px;
     border-bottom: 3px solid #333645;
+}
+@media screen and (min-width: 768px){
+    .content-container {
+        width: 90%;
+        margin: auto;
+        padding-top: 0;
+    }
+    .menu-container nav{
+        width: 90%;
+        margin: auto;
+        margin-top: 10px;
+        background-color: #333645;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #333645;
+    }
 }
 
 .menu-container{
