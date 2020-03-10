@@ -1,0 +1,40 @@
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered" role="document">
+    <div class="modal-content modal-cont-prof">
+        <div class="modal-header-back"></div>
+        <h3 class="modal-title" id="exampleModalLabel">Profile</h3>
+      <div class="modal-body">
+          	<div class="row">
+		<div class="col mt-3">
+				<div class="container">
+					<form method="POST" id="add_form" action="">
+                        {% csrf_token %}
+                    <div class="img-prof">
+						<img src="static/Pictures/locker.png" class="float-left profile-pic" alt="Responsive image">
+                    </div>
+
+                    <div class="profile-data">
+                        <div class="profile-name row align-items-center">
+                            <h3 class="">%UserName%</h3>
+                            <a href=""><span class="fa fa-sm fa-pen col"> Edit</span></a>
+                        </div>
+                        <div class="">
+                            <span class="fas fa-lg fa-map-marker-alt">  <p class= "profile-location">Location</p></span>
+                            <br>
+                            <span class="fas fa-lg fa-map-marker-alt"> <p class="profile-location">Email</p></span>
+                        </div>
+                    </div>
+                        <br>
+                    <div class="text-left">
+                        <h3 class="">About me:</h3>
+                        <p class="profile-bio">Some additional information or mini bio</p>
+                    </div>
+                    </form>
+				</div>
+		</div>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
