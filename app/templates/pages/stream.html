@@ -30,14 +30,9 @@
                     <h2 class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                         aria-haspopup="true" aria-expanded="false" data-flip="false">Stream title</h2>
                     <div class="dropdown-menu">
-                            <button class="dropdown-item" onclick="var cs = new WebSocket('ws://localhost:8001/ws/')">CONNECT</button>
-                            <button class="dropdown-item" onclick="cs.send(123)">SEND</button>
-                            <hr class="dropdown-hr">
                             <button class="dropdown-item" id="btn-connect-screen" onclick="screen_stream()">Screen stream</button>
                             <button class="dropdown-item" id="btn-connect-webcam" onclick="webcam_stream()">Webcam stream</button>
                             <button class="dropdown-item" id="stop-stream" onclick="stopStream()">Stop stream</button>
-                            <button class="dropdown-item" id="watch-stream" onclick="watchStream()">Watch stream:</button>
-                            <input class="dropdown-item white_input" type="text" id="input_room_id" value=''>
                     </div>
                 </div>
                 <button type="button" class="navbar-toggler btn btn-outline-light" data-toggle="collapse" data-target="#navbarCollapse">
