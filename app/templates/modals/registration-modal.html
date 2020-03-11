@@ -9,6 +9,7 @@
 				<div class="container">
 					<form method="POST" id="add_form" action="register/">
                         {% csrf_token %}
+						<input type="hidden" name="g-recaptcha-response" id='recaptcha'>
 						<div class="input-group mb-3 login-input">
 								<i class="fas fa-user login-icons"></i>
 								<input name="username" type="text" class="form-control login-input lp" placeholder="Username" aria-label="Username"
@@ -21,17 +22,17 @@
 						</div>
 						<div class="input-group mb-3 login-input">
 								<i class="fas fa-lock login-icons"></i>
-								<input name="password" type="text" class="form-control login-input lp" placeholder="Password" aria-label="Password"
+								<input name="password" type="password" class="form-control login-input lp" placeholder="Password" aria-label="Password"
                                                                                 aria-describedby="basic-addon1">
 						</div>
                         <div class="input-group mb-3 login-input">
 								<i class="fas fa-lock login-icons"></i>
-								<input name="password2" type="text" class="form-control login-input lp" placeholder="Repeat Password" aria-label="Repeat Password"
+								<input name="password2" type="password" class="form-control login-input lp" placeholder="Repeat Password" aria-label="Repeat Password"
                                                                                 aria-describedby="basic-addon1">
 						</div>
 
 						<div class="custom-control custom-checkbox mb-3">
-      							<input type="checkbox" class="custom-control-input" id="customCheck-reg" name="checkbox">
+      							<input type="checkbox" class="custom-control-input" id="customCheck-reg" name="checkbox" required>
 								<label class="custom-control-label" for="customCheck-reg">Agree with terms of use</label>
     					</div>
 
@@ -52,4 +53,20 @@
     </div>
   </div>
 </div>
+{% block extra_js %}
+<script src="https://www.google.com/recaptcha/api.js?render=6LetidkUAAAAABFq06Yj16QMvjIpfRulOuOg40xR"></script>
+
+<script>
+grecaptcha.ready(function() {
+  $('#add_form').submit(function(e){
+      var form = this;
+      e.preventDefault()
+      grecaptcha.execute('6LetidkUAAAAABFq06Yj16QMvjIpfRulOuOg40xR', {action: 'add_form'}).then(function(token) {
+          $('#recaptcha').val(token)
+          form.submit()
+      });
+  })
+});
+</script>
+{% endblock %}
 
