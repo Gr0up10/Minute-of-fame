@@ -7,7 +7,7 @@
           	<div class="row">
 		<div class="col mt-3">
 				<div class="container">
-					<form method="POST" id="add_form" action="register/">
+					<form method="POST" id="add_form" action="/">
                         {% csrf_token %}
 						<input type="hidden" name="g-recaptcha-response" id='recaptcha'>
 						<div class="input-group mb-3 login-input">
@@ -53,20 +53,5 @@
     </div>
   </div>
 </div>
-{% block extra_js %}
-<script src="https://www.google.com/recaptcha/api.js?render=6LetidkUAAAAABFq06Yj16QMvjIpfRulOuOg40xR"></script>
 
-<script>
-grecaptcha.ready(function() {
-  $('#add_form').submit(function(e){
-      var form = this;
-      e.preventDefault()
-      grecaptcha.execute('6LetidkUAAAAABFq06Yj16QMvjIpfRulOuOg40xR', {action: 'add_form'}).then(function(token) {
-          $('#recaptcha').val(token)
-          form.submit()
-      });
-  })
-});
-</script>
-{% endblock %}
 
