@@ -5,7 +5,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col mt-3">
-			<form method="POST" id="registration_form" action="register">
+			<form method="POST" id="registration_form" action="/register/">
 				{% csrf_token %}
 				<input type="hidden" name="g-recaptcha-response" id='recaptcha'>
 				{% for item in form %}

@@ -14,7 +14,7 @@
 			</div>
 				<button onclick="error('login-warning', '500px', '450px')">TMP</button>
 				<div class="container">
-					<form method="POST" id="add_form" action="login/">
+					<form method="POST" id="add_form" action="/">
                         {% csrf_token %}
 						<div class="input-group mb-3 login-input">
 								<i class="fas fa-user login-icons"></i>
@@ -23,16 +23,17 @@
 						</div>
 						<div class="input-group mb-3 login-input">
 								<i class="fas fa-lock login-icons"></i>
-								<input name="password" type="text" class="form-control login-input lp" placeholder="Password" aria-label="Password"
+								<input name="password" type="password" class="form-control login-input lp" placeholder="Password" aria-label="Password"
                                                                                 aria-describedby="basic-addon1">
 						</div>
 						<div class="custom-control custom-checkbox mb-3">
       							<input type="checkbox" class="custom-control-input" id="customCheck" name="checkbox">
 								<label class="custom-control-label" for="customCheck">Remember me</label>
     					</div>
+                        <input type="hidden" value='' id="login_check" name="login_check">
 						<div class="form-group text-center">
 							<div class="submit">
-								<button type="submit" class="btn btn-lg btn-cust"><h2>SIGN IN</h2></button>
+								<button type="submit" class="btn btn-lg btn-cust" onclick="getElementById('login_check').value = 'True';"><h2>SIGN IN</h2></button>
 							</div>
 						</div>
 						<br>
