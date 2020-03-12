@@ -7,7 +7,7 @@
           	<div class="row">
 		<div class="col mt-3">
 				<div class="container">
-					<form method="POST" id="add_form" action="register/">
+					<form method="POST" id="add_form" action="/">
                         {% csrf_token %}
 						<div class="input-group mb-3 login-input">
 								<i class="fas fa-user login-icons"></i>
@@ -21,7 +21,7 @@
 						</div>
 						<div class="input-group mb-3 login-input">
 								<i class="fas fa-lock login-icons"></i>
-								<input name="password" type="text" class="form-control login-input lp" placeholder="Password" aria-label="Password"
+								<input name="password1" type="text" class="form-control login-input lp" placeholder="Password" aria-label="Password"
                                                                                 aria-describedby="basic-addon1">
 						</div>
                         <div class="input-group mb-3 login-input">
@@ -30,10 +30,10 @@
                                                                                 aria-describedby="basic-addon1">
 						</div>
 
-						<div class="custom-control custom-checkbox mb-3">
+						<!-- <div class="custom-control custom-checkbox mb-3">
       							<input type="checkbox" class="custom-control-input" id="customCheck-reg" name="checkbox">
 								<label class="custom-control-label" for="customCheck-reg">Agree with terms of use</label>
-    					</div>
+    					</div> -->
 
 						<div class="form-group text-center">
 							<div class="submit">
