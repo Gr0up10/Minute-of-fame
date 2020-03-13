@@ -1,11 +1,13 @@
 let connection = new RTCMultiConnection();
 // v3.4.7 or newer
-connection.socketURL = 'http://localhost:9001/';
+connection.socketURL = 'http://' + location.hostname + ':9001/';
 connection.videosContainer = document.getElementById('stream-box');
 
 let user_room_id = document.getElementById('user_room_id');
 
 function screen_stream() {
+    window.send('queue', 'queue')
+
     connection.session = {
         screen: true,
         oneway: true
@@ -18,8 +20,13 @@ function screen_stream() {
     connection.openOrJoin(user_room_id.value.toString());
 }
 
-function webcam_stream() {
+//connection.onstream = function(event) {
+    //window.send('queue', 'start_stream')
+    //window.send('queue', 'start_stream')
+//}
 
+function webcam_stream() {
+    window.send('queue', 'queue')
     navigator.getMedia = (navigator.getUserMedia || // use the proper vendor prefix
         navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia ||
@@ -60,10 +67,8 @@ function stopStream() {
     connection.closeSocket();
 }
 
-function watchStream() {
-    let input_room_id = document.getElementById('input_room_id');
-
-    connection.checkPresence(input_room_id.value.toString(), function (isRoomExist, room_id) {
+function watchStream(input_room_id) {
+    connection.checkPresence(input_room_id, function (isRoomExist, room_id) {
         if (isRoomExist === true) {
 
             connection.session = {
@@ -81,3 +86,5 @@ function watchStream() {
     });
 
 }
+
+window.watchStream = watchStream

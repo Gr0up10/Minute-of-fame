@@ -33,9 +33,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ecw==078()bm0#u^f6))--6jz3nk27rwy04wb6=2f_3rqrsvq*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = (os.getenv('DEBUG', '0') != '0')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [os.getenv('ALLOWED_HOST', '*')]
 
 
 # Application definition
@@ -55,7 +55,9 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -130,9 +132,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_URL = '/static/'
-STATIC_ROOT = "minute_of_fame/static"
+STATIC_ROOT = '/staticfiles/' if os.getenv('DOCKER', '0') != '0' else os.path.join(BASE_DIR, 'staticfiles/')
 LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = '/home/'
@@ -145,9 +147,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'minute.of.fame@yandex.ru'
 EMAIL_HOST_PASSWORD = 'FTyNm.6GK*-vT,/'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-STATICFILES_DIRS = [
-    "app/static",
-]
 
 #RECAPTCHA BACKEND
 RECAPTCHA_SITE_KEY = "6LetidkUAAAAABFq06Yj16QMvjIpfRulOuOg40xR"
@@ -156,4 +155,18 @@ RECAPTCHA_SECRET_KEY = "6LetidkUAAAAANLJj-extHvBVIxsbZ_b4eShKTjZ"
 
 ASGI_APPLICATION = 'minute_of_fame.routing.application'
 
-CHANNEL_LAYERS = {}
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('redis', 6379)],
+        },
+    },
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+    }
+}
