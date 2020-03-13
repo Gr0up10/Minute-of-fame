@@ -23,25 +23,47 @@ a {
 .content-container {
     width: 90%;
     margin: auto;
-    margin-top: 20px;
     top: 0;
+    padding-top: 40px;
 }
 .menu-container nav{
     background-color: #333645;
-    padding-bottom: 20px;
-    border-bottom: 3px solid #252833;
+    border-bottom: 3px solid #333645;
 }
+@media screen and (min-width: 768px){
+    .content-container {
+        width: 90%;
+        margin: auto;
+        padding-top: 0;
+    }
+    .menu-container nav{
+        width: 90%;
+        margin: auto;
+        margin-top: 10px;
+        background-color: #333645;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #333645;
+    }
+}
+
 .menu-container{
+    background-color: #333645;
     margin-bottom: 3vh;
-    margin-left: 5vw;
+    margin-left: 6vw;
+    padding-bottom: 20px;
     padding: 40px;
+    border-bottom: 3px solid #333645;
+    diplay: inline-block;
 }
+
 #logo {
     width: 80px;
 }
 #title{
     margin: 0 30px 0 20px;
     font-weight: 700;
+    font-size:200%;
+
 }
 .inline-block {
     display: inline-block;
@@ -873,8 +895,6 @@ info__sm{
 #stream-box{
     height: 20vh;
     z-index: 0;
-    width: 800px;
-    height: 600px;
     background-color: #C4C4C4;
     box-shadow: 0px 7px 11px -4px rgba(0,0,0,0.36);
 }
@@ -952,7 +972,6 @@ a, a:hover {
     text-decoration: none;
 }
 
-
 .modal-content {
     background-color: #333645;
     color: #FAEEEE;
@@ -965,6 +984,13 @@ a, a:hover {
     color: #FAEEEE;
     width: 600px;
     height: 550px;
+}
+.modal-cont-prof{
+    width: 100%;
+    height: 400px;
+}
+.modal-cont-set{
+    height: 350px;
 }
 .modal-header-back {
     padding: 0;
@@ -1078,6 +1104,44 @@ input[type="checkbox"] + label:after{
 
 .tmp{
     font-size: 1.1em;
+}
+.dropdown-item:active{
+    background-color: grey;
+}
+.dropdown-item:focus{
+    background-color: grey;
+}
+#dropdownMenuLink{
+    width: 50%;
+    background-color: #2b2c36;
+    border: None;
+}
+.btn-sett{
+    width: 70%;
+}
+.profile-pic{
+    width: 120px;
+    height: 120px;
+}
+.profile-data{
+    margin-left: 160px;
+}
+.fa-pen{
+    color: #dfc97d;
+    font-size: 0.5em;
+    opacity: 0.5;
+}
+.fa-map-marker-alt{
+    color: #dfc97d;
+}
+.profile-location{
+    color: white;
+    display: inline-block;
+    font-size: 0.75em;
+    opacity: 0.5;
+}
+.profile-bio{
+    font-size: 1.25em;
 }
 
 .white_input{
