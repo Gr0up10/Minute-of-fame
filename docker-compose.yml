@@ -6,8 +6,8 @@ services:
     command: daphne -b 0.0.0.0 -p 80 minute_of_fame.asgi:application
     env_file:
       - ./web.env
-    #volumes:
-    #  - .:/code
+    volumes:
+      - ./:/code
     ports:
       - "80:80"
     environment:

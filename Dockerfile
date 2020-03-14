@@ -9,4 +9,3 @@ COPY . /code/
 RUN python manage.py createcachetable
 RUN python manage.py migrate
 RUN python manage.py collectstatic
-RUN python manage.py createcachetable
