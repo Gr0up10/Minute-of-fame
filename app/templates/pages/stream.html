@@ -43,12 +43,13 @@
                     </div>
                 </div>
 -->
-            <button type="button" class="btn btn-success" id="btn-connect-webcam" onclick="webcam_stream()">Start stream</button>
-            <button type="button" class="btn btn-light" id="btn-connect-webcam-DO-NOT-USE-THIS" onclick="webcam_stream()">Webcam stream</button>
-			<button type="button" class="btn btn-light" id="btn-connect-screen" onclick="screen_stream()">Screen stream</button>
-			<button type="button" class="btn btn-light" id="stop-stream" onclick="stopStream()">Stop stream</button>
-			<button type="button" class="btn btn-light" id="watch-stream" onclick="watchStream()">Watch stream</button>
-            <input id="input_room_id" type="text" placeholder="input room id">
+            {% if request.user.is_authenticated %}
+                <button type="button" class="btn btn-success" id="btn-connect-webcam" onclick="webcam_stream()">Start stream</button>
+                <button type="button" class="btn btn-light" id="btn-connect-webcam-DO-NOT-USE-THIS" onclick="webcam_stream()">Webcam stream</button>
+                <button type="button" class="btn btn-light" id="btn-connect-screen" onclick="screen_stream()">Screen stream</button>
+                <button type="button" class="btn btn-light" id="stop-stream" onclick="stopStream()">Stop stream</button>
+                <button type="button" class="btn btn-light" id="watch-stream" onclick="watchStream()">Watch stream</button>
+            {% endif %}
 
         <div class="navbar navbar-expand-md mb-3">
             <div class="container-fluid">
