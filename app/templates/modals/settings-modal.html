@@ -1,0 +1,43 @@
+<div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered" role="document">
+    <div class="modal-content modal-cont-set">
+        <div class="modal-header-back"></div>
+        <h3 class="modal-title" id="exampleModalLabel">Settings</h3>
+      <div class="modal-body">
+          	<div class="row">
+		<div class="col mt-3">
+				<div class="container">
+					<form method="POST" id="add_form" action="">
+                        {% csrf_token %}
+						<div class="custom-control custom-checkbox mb-3">
+      							<input type="checkbox" class="custom-control-input" id="byterateCheck" name="checkbox">
+								<label class="custom-control-label" for="byterateCheck"><h4>Dynamic bitrate</h4></label>
+    					</div>
+                           <div class="dropdown show ">
+                               <h3 class="">Quality</h3>
+                              <a class="btn btn-secondary" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Auto
+                              </a>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item active" href="#">Auto</a>
+                                <a class="dropdown-item" href="#">High</a>
+                                <a class="dropdown-item" href="#">Medium</a>
+                                <a class="dropdown-item" href="#">Low</a>
+                              </div>
+                        </div>
+                        <br>
+                        <br>
+						<div class="form-group text-center">
+							<div class="submit">
+								<button type="submit" class="btn btn-lg btn-cust btn-sett"><h2>Change settings</h2></button>
+							</div>
+						</div>
+					</form>
+				</div>
+		</div>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
