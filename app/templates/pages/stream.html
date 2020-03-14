@@ -6,6 +6,7 @@
 		video {
 			width: 900px;
 			height: 600px;
+		"
 		}
 
 </style>
@@ -32,6 +33,7 @@
                             <!-- Перед вставкой видеопотока убрать в классе #stream-box в styles.css захардкоженую высоту (height: 500px;)            -->
                         </div>
                     </div>
+                    {% if request.user.is_authenticated %}
                     <div class="col-md-12 stream-buttons">
                         <div>
                             <button type="button" class="btn btn-light stream-btn" id="btn-connect-webcam-DO-NOT-USE-THIS"
@@ -53,6 +55,7 @@
                             <input id="input_room_id" type="text" placeholder="input room id">
                         </div>
                     </div>
+                    {% endif %}
                     <div class="col-md-12">
                         <div class="navbar navbar-expand-md mb-3">
                             <div class="container-fluid">
@@ -113,7 +116,6 @@
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% block extra_js %}
