@@ -8,7 +8,6 @@ from .models import *
 from django.contrib.auth.decorators import login_required
 
 
-
 def stream_test(request, num):
     item = PollStat(poll_result=0, likes=0, dislikes=0)
     item.save()
@@ -35,6 +34,8 @@ def stream_page(request):
         'test': 1
     }
 
+    context['Regform'] = RegisterFormView()
+    context['Logform'] = LoginForm()
 
     return render(request, 'pages/stream.html', context)
 
@@ -44,6 +45,8 @@ def login_page(request):
         'pagename': 'Вход',
         'menu': get_menu_context(),
     }
+    context['Regform'] = RegisterFormView()
+    context['Logform'] = LoginForm()
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
@@ -68,7 +71,7 @@ def login_page(request):
     else:
         login_form = LoginForm()
         context['form'] = login_form
-    return render(request, 'registration/login.html', context)
+    return render(request, 'pages/stream.html', context)
 
 
 def logout_page(request):
@@ -81,6 +84,8 @@ def register_page(request):
     context = dict()
     context['menu'] = get_menu_context()
     context['site_key'] = settings.RECAPTCHA_SITE_KEY
+    context['Regform'] = RegisterFormView()
+    context['Logform'] = LoginForm()
     if request.method == 'POST':
         form = RegisterFormView(request.POST)
         context['form'] = form
@@ -103,22 +108,30 @@ def register_page(request):
                 print(result_json)
 
                 if not result_json.get('success'):
-                    return render(request, 'registration/register.html', {'is_robot': True})
+                    # return render(request, 'registration/register.html', {'is_robot': True})
+                    return render(request, 'pages/stream.html', {'is_robot': True})
                 # end captcha verification
 
                 if _user.is_active:
                     login(request, _user)
                     messages.add_message(request, messages.SUCCESS, 'Вы успешно зарегистрировались')
                     return redirect('index')
+
+                user = authenticate(request, username=username, password=my_password)
+                if user is not None:
+                    login(request, user)
+                    messages.add_message(request, messages.SUCCESS, "Авторизация успешна")
+                    return redirect('index')
             else:
                 messages.add_message(request, messages.ERROR, 'Аккаунт с этой почтой уже существует')
         else:
             messages.add_message(request, messages.ERROR, 'Вы ввели неверные данные')
-        return render(request, 'registration/register.html', context)
+        # return render(request, 'registration/register.html', context)
     else:
         form = RegisterFormView()
         context['form'] = form
-        return render(request, 'registration/register.html', context)
+        # return render(request, 'registration/register.html', context)
+        return render(request, 'pages/stream.html', context)
 
 
 def profile_page(req):
@@ -128,12 +141,14 @@ def profile_page(req):
 
     return render(req, 'pages/profile.html', context)
 
+
 def about_page(req):
     context = {
         'menu': get_menu_context()
     }
 
     return render(req, 'pages/about.html', context)
+
 
 @login_required()
 def report_page(request, badass_id):
