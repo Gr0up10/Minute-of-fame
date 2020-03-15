@@ -174,6 +174,7 @@ class ChatConsumer(WebsocketConsumer):
         message = event['message']
 
         # Send message to WebSocket
-        self.send(text_data=json.dumps({
-            'message': message
-        }))
+        if message:
+            self.send(text_data=json.dumps({
+                'message': message
+            }))
