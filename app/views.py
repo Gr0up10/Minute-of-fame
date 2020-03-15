@@ -27,7 +27,6 @@ def get_menu_context():
 
 
 def stream_page(request):
-
     context = {
         'pagename': 'Главная',
         'menu': get_menu_context(),
@@ -154,10 +153,10 @@ def about_page(req):
 def report_page(request, badass_id):
     context = {
         'menu': get_menu_context(),
-        'Form': ReportForm(initial={'badass': badass_id,'sender': request.user.id}),
+        'Form': ReportForm(initial={'badass': badass_id, 'sender': request.user.id}),
     }
     if request.method == 'GET':
-        return render(request,'pages/report.html',context)
+        return render(request, 'pages/report.html', context)
     if request.method == 'POST':
         report = ReportForm(request.POST)
         if report.is_valid():
@@ -168,3 +167,13 @@ def report_page(request, badass_id):
         else:
             messages.add_message(request, messages.ERROR, 'Form is not valid')
             return render(request, 'pages/report.html', context)
+
+
+def chat_render(request):
+    return render(request, 'chat/index.html', {})
+
+
+def room(request, room_name):
+    return render(request, 'chat/room.html', {
+        'room_name': room_name
+    })

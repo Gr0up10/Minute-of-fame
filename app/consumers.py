@@ -57,7 +57,8 @@ class PollHandler:
 
     @staticmethod
     def vote(sender, like):
-        PollStat(user=sender.scope["user"], stream=get_current_stream(), vote=LikeDislike.LIKE if like else LikeDislike.DISLIKE).save()
+        PollStat(user=sender.scope["user"], stream=get_current_stream(),
+                 vote=LikeDislike.LIKE if like else LikeDislike.DISLIKE).save()
 
 
 class QueueHandler:
@@ -127,3 +128,17 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
         await self.send_json({"command": event["command"], "data": event["data"]})
 
 
+class ChatConsumer(WebsocketConsumer):
+    def connect(self):
+        self.accept()
+
+    def disconnect(self, close_code):
+        pass
+
+    def receive(self, text_data):
+        text_data_json = json.loads(text_data)
+        message = text_data_json['message']
+
+        self.send(text_data=json.dumps({
+            'message': message
+        }))
