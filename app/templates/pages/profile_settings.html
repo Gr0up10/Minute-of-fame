@@ -19,20 +19,20 @@
                 <div class="avatar__upload">
                     <i class="fa fa-camera avatar_camera" aria-hidden="true"></i>
                 </div>
-                <img class="d-lg-flex justify-content-lg-center avatar__img" src="{% static 'avatar1.jpg' %}">
+                <img class="d-lg-flex justify-content-lg-center avatar__img" src="{% static 'settings-avatar.jpg' %}">
             </div>
             <div id="info" class="col-sm-6 info">
                 <div class="row">
                     <div id="username" class="col-sm info__sm">
                         <h4 class="info__username">Username</h4>
                         <br>
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control settings-input" id="name">
-                        <label for="surname">Surname</label>
-                        <input type="text" class="form-control settings-input" id="surname">
+                        <label for="firstname">Name</label>
+                        <input type="text" class="form-control settings-input" id="firstname">
+                        <label for="lastname">Surname</label>
+                        <input type="text" class="form-control settings-input" id="lastname">
                     </div>
                     <div id="networks" class="col-sm">
-                        <div class="container info__networks">
+                        <div class="container settings-networks">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                         <span class="input-group-text" id="location">
@@ -107,9 +107,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 settings-aboutme-mobile">
                         <h4 class="aboutme-settings">About me:</h4>
-                        <div class="container info__text">
+                        <div class="container settings-text">
                             <textarea class="settings-textarea"></textarea>
                         </div>
                     </div>

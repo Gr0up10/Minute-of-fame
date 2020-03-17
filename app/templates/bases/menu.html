@@ -31,7 +31,17 @@
                 {% block usermenu %}
                 <ul class="navbar-nav justify-content-end">
                     {% if request.user.is_authenticated %}
-                    <li class="nav-item active menu-item">
+                    <div class="dropdown">
+                      <h4 class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="true" aria-expanded="false" id="username">{{ request.user }}</h4>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/profile/">View profile</a>
+                        <a class="dropdown-item" data-toggle="modal" data-target="#settingsModal" href="#">Settings</a>
+                        <a class="dropdown-item" href="/logout/">Logout</a>
+                      </div>
+                    </div>
+                    <h4><a class="nav-link" data-toggle="modal" data-target="#reportModal">Report</a></h4>
+                    <!--<li class="nav-item active menu-item">
                         <h4 class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                            aria-haspopup="true" aria-expanded="false" id="username">{{ request.user }}</h4>
                     </li>
@@ -46,7 +56,7 @@
                     </li>
                     <li class="nav-item active menu-item">
                         <h3><a class="nav-link" href="/logout/">Logout</a></h3>
-                    </li>
+                    </li>-->
                     {% else %}
                     <li class="nav-item">
                         <div class="row">
