@@ -30,7 +30,8 @@ def stream_page(request):
     context = {
         'pagename': 'Главная',
         'menu': get_menu_context(),
-        'test': 1
+        'test': 1,
+        'room_name': 'test-room'
     }
 
     context['Regform'] = RegisterFormView()
@@ -169,8 +170,8 @@ def report_page(request, badass_id):
             return render(request, 'pages/report.html', context)
 
 
-def chat_render(request):
-    return render(request, 'chat/index.html', {})
+# def chat_render(request):
+#     return render(request, 'chat/index.html', {})
 
 
 def room(request, room_name):
