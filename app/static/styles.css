@@ -246,11 +246,21 @@ a {
 	margin-top : 10px;
 }
 
+.settings-text{
+    padding: 0;
+}
+
+.settings-networks {
+    margin-top: 50px;
+    margin-left: 50px;
+    border-left: 3px solid #333645;
+    padding-left: 30px;
+}
 
 .save-btn{
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .aboutme-settings{
@@ -266,7 +276,6 @@ a {
     color: white;
     background-color: #ffffff00;
     border: 3px solid #d4c074;
-    /*background-color: #d4c074;*/
     font-size: 20px;
     font-weight: bolder;
     display: inline-block;
@@ -398,12 +407,12 @@ a {
 
 .avatar-exit__fa-pencil {
     font-size: xx-large !important;
-    color: #d4c074;
+    color: #ffffff;
 }
 
 .avatar-exit__fa-times {
     font-size: xx-large !important;
-    color: #d4c074;
+    color: #ffffff;
 }
 
 .avatar__img {
@@ -668,6 +677,14 @@ info__sm{
     .info__network {
         margin-right: 5px;
     }
+
+    .input-group {
+        width: 135%;
+    }
+    .settings-networks {
+        margin-left: 0;
+        padding-left: 0;
+    }
 }
 
 @media screen and (max-width: 1200px){
@@ -714,29 +731,30 @@ info__sm{
 }
 
 @media screen and (max-width: 768px){
-.avatar {
-    width: 100%;
-    height: 518px;
-    overflow: hidden;
-    position: relative;
-    transform: translate(0px,0px);
-}
+    .avatar {
+        width: 100%;
+        height: 518px;
+        overflow: hidden;
+        position: relative;
+        transform: translate(0px,0px);
+    }
 
-.avatar__img {
-    display: block;
-    min-width: 100%;
-    min-height: 100%;
-    margin: auto;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    position: absolute;
-}
-.profile-container {
+    .avatar__img {
+        display: block;
+        min-width: 100%;
+        min-height: 100%;
+        margin: auto;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        position: absolute;
+    }
+    .profile-container {
         width: 70%;
         display: block;
         transform: translate(0%);
+        top: 90px;
     }
     .card-exit {
         display: none;
@@ -825,14 +843,43 @@ info__sm{
     .slider__photo {
         width: 470px !important;
     }
+
+    .settings-input {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .settings-text {
+        text-align: center;
+    }
+    .settings-networks {
+        padding-left: 30px;
+        border: none;
+    }
+    .settings-textarea {
+        width: 80%;
+    }
+    .input-group {
+        width: 95%;
+    }
+    .input-group-text {
+        border-right: 3px solid #424556;
+        background-color: #333645;
+    }
+    .settings-aboutme-mobile{
+        text-align: center;
+    }
+    .save-btn{
+        margin-top: 20px;
+    }
 }
 
 @media screen and (max-width: 576px){
     .avatar {
-    height: 518px;
-}
+        height: 518px;
+    }
 
-.profile-container {
+    .profile-container {
         width: 100%;
         display: block;
         padding:0px;
