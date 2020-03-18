@@ -22,7 +22,21 @@ def is_stream_active():
     return Stream.objects.filter(active=True).exists()
 
 
-class PollHandler:
+class Handler:
+    # Do not touch this methods, they should be empty
+    async def send(self, command, pack):
+        pass
+
+    async def send_broadcast(self, command, pack):
+        pass
+
+    async def send_broadcast_but_me(self, command, pack):
+        pass
+
+
+class PollHandler(Handler):
+    name = "poll"
+
     @action(command="like")
     async def like(self, sender, packet):
         await sync_to_async(self.vote)(sender, True)
@@ -48,29 +62,27 @@ class PollHandler:
         print(likes, dises)
         return likes, dises
 
-    @staticmethod
-    async def update(sender):
+    async def update(self, sender):
         likes, dislikes = await sync_to_async(PollHandler.get_stat)(sender)
-        await sender.channel_layer.group_send(sender.GROUP_NAME, {
-            "type": "send.command", "command": "update", "data": {"likes": likes, "dislikes": dislikes}
-        })
+        await self.send_broadcast("update", {"likes": likes, "dislikes": dislikes})
 
     @staticmethod
     def vote(sender, like):
         PollStat(user=sender.scope["user"], stream=get_current_stream(), vote=LikeDislike.LIKE if like else LikeDislike.DISLIKE).save()
 
 
-class QueueHandler:
-    @staticmethod
-    async def broadcast_current_stream(sender):
-        await sender.send_broadcast('set_stream', {"stream": await sync_to_async(get_current_stream_id)()})
+class QueueHandler(Handler):
+    name = "queue"
+
+    async def broadcast_current_stream(self, sender):
+        await self.send_broadcast_but_me('set_stream', {"stream": await sync_to_async(get_current_stream_id)()})
 
     @action(command="queue")
     async def queue(self, sender, packet):
         print('queueing')
         user = sender.scope["user"]
         if user.is_anonymous:
-            sender.send_json({"error": "You should be authorized to start stream"})
+            await self.send('error', {"error": "You should be authorized to start stream"})
             print('not logged')
             return
         is_streaming = await sync_to_async(is_stream_active)()
@@ -101,16 +113,23 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
         "queue": QueueHandler()
     }
 
-    async def send_broadcast(self, command, data):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for n, cls in self.handlers.items():
+            setattr(cls.__class__, 'send', lambda cl, c, p: self.send_packet(cl.name, c, p))
+            setattr(cls.__class__, 'send_broadcast', lambda cl, c, p: self.send_broadcast(cl.name, c, p))
+            setattr(cls.__class__, 'send_broadcast_but_me', lambda cl, c, p: self.send_broadcast(cl.name, c, p, self.channel_name))
+
+    async def send_broadcast(self, handler, command, data, name=None):
         await self.channel_layer.group_send(self.GROUP_NAME, {
-            "type": "send.command", "command": command, "data": data
+            "type": "send.command", "handler": handler, "command": command, "data": data, "chan_name": name
         })
 
     async def connect(self):
         await self.accept()
         await self.channel_layer.group_add(self.GROUP_NAME, self.channel_name)
         if await sync_to_async(is_stream_active)():
-            await self.send_packet('set_stream', {"stream": await sync_to_async(get_current_stream_id)()})
+            await self.send_packet('queue', 'set_stream', {"stream": await sync_to_async(get_current_stream_id)()})
         print("connected")
 
     async def disconnect(self, close_code):
@@ -123,10 +142,11 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
         await find_action(self.handlers[handler], packet_name)(self, content)
         print('called')
 
-    async def send_packet(self, command, data):
-        await self.send_json({"command": command, "data": data})
+    async def send_packet(self, handler, command, data):
+        await self.send_json({"handler": handler, "command": command, "data": data})
 
     async def send_command(self, event):
-        await self.send_json({"command": event["command"], "data": event["data"]})
+        if not event['chan_name'] or self.channel_name != event['chan_name']:
+            await self.send_packet(event["handler"], event["command"], event["data"])
 
 
