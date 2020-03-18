@@ -130,8 +130,7 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
 
 class ChatConsumer(WebsocketConsumer):
     def connect(self):
-        self.room_name = self.scope['room_name']
-        self.room_group_name = 'chat_%s' % self.room_name
+        print("user connected")
 
         # Join room group
         async_to_sync(self.channel_layer.group_add)(

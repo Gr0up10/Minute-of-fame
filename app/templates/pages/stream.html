@@ -128,7 +128,7 @@
 	<script>
         let roomName = "{{ room_name|escapejs }}";
         console.log(roomName);
-        let chatSocket = new WebSocket('ws://localhost:8001/ws/chat/test-room');
+        let chatSocket = new WebSocket('ws://localhost/ws/chat/');
         chatSocket.onmessage = function (e) {
             let data = JSON.parse(e.data);
             let message = data['message'];

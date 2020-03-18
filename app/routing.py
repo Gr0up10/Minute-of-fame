@@ -6,7 +6,7 @@ from . import consumers
 
 websocket_urlpatterns = [
     path('ws/', consumers.WSConsumer),
-    re_path(r'ws/chat/(?P<room_name>\w+)/$', consumers.ChatConsumer),
+    re_path('ws/chat/', consumers.ChatConsumer),
 ]
 
 application = ProtocolTypeRouter({
