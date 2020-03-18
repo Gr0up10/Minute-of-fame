@@ -1,4 +1,12 @@
 'use strict'
+ $(function(){
+    $(".dropdown-item").click(function(){
+    $("#dropdownMenuLink").text($(this).text());
+    $('.dropdown-item.active').removeClass("active")
+    $(this).toggleClass('active');
+   });
+
+});
 
 $('#loginModal').on('hidden.bs.modal', function (event) {
     console.log("LOL");
