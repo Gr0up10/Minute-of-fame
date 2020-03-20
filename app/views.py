@@ -34,9 +34,6 @@ def stream_page(request):
         'test': 1
     }
 
-    context['Regform'] = RegisterFormView()
-    context['Logform'] = LoginForm()
-
     return render(request, 'pages/stream.html', context)
 
 
@@ -45,8 +42,6 @@ def login_page(request):
         'pagename': 'Вход',
         'menu': get_menu_context(),
     }
-    context['Regform'] = RegisterFormView()
-    context['Logform'] = LoginForm()
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
@@ -84,8 +79,6 @@ def register_page(request):
     context = dict()
     context['menu'] = get_menu_context()
     context['site_key'] = settings.RECAPTCHA_SITE_KEY
-    context['Regform'] = RegisterFormView()
-    context['Logform'] = LoginForm()
     if request.method == 'POST':
         form = RegisterFormView(request.POST)
         context['form'] = form

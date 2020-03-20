@@ -12,18 +12,17 @@
 				<p class="text-center">If you forget your password you can <a href="" class="link" data-toggle="modal"
 																				data-target="#resetIntroModal" data-dismiss="modal">Reset it</a></p>
 			</div>
-				<button onclick="error('login-warning', '500px', '450px')">TMP</button>
+				<!--<button onclick="error('login-warning', '500px', '450px')">TMP</button>-->
 				<div class="container">
 					<form method="POST" id="add_form" action="/login/">
                         {% csrf_token %}
-						<!--
 						<div class="input-group mb-3 login-input">
-								<i class="fas fa-user login-icons"></i>
+								<!--<i class="fas fa-user login-icons"></i>-->
 								<input name="username" type="text" class="form-control login-input lp" placeholder="Username" aria-label="Username"
                                                                                 aria-describedby="basic-addon1">
 						</div>
 						<div class="input-group mb-3 login-input">
-								<i class="fas fa-lock login-icons"></i>
+								<!--<i class="fas fa-lock login-icons"></i>-->
 								<input name="password" type="password" class="form-control login-input lp" placeholder="Password" aria-label="Password"
                                                                                 aria-describedby="basic-addon1">
 						</div>
@@ -40,7 +39,8 @@
 						<br>
 						<div class="text-center">
 							<h6>Not registered yet, <a href="" class="link" data-toggle="modal" data-target="#regModal" data-dismiss="modal">Sing Up</a></h6>
-						</div> -->
+						</div>
+						<!--  АВАРИЙНЫЙ РЕЖИМ
 						<div class="form-group">
 							<label>Имя пользователя</label>
 							<div class="input"><input type="text" name="username" required="required"></div>
@@ -58,6 +58,7 @@
 							</div>
 							<div class="clear"></div>
 						</div>
+						-->
 					</form>
 				</div>
 		</div>
