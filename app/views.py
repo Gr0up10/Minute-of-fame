@@ -184,6 +184,13 @@ def profile_page(req):
 
     return render(req, 'pages/profile.html', context)
 
+def profile_settings_page(req):
+    context = {
+        'menu': get_menu_context()
+    }
+
+    return render(req, 'pages/profile_settings.html', context)
+
 def about_page(req):
     context = {
         'menu': get_menu_context()
