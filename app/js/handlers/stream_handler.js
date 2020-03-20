@@ -3,7 +3,7 @@ export default class StreamHandler {
         this.socket = socket;
         this.stream = stream;
 
-        stream.onstream = (act) => this.send('queue');
+        stream.onstream = (act) => this.send('queue', act);
     }
 
     handle_message(name, packet) {

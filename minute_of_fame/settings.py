@@ -34,6 +34,7 @@ SECRET_KEY = 'ecw==078()bm0#u^f6))--6jz3nk27rwy04wb6=2f_3rqrsvq*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.getenv('DEBUG', '0') != '0')
+DOCKER = (os.getenv('DOCKER', '0') != '0')
 
 ALLOWED_HOSTS = [os.getenv('ALLOWED_HOST', '*')]
 
@@ -160,7 +161,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('redis', 6379)],
+            "hosts": [('redis', 6379)] if DOCKER else [('localhost', 6379)],
         },
     },
 }

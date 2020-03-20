@@ -4,12 +4,32 @@ export default class Stream {
         this.connection.socketURL = 'http://' + location.hostname + ':9001/';
         this.connection.videosContainer = document.getElementById('stream-box');
 
-        this.user_room_id = document.getElementById('user_room_id');
+        this.connection.onstream = (event) => {
+            this.streaming = true
+            console.log('on stream')
+            if (event.type === 'local') {
+                this.onstream({'type': 'screen', 'id': this.user_room_id});
+            }
+            var video = event.mediaElement;
+            video.id = event.streamid;
+            $('#videos-container').append(video) //document.body.insertBefore(video, document.body.firstChild);
+        };
+
+        this.connection.onstreamended = (event) => {
+            this.streaming = false
+            var video = document.getElementById(event.streamid);
+            if (video && video.parentNode) {
+                $('#videos-container').empty()
+            }
+        };
+
+        this.user_room_id = document.getElementById('user_room_id').value.toString();
 
         this.onstream = ()=>({});
         this.streaming = false;
 
         this.bind_buttons();
+        this.streaming = false
     }
 
     bind_buttons() {
@@ -20,7 +40,7 @@ export default class Stream {
     }
 
     screenStream() {
-        this.onstream('screen');
+
         this.streaming = true;
 
         this.connection.session = {
@@ -32,11 +52,10 @@ export default class Stream {
             OfferToReceiveAudio: false,
             OfferToReceiveVideo: false
         };
-        this.connection.openOrJoin(this.user_room_id.value.toString());
+        this.connection.openOrJoin(this.user_room_id);
     }
 
     webcamStream() {
-        this.onstream('cam');
         this.streaming = true;
         navigator.getMedia = (navigator.getUserMedia || // use the proper vendor prefix
             navigator.webkitGetUserMedia ||
@@ -54,7 +73,7 @@ export default class Stream {
                 OfferToReceiveAudio: true,
                 OfferToReceiveVideo: true
             };
-            this.connection.openOrJoin(this.user_room_id.value.toString());
+            this.connection.openOrJoin(this.user_room_id);
 
         }, function () {
             // webcam is not available
@@ -64,6 +83,7 @@ export default class Stream {
     }
 
     stopStream() {
+        this.streaming = false
         this.connection.getAllParticipants().forEach((pid) => {
             this.connection.disconnectWith(pid);
         });
@@ -78,6 +98,7 @@ export default class Stream {
     }
 
     watchStream(input_room_id) {
+        if(this.streaming) this.stopStream()
         this.connection.checkPresence(input_room_id, (isRoomExist, room_id) => {
             if (isRoomExist === true) {
                 this.connection.session = {

@@ -15,7 +15,7 @@ def get_current_stream():
 
 
 def get_current_stream_id():
-    return get_current_stream().publisher.username
+    return get_current_stream().stream_id
 
 
 def is_stream_active():
@@ -94,7 +94,7 @@ class QueueHandler(Handler):
             stream = await sync_to_async(get_current_stream)()
             stream.active = False
             await sync_to_async(stream.save)()
-        model = Stream(publisher=user)
+        model = Stream(publisher=user, stream_id=packet['id'])
         await sync_to_async(model.save)()
         print(user.username)
         await self.broadcast_current_stream(sender)
@@ -139,7 +139,7 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
     async def receive_json(self, content, **kwargs):
         print(content)
         handler, packet_name = content['handler'], content['message']
-        await find_action(self.handlers[handler], packet_name)(self, content)
+        await find_action(self.handlers[handler], packet_name)(self, content['data'] if 'data' in content else None)
         print('called')
 
     async def send_packet(self, handler, command, data):
@@ -147,6 +147,7 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
 
     async def send_command(self, event):
         if not event['chan_name'] or self.channel_name != event['chan_name']:
+            print(self.channel_name, event['chan_name'])
             await self.send_packet(event["handler"], event["command"], event["data"])
 
 
