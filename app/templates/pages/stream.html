@@ -1,14 +1,11 @@
 {% extends 'bases/base.html' %}
 {% load static %}
-{% load render_bundle from webpack_loader %}
-{% render_bundle 'main' %}
 
 {% block content %}
 <style>
 		video {
 			width: 900px;
 			height: 600px;
-		"
 		}
 
 </style>
@@ -22,18 +19,27 @@
                         <div id="stream-figure-overlay"></div>
                         <h4 id="stream-timer-overlay">5:12</h4>
                         <div id="stream-box">
-                            <input type="hidden" id="user_room_id" value={{ stream_id }}>
+                            <input type="hidden" id="user_room_id" value={{ user.username }}>
                             <div id="videos-container"></div>
                             <script src="https://rawgit.com/muaz-khan/RTCMultiConnection/master/dist/RTCMultiConnection.min.js">
                             </script>
                             <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
+                            {% load static %}
+                            <script src="{% static 'js/streaming.js' %}"></script>
+                           <!-- {#
+                            <script src="{% static 'js/streaming_prototype.js' %}"></script>
+                            #}-->
                             <!-- Перед вставкой видеопотока убрать в классе #stream-box в styles.css захардкоженую высоту (height: 500px;)            -->
                             <img src="{% static 'Pictures/placeholder1.jpg' %}" style="width: 100%;object-fit: cover;">
                         </div>
                     </div>
-                    {% if request.user.is_authenticated %}
                     <div class="col-md-12 stream-buttons">
                         <div>
+                            <button type="button" class="btn stream-btn btn_start" id="btn-connect-webcam"
+                                    onclick="webcam_stream()">
+                                Start
+                                stream
+                            </button>
                             <button type="button" class="btn btn-light stream-btn" id="btn-connect-webcam-DO-NOT-USE-THIS"
                                     onclick="webcam_stream()">Webcam stream
                             </button>
@@ -42,12 +48,17 @@
                                 Screen
                                 stream
                             </button>
-                            <button type="button" class="btn btn-light stream-btn" id="stop-stream">Stop
+                            <button type="button" class="btn btn-light stream-btn" id="stop-stream" onclick="stopStream()">Stop
+                                stream
+                            </button>
+                            <button type="button" class="btn btn-light stream-btn" id="watch-stream" onclick="watchStream()">Watch
                                 stream
                             </button>
                         </div>
+                        <div>
+                            <input id="input_room_id" type="text" placeholder="input room id">
+                        </div>
                     </div>
-                    {% endif %}
                     <div class="col-md-12">
                         <div class="navbar navbar-expand-md mb-3">
                             <div class="container-fluid">
@@ -108,9 +119,11 @@
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block extra_js %}
-    {% load static %}
-    {% render_bundle 'main' 'js' %}
+{% load static %}
+<script src="{% static 'js/streaming.js' %}"></script>
+<script src="{% static 'js/voting.js' %}"></script>
 {% endblock %}

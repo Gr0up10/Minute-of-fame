@@ -3,8 +3,6 @@ staticfiles/
 db.sqlite3
 /venv/
 node_modules/
-webpack-stats.json
-webpack_bundles/
 
 ### Django ###
 *.log
