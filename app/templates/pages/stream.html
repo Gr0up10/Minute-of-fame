@@ -30,33 +30,7 @@
                             <script src="{% static 'js/streaming_prototype.js' %}"></script>
                             #}-->
                             <!-- Перед вставкой видеопотока убрать в классе #stream-box в styles.css захардкоженую высоту (height: 500px;)            -->
-                            <img src="{% static 'Pictures/placeholder1.jpg' %}" style="width: 100%;object-fit: cover;">
-                        </div>
-                    </div>
-                    <div class="col-md-12 stream-buttons">
-                        <div>
-                            <button type="button" class="btn stream-btn btn_start" id="btn-connect-webcam"
-                                    onclick="webcam_stream()">
-                                Start
-                                stream
-                            </button>
-                            <button type="button" class="btn btn-light stream-btn" id="btn-connect-webcam-DO-NOT-USE-THIS"
-                                    onclick="webcam_stream()">Webcam stream
-                            </button>
-                            <button type="button" class="btn btn-light stream-btn" id="btn-connect-screen"
-                                    onclick="screen_stream()">
-                                Screen
-                                stream
-                            </button>
-                            <button type="button" class="btn btn-light stream-btn" id="stop-stream" onclick="stopStream()">Stop
-                                stream
-                            </button>
-                            <button type="button" class="btn btn-light stream-btn" id="watch-stream" onclick="watchStream()">Watch
-                                stream
-                            </button>
-                        </div>
-                        <div>
-                            <input id="input_room_id" type="text" placeholder="input room id">
+                              <img src="{% static 'Pictures/placeholder1.jpg' %}" style="width: 100%;object-fit: cover;">
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -123,7 +97,6 @@
 {% endblock %}
 
 {% block extra_js %}
-{% load static %}
-<script src="{% static 'js/streaming.js' %}"></script>
-<script src="{% static 'js/voting.js' %}"></script>
+    {% load static %}
+    {% render_bundle 'main' 'js' %}
 {% endblock %}
