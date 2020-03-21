@@ -1,14 +1,11 @@
 {% extends 'bases/base.html' %}
 {% load static %}
-{% load render_bundle from webpack_loader %}
-{% render_bundle 'main' %}
 
 {% block content %}
 <style>
 		video {
 			width: 900px;
 			height: 600px;
-		"
 		}
 
 </style>
@@ -22,11 +19,16 @@
                         <div id="stream-figure-overlay"></div>
                         <h4 id="stream-timer-overlay">5:12</h4>
                         <div id="stream-box">
-                            <input type="hidden" id="user_room_id" value={{ stream_id }}>
+                            <input type="hidden" id="user_room_id" value={{ user.username }}>
                             <div id="videos-container"></div>
                             <script src="https://rawgit.com/muaz-khan/RTCMultiConnection/master/dist/RTCMultiConnection.min.js">
                             </script>
                             <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
+                            {% load static %}
+                            <script src="{% static 'js/streaming.js' %}"></script>
+                           <!-- {#
+                            <script src="{% static 'js/streaming_prototype.js' %}"></script>
+                            #}-->
                             <!-- Перед вставкой видеопотока убрать в классе #stream-box в styles.css захардкоженую высоту (height: 500px;)            -->
                               <img src="{% static 'Pictures/placeholder1.jpg' %}" style="width: 100%;object-fit: cover;">
                         </div>
@@ -91,6 +93,7 @@
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block extra_js %}
