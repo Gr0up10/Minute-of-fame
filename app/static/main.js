@@ -130,11 +130,11 @@ $( document ).ready(function() {
   $("#view").addClass( "hide" ).removeClass( "show" );
 });
 });
-
-$(document).ready( function() {
-    $("#fl_inp").change(function(){
-         var filename = $(this).val().replace(/.*\\/, "");
-         $("#fl_nm").html(filename);
-    });
+$(function(){
+  if ( $(window).width() <= 768 ) {
+        $("#info").addClass( "col-sm-12" ).removeClass( "col-sm-6" );
+        $("#username").addClass( "col-sm-12" ).removeClass( "col-sm" );
+        $("#networks").addClass( "col-sm-12" ).removeClass( "col-sm" );
+        $("#chart").addClass( "col-sm-12" ).removeClass( "col-sm-6" );
+  }
 });
-
