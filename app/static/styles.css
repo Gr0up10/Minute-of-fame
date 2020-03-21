@@ -16,6 +16,14 @@ h4, h5{
     font-weight: 600;
 }
 
+input.error {
+ border: 1px solid #ff0000;
+}
+label.error {
+ color: #ff0000;
+ font-weight: normal;
+}
+
 a {
     cursor: pointer;
 }
@@ -27,6 +35,8 @@ a {
     padding-top: 40px;
 }
 .menu-container nav{
+    display: flex;
+    justify-content: flex-end;
     background-color: #333645;
     border-bottom: 3px solid #333645;
 }
@@ -60,9 +70,9 @@ a {
     width: 80px;
 }
 #title{
-    margin: 0 30px 0 20px;
+    margin: 0 0 0 10px;
     font-weight: 700;
-    font-size:200%;
+    font-size:190%;
 
 }
 .inline-block {
@@ -322,8 +332,70 @@ a {
     border: none;
 }
 
-/*----------------------*/
+/*-----------------------*/
+/*----photo selection----*/
+.file_name{
+    margin: 0;
+    color: grey;
+}
+.example-1 .form-group {
+    padding: 1em;
+    margin: 0em 1em 0em 1em;
+}
 
+.photo-modal-footer{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.photo-modal-footer__text{
+    color: grey;
+    padding: 0;
+
+}
+
+.photo-modal-footer__btn{
+    border-radius: 0px;
+}
+
+.example-1 input[type=file] {
+    outline: 0;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none
+}
+
+.example-1 .label {
+    border: 2px dashed grey;
+    border-radius: 5px;
+    display: block;
+    padding: 1.2em;
+    transition: border 300ms ease;
+    cursor: pointer;
+    text-align: center
+}
+
+.example-1 .label i {
+    display: block;
+    font-size: 42px;
+    padding-bottom: 16px
+}
+
+.example-1 .label i,
+.example-1 .label .title {
+    color: grey;
+    transition: 200ms color
+}
+
+.example-1 .label:hover {
+    border: 2px solid #28a745
+}
+
+.example-1 .label:hover i,
+.example-1 .label:hover .title {
+    color: #28a745
+}
+/*-----------------------*/
 /*Profile*/
 .nowrap {
     white-space: nowrap;
@@ -731,6 +803,16 @@ info__sm{
 }
 
 @media screen and (max-width: 768px){
+    .col-sm-6 {
+        flex: auto;
+        max-width: 100%;
+    }
+
+    .photo-modal-footer__text{
+        white-space: inherit;
+        margin: 0;
+    }
+
     .avatar {
         width: 100%;
         height: 518px;
@@ -767,14 +849,15 @@ info__sm{
         text-align: center;
     }
     .info__networks {
-        text-align: left;
-        margin-top: 20px;
-        margin-left: 50px;
-        border: none;
-        padding: 0px;
+    text-align: left;
+    margin-top: 30px;
+    margin-left: 0px;
+    border: none;
+    padding: 30px;
     }
     .info__username {
         margin-top: 20px;
+        margin-left: 40px;
     }
     .info__card-aboutme {
         padding-left: 50px;
@@ -859,6 +942,9 @@ info__sm{
     .settings-textarea {
         width: 80%;
     }
+    .settings-nets-col{
+        flex-basis: auto;
+    }
     .input-group {
         width: 95%;
     }
@@ -904,6 +990,7 @@ info__sm{
     }
     .info__username {
         margin-top: 20px;
+        margin-left: 0;
     }
     .info__card-aboutme {
         padding-left: 35px;
@@ -1106,6 +1193,13 @@ a, a:hover {
     width: 600px;
     height: 450px;
     user-select: None;
+}
+@media screen and (max-width: 768px){
+
+    .modal-content {
+        width: 100%;
+    }
+
 }
 .modal-cont-reg{
     background-color: #333645;
