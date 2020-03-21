@@ -9,6 +9,7 @@
 });
 
 $('#loginModal').on('hidden.bs.modal', function (event) {
+    console.log("LOL");
     error('login-warning', '500px', '450px');
 })
 
@@ -17,13 +18,13 @@ $('#loginModal').on('hidden.bs.modal', function (event) {
 //h - new height
 //def - default height (Maybe change somehow)
 function error(name, h, def){
-    var content = document.getElementsByClassName('modal-content');
-    console.log(getComputedStyle(content[0]).height);
+        var content = document.getElementsByClassName('modal-content');
+        console.log(getComputedStyle(content[0]).height);
 
-    if (document.getElementById(name).classList.contains('d-none')){
-        content[0].style.height = h;
-    } else{
-        content[0].style.height = def;
-    }
-    document.getElementById(name).classList.toggle('d-none');
+        if (document.getElementById(name).classList.contains('d-none')){
+            content[0].style.height = h;
+        } else{
+            content[0].style.height = def;
+        }
+        document.getElementById(name).classList.toggle('d-none');
 }
