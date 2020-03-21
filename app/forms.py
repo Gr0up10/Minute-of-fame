@@ -27,6 +27,7 @@ class RegisterFormView(UserCreationForm):
 
 class LoginForm(forms.Form):
     username = forms.CharField(
+        label="Username",
         max_length=20,
         required=True,
         widget=forms.TextInput(
@@ -37,6 +38,7 @@ class LoginForm(forms.Form):
         )
     )
     password = forms.CharField(
+        label="Password",
         max_length=20,
         required=True,
         widget=forms.PasswordInput(
