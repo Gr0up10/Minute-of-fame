@@ -133,8 +133,20 @@ def profile_page(req):
     context = {
         'menu': get_menu_context()
     }
+    if req.user.is_authenticated:
+
+        forms = Quotes()
+        context['form'] = forms
+        if req.method == 'POST':
+            p = str(req.POST.get('quotes'))
+            item = Profile(user=req.user, quotes=p)
+            item.save()
+            context['p'] = p
+    else:
+        return render(req, 'registration/register.html')
 
     return render(req, 'pages/profile.html', context)
+
 
 def profile_settings_page(req):
     context = {
