@@ -16,6 +16,14 @@ h4, h5{
     font-weight: 600;
 }
 
+input.error {
+ border: 1px solid #ff0000;
+}
+label.error {
+ color: #ff0000;
+ font-weight: normal;
+}
+
 a {
     cursor: pointer;
 }
@@ -27,6 +35,8 @@ a {
     padding-top: 40px;
 }
 .menu-container nav{
+    display: flex;
+    justify-content: flex-end;
     background-color: #333645;
     border-bottom: 3px solid #333645;
 }
@@ -60,9 +70,9 @@ a {
     width: 80px;
 }
 #title{
-    margin: 0 30px 0 20px;
+    margin: 0 0 0 10px;
     font-weight: 700;
-    font-size:200%;
+    font-size:190%;
 
 }
 .inline-block {
@@ -234,7 +244,158 @@ a {
 }
 
 
+/*---Profile Settings---*/
 
+.settings-textarea {
+	overflow: auto;
+	width: 100%;
+	height: 50px;
+	background: #333645;
+	border: none;
+	padding: 8px 0 8px 10px;
+	margin-top : 10px;
+}
+
+.settings-text{
+    padding: 0;
+}
+
+.settings-networks {
+    margin-top: 50px;
+    margin-left: 50px;
+    border-left: 3px solid #333645;
+    padding-left: 30px;
+}
+
+.save-btn{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.aboutme-settings{
+    display: inline-block;
+    border-bottom: solid #d4c074 3px;
+}
+
+.btn_save {
+    padding-left: 2em;
+    padding-right: 2em;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: #ffffff00;
+    border: 3px solid #d4c074;
+    font-size: 20px;
+    font-weight: bolder;
+    display: inline-block;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    overflow: hidden;
+  }
+.btn_save:before {
+    content: "";
+    background-color: rgba(255,255,255,0.5);
+    height: 100%;
+    width: 3em;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -4.5em;
+    transform: skewX(-45deg) translateX(0);
+    transition: none;
+  }
+
+.btn_save:hover {
+    background-color: #d4c074;
+    color: #fff;
+    border-bottom: 4px solid darken(#28a745, 10%);
+    }
+
+.btn_save:hover:before {
+      transform: skewX(-45deg) translateX(13.5em);
+     transition: all 0.5s ease-in-out;
+    }
+
+.settings-input {
+	width: 100%;
+	font-size: 16px;
+	padding: 6px 0 4px 10px;
+	background: #333645;
+	border-radius: 0;
+	border: none;
+}
+
+.input-group-text {
+    width: 45px;
+    background-color: #424556;
+    border: none;
+}
+
+/*-----------------------*/
+/*----photo selection----*/
+.file_name{
+    margin: 0;
+    color: grey;
+}
+.example-1 .form-group {
+    padding: 1em;
+    margin: 0em 1em 0em 1em;
+}
+
+.photo-modal-footer{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.photo-modal-footer__text{
+    color: grey;
+    padding: 0;
+
+}
+
+.photo-modal-footer__btn{
+    border-radius: 0px;
+}
+
+.example-1 input[type=file] {
+    outline: 0;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none
+}
+
+.example-1 .label {
+    border: 2px dashed grey;
+    border-radius: 5px;
+    display: block;
+    padding: 1.2em;
+    transition: border 300ms ease;
+    cursor: pointer;
+    text-align: center
+}
+
+.example-1 .label i {
+    display: block;
+    font-size: 42px;
+    padding-bottom: 16px
+}
+
+.example-1 .label i,
+.example-1 .label .title {
+    color: grey;
+    transition: 200ms color
+}
+
+.example-1 .label:hover {
+    border: 2px solid #28a745
+}
+
+.example-1 .label:hover i,
+.example-1 .label:hover .title {
+    color: #28a745
+}
+/*-----------------------*/
 /*Profile*/
 .nowrap {
     white-space: nowrap;
@@ -318,12 +479,12 @@ a {
 
 .avatar-exit__fa-pencil {
     font-size: xx-large !important;
-    color: #d4c074;
+    color: #ffffff;
 }
 
 .avatar-exit__fa-times {
     font-size: xx-large !important;
-    color: #d4c074;
+    color: #ffffff;
 }
 
 .avatar__img {
@@ -403,6 +564,7 @@ info__sm{
 }
 
 .info__network {
+    color: #ffffff;
     font-size: larger !important;
     margin-right: 10px;
 }
@@ -587,6 +749,14 @@ info__sm{
     .info__network {
         margin-right: 5px;
     }
+
+    .input-group {
+        width: 135%;
+    }
+    .settings-networks {
+        margin-left: 0;
+        padding-left: 0;
+    }
 }
 
 @media screen and (max-width: 1200px){
@@ -633,29 +803,40 @@ info__sm{
 }
 
 @media screen and (max-width: 768px){
-.avatar {
-    width: 100%;
-    height: 518px;
-    overflow: hidden;
-    position: relative;
-    transform: translate(0px,0px);
-}
+    .col-sm-6 {
+        flex: auto;
+        max-width: 100%;
+    }
 
-.avatar__img {
-    display: block;
-    min-width: 100%;
-    min-height: 100%;
-    margin: auto;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    position: absolute;
-}
-.profile-container {
+    .photo-modal-footer__text{
+        white-space: inherit;
+        margin: 0;
+    }
+
+    .avatar {
+        width: 100%;
+        height: 518px;
+        overflow: hidden;
+        position: relative;
+        transform: translate(0px,0px);
+    }
+
+    .avatar__img {
+        display: block;
+        min-width: 100%;
+        min-height: 100%;
+        margin: auto;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        position: absolute;
+    }
+    .profile-container {
         width: 70%;
         display: block;
         transform: translate(0%);
+        top: 90px;
     }
     .card-exit {
         display: none;
@@ -668,14 +849,15 @@ info__sm{
         text-align: center;
     }
     .info__networks {
-        text-align: left;
-        margin-top: 20px;
-        margin-left: 50px;
-        border: none;
-        padding: 0px;
+    text-align: left;
+    margin-top: 30px;
+    margin-left: 0px;
+    border: none;
+    padding: 30px;
     }
     .info__username {
         margin-top: 20px;
+        margin-left: 40px;
     }
     .info__card-aboutme {
         padding-left: 50px;
@@ -744,14 +926,46 @@ info__sm{
     .slider__photo {
         width: 470px !important;
     }
+
+    .settings-input {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .settings-text {
+        text-align: center;
+    }
+    .settings-networks {
+        padding-left: 30px;
+        border: none;
+    }
+    .settings-textarea {
+        width: 80%;
+    }
+    .settings-nets-col{
+        flex-basis: auto;
+    }
+    .input-group {
+        width: 95%;
+    }
+    .input-group-text {
+        border-right: 3px solid #424556;
+        background-color: #333645;
+    }
+    .settings-aboutme-mobile{
+        text-align: center;
+    }
+    .save-btn{
+        margin-top: 20px;
+    }
 }
 
 @media screen and (max-width: 576px){
     .avatar {
-    height: 518px;
-}
+        height: 518px;
+    }
 
-.profile-container {
+    .profile-container {
         width: 100%;
         display: block;
         padding:0px;
@@ -776,6 +990,7 @@ info__sm{
     }
     .info__username {
         margin-top: 20px;
+        margin-left: 0;
     }
     .info__card-aboutme {
         padding-left: 35px;
@@ -978,6 +1193,13 @@ a, a:hover {
     width: 600px;
     height: 450px;
     user-select: None;
+}
+@media screen and (max-width: 768px){
+
+    .modal-content {
+        width: 100%;
+    }
+
 }
 .modal-cont-reg{
     background-color: #333645;

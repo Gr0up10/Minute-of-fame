@@ -6,7 +6,6 @@
 		video {
 			width: 900px;
 			height: 600px;
-		"
 		}
 
 </style>
@@ -29,32 +28,9 @@
 
 
                             <!-- Перед вставкой видеопотока убрать в классе #stream-box в styles.css захардкоженую высоту (height: 500px;)            -->
-                            <img src="{% static 'Pictures/placeholder1.jpg' %}" style="width: 100%;object-fit: cover;">
+                              <img src="{% static 'Pictures/placeholder1.jpg' %}" style="width: 100%;object-fit: cover;">
                         </div>
                     </div>
-                    {% if request.user.is_authenticated %}
-                    <div class="col-md-12 stream-buttons">
-                        <div>
-                            <button type="button" class="btn btn-light stream-btn" id="btn-connect-webcam-DO-NOT-USE-THIS"
-                                    onclick="webcam_stream()">Webcam stream
-                            </button>
-                            <button type="button" class="btn btn-light stream-btn" id="btn-connect-screen"
-                                    onclick="screen_stream()">
-                                Screen
-                                stream
-                            </button>
-                            <button type="button" class="btn btn-light stream-btn" id="stop-stream" onclick="stopStream()">Stop
-                                stream
-                            </button>
-                            <button type="button" class="btn btn-light stream-btn" id="watch-stream" onclick="watchStream()">Watch
-                                stream
-                            </button>
-                        </div>
-                        <div>
-                            <input id="input_room_id" type="text" placeholder="input room id">
-                        </div>
-                    </div>
-                    {% endif %}
                     <div class="col-md-12">
                         <div class="navbar navbar-expand-md mb-3">
                             <div class="container-fluid">
@@ -115,10 +91,10 @@
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block extra_js %}
-{% load static %}
-<script src="{% static 'js/streaming.js' %}"></script>
-<script src="{% static 'js/voting.js' %}"></script>
+    {% load static %}
+    {% render_bundle 'main' 'js' %}
 {% endblock %}
