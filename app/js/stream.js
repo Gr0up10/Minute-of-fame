@@ -5,18 +5,23 @@ export default class Stream {
         this.connection.videosContainer = document.getElementById('stream-box');
 
         this.connection.onstream = (event) => {
-            this.streaming = true
-            console.log('on stream')
+            console.log('on stream', this.streaming)
             if (event.type === 'local') {
                 this.onstream({'type': 'screen', 'id': this.user_room_id});
+                this.streaming = true
             }
             var video = event.mediaElement;
             video.id = event.streamid;
+            console.log(video, video.parentNode)
+            $('#videos-container').empty()
             $('#videos-container').append(video) //document.body.insertBefore(video, document.body.firstChild);
         };
 
         this.connection.onstreamended = (event) => {
-            this.streaming = false
+            if(this.streaming) {
+                this.onstreamstop()
+                return
+            }
             var video = document.getElementById(event.streamid);
             if (video && video.parentNode) {
                 $('#videos-container').empty()
@@ -26,6 +31,7 @@ export default class Stream {
         this.user_room_id = document.getElementById('user_room_id').value.toString();
 
         this.onstream = ()=>({});
+        this.onstreamstop = ()=>({});
         this.streaming = false;
 
         this.bind_buttons();
@@ -84,6 +90,7 @@ export default class Stream {
 
     stopStream() {
         this.streaming = false
+        this.connection.closeEntireSession();
         this.connection.getAllParticipants().forEach((pid) => {
             this.connection.disconnectWith(pid);
         });
@@ -94,7 +101,8 @@ export default class Stream {
         });
 
         // close socket.io connection
-        this.connection.closeSocket();
+        //this.connection.closeSocket();
+
     }
 
     watchStream(input_room_id) {
@@ -110,7 +118,7 @@ export default class Stream {
                 };
                 this.connection.join(room_id);
             } else {
-                alert('Такой комнаты не существует!');
+                console.log("This room is not exists")
             }
         });
     }
