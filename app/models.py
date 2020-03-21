@@ -16,6 +16,7 @@ class Report(models.Model):
 
 class Stream(models.Model):
     publisher = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    stream_id = models.CharField(max_length=16)
     active = models.BooleanField(default=True)
 
 

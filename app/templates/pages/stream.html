@@ -1,5 +1,7 @@
 {% extends 'bases/base.html' %}
 {% load static %}
+{% load render_bundle from webpack_loader %}
+{% render_bundle 'main' %}
 
 {% block content %}
 <style>
@@ -20,16 +22,11 @@
                         <div id="stream-figure-overlay"></div>
                         <h4 id="stream-timer-overlay">5:12</h4>
                         <div id="stream-box">
-                            <input type="hidden" id="user_room_id" value={{ user.username }}>
+                            <input type="hidden" id="user_room_id" value={{ stream_id }}>
                             <div id="videos-container"></div>
                             <script src="https://rawgit.com/muaz-khan/RTCMultiConnection/master/dist/RTCMultiConnection.min.js">
                             </script>
                             <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
-                            {% load static %}
-                            <script src="{% static 'js/streaming.js' %}"></script>
-                            {#
-                            <script src="{% static 'js/streaming_prototype.js' %}"></script>
-                            #}
                             <!-- Перед вставкой видеопотока убрать в классе #stream-box в styles.css захардкоженую высоту (height: 500px;)            -->
                         </div>
                     </div>
@@ -44,15 +41,9 @@
                                 Screen
                                 stream
                             </button>
-                            <button type="button" class="btn btn-light stream-btn" id="stop-stream" onclick="stopStream()">Stop
+                            <button type="button" class="btn btn-light stream-btn" id="stop-stream">Stop
                                 stream
                             </button>
-                            <button type="button" class="btn btn-light stream-btn" id="watch-stream" onclick="watchStream()">Watch
-                                stream
-                            </button>
-                        </div>
-                        <div>
-                            <input id="input_room_id" type="text" placeholder="input room id">
                         </div>
                     </div>
                     {% endif %}
@@ -119,7 +110,6 @@
 {% endblock %}
 
 {% block extra_js %}
-{% load static %}
-<script src="{% static 'js/streaming.js' %}"></script>
-<script src="{% static 'js/voting.js' %}"></script>
+    {% load static %}
+    {% render_bundle 'main' 'js' %}
 {% endblock %}

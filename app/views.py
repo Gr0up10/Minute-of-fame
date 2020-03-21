@@ -1,3 +1,6 @@
+import random
+import string
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
@@ -27,21 +30,20 @@ def get_menu_context():
 
 
 def stream_page(request):
-
-    context = {
-        'pagename': 'Главная',
-        'menu': get_menu_context(),
-        'test': 1
-    }
-
+    context = {'pagename': 'Главная', 'menu': get_menu_context(),
+               'test': 1,
+               # 'Regform': RegisterFormView(),
+               # 'Logform': LoginForm(),
+               'stream_id': ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(16))}
     return render(request, 'pages/stream.html', context)
 
 
 def login_page(request):
-    context = {
-        'pagename': 'Вход',
-        'menu': get_menu_context(),
-    }
+    context = {'pagename': 'Вход',
+               'menu': get_menu_context()
+               # 'Regform': RegisterFormView(),
+               # 'Logform': LoginForm()
+               }
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
