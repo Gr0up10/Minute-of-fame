@@ -8,7 +8,6 @@ from .models import *
 from django.contrib.auth.decorators import login_required
 
 
-
 def stream_test(request, num):
     item = PollStat(poll_result=0, likes=0, dislikes=0)
     item.save()
@@ -28,7 +27,6 @@ def get_menu_context():
 
 
 def stream_page(request):
-
     context = {
         'pagename': 'Главная',
         'menu': get_menu_context(),
@@ -181,8 +179,21 @@ def profile_page(req):
     context = {
         'menu': get_menu_context()
     }
+    if req.user.is_authenticated:
+
+        forms = Quotes()
+        context['form'] = forms
+        if req.method == 'POST':
+            p = str(req.POST.get('quotes'))
+            item = Profile(user=User, quotes=p)
+            item.save()
+            p = Quotes.objects.filter(user=req.user)
+            context['p'] = p
+    else:
+        return render(req, 'registration/register.html')
 
     return render(req, 'pages/profile.html', context)
+
 
 def profile_settings_page(req):
     context = {
@@ -191,6 +202,7 @@ def profile_settings_page(req):
 
     return render(req, 'pages/profile_settings.html', context)
 
+
 def about_page(req):
     context = {
         'menu': get_menu_context()
@@ -198,14 +210,15 @@ def about_page(req):
 
     return render(req, 'pages/about.html', context)
 
+
 @login_required()
 def report_page(request, badass_id):
     context = {
         'menu': get_menu_context(),
-        'Form': ReportForm(initial={'badass': badass_id,'sender': request.user.id}),
+        'Form': ReportForm(initial={'badass': badass_id, 'sender': request.user.id}),
     }
     if request.method == 'GET':
-        return render(request,'pages/report.html',context)
+        return render(request, 'pages/report.html', context)
     if request.method == 'POST':
         report = ReportForm(request.POST)
         if report.is_valid():

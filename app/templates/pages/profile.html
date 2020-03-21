@@ -45,7 +45,7 @@
                 <div id="info" class="col-sm-6 info">
                     <div class="row">
                         <div id="username" class="col-sm info__sm">
-                            <h4 class="info__username">Name<br>Surname</h4>
+                            <h4 class="info__username">{{user}}</h4>
                         </div>
                         <div id="networks" class="col-sm">
                             <div class="container info__networks">
@@ -53,7 +53,7 @@
                                 <nobr>Location</nobr>
                                 <br>
                                 <i class="fa fa-envelope info__gold-color" aria-hidden="true"></i>
-                                <nobr>Email</nobr>
+                                <nobr>Email: </nobr>
                                 <br><br>
                                 <i class="fa fa-vk info__network" aria-hidden="true"></i>
                                 <i class="fa fa-instagram info__network" aria-hidden="true"></i>
@@ -68,15 +68,14 @@
                             <h4 class="info__aboutme">About me:</h4>
                             <br>
                             <div class="container info__text">
-                                <p>For example: Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                                    Aenean commodo ligula eget dolor. Aenean massa.
-                                    Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                                    Donec quam felis, ultricies nec,
-                                    pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo,
-                                    fringilla vel, aliquet nec, vulputate eget,
-                                    arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum
-                                    felis eu pede mollis pretium. Integer tincidunt.
-                                    Cras dapibus.</p>
+                                <form action="/profile/" method="POST">
+                                    {% csrf_token %}
+                                    {{form}}
+                                    <input type="submit" value="задать статус">
+
+                                </form>
+
+                                <p>{{p.quotes}}</p>
                             </div>
                         </div>
                     </div>
