@@ -37,9 +37,11 @@ a {
         padding-top: 0;
     }
     .menu-container nav{
-        width: 90%;
+        width: 100%;
+        padding-left: 5%;
+        padding-right: 5%;
         margin: auto;
-        margin-top: 10px;
+        padding-top: 20px;
         background-color: #333645;
         padding-bottom: 10px;
         border-bottom: 3px solid #333645;
@@ -48,9 +50,8 @@ a {
 
 .menu-container{
     background-color: #333645;
-    margin-bottom: 3vh;
+    margin-bottom: 1vh;
     margin-left: 6vw;
-    padding-bottom: 20px;
     padding: 40px;
     border-bottom: 3px solid #333645;
     diplay: inline-block;
