@@ -74,7 +74,8 @@ class PollHandler(Handler):
 
     @staticmethod
     def vote(sender, like):
-        PollStat(user=sender.scope["user"], stream=get_current_stream(), vote=LikeDislike.LIKE if like else LikeDislike.DISLIKE).save()
+        PollStat(user=sender.scope["user"], stream=get_current_stream(),
+                 vote=LikeDislike.LIKE if like else LikeDislike.DISLIKE).save()
 
 
 class QueueHandler(Handler):
@@ -109,8 +110,8 @@ class QueueHandler(Handler):
         print(is_streaming)
         if is_streaming:
             print('someone streaming')
-            #sender.send_json({"error": "Someone is streaming right now"})
-            #return
+            # sender.send_json({"error": "Someone is streaming right now"})
+            # return
             stream = await sync_to_async(get_current_stream)()
             stream.active = False
             await sync_to_async(stream.save)()
@@ -125,6 +126,18 @@ class QueueHandler(Handler):
         for i in range(time, 0, -1):
             await self.send_broadcast('set_time', {'time': i})
             await asyncio.sleep(1)
+
+
+class ChatHandler(Handler):
+    name = 'chat'
+
+    @action(command='send_message')
+    async def send_message(self, sender, packet):
+        print('sending message packet', packet)
+        print('sending message', sender)
+        await self.send_broadcast('send_message', {
+            'data': packet
+        })
 
 
 class WSConsumer(AsyncJsonWebsocketConsumer):

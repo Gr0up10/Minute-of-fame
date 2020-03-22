@@ -27,7 +27,6 @@
                             <script src="https://rawgit.com/muaz-khan/RTCMultiConnection/master/dist/RTCMultiConnection.min.js">
                             </script>
                             <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
-                            <!-- Перед вставкой видеопотока убрать в классе #stream-box в styles.css захардкоженую высоту (height: 500px;)            -->
                               <img src="{% static 'Pictures/placeholder1.jpg' %}" style="width: 100%;object-fit: cover;">
                         </div>
                     </div>
@@ -70,6 +69,9 @@
 
             <div class="col-md-4">
                 <div id="chat-box">
+	                <textarea id="chat-log" cols="50" rows="20" readonly></textarea><br/>
+					<textarea type="text" id="chat-message-input" class="inline-block flex-fill"></textarea>
+					<input id="chat-message-submit" type="button" value="Send"/>
                     <div class="chat-message d-flex">
                         <p><b>Somebody: </b> once told me</p>
                     </div>
@@ -78,7 +80,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <textarea type="text" id="chat-message-input" class="inline-block flex-fill"></textarea>
+
                     <div>
                         <button type="button" class="btn btn-dark inline-block" id="send-chat-message">
                             <img src="{% static 'send.svg' %}">
