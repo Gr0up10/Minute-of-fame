@@ -1,6 +1,8 @@
 FROM maplegend/node_python:master
 ENV PYTHONUNBUFFERED 1
 ENV DOCKER 1
+ARG DEBUG=1
+ENV DEBUG $DEBUG
 RUN mkdir /code
 WORKDIR /code
 COPY requirements.txt /code/
