@@ -1,3 +1,6 @@
+import random
+import string
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
@@ -27,26 +30,20 @@ def get_menu_context():
 
 
 def stream_page(request):
-    context = {
-        'pagename': 'Главная',
-        'menu': get_menu_context(),
-        'test': 1,
-        'room_name': 'test-room'
-    }
-
-    context['Regform'] = RegisterFormView()
-    context['Logform'] = LoginForm()
-
+    context = {'pagename': 'Главная', 'menu': get_menu_context(),
+               'test': 1,
+               # 'Regform': RegisterFormView(),
+               # 'Logform': LoginForm(),
+               'stream_id': ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(16))}
     return render(request, 'pages/stream.html', context)
 
 
 def login_page(request):
-    context = {
-        'pagename': 'Вход',
-        'menu': get_menu_context(),
-    }
-    context['Regform'] = RegisterFormView()
-    context['Logform'] = LoginForm()
+    context = {'pagename': 'Вход',
+               'menu': get_menu_context()
+               # 'Regform': RegisterFormView(),
+               # 'Logform': LoginForm()
+               }
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
@@ -84,8 +81,6 @@ def register_page(request):
     context = dict()
     context['menu'] = get_menu_context()
     context['site_key'] = settings.RECAPTCHA_SITE_KEY
-    context['Regform'] = RegisterFormView()
-    context['Logform'] = LoginForm()
     if request.method == 'POST':
         form = RegisterFormView(request.POST)
         context['form'] = form
@@ -141,6 +136,12 @@ def profile_page(req):
 
     return render(req, 'pages/profile.html', context)
 
+def profile_settings_page(req):
+    context = {
+        'menu': get_menu_context()
+    }
+
+    return render(req, 'pages/profile_settings.html', context)
 
 def about_page(req):
     context = {
@@ -154,10 +155,10 @@ def about_page(req):
 def report_page(request, badass_id):
     context = {
         'menu': get_menu_context(),
-        'Form': ReportForm(initial={'badass': badass_id, 'sender': request.user.id}),
+        'Form': ReportForm(initial={'badass': badass_id,'sender': request.user.id}),
     }
     if request.method == 'GET':
-        return render(request, 'pages/report.html', context)
+        return render(request,'pages/report.html',context)
     if request.method == 'POST':
         report = ReportForm(request.POST)
         if report.is_valid():
@@ -168,13 +169,3 @@ def report_page(request, badass_id):
         else:
             messages.add_message(request, messages.ERROR, 'Form is not valid')
             return render(request, 'pages/report.html', context)
-
-
-# def chat_render(request):
-#     return render(request, 'chat/index.html', {})
-
-
-def room(request, room_name):
-    return render(request, 'chat/room.html', {
-        'room_name': room_name
-    })

@@ -34,6 +34,7 @@ SECRET_KEY = 'ecw==078()bm0#u^f6))--6jz3nk27rwy04wb6=2f_3rqrsvq*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.getenv('DEBUG', '0') != '0')
+DOCKER = (os.getenv('DOCKER', '0') != '0')
 
 ALLOWED_HOSTS = [os.getenv('ALLOWED_HOST', '*')]
 
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'channels',
+    'webpack_loader',
 ]
 
 MIDDLEWARE = [
@@ -159,7 +161,8 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('redis', 6379)],
+            "hosts": [('redis', 6379)] if DOCKER else [('localhost', 6379)],
+            'capacity': 1500000,
         },
     },
 }
@@ -168,5 +171,17 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
         'LOCATION': 'my_cache_table',
+    }
+}
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': 'webpack_bundles/', # must end with slash
+        'STATS_FILE': os.path.join(BASE_DIR, 'app/js/webpack-stats.json'),
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None,
+        'IGNORE': [r'.+\.hot-update.js', r'.+\.map'],
+        'LOADER_CLASS': 'webpack_loader.loader.WebpackLoader',
     }
 }

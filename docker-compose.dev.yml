@@ -1,0 +1,14 @@
+version: '3'
+services:
+  multi_connection:
+    image: maplegend/multi_connection:master
+    command: node server --port 9001
+    ports:
+      - 9001:9001
+
+  redis:
+    image: redis:4.0.5-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    hostname: redis
+    ports:
+      - 6379:6379

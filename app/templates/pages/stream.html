@@ -1,165 +1,97 @@
 {% extends 'bases/base.html' %}
 {% load static %}
+{% load render_bundle from webpack_loader %}
+{% render_bundle 'main' %}
 
 {% block content %}
-	<style>
+<style>
 		video {
 			width: 900px;
 			height: 600px;
 		"
 		}
 
-	</style>
+</style>
 
-	<div class="d-flex align-items-stretch">
-		<div class="stream-container flex-fill">
-			<div class="row" style="margin-top: 2vh">
-				<div class="col-md-8">
-					<div class="row">
-						<div class="col-md-12">
-							<div id="stream-figure-overlay"></div>
-							<h4 id="stream-timer-overlay">5:12</h4>
-							<div id="stream-box">
-								<input type="hidden" id="user_room_id" value={{ user.username }}>
-								<div id="videos-container"></div>
-								<script src="https://rawgit.com/muaz-khan/RTCMultiConnection/master/dist/RTCMultiConnection.min.js">
-								</script>
-								<script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
-								{% load static %}
-								<script src="{% static 'js/streaming.js' %}"></script>
-							</div>
-						</div>
-						{% if request.user.is_authenticated %}
-							<div class="col-md-12 stream-buttons">
-								<div>
-									<button type="button" class="btn stream-btn btn_start" id="btn-connect-webcam"
-									        onclick="webcam_stream()">
-										Start
-										stream
-									</button>
-									<button type="button" class="btn btn-light stream-btn"
-									        id="btn-connect-webcam-DO-NOT-USE-THIS"
-									        onclick="webcam_stream()">Webcam stream
-									</button>
-									<button type="button" class="btn btn-light stream-btn" id="btn-connect-screen"
-									        onclick="screen_stream()">
-										Screen
-										stream
-									</button>
-									<button type="button" class="btn btn-light stream-btn" id="stop-stream"
-									        onclick="stopStream()">Stop
-										stream
-									</button>
-									<button type="button" class="btn btn-light stream-btn" id="watch-stream"
-									        onclick="watchStream()">Watch
-										stream
-									</button>
-								</div>
-								<div>
-									<input id="input_room_id" type="text" placeholder="input room id">
-								</div>
-							</div>
-						{% endif %}
-						<div class="col-md-12">
-							<div class="navbar navbar-expand-md mb-3">
-								<div class="container-fluid">
-									<h2>Stream title</h2>
-									<button type="button" class="navbar-toggler btn btn-outline-light"
-									        data-toggle="collapse"
-									        data-target="#navbarCollapse">
-										info
-									</button>
-									<div class="collapse navbar-collapse" id="navbarCollapse">
-										<div id="stream-info-container" class="bd-highlight w-50">
-											<h5 class="secondary-text">Streamer alias: <b>UltimateDoge487</b></h5>
-											<h5 class="secondary-text">Viewers: <b>80082</b></h5>
-										</div>
+<div class="d-flex align-items-stretch">
+    <div class="stream-container flex-fill">
+        <div class="row" style="margin-top: 2vh">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="stream-figure-overlay"></div>
+                        <h4 id="stream-timer-overlay">5:12</h4>
+                        <div id="stream-box">
+                            <input type="hidden" id="user_room_id" value={{ stream_id }}>
+                            <div id="videos-container"></div>
+                            <script src="https://rawgit.com/muaz-khan/RTCMultiConnection/master/dist/RTCMultiConnection.min.js">
+                            </script>
+                            <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
+                            <!-- Перед вставкой видеопотока убрать в классе #stream-box в styles.css захардкоженую высоту (height: 500px;)            -->
+                              <img src="{% static 'Pictures/placeholder1.jpg' %}" style="width: 100%;object-fit: cover;">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="navbar navbar-expand-md mb-3">
+                            <div class="container-fluid">
+                                <h2>Stream title</h2>
+                                <button type="button" class="navbar-toggler btn btn-outline-light"
+                                        data-toggle="collapse"
+                                        data-target="#navbarCollapse">
+                                    info
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbarCollapse">
+                                    <div id="stream-info-container" class="bd-highlight w-50">
+                                        <h5 class="secondary-text">Streamer alias: <b>UltimateDoge487</b></h5>
+                                        <h5 class="secondary-text">Viewers: <b>80082</b></h5>
+                                    </div>
+                                    <p id="likes"></p>
+                                    <button id="like-stream"
+                                            class="flex-sm-fill btn btn-outline-success align-self-stretch">
+                                        <img class="like-img inline-block center-align"
+                                             src="{% static 'thumb-green.svg' %}">
+                                        <br>
+                                        <h4 class="inline-block center-align">Kek</h4>
+                                    </button>
 
+                                    <button id="dislike-stream"
+                                            class="flex-sm-fill btn btn-outline-danger align-self-stretch">
+                                        <img class="dislike-img inline-block center-align"
+                                             src="{% static 'thumb-red.svg' %}">
+                                        <br>
+                                        <h4 class="inline-block center-align">Cringe</h4>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-										<p id="likes"></p>
-										<button id="like-stream"
-										        class="flex-sm-fill btn btn-outline-success align-self-stretch">
-											<img class="like-img inline-block center-align"
-											     src="{% static 'thumb-green.svg' %}">
-											<br>
-											<h4 class="inline-block center-align">Kek</h4>
-										</button>
-
-										<button id="dislike-stream"
-										        class="flex-sm-fill btn btn-outline-danger align-self-stretch">
-											<img class="dislike-img inline-block center-align"
-											     src="{% static 'thumb-red.svg' %}">
-											<br>
-											<h4 class="inline-block center-align">Cringe</h4>
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4">
-					<div id="chat-box">
-						<div class="chat-message d-flex">
-							<p><b>Somebody: </b> once told me</p>
-						</div>
-						<div class="chat-message d-flex">
-							<p><b>this_world: </b>is gonna roll me</p>
-						</div>
-
-						<textarea id="chat-log" cols="100" rows="20" readonly></textarea><br/>
-						<input id="chat-message-input" type="text" size="100"/><br/>
-						<input id="chat-message-submit" type="button" value="Send"/>
-
-						<input type="hidden" id="chat-room-id" value="test-room">
-					</div>
-					<div class="d-flex justify-content-between">
-						<div>
-							<button type="button" class="btn btn-dark inline-block" id="send_button">
-								<img src="{% static 'send.svg' %}">
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script>
-        let roomName = "{{ room_name|escapejs }}";
-        console.log(roomName);
-        let chatSocket = new WebSocket('ws://localhost/ws/chat/');
-        chatSocket.onmessage = function (e) {
-            let data = JSON.parse(e.data);
-            let message = data['message'];
-            document.querySelector('#chat-log').value += (message + '\n');
-        };
-
-        chatSocket.onclose = function (e) {
-            console.error('Chat socket closed unexpectedly');
-        };
-
-        document.querySelector('#chat-message-input').focus();
-        document.querySelector('#chat-message-input').onkeyup = function (e) {
-            if (e.keyCode === 13) {  // enter, return
-                document.querySelector('#chat-message-submit').click();
-            }
-        };
-
-        document.querySelector('#chat-message-submit').onclick = function (e) {
-            let messageInputDom = document.querySelector('#chat-message-input');
-            let message = messageInputDom.value;
-            chatSocket.send(JSON.stringify({
-                'message': message
-            }));
-
-            messageInputDom.value = '';
-        };
-	</script>
+            <div class="col-md-4">
+                <div id="chat-box">
+                    <div class="chat-message d-flex">
+                        <p><b>Somebody: </b> once told me</p>
+                    </div>
+                    <div class="chat-message d-flex">
+                        <p><b>this_world: </b>is gonna roll me</p>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <textarea type="text" id="chat-message-input" class="inline-block flex-fill"></textarea>
+                    <div>
+                        <button type="button" class="btn btn-dark inline-block" id="send-chat-message">
+                            <img src="{% static 'send.svg' %}">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block extra_js %}
-
-	{% load static %}
-
+    {% load static %}
+    {% render_bundle 'main' 'js' %}
 {% endblock %}
