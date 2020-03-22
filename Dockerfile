@@ -7,6 +7,6 @@ COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 COPY . /code/
 RUN python manage.py migrate
-RUN python manage.py collectstatic
 RUN python manage.py createcachetable
 RUN cd app/js && npm install && npm run build
+RUN python manage.py collectstatic
