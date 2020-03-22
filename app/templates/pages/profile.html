@@ -4,23 +4,23 @@
 {% block content %}
 <div class="d-flex align-items-stretch center">
         <div class="card-exit">
-            <a class="card-exit__pencil" href="/profile-settings/">
+            <div class="card-exit__pencil">
                 <i class="fa fa-pencil-square-o card-exit__fa-pencil" aria-hidden="true"></i>
-            </a>
-            <a class="card-exit__times" href="/">
+            </div>
+            <div class="card-exit__times">
                 <i class="fa fa-times card-exit__fa-times" aria-hidden="true"></i>
-            </a>
+            </div>
         </div>
         <div class="profile-container">
             <div class="row no-gutters">
                 <div class="avatar">
                     <div class="avatar-exit">
-                        <a class="avatar-exit__pencil" href="/profile-settings/">
+                        <div class="avatar-exit__pencil">
                             <i class="fa fa-pencil-square-o avatar-exit__fa-pencil" aria-hidden="true"></i>
-                        </a>
-                        <a class="avatar-exit__times" href="/">
+                        </div>
+                        <div class="avatar-exit__times">
                             <i class="fa fa-times avatar-exit__fa-times" aria-hidden="true"></i>
-                        </a>
+                        </div>
                     </div>
                     <div class="avatar__upload">
                         <i class="fa fa-camera avatar_camera" aria-hidden="true"></i>
@@ -42,12 +42,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 info">
+                <div id="info" class="col-sm-6 info">
                     <div class="row">
-                        <div class="col-sm info__sm">
+                        <div id="username" class="col-sm info__sm">
                             <h4 class="info__username">Name<br>Surname</h4>
                         </div>
-                        <div class="col-sm">
+                        <div id="networks" class="col-sm">
                             <div class="container info__networks">
                                 <i class="fa fa-map-marker info__gold-color" aria-hidden="true"></i>
                                 <nobr>Location</nobr>
@@ -148,7 +148,7 @@
                                 <a id="mfame-text" href="#fame" class="tab__a tab__a-border">FAME LEVEL</a>
                                 <a id="mview-text" href="#view" class="tab__a">VIEWS</a>
                             </div>
-                        <div class="col-sm-6 chart">
+                        <div id="chart" class="col-sm-6 chart">
                             <div id="fame" class="conteiner show chart__size">
                                 <canvas id="lineCahrt" width="400" height="300" class="chart__js chart__size"></canvas>
                             </div>
