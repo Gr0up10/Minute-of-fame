@@ -147,7 +147,8 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
         super().__init__(*args, **kwargs)
         self.handlers = [
             PollHandler(self),
-            QueueHandler(self)
+            QueueHandler(self),
+            ChatHandler(self)
         ]
 
         self.handlers = {h.name: h for h in self.handlers}
