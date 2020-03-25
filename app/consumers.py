@@ -134,7 +134,7 @@ class ChatHandler(Handler):
     @action(command='send_message')
     async def send_message(self, sender, packet):
         print('sending message packet', packet)
-        print('sending message', sender)
+        print('sending message sender', sender)
         await self.send_broadcast('send_message', {
             'data': packet
         })

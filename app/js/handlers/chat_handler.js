@@ -19,16 +19,20 @@ export default class ChatHandler {
         };
     }
 
-    handle_message(packet, name) {
-        console.debug('asdafds');
-        document.querySelector('#chat-box').value += (packet + name + '\n');
+    handle_message(name, packet) {
+        // document.querySelector('#chat-box').value += (packet + name + '\n');
+        let chat_box = document.getElementById("chat-box");
+        let message = document.createElement('div');
+        message.className = "chat-message d-flex";
+        message.innerHTML = packet.data;
+        chat_box.appendChild(message);
     }
 
     send_message() {
         let messageInputDom = document.querySelector('#chat-message-input');
         let message = messageInputDom.value.toString();
         console.log(message);
-        this.send('send_message', message, message);
+        this.send('send_message', message);
         messageInputDom.value = '';
 
     }
