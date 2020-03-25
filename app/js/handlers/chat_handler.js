@@ -19,8 +19,10 @@ export default class ChatHandler {
         };
     }
 
-    get_message(packet){
-        let nickname = "user: ";
+    get_message(packet) {
+        let nickname = packet.nickname.toString();
+        nickname += ': ';
+
         let message = document.createElement('div'); // message block
         message.className = "chat-message d-flex";
 
@@ -50,8 +52,15 @@ export default class ChatHandler {
         let messageInputDom = document.querySelector('#chat-message-input');
         let message = messageInputDom.value.toString();
         console.log(message);
-        this.send('send_message', message);
-        messageInputDom.value = '';
+        if (message) {
+            let nickname = 'user';
+            let packet = {
+            'message': message,
+            'nickname': nickname
+            };
+            this.send('send_message', packet);
+            messageInputDom.value = '';
+        }
 
     }
 };
