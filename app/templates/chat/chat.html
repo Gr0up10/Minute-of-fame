@@ -1,0 +1,21 @@
+{% block content %}
+	<div class="col-md-4">
+		<div id="chat-box">
+			<div class="chat-message d-flex">
+				<p><b>Somebody: </b> once told me</p>
+			</div>
+			<div class="chat-message d-flex">
+				<p><b>this_world: </b>is gonna roll me</p>
+			</div>
+		</div>
+		<div class="d-flex justify-content-between">
+			<textarea type="text" id="chat-message-input" class="inline-block flex-fill"></textarea>
+			<div>
+				<button type="button" class="btn btn-dark inline-block" id="chat-message-submit">
+					{% load static %}
+					<img src="{% static 'send.svg' %}" alt="send-button">
+				</button>
+			</div>
+		</div>
+	</div>
+{% endblock %}

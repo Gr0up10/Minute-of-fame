@@ -21,7 +21,7 @@ export default class ChatHandler {
 
     handle_message(packet, name) {
         console.debug('asdafds');
-        document.querySelector('#chat-log').value += (packet + name + '\n');
+        document.querySelector('#chat-box').value += (packet + name + '\n');
     }
 
     send_message() {
