@@ -136,7 +136,7 @@ class ChatHandler(Handler):
         print('sending message packet', packet)
         print('sending message sender', sender)
         await self.send_broadcast('send_message', {
-            'data': packet
+            'message': packet
         })
 
 

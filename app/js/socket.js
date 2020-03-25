@@ -2,7 +2,7 @@ export default class Socket {
     constructor() {
         this.socket = undefined;
 
-        this.onpacket = ()=>({});
+        this.onpacket = () => ({});
     }
 
     get isConnected() {
@@ -11,14 +11,14 @@ export default class Socket {
     }
 
     connect() {
-        if(this.isConnected) return;
-        let addr = 'ws://'+ window.location.host +'/ws/';
+        if (this.isConnected) return;
+        let addr = 'ws://' + window.location.host + '/ws/';
         this.socket = new WebSocket(addr);
         this.socket.onopen = this.connected;
-        console.log('Connecting to '+addr)
+        console.log('Connecting to ' + addr);
 
         this.socket.onmessage = (event) => {
-            console.log(event.data)
+            console.log(event.data);
             this.onpacket(JSON.parse(event.data))
         }
     }
@@ -28,7 +28,7 @@ export default class Socket {
     }
 
     send(handler, message, packet) {
-        console.log(handler, message, packet)
+        console.log(handler, message, packet);
         this.socket.send(JSON.stringify({'handler': handler, 'message': message, 'data': packet}))
     }
 }

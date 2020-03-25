@@ -19,12 +19,30 @@ export default class ChatHandler {
         };
     }
 
-    handle_message(name, packet) {
-        // document.querySelector('#chat-box').value += (packet + name + '\n');
-        let chat_box = document.getElementById("chat-box");
-        let message = document.createElement('div');
+    get_message(packet){
+        let nickname = "user: ";
+        let message = document.createElement('div'); // message block
         message.className = "chat-message d-flex";
-        message.innerHTML = packet.data;
+
+        let p_tag = document.createElement('p'); // message paragraph
+        let b_tag = document.createElement('b'); // nickname
+
+        let text_message = document.createElement('div'); // message text
+        b_tag.innerHTML = nickname;
+
+        text_message.innerHTML = packet.message;
+        p_tag.appendChild(b_tag);
+
+        p_tag.appendChild(text_message);
+        message.appendChild(p_tag);
+
+        return message;
+    }
+
+    handle_message(name, packet) {
+        let chat_box = document.getElementById("chat-box");
+        let message = this.get_message(packet);
+
         chat_box.appendChild(message);
     }
 
