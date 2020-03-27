@@ -138,7 +138,21 @@ a {
     height: 35vh;
     background-color: #424556;
     margin-bottom: 20px;
+    overflow-y: scroll;
 }
+
+#chat-box::-webkit-scrollbar { width: 8px; }
+
+#chat-box::-webkit-scrollbar-track {
+  background: #585b6c;
+  border-radius: 5px;
+}
+
+#chat-box::-webkit-scrollbar-thumb {
+  background: #83848e;
+  border-radius: 5px;
+}
+
 @media screen and (min-width: 768px){
     #chat-box{
         height: 80vh;
