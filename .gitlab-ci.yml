@@ -1,0 +1,27 @@
+variables:
+  DOCKER_DRIVER: overlay
+
+docker-build:
+  # Official docker image.
+  image: gitlab/dind:latest
+  stage: build
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
+  script:
+    - docker build -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+  tags:
+    - main
+  only:
+    - "master"
+
+deploy:
+  stage: deploy
+  trigger:
+    project: 2019-2020/online/s101/group-10/minute-of-fame-production
+    branch: master
+    strategy: depend
+  only:
+    - "master"

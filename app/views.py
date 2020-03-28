@@ -1,3 +1,6 @@
+import random
+import string
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
@@ -8,33 +11,39 @@ from .models import *
 from django.contrib.auth.decorators import login_required
 
 
-
 def stream_test(request, num):
+    item = PollStat(poll_result=0, likes=0, dislikes=0)
+    item.save()
     return render(request, 'page{}.html'.format(num))
+
+
+def screen_share(request):
+    return render(request, 'screen_share_test.html')
 
 
 def get_menu_context():
     return [
         {'url': '/', 'name': 'Home'},
-        {'url': '/categories', 'name': 'Categories'},
+        # {'url': '/categories', 'name': 'Categories'},
         {'url': '/about/', 'name': 'About'},
     ]
 
 
 def stream_page(request):
-    context = {
-        'pagename': 'Главная',
-        'menu': get_menu_context(),
-        'test': 1
-    }
+    context = {'pagename': 'Главная', 'menu': get_menu_context(),
+               'test': 1,
+               # 'Regform': RegisterFormView(),
+               # 'Logform': LoginForm(),
+               'stream_id': ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(16))}
     return render(request, 'pages/stream.html', context)
 
 
 def login_page(request):
-    context = {
-        'pagename': 'Вход',
-        'menu': get_menu_context(),
-    }
+    context = {'pagename': 'Вход',
+               'menu': get_menu_context()
+               # 'Regform': RegisterFormView(),
+               # 'Logform': LoginForm()
+               }
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
@@ -59,7 +68,7 @@ def login_page(request):
     else:
         login_form = LoginForm()
         context['form'] = login_form
-    return render(request, 'registration/login.html', context)
+    return render(request, 'pages/stream.html', context)
 
 
 def logout_page(request):
@@ -94,22 +103,30 @@ def register_page(request):
                 print(result_json)
 
                 if not result_json.get('success'):
-                    return render(request, 'registration/register.html', {'is_robot': True})
+                    # return render(request, 'registration/register.html', {'is_robot': True})
+                    return render(request, 'pages/stream.html', {'is_robot': True})
                 # end captcha verification
 
                 if _user.is_active:
                     login(request, _user)
                     messages.add_message(request, messages.SUCCESS, 'Вы успешно зарегистрировались')
                     return redirect('index')
+
+                user = authenticate(request, username=username, password=my_password)
+                if user is not None:
+                    login(request, user)
+                    messages.add_message(request, messages.SUCCESS, "Авторизация успешна")
+                    return redirect('index')
             else:
                 messages.add_message(request, messages.ERROR, 'Аккаунт с этой почтой уже существует')
         else:
             messages.add_message(request, messages.ERROR, 'Вы ввели неверные данные')
-        return render(request, 'registration/register.html', context)
+        # return render(request, 'registration/register.html', context)
     else:
         form = RegisterFormView()
         context['form'] = form
-        return render(request, 'registration/register.html', context)
+        # return render(request, 'registration/register.html', context)
+        return render(request, 'pages/stream.html', context)
 
 
 def profile_page(req):
@@ -119,12 +136,20 @@ def profile_page(req):
 
     return render(req, 'pages/profile.html', context)
 
+def profile_settings_page(req):
+    context = {
+        'menu': get_menu_context()
+    }
+
+    return render(req, 'pages/profile_settings.html', context)
+
 def about_page(req):
     context = {
         'menu': get_menu_context()
     }
 
     return render(req, 'pages/about.html', context)
+
 
 @login_required()
 def report_page(request, badass_id):

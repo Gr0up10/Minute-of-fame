@@ -1,0 +1,66 @@
+<div class="modal fade" id="regModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered" role="document">
+    <div class="modal-content modal-cont-reg al-cont-reg">
+        <div class="modal-header-back"></div>
+        <h3 class="modal-title" id="exampleModalLabel">Register</h3>
+      <div class="modal-body">
+          	<div class="row">
+		<div class="col mt-3">
+				<div class="container">
+					<form method="POST" id="add_form" action="/register/">
+                        {% csrf_token %}
+						<input type="hidden" name="g-recaptcha-response" id='recaptcha'>
+
+						<div class="input-group mb-3 login-input">
+								<!--<i class="fas fa-user login-icons"></i> -->
+								<input name="username" type="text" class="form-control login-input lp" placeholder="Username" aria-label="Username"
+                                                                                aria-describedby="basic-addon1">
+						</div>
+                        <div class="input-group mb-3 login-input">
+                                <!--<i class="fas fa-envelope login-icons"></i>-->
+								<input name="email" type="text" class="form-control login-input lp" placeholder="Email" aria-label="Email"
+                                                                                aria-describedby="basic-addon1">
+						</div>
+						<div class="input-group mb-3 login-input">
+								<!--<i class="fas fa-lock login-icons"></i>-->
+								<input name="password1" type="password" class="form-control login-input lp" placeholder="Password" aria-label="Password"
+                                                                                aria-describedby="basic-addon1">
+						</div>
+                        <div class="input-group mb-3 login-input">
+								<!--<i class="fas fa-lock login-icons"></i>-->
+								<input name="password2" type="password" class="form-control login-input lp" placeholder="Repeat Password" aria-label="Repeat Password"
+                                                                                aria-describedby="basic-addon1">
+						</div>
+						<!--
+						<div class="custom-control custom-checkbox mb-3">
+      							<input type="checkbox" class="custom-control-input" id="customCheck-reg" name="checkbox" required>
+								<label class="custom-control-label" for="customCheck-reg">Agree with terms of use</label>
+    					</div>
+						-->
+						<div class="form-group text-center">
+							<div class="submit">
+								<button type="submit" class="btn btn-lg btn-cust"><h2>SIGN UP</h2></button>
+							</div>
+						</div>
+						<br>
+
+						<div class="form-group text-center">
+							<h6>Already registered, <a href="" class="link" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Sign IN</a></h6>
+						</div>
+
+						<!--
+						{% for item in Regform %}			АВАРИЙНЫЙ РЕЖИМ
+						<p>{{item.label}}: {{item}}</p>
+						{% endfor %}
+						<button class="btn btn-success" type="submit">Зарегистрироваться</button>
+						-->
+					</form>
+				</div>
+		</div>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
