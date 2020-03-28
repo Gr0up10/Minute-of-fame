@@ -969,6 +969,50 @@ info__sm{
     .row{
         margin-right: -0px;
     }
+    .mobile{
+        display:block;
+        margin-bottom: 15px;
+    }
+    .container{
+        width: auto;
+    }
+
+    .chart {
+        width: 350px !important;
+        height: 300px !important;
+        margin-bottom: 30px;
+        transform: translate(0%);
+        justify-content: center;
+    }
+
+    .chart__size {
+        margin-top: 10px;
+        width: 350px !important;
+        height: 300px !important;
+    }
+    .tab{
+        display: none;
+    }
+    .progress__size {
+        width: 350px !important;
+        height: 300px !important;
+    }
+    .slider__size {
+        height: 320px;
+    }
+    .slider__photo{
+        width: 100% !important;
+    }
+    body{
+        display: unset;
+    }
+    .row{
+        margin-right: -0px;
+    }
+}
+@media screen and (max-width: 375px){
+    .avatar {
+    height: 375px;
 }
 @media screen and (max-width: 375px){
     .avatar {
