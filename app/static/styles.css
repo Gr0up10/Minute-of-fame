@@ -969,6 +969,50 @@ info__sm{
     .row{
         margin-right: -0px;
     }
+    .mobile{
+        display:block;
+        margin-bottom: 15px;
+    }
+    .container{
+        width: auto;
+    }
+
+    .chart {
+        width: 350px !important;
+        height: 300px !important;
+        margin-bottom: 30px;
+        transform: translate(0%);
+        justify-content: center;
+    }
+
+    .chart__size {
+        margin-top: 10px;
+        width: 350px !important;
+        height: 300px !important;
+    }
+    .tab{
+        display: none;
+    }
+    .progress__size {
+        width: 350px !important;
+        height: 300px !important;
+    }
+    .slider__size {
+        height: 320px;
+    }
+    .slider__photo{
+        width: 100% !important;
+    }
+    body{
+        display: unset;
+    }
+    .row{
+        margin-right: -0px;
+    }
+}
+@media screen and (max-width: 375px){
+    .avatar {
+    height: 375px;
 }
 @media screen and (max-width: 375px){
     .avatar {
@@ -1154,11 +1198,17 @@ a, a:hover {
 .login-input{
     height: 50px;
     background-color: #2b2c36;
+    width: 95%;
     border: None;
 }
+
 .login-input:focus{
     background-color: #2b2c36;
     color: white;
+}
+.login-input::placeholder{
+    color: #e5e4e2;
+    font-family: 'Exo 2', sans-serif;
 }
 .login-warning-error{
     border-style: solid;
