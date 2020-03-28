@@ -1,3 +1,6 @@
+import random
+import string
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
@@ -6,7 +9,6 @@ import requests
 from .forms import *
 from .models import *
 from django.contrib.auth.decorators import login_required
-
 
 
 def stream_test(request, num):
@@ -28,78 +30,20 @@ def get_menu_context():
 
 
 def stream_page(request):
-
-    context = {
-        'pagename': 'Главная',
-        'menu': get_menu_context(),
-        'test': 1
-    }
-
-    if request.method == "POST":
-        if request.META['HTTP_REFERER'] == "http://localhost/" and request.POST.get('login_check') == "True":
-            login_form = LoginForm(request.POST)
-            if login_form.is_valid():
-                username = login_form.data['username']
-                password = login_form.data['password']
-                if User.objects.filter(email=login_form.data['username']).exists():
-                    # если пользователь найден, то в поле username вставить пользователя из бд
-                    user = User.objects.get(email=login_form.data['username'])
-                    username = str(user.username)
-
-                user = authenticate(request, username=username, password=password)
-                if user is not None:
-                    login(request, user)
-                    messages.add_message(request, messages.SUCCESS, "Авторизация успешна")
-                    return redirect('index')
-                else:
-                    pass
-                    messages.add_message(request, messages.ERROR, "Неправильный логин или пароль")
-            else:
-                pass
-                messages.add_message(request, messages.ERROR, "Некорректные данные в форме авторизации")
-        elif request.META['HTTP_REFERER'] == "http://localhost/" and request.POST.get('email') is not None:
-            form = RegisterFormView(request.POST)
-            print(form)
-            context['form'] = form
-            if form.is_valid():
-                if form.unique_email():
-                    form.save()
-                    username = form.cleaned_data.get('username')
-                    my_password = form.cleaned_data.get('password1')
-                    _user = authenticate(username=username, password=my_password)
-
-                    # captcha verification
-                    secret_key = settings.RECAPTCHA_SECRET_KEY
-                    data = {
-                        'response': request.POST.get('g-recaptcha-response'),
-                        'secret': secret_key
-                    }
-                    resp = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
-                    result_json = resp.json()
-
-                    print(result_json)
-
-                    if not result_json.get('success'):
-                        return render(request, 'pages/stream.html', {'is_robot': True})
-                    # end captcha verification
-
-                    if _user.is_active:
-                        login(request, _user)
-                        messages.add_message(request, messages.SUCCESS, 'Вы успешно зарегистрировались')
-                        return redirect('/', context)
-                else:
-                    messages.add_message(request, messages.ERROR, 'Аккаунт с этой почтой уже существует')
-            else:
-                messages.add_message(request, messages.ERROR, 'Вы ввели неверные данные')
-
+    context = {'pagename': 'Главная', 'menu': get_menu_context(),
+               'test': 1,
+               # 'Regform': RegisterFormView(),
+               # 'Logform': LoginForm(),
+               'stream_id': ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(16))}
     return render(request, 'pages/stream.html', context)
 
 
 def login_page(request):
-    context = {
-        'pagename': 'Вход',
-        'menu': get_menu_context(),
-    }
+    context = {'pagename': 'Вход',
+               'menu': get_menu_context()
+               # 'Regform': RegisterFormView(),
+               # 'Logform': LoginForm()
+               }
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
@@ -124,7 +68,7 @@ def login_page(request):
     else:
         login_form = LoginForm()
         context['form'] = login_form
-    return render(request, 'registration/login.html', context)
+    return render(request, 'pages/stream.html', context)
 
 
 def logout_page(request):
@@ -159,22 +103,30 @@ def register_page(request):
                 print(result_json)
 
                 if not result_json.get('success'):
-                    return render(request, 'registration/register.html', {'is_robot': True})
+                    # return render(request, 'registration/register.html', {'is_robot': True})
+                    return render(request, 'pages/stream.html', {'is_robot': True})
                 # end captcha verification
 
                 if _user.is_active:
                     login(request, _user)
                     messages.add_message(request, messages.SUCCESS, 'Вы успешно зарегистрировались')
                     return redirect('index')
+
+                user = authenticate(request, username=username, password=my_password)
+                if user is not None:
+                    login(request, user)
+                    messages.add_message(request, messages.SUCCESS, "Авторизация успешна")
+                    return redirect('index')
             else:
                 messages.add_message(request, messages.ERROR, 'Аккаунт с этой почтой уже существует')
         else:
             messages.add_message(request, messages.ERROR, 'Вы ввели неверные данные')
-        return render(request, 'registration/register.html', context)
+        # return render(request, 'registration/register.html', context)
     else:
         form = RegisterFormView()
         context['form'] = form
-        return render(request, 'registration/register.html', context)
+        # return render(request, 'registration/register.html', context)
+        return render(request, 'pages/stream.html', context)
 
 
 def profile_page(req):
@@ -197,6 +149,7 @@ def about_page(req):
     }
 
     return render(req, 'pages/about.html', context)
+
 
 @login_required()
 def report_page(request, badass_id):
