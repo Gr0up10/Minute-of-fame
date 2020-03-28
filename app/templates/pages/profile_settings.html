@@ -26,10 +26,13 @@
                     <div id="username" class="col-sm info__sm">
                         <h4 class="info__username">Username</h4>
                         <br>
-                        <label for="firstname">Name</label>
-                        <input type="text" class="form-control settings-input" id="firstname">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control settings-input" id="name" autocomplete="off" name="name"
+                               required>
+                        <br>
                         <label for="lastname">Surname</label>
-                        <input type="text" class="form-control settings-input" id="lastname">
+                        <input type="text" class="form-control settings-input" id="lastname" autocomplete="off"
+                               name="surname" required>
                     </div>
                     <div id="networks" class="col-sm">
                         <div class="container settings-networks">
@@ -39,8 +42,9 @@
                                             <i class="fa fa-map-marker info__gold-color" aria-hidden="true"></i>
                                         </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Location" aria-label="Username"
-                                       aria-describedby="location">
+                                <input type="text" class="form-control settings-input" placeholder="Location"
+
+                                       aria-describedby="location"/>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -48,8 +52,9 @@
                                             <i class="fa fa-envelope info__gold-color" aria-hidden="true"></i>
                                         </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Email" aria-label="Username"
-                                       aria-describedby="email">
+                                <input type="email" name="email" class="form-control settings-input" placeholder="Email"
+
+                                       aria-describedby="email"/>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -57,8 +62,7 @@
                                                 <i class="fa fa-vk info__network" aria-hidden="true"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Vk" aria-label="Username"
-                                       aria-describedby="vk">
+                                <input type="text" class="form-control settings-input" placeholder="Vk" name="vk" aria-describedby="vk"/>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -66,8 +70,8 @@
                                                 <i class="fa fa-instagram info__network" aria-hidden="true"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Instagram"
-                                       aria-label="Username" aria-describedby="instagram">
+                                <input type="text" class="form-control settings-input" placeholder="Instagram" name="instagram"
+                                       aria-describedby="instagram"/>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -75,8 +79,9 @@
                                                 <i class="fa fa-facebook info__network" aria-hidden="true"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Facebook" aria-label="Username"
-                                       aria-describedby="facebook">
+                                <input type="text" class="form-control settings-input" placeholder="Facebook" name="facebook"
+
+                                       aria-describedby="facebook"/>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -84,17 +89,18 @@
                                                 <i class="fa fa-twitter info__network" aria-hidden="true"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Twitter" aria-label="Username"
-                                       aria-describedby="twitter">
+                                <input type="text" class="form-control settings-input" placeholder="Twitter" name="twitter"
+
+                                       aria-describedby="twitter"/>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                            <span class="input-group-text" id="odnoclassniki">
+                                            <span class="input-group-text" id="ok">
                                                 <i class="fa fa-odnoklassniki info__network" aria-hidden="true"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Odnoclassniki"
-                                       aria-label="Username" aria-describedby="odnoclassniki">
+                                <input type="text" class="form-control settings-input" placeholder="OK" name="ok"
+                                       aria-describedby="ok"/>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -102,8 +108,9 @@
                                                 <i class="fa fa-youtube-play info__network" aria-hidden="true"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Youtube" aria-label="Username"
-                                       aria-describedby="youtube">
+                                <input type="text" class="form-control settings-input" placeholder="Youtube" name="youtube"
+
+                                       aria-describedby="youtube"/>
                             </div>
                         </div>
                     </div>
