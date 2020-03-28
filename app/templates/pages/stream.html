@@ -11,6 +11,8 @@
 		"
 		}
 
+
+
 </style>
 
 <div class="d-flex align-items-stretch">
@@ -28,7 +30,7 @@
                             </script>
                             <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
                             <!-- Перед вставкой видеопотока убрать в классе #stream-box в styles.css захардкоженую высоту (height: 500px;)            -->
-                              <img src="{% static 'Pictures/placeholder1.jpg' %}" style="width: 100%;object-fit: cover;">
+                            <img src="{% static 'Pictures/placeholder1.jpg' %}" style="width: 100%;object-fit: cover;">
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -45,7 +47,9 @@
                                         <h5 class="secondary-text">Streamer alias: <b>UltimateDoge487</b></h5>
                                         <h5 class="secondary-text">Viewers: <b>80082</b></h5>
                                     </div>
-                                    <button class="btn btn-light stream-btn" onclick="var cs = new WebSocket('ws://localhost:8001/ws/')">CONNECT</button>
+                                    <button class="btn btn-light stream-btn"
+                                            onclick="var cs = new WebSocket('ws://localhost:8001/ws/')">CONNECT
+                                    </button>
                                     <button class="btn btn-light stream-btn" onclick="cs.send(123)">SEND</button>
 
                                     <p id="likes"></p>
@@ -91,9 +95,9 @@
             </div>
         </div>
     </div>
-{% endblock %}
+    {% endblock %}
 
-{% block extra_js %}
+    {% block extra_js %}
     {% load static %}
     {% render_bundle 'main' 'js' %}
-{% endblock %}
+    {% endblock %}

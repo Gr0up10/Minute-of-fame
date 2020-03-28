@@ -37,9 +37,11 @@ a {
         padding-top: 0;
     }
     .menu-container nav{
-        width: 90%;
+        width: 100%;
+        padding-left: 5%;
+        padding-right: 5%;
         margin: auto;
-        margin-top: 10px;
+        padding-top: 20px;
         background-color: #333645;
         padding-bottom: 10px;
         border-bottom: 3px solid #333645;
@@ -48,9 +50,8 @@ a {
 
 .menu-container{
     background-color: #333645;
-    margin-bottom: 3vh;
+    margin-bottom: 1vh;
     margin-left: 6vw;
-    padding-bottom: 20px;
     padding: 40px;
     border-bottom: 3px solid #333645;
     diplay: inline-block;
@@ -137,7 +138,21 @@ a {
     height: 35vh;
     background-color: #424556;
     margin-bottom: 20px;
+    overflow-y: scroll;
 }
+
+#chat-box::-webkit-scrollbar { width: 8px; }
+
+#chat-box::-webkit-scrollbar-track {
+  background: #585b6c;
+  border-radius: 5px;
+}
+
+#chat-box::-webkit-scrollbar-thumb {
+  background: #83848e;
+  border-radius: 5px;
+}
+
 @media screen and (min-width: 768px){
     #chat-box{
         height: 80vh;
@@ -206,7 +221,7 @@ a {
 }
 #stream-timer-overlay{
     background-color: none;
-    z-index: 30;
+    z-index: 1000;
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
@@ -244,6 +259,7 @@ a {
 	border: none;
 	padding: 8px 0 8px 10px;
 	margin-top : 10px;
+	color: #6c757d;
 }
 
 .settings-text{
@@ -968,6 +984,50 @@ info__sm{
     .row{
         margin-right: -0px;
     }
+    .mobile{
+        display:block;
+        margin-bottom: 15px;
+    }
+    .container{
+        width: auto;
+    }
+
+    .chart {
+        width: 350px !important;
+        height: 300px !important;
+        margin-bottom: 30px;
+        transform: translate(0%);
+        justify-content: center;
+    }
+
+    .chart__size {
+        margin-top: 10px;
+        width: 350px !important;
+        height: 300px !important;
+    }
+    .tab{
+        display: none;
+    }
+    .progress__size {
+        width: 350px !important;
+        height: 300px !important;
+    }
+    .slider__size {
+        height: 320px;
+    }
+    .slider__photo{
+        width: 100% !important;
+    }
+    body{
+        display: unset;
+    }
+    .row{
+        margin-right: -0px;
+    }
+}
+@media screen and (max-width: 375px){
+    .avatar {
+    height: 375px;
 }
 @media screen and (max-width: 375px){
     .avatar {
@@ -1051,7 +1111,7 @@ info__sm{
 #stream-timer-overlay{
     font-weight: 700;
     background-color: none;
-    z-index: 30;
+    z-index: 100000;
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
@@ -1153,11 +1213,17 @@ a, a:hover {
 .login-input{
     height: 50px;
     background-color: #2b2c36;
+    width: 95%;
     border: None;
 }
+
 .login-input:focus{
     background-color: #2b2c36;
     color: white;
+}
+.login-input::placeholder{
+    color: #e5e4e2;
+    font-family: 'Exo 2', sans-serif;
 }
 .login-warning-error{
     border-style: solid;
