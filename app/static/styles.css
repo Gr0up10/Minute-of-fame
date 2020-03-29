@@ -221,7 +221,7 @@ a {
 }
 #stream-timer-overlay{
     background-color: none;
-    z-index: 1000;
+    z-index: 30;
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
@@ -1111,7 +1111,7 @@ info__sm{
 #stream-timer-overlay{
     font-weight: 700;
     background-color: none;
-    z-index: 100000;
+    z-index: 30;
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);

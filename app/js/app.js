@@ -10,7 +10,7 @@ $( document ).ready(function() {
     var socket = new Socket();
     var packet_handler = new PacketHandler({
         'poll': new VotingHandler(socket),
-        'stream': new StreamHandler(socket, stream)
+        'queue': new StreamHandler(socket, stream)
     });
     packet_handler.bind_handlers(socket);
 

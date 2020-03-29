@@ -3,7 +3,7 @@ cache = {}
 
 def methods_with_decorator(cls, decorator):
     method_list = [getattr(cls, func) for func in dir(cls) if callable(getattr(cls, func))]
-    return [m for m in method_list if hasattr(m, '__name__') and m.__name__ == 'wrapped_f' and m.__getattribute__('fn') == decorator]
+    return [m for m in method_list if m.__name__ == 'wrapped_f' and m.__getattribute__('fn') == decorator]
 
 
 def get_actions(cls):

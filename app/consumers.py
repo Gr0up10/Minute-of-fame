@@ -23,20 +23,15 @@ def is_stream_active():
 
 
 class Handler:
-    def __init__(self, consumer):
-        self.consumer = consumer
-
-    async def connection_opened(self):
+    # Do not touch this methods, they should be empty
+    async def send(self, command, pack):
         pass
 
-    async def send(self, command, pack):
-        await self.consumer.send_packet(self.name, command, pack)
-
     async def send_broadcast(self, command, pack):
-        await self.consumer.send_broadcast(self.name, command, pack)
+        pass
 
     async def send_broadcast_but_me(self, command, pack):
-        await self.consumer.send_broadcast(self.name, command, pack, self.consumer.channel_name)
+        pass
 
 
 class PollHandler(Handler):
@@ -45,17 +40,17 @@ class PollHandler(Handler):
     @action(command="like")
     async def like(self, sender, packet):
         await sync_to_async(self.vote)(sender, True)
-        await self.update()
+        await self.update(sender)
         print("like")
 
     @action(command="dislike")
     async def dislike(self, sender, packet):
         await sync_to_async(self.vote)(sender, False)
-        await self.update()
+        await self.update(sender)
         print("dislike")
 
     @staticmethod
-    def get_stat():
+    def get_stat(sender):
         stream = get_current_stream()
         stat = PollStat.objects.filter(stream=stream)
         likes, dises = 0, 0
@@ -67,9 +62,8 @@ class PollHandler(Handler):
         print(likes, dises)
         return likes, dises
 
-    async def update(self):
-        likes, dislikes = await sync_to_async(PollHandler.get_stat)()
-        print("update ", likes, dislikes)
+    async def update(self, sender):
+        likes, dislikes = await sync_to_async(PollHandler.get_stat)(sender)
         await self.send_broadcast("update", {"likes": likes, "dislikes": dislikes})
 
     @staticmethod
@@ -78,24 +72,10 @@ class PollHandler(Handler):
 
 
 class QueueHandler(Handler):
-    name = "stream"
+    name = "queue"
 
     async def broadcast_current_stream(self, sender):
         await self.send_broadcast_but_me('set_stream', {"stream": await sync_to_async(get_current_stream_id)()})
-
-    async def connection_opened(self):
-        print("check active stream")
-        if await sync_to_async(is_stream_active)():
-            print("send connect")
-            await self.send('set_stream', {"stream": await sync_to_async(get_current_stream_id)()})
-
-    @action(command="stop_stream")
-    async def stop_stream(self, sender, packet):
-        user = sender.scope["user"]
-        if user.is_anonymous and await sync_to_async(Stream.objects.filter(user=user).exists()):
-            stream = await sync_to_async(Stream.objects.get(user=user))
-            stream.active = False
-            await sync_to_async(stream.save)()
 
     @action(command="queue")
     async def queue(self, sender, packet):
@@ -114,33 +94,33 @@ class QueueHandler(Handler):
             stream = await sync_to_async(get_current_stream)()
             stream.active = False
             await sync_to_async(stream.save)()
-        asyncio.create_task(self.start_timer(90))
         model = Stream(publisher=user, stream_id=packet['id'])
         await sync_to_async(model.save)()
         print(user.username)
         await self.broadcast_current_stream(sender)
         print('save')
-
-    async def start_timer(self, time):
-        for i in range(time, 0, -1):
-            await self.send_broadcast('set_time', {'time': i})
-            await asyncio.sleep(1)
+        #await asyncio.sleep(40)
+        #model.active = False
+        #await sync_to_async(model.save)()
+        #print('end')
 
 
 class WSConsumer(AsyncJsonWebsocketConsumer):
     GROUP_NAME = 'main'
 
+    handlers = {
+        "poll": PollHandler(),
+        "queue": QueueHandler()
+    }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.handlers = [
-            PollHandler(self),
-            QueueHandler(self)
-        ]
-
-        self.handlers = {h.name: h for h in self.handlers}
+        for n, cls in self.handlers.items():
+            setattr(cls.__class__, 'send', lambda cl, c, p: self.send_packet(cl.name, c, p))
+            setattr(cls.__class__, 'send_broadcast', lambda cl, c, p: self.send_broadcast(cl.name, c, p))
+            setattr(cls.__class__, 'send_broadcast_but_me', lambda cl, c, p: self.send_broadcast(cl.name, c, p, self.channel_name))
 
     async def send_broadcast(self, handler, command, data, name=None):
-        print("broadcast", handler, command, data, name)
         await self.channel_layer.group_send(self.GROUP_NAME, {
             "type": "send.command", "handler": handler, "command": command, "data": data, "chan_name": name
         })
@@ -148,9 +128,9 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
     async def connect(self):
         await self.accept()
         await self.channel_layer.group_add(self.GROUP_NAME, self.channel_name)
-        for _, h in self.handlers.items():
-            await h.connection_opened()
-        print("connected", self.channel_name)
+        if await sync_to_async(is_stream_active)():
+            await self.send_packet('queue', 'set_stream', {"stream": await sync_to_async(get_current_stream_id)()})
+        print("connected")
 
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(self.GROUP_NAME, self.channel_name)
@@ -166,7 +146,8 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
         await self.send_json({"handler": handler, "command": command, "data": data})
 
     async def send_command(self, event):
-        print(event['chan_name'])
         if not event['chan_name'] or self.channel_name != event['chan_name']:
             print(self.channel_name, event['chan_name'])
             await self.send_packet(event["handler"], event["command"], event["data"])
+
+
