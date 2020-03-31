@@ -1029,10 +1029,6 @@ info__sm{
     .avatar {
     height: 375px;
 }
-@media screen and (max-width: 375px){
-    .avatar {
-    height: 375px;
-}
     .chart{
         width: 100% !important;
     }
@@ -1225,6 +1221,7 @@ a, a:hover {
     color: #e5e4e2;
     font-family: 'Exo 2', sans-serif;
 }
+
 .login-warning-error{
     border-style: solid;
     border-width: 1px;
@@ -1337,12 +1334,12 @@ input[type="checkbox"] + label:after{
 .profile-bio{
     font-size: 1.25em;
 }
-
 .white_input{
     background: white;
     border-radius: 3px;
     color: black;
 }
+
 .stream-info{
     padding-top: 0;
 }
