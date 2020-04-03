@@ -43,3 +43,5 @@ class Profile(models.Model):
     """User quotes"""
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     quotes = models.CharField(max_length=60)
+    email = models.CharField(max_length=60)
+    location = models.CharField(max_length=60)

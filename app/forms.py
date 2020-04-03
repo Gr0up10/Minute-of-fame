@@ -58,9 +58,3 @@ class ReportForm(forms.ModelForm):
         model = Report
         fields = '__all__'
         widgets = {'badass': forms.HiddenInput(),'sender': forms.HiddenInput()}
-
-
-class Quotes(forms.Form):
-    quotes = forms.CharField(label="статус", max_length=60)
-
-

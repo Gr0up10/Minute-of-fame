@@ -2,6 +2,8 @@
 {% load static %}
 
 {% block content %}
+<form action="/profile/" method="POST">
+                {% csrf_token %}
 <div class="d-flex align-items-stretch center">
     <div class="card-exit">
         <div class="card-exit__times">
@@ -21,6 +23,7 @@
                 </div>
                 <img class="d-lg-flex justify-content-lg-center avatar__img" src="{% static 'setts.jpg' %}">
             </div>
+
             <div id="info" class="col-sm-6 info">
                 <div class="row">
                     <div id="username" class="col-sm info__sm">
@@ -35,11 +38,11 @@
                         <div class="container settings-networks">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                        <span class="input-group-text" id="location">
+                                        <span class="input-group-text" id="location" >
                                             <i class="fa fa-map-marker info__gold-color" aria-hidden="true"></i>
                                         </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Location" aria-label="Username"
+                                <input type="text" name="location" class="form-control settings-input" placeholder="Location" aria-label="Username"
                                        aria-describedby="location">
                             </div>
                             <div class="input-group mb-3">
@@ -48,7 +51,7 @@
                                             <i class="fa fa-envelope info__gold-color" aria-hidden="true"></i>
                                         </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Email" aria-label="Username"
+                                <input type="text"  name="email" class="form-control settings-input" placeholder="Email" aria-label="Username"
                                        aria-describedby="email">
                             </div>
                             <div class="input-group mb-3">
@@ -110,7 +113,10 @@
                     <div class="col-sm-12 settings-aboutme-mobile">
                         <h4 class="aboutme-settings">About me:</h4>
                         <div class="container settings-text">
-                            <textarea class="settings-textarea"></textarea>
+
+                                  <textarea class="settings-textarea" name="quotes"></textarea>
+                                 <input type="submit"  value="задать статус">
+                                 </form>
                         </div>
                     </div>
 

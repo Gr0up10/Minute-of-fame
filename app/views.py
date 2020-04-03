@@ -134,14 +134,8 @@ def profile_page(req):
         'menu': get_menu_context()
     }
     if req.user.is_authenticated:
-
-        forms = Quotes()
-        context['form'] = forms
-        if req.method == 'POST':
-            p = str(req.POST.get('quotes'))
-            item = Profile(user=req.user, quotes=p)
-            item.save()
-            context['p'] = p
+        item = Profile.objects.filter(user=req.user)
+        context['item'] = item
     else:
         return render(req, 'registration/register.html')
 
@@ -149,11 +143,18 @@ def profile_page(req):
 
 
 def profile_settings_page(req):
+    if req.user.is_authenticated:
+        if req.method == 'POST':
+            quote = str(req.POST.get('quotes'))
+            location = str(req.POST.get('location'))
+            email = str(req.POST.get('email'))
+            item = Profile(user=req.user, quotes=quote, email=email, location=location)
+            item.save()
     context = {
         'menu': get_menu_context()
     }
-
     return render(req, 'pages/profile_settings.html', context)
+
 
 def about_page(req):
     context = {
@@ -167,10 +168,10 @@ def about_page(req):
 def report_page(request, badass_id):
     context = {
         'menu': get_menu_context(),
-        'Form': ReportForm(initial={'badass': badass_id,'sender': request.user.id}),
+        'Form': ReportForm(initial={'badass': badass_id, 'sender': request.user.id}),
     }
     if request.method == 'GET':
-        return render(request,'pages/report.html',context)
+        return render(request, 'pages/report.html', context)
     if request.method == 'POST':
         report = ReportForm(request.POST)
         if report.is_valid():

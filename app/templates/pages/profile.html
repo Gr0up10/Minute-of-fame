@@ -50,10 +50,13 @@
                         <div id="networks" class="col-sm">
                             <div class="container info__networks">
                                 <i class="fa fa-map-marker info__gold-color" aria-hidden="true"></i>
-                                <nobr>Location</nobr>
+                                <nobr>Location:<p>{{item.location}}</p></nobr>
                                 <br>
                                 <i class="fa fa-envelope info__gold-color" aria-hidden="true"></i>
-                                <nobr>Email</nobr>
+
+                                <nobr>Email:</nobr>
+                                <p>{{emails.email}}</p>
+
                                 <br><br>
                                 <i class="fa fa-vk info__network" aria-hidden="true"></i>
                                 <i class="fa fa-instagram info__network" aria-hidden="true"></i>
@@ -68,12 +71,9 @@
                             <h4 class="info__aboutme">About me:</h4>
                             <br>
                             <div class="container info__text">
-                                <form action="/profile/" method="POST">
-                                 {% csrf_token %}
-                                 {{form}}
-                                 <input type="submit" value="задать статус">
-                                 </form>
-                                 <p>{{p}}</p>
+                                {%for items in item %}
+                                 <p>{{items.quotes}}</p>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -177,4 +177,5 @@
             </div>
         </div>
 </div>
+
 {% endblock %}
