@@ -126,7 +126,7 @@ def register_page(request):
         form = RegisterFormView()
         context['form'] = form
         # return render(request, 'registration/register.html', context)
-        return render(request, 'pages/stream.html', context)
+        return redirect('index')
 
 
 def profile_page(req):
@@ -134,10 +134,16 @@ def profile_page(req):
         'menu': get_menu_context()
     }
     if req.user.is_authenticated:
-        item = Profile.objects.filter(user=req.user)
-        context['item'] = item
+        print('\nNum of profile objects:\n'+str(len(Profile.objects.filter(user=req.user))))
+        if len(Profile.objects.filter(user=req.user)) > 0:
+            print('\n PROFILE PAGE START \n')
+            item = Profile.objects.filter(user=req.user)[0]
+            print(item.email + '\n\n\n\n\n\n')
+            context['item'] = item
+        else:
+            print('\n\nNO PROFILE INFO FOR THIS USER\n\n'+str(Profile.objects.filter(user=req.user).count()))
     else:
-        return render(req, 'registration/register.html')
+        return redirect('index')
 
     return render(req, 'pages/profile.html', context)
 

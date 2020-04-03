@@ -45,7 +45,7 @@
                 <div id="info" class="col-sm-6 info">
                     <div class="row">
                         <div id="username" class="col-sm info__sm">
-                            <h4 class="info__username">{{user}}</h4>
+                            <h4 class="info__username">{{item.user}}</h4>
                         </div>
                         <div id="networks" class="col-sm">
                             <div class="container info__networks">
@@ -55,7 +55,7 @@
                                 <i class="fa fa-envelope info__gold-color" aria-hidden="true"></i>
 
                                 <nobr>Email:</nobr>
-                                <p>{{emails.email}}</p>
+                                <p>{{item.email}}</p>
 
                                 <br><br>
                                 <i class="fa fa-vk info__network" aria-hidden="true"></i>
@@ -71,9 +71,7 @@
                             <h4 class="info__aboutme">About me:</h4>
                             <br>
                             <div class="container info__text">
-                                {%for items in item %}
-                                 <p>{{items.quotes}}</p>
-                                {% endfor %}
+                                 <p>{{item.quotes}}</p>
                             </div>
                         </div>
                     </div>

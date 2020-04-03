@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<form action="/profile/" method="POST">
+<form action="/profile-settings/" method="POST">
                 {% csrf_token %}
 <div class="d-flex align-items-stretch center">
     <div class="card-exit">
@@ -113,20 +113,18 @@
                     <div class="col-sm-12 settings-aboutme-mobile">
                         <h4 class="aboutme-settings">About me:</h4>
                         <div class="container settings-text">
-
                                   <textarea class="settings-textarea" name="quotes"></textarea>
-                                 <input type="submit"  value="задать статус">
-                                 </form>
                         </div>
                     </div>
 
                 </div>
             </div>
             <div class="container save-btn">
-                <button type="button" class="btn stream-btn btn_save">
+                <button type="submit" class="btn stream-btn btn_save">
                         Save
                 </button>
             </div>
+            </form>
         </div>
     </div>
 </div>
