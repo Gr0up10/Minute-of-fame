@@ -87,9 +87,12 @@ def register_page(request):
         if form.is_valid():
             if form.unique_email():
                 form.save()
+
                 username = form.cleaned_data.get('username')
                 my_password = form.cleaned_data.get('password1')
                 _user = authenticate(username=username, password=my_password)
+                login(request, _user)
+                messages.add_message(request, messages.SUCCESS, 'Вы успешно зарегистрировались')
 
                 # captcha verification
                 secret_key = settings.RECAPTCHA_SECRET_KEY
@@ -107,21 +110,18 @@ def register_page(request):
                     return render(request, 'pages/stream.html', {'is_robot': True})
                 # end captcha verification
 
-                if _user.is_active:
-                    login(request, _user)
-                    messages.add_message(request, messages.SUCCESS, 'Вы успешно зарегистрировались')
-                    return redirect('index')
 
-                user = authenticate(request, username=username, password=my_password)
-                if user is not None:
-                    login(request, user)
-                    messages.add_message(request, messages.SUCCESS, "Авторизация успешна")
-                    return redirect('index')
+
+                # user = authenticate(request, username=username, password=my_password)
+                # if user is not None:
+                #     login(request, user)
+                #     messages.add_message(request, messages.SUCCESS, "Авторизация успешна")
             else:
                 messages.add_message(request, messages.ERROR, 'Аккаунт с этой почтой уже существует')
         else:
             messages.add_message(request, messages.ERROR, 'Вы ввели неверные данные')
         # return render(request, 'registration/register.html', context)
+        return render(request, 'pages/stream.html', context)
     else:
         form = RegisterFormView()
         context['form'] = form
