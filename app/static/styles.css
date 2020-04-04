@@ -1152,9 +1152,11 @@ a, a:hover {
 }
 .login-input{
     height: 50px;
+    color: white;
     background-color: #2b2c36;
     border: None;
 }
+
 .login-input:focus{
     background-color: #2b2c36;
     color: white;
@@ -1280,3 +1282,4 @@ input[type="checkbox"] + label:after{
 .stream-info{
     padding-top: 0;
 }
+
