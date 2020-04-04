@@ -56,6 +56,7 @@ def login_page(request):
 
             user = authenticate(request, username=username, password=password)
             if user is not None:
+                print("login success")
                 login(request, user)
                 messages.add_message(request, messages.SUCCESS, "Авторизация успешна")
                 return redirect('index')
@@ -96,23 +97,22 @@ def register_page(request):
         if form.is_valid():
             if form.unique_email():
                 form.save()
-                username = form.cleaned_data.get('username')
-                my_password = form.cleaned_data.get('password1')
-                _user = authenticate(username=username, password=my_password)
+                if not settings.DEBUG:
+                    # captcha verification
+                    secret_key = settings.RECAPTCHA_SECRET_KEY
+                    data = {
+                        'response': request.POST.get('g-recaptcha-response'),
+                        'secret': secret_key,
+                        'remoteip': get_client_ip(request)
+                    }
+                    resp = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+                    result_json = resp.json()
+                    success = result_json.get('success')
+                else:
+                    success = True
 
-                # captcha verification
-                secret_key = settings.RECAPTCHA_SECRET_KEY
-                data = {
-                    'response': request.POST.get('g-recaptcha-response'),
-                    'secret': secret_key,
-                    'remoteip': get_client_ip(request)
-                }
-                resp = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
-                result_json = resp.json()
-
-                print(result_json)
-
-                if not result_json.get('success'):
+                if not success:
+                    print("robot")
                     # return render(request, 'registration/register.html', {'is_robot': True})
                     return render(request, 'pages/stream.html', {'is_robot': True})
                 # end captcha verification
@@ -147,12 +147,14 @@ def profile_page(req):
 
     return render(req, 'pages/profile.html', context)
 
+
 def profile_settings_page(req):
     context = {
         'menu': get_menu_context()
     }
 
     return render(req, 'pages/profile_settings.html', context)
+
 
 def about_page(req):
     context = {
