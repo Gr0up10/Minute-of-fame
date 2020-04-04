@@ -137,7 +137,7 @@ def profile_page(req):
         print('\nNum of profile objects:\n'+str(len(Profile.objects.filter(user=req.user))))
         if len(Profile.objects.filter(user=req.user)) > 0:
             print('\n PROFILE PAGE START \n')
-            item = Profile.objects.filter(user=req.user)[0]
+            item = Profile.objects.filter(user=req.user)[len(Profile.objects.filter(user=req.user))-2]
             print(item.email + '\n\n\n\n\n\n')
             context['item'] = item
         else:
@@ -169,7 +169,7 @@ def profile_settings_page(req):
                            odnoklassniki=odnoklassniki, youtube_play=youtube_play)
             item.save()
             if len(Profile.objects.filter(user=req.user)) > 0:
-                ite = Profile.objects.filter(user=req.user)[0]
+                ite = Profile.objects.filter(user=req.user)[len(Profile.objects.filter(user=req.user))-1]
                 context['item'] = ite
     return render(req, 'pages/profile_settings.html', context)
 
