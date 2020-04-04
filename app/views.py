@@ -77,6 +77,15 @@ def logout_page(request):
     return redirect('index')
 
 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[-1].strip()
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
 def register_page(request):
     context = dict()
     context['menu'] = get_menu_context()
@@ -87,18 +96,16 @@ def register_page(request):
         if form.is_valid():
             if form.unique_email():
                 form.save()
-
                 username = form.cleaned_data.get('username')
                 my_password = form.cleaned_data.get('password1')
                 _user = authenticate(username=username, password=my_password)
-                login(request, _user)
-                messages.add_message(request, messages.SUCCESS, 'Вы успешно зарегистрировались')
 
                 # captcha verification
                 secret_key = settings.RECAPTCHA_SECRET_KEY
                 data = {
                     'response': request.POST.get('g-recaptcha-response'),
-                    'secret': secret_key
+                    'secret': secret_key,
+                    'remoteip': get_client_ip(request)
                 }
                 resp = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
                 result_json = resp.json()
@@ -110,23 +117,27 @@ def register_page(request):
                     return render(request, 'pages/stream.html', {'is_robot': True})
                 # end captcha verification
 
+                new_user = form.save()
+                username = form.cleaned_data.get('username')
+                my_password = form.cleaned_data.get('password1')
+                _user = authenticate(username=username, password=my_password)
 
-
-                # user = authenticate(request, username=username, password=my_password)
-                # if user is not None:
-                #     login(request, user)
-                #     messages.add_message(request, messages.SUCCESS, "Авторизация успешна")
+                if _user.is_active:
+                    print("register success")
+                    login(request, new_user)
+                    messages.add_message(request, messages.SUCCESS, 'Вы успешно зарегистрировались')
+                    return redirect('index')
             else:
                 messages.add_message(request, messages.ERROR, 'Аккаунт с этой почтой уже существует')
         else:
             messages.add_message(request, messages.ERROR, 'Вы ввели неверные данные')
         # return render(request, 'registration/register.html', context)
-        return render(request, 'pages/stream.html', context)
     else:
         form = RegisterFormView()
         context['form'] = form
         # return render(request, 'registration/register.html', context)
         return render(request, 'pages/stream.html', context)
+    return redirect('index')
 
 
 def profile_page(req):

@@ -1,32 +1,39 @@
 {% load static %} {% include 'modals/login-modal.html' %} {% include 'modals/registration-modal.html' %} {% include 'modals/report-modal.html' %} {% include 'modals/reset-intro-modal.html' %} {% include 'modals/reset-modal.html' %} {% include 'modals/settings-modal.html' %} {% include 'modals/profile-modal.html' %}
 <div class="menu-container">
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top"><a href="/"><img id="logo"
-                                                                                class="center-align inline-block"
-                                                                                src="{% static 'logo.svg' %}">
-        <h1 id="title" class="center-align inline-block">Kek or cringe?</h1></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
-                class="navbar-toggler-icon"></span></button>
-        <div class="navbar-collapse collapse" id="navbarSupportedContent"> {% block b_menu %}
-            <ul class="navbar-nav mr-auto"> {% for item in menu %}
-                <li class="nav-item active menu-item"><h3><a class="nav-link" href="{{ item.url }}">{{ item.name }}</a>
-                </h3></li>
-                {% endfor %}
-            </ul>
-            {% endblock %}
-            <hr class="downdrop-hr">
-            {% block usermenu %}
-            <ul class="navbar-nav justify-content-end">
-                {% if request.user.is_authenticated %}
-                <li>
-                    <button type="button" class="btn stream-btn btn_start" id="btn-connect-webcam" onclick="webcam_stream()">
-                        Start stream
-                    </button>
-                    <button type="button" class="btn stream-btn btn_start" id="btn-connect-screen" onclick="webcam_stream()">
-                        Start stream
-                    </button>
-                </li>
-                <div class="dropdown"><h4 class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+
+        <a href="/"><img id="logo" class="center-align inline-block" src="{% static 'logo.svg' %}"><h1 id="title" class="center-align inline-block">Kek or cringe?</h1></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span  class="navbar-toggler-icon"></span>
+        </button>
+
+            <div class="navbar-collapse collapse" id = "navbarSupportedContent">
+                {% block b_menu %}
+                <ul class="navbar-nav mr-auto">
+                    {% for item in menu %}
+                    <li class="nav-item active menu-item">
+                        <h3><a class="nav-link" href="{{ item.url }}">{{ item.name }}</a></h3>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endblock %}
+
+                <hr class="downdrop-hr">
+
+                {% block usermenu %}
+                <ul class="navbar-nav justify-content-end">
+                    {% if request.user.is_authenticated %}
+                    <li>
+                        <button type="button" class="btn stream-btn btn_start" id="btn-connect-webcam">
+                            Start stream
+                        </button>
+                        <button type="button" class="btn stream-btn btn_start" id="btn-connect-screen">
+                            Start screen stream
+                        </button>
+                    </li>
+                    <li class="nav-item active menu-item">
+                        <div class="dropdown">
+                            <h4 class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                                           aria-haspopup="true" aria-expanded="false" id="username">
                     {{ request.user }} </h4>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -51,4 +58,3 @@
         </div>
     </nav>
 </div>
-
