@@ -74,8 +74,9 @@ class PollHandler(Handler):
 
     @staticmethod
     def vote(sender, like):
-        PollStat(user=sender.scope["user"], stream=get_current_stream(),
-                 vote=LikeDislike.LIKE if like else LikeDislike.DISLIKE).save()
+        if not PollStat.objects.filter(user=sender.scope["user"], stream=get_current_stream()).exists():
+            PollStat(user=sender.scope["user"], stream=get_current_stream(),
+                     vote=LikeDislike.LIKE if like else LikeDislike.DISLIKE).save()
 
 
 class QueueHandler(Handler):
