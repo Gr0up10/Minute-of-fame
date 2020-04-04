@@ -11,8 +11,8 @@ export default class Socket {
     }
 
     connect() {
-        if (this.isConnected) return;
-        let addr = 'ws://' + window.location.host + '/ws/';
+        if(this.isConnected) return;
+        let addr = (DEBUG ? 'ws://' : 'wss://') + window.location.host +'/ws/';
         this.socket = new WebSocket(addr);
         this.socket.onopen = this.connected;
         console.log('Connecting to ' + addr);

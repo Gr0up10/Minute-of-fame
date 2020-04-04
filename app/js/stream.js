@@ -1,7 +1,7 @@
 export default class Stream {
     constructor() {
         this.connection = new RTCMultiConnection();
-        this.connection.socketURL = 'http://' + location.hostname + ':9001/';
+        this.connection.socketURL = (DEBUG ? 'http://' : 'https://') + location.hostname + ':9001/';
         this.connection.videosContainer = document.getElementById('stream-box');
 
         this.connection.onstream = (event) => {
