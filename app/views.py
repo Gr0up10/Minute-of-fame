@@ -149,16 +149,28 @@ def profile_page(req):
 
 
 def profile_settings_page(req):
+    context = {
+        'menu': get_menu_context()
+    }
     if req.user.is_authenticated:
         if req.method == 'POST':
             quote = str(req.POST.get('quotes'))
             location = str(req.POST.get('location'))
             email = str(req.POST.get('email'))
-            item = Profile(user=req.user, quotes=quote, email=email, location=location)
+            Vk = str(req.POST.get('Vk'))
+            instagram = str(req.POST.get('instagram'))
+            facebook = str(req.POST.get('facebook'))
+            twitter = str(req.POST.get('twitter'))
+            odnoklassniki = str(req.POST.get('odnoklassniki'))
+            youtube_play = str(req.POST.get('youtube_play'))
+            item = Profile(user=req.user, quotes=quote, email=email,
+                           location=location, Vk=Vk, instagram=instagram,
+                           facebook=facebook, twitter=twitter,
+                           odnoklassniki=odnoklassniki, youtube_play=youtube_play)
             item.save()
-    context = {
-        'menu': get_menu_context()
-    }
+            if len(Profile.objects.filter(user=req.user)) > 0:
+                ite = Profile.objects.filter(user=req.user)[0]
+                context['item'] = ite
     return render(req, 'pages/profile_settings.html', context)
 
 

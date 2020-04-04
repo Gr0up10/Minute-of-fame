@@ -43,7 +43,7 @@
                                         </span>
                                 </div>
                                 <input type="text" name="location" class="form-control settings-input" placeholder="Location" aria-label="Username"
-                                       aria-describedby="location">
+                                       aria-describedby="location" value="item.location">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -52,7 +52,7 @@
                                         </span>
                                 </div>
                                 <input type="text"  name="email" class="form-control settings-input" placeholder="Email" aria-label="Username"
-                                       aria-describedby="email">
+                                       aria-describedby="email" value="item.email" >
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -60,8 +60,8 @@
                                                 <i class="fa fa-vk info__network" aria-hidden="true"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Vk" aria-label="Username"
-                                       aria-describedby="vk">
+                                <input type="text"  name="Vk" class="form-control settings-input" placeholder="Vk" aria-label="Username"
+                                       aria-describedby="vk" value="{{item.Vk}}">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -69,8 +69,8 @@
                                                 <i class="fa fa-instagram info__network" aria-hidden="true"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Instagram"
-                                       aria-label="Username" aria-describedby="instagram">
+                                <input type="text" name="instagram" class="form-control settings-input" placeholder="Instagram"
+                                       aria-label="Username" aria-describedby="instagram" value="{{item.instagram}}">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -78,8 +78,8 @@
                                                 <i class="fa fa-facebook info__network" aria-hidden="true"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Facebook" aria-label="Username"
-                                       aria-describedby="facebook">
+                                <input type="text" name="facebook" class="form-control settings-input" placeholder="Facebook" aria-label="Username"
+                                       aria-describedby="facebook" value="{{item.facebook}}">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -87,8 +87,8 @@
                                                 <i class="fa fa-twitter info__network" aria-hidden="true"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Twitter" aria-label="Username"
-                                       aria-describedby="twitter">
+                                <input type="text" name="twitter" class="form-control settings-input" placeholder="Twitter" aria-label="Username"
+                                       aria-describedby="twitter" value="{{item.twitter}}">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -96,8 +96,8 @@
                                                 <i class="fa fa-odnoklassniki info__network" aria-hidden="true"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Odnoclassniki"
-                                       aria-label="Username" aria-describedby="odnoclassniki">
+                                <input type="text" name="odnoklassniki" class="form-control settings-input" placeholder="Odnoclassniki"
+                                       aria-label="Username" aria-describedby="odnoclassniki" value="{{item.odnoklassniki}}">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -105,15 +105,15 @@
                                                 <i class="fa fa-youtube-play info__network" aria-hidden="true"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Youtube" aria-label="Username"
-                                       aria-describedby="youtube">
+                                <input type="text" name="youtube_play" class="form-control settings-input" placeholder="Youtube" aria-label="Username"
+                                       aria-describedby="youtube" value="{{item.youtube_play}}">
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-12 settings-aboutme-mobile">
                         <h4 class="aboutme-settings">About me:</h4>
                         <div class="container settings-text">
-                                  <textarea class="settings-textarea" name="quotes"></textarea>
+                                  <textarea class="settings-textarea" name="quotes" value="{{item.quote}}"></textarea>
                         </div>
                     </div>
 
