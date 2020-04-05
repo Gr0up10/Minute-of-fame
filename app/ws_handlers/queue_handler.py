@@ -43,11 +43,13 @@ class QueueHandler(Handler):
             stream = await sync_to_async(get_current_stream)()
             stream.active = False
             await sync_to_async(stream.save)()
-        asyncio.create_task(self.start_timer(90))
+        print("creating model")
         model = Stream(publisher=user, stream_id=packet['id'])
+        print("model created")
         await sync_to_async(model.save)()
         print(user.username)
         await self.broadcast_current_stream(sender)
+        asyncio.create_task(self.start_timer(90))
         print('save')
 
     async def start_timer(self, time):

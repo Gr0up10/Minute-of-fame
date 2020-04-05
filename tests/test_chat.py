@@ -1,6 +1,4 @@
 import pytest
-from django.contrib.auth.models import User
-
 
 from app.consumers import WSConsumer
 from tests.auth_communicator import AuthWebsocketCommunicator
