@@ -17,14 +17,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Report',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('date', models.DateTimeField(auto_now=True)),
                 ('multi_account', models.BooleanField(default=False)),
                 ('offensive', models.BooleanField(default=False)),
                 ('inappropriate_video_content', models.BooleanField(default=False)),
                 ('additional_information', models.CharField(max_length=250)),
-                ('badass_id', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='badass_id', to=settings.AUTH_USER_MODEL)),
-                ('sender_id', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='sender_id', to=settings.AUTH_USER_MODEL)),
+                ('badass_id', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE,
+                                                   related_name='badass_id', to=settings.AUTH_USER_MODEL)),
+                ('sender_id', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE,
+                                                   related_name='sender_id', to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

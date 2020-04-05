@@ -16,4 +16,3 @@ class ChatHandler(Handler):
             })
         else:
             await self.send("error", "not authorized")
-

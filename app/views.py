@@ -58,14 +58,17 @@ def login_page(request):
             if user is not None:
                 print("login success")
                 login(request, user)
-                messages.add_message(request, messages.SUCCESS, "Авторизация успешна")
+                messages.add_message(
+                    request, messages.SUCCESS, "Авторизация успешна")
                 return redirect('index')
             else:
                 pass
-                messages.add_message(request, messages.ERROR, "Неправильный логин или пароль")
+                messages.add_message(
+                    request, messages.ERROR, "Неправильный логин или пароль")
         else:
             pass
-            messages.add_message(request, messages.ERROR, "Некорректные данные в форме авторизации")
+            messages.add_message(request, messages.ERROR,
+                                 "Некорректные данные в форме авторизации")
     else:
         login_form = LoginForm()
         context['form'] = login_form
@@ -74,7 +77,8 @@ def login_page(request):
 
 def logout_page(request):
     logout(request)
-    messages.add_message(request, messages.INFO, "Вы успешно вышли из аккаунта")
+    messages.add_message(request, messages.INFO,
+                         "Вы успешно вышли из аккаунта")
     return redirect('index')
 
 
@@ -105,7 +109,8 @@ def register_page(request):
                         'secret': secret_key,
                         'remoteip': get_client_ip(request)
                     }
-                    resp = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+                    resp = requests.post(
+                        'https://www.google.com/recaptcha/api/siteverify', data=data)
                     result_json = resp.json()
                     success = result_json.get('success')
                 else:
@@ -125,12 +130,15 @@ def register_page(request):
                 if _user.is_active:
                     print("register success")
                     login(request, new_user)
-                    messages.add_message(request, messages.SUCCESS, 'Вы успешно зарегистрировались')
+                    messages.add_message(
+                        request, messages.SUCCESS, 'Вы успешно зарегистрировались')
                     return redirect('index')
             else:
-                messages.add_message(request, messages.ERROR, 'Аккаунт с этой почтой уже существует')
+                messages.add_message(
+                    request, messages.ERROR, 'Аккаунт с этой почтой уже существует')
         else:
-            messages.add_message(request, messages.ERROR, 'Вы ввели неверные данные')
+            messages.add_message(request, messages.ERROR,
+                                 'Вы ввели неверные данные')
         # return render(request, 'registration/register.html', context)
     else:
         form = RegisterFormView()
@@ -168,16 +176,17 @@ def about_page(req):
 def report_page(request, badass_id):
     context = {
         'menu': get_menu_context(),
-        'Form': ReportForm(initial={'badass': badass_id,'sender': request.user.id}),
+        'Form': ReportForm(initial={'badass': badass_id, 'sender': request.user.id}),
     }
     if request.method == 'GET':
-        return render(request,'pages/report.html',context)
+        return render(request, 'pages/report.html', context)
     if request.method == 'POST':
         report = ReportForm(request.POST)
         if report.is_valid():
             report.cleaned_data['sender'] = request.user.id
             report.save()
-            messages.add_message(request, messages.SUCCESS, 'report was sent to moders team of (=^･ｪ･^=)')
+            messages.add_message(request, messages.SUCCESS,
+                                 'report was sent to moders team of (=^･ｪ･^=)')
             return render(request, 'pages/stream.html', context)
         else:
             messages.add_message(request, messages.ERROR, 'Form is not valid')
