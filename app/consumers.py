@@ -25,6 +25,7 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
         })
 
     async def connect(self):
+        print("connecting")
         await self.accept()
         await self.channel_layer.group_add(self.GROUP_NAME, self.channel_name)
         for _, h in self.handlers.items():
@@ -36,7 +37,7 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
         print("Disconnected")
 
     async def receive_json(self, content, **kwargs):
-        print(content)
+        print("Received: {}".format(content))
         handler, packet_name = content['handler'], content['message']
         await find_action(self.handlers[handler], packet_name)(self, content['data'] if 'data' in content else None)
         print('called')

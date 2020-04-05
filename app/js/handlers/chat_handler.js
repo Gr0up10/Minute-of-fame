@@ -53,10 +53,8 @@ export default class ChatHandler {
         let message = messageInputDom.value.toString();
         console.log(message);
         if (message) {
-            let nickname = 'user';
             let packet = {
             'message': message,
-            'nickname': nickname
             };
             this.send('send_message', packet);
             messageInputDom.value = '';

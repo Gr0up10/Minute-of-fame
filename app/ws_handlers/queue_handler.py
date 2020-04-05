@@ -3,6 +3,7 @@ from app.utils import *
 from app.ws_handlers.handler import Handler
 from asgiref.sync import sync_to_async
 from app.ws_handlers.stream_utils import *
+from channels.db import database_sync_to_async
 
 
 class QueueHandler(Handler):
