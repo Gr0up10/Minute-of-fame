@@ -1208,6 +1208,7 @@ a, a:hover {
 }
 .login-input{
     height: 50px;
+    color: white;
     background-color: #2b2c36;
     width: 95%;
     border: None;
@@ -1342,4 +1343,14 @@ input[type="checkbox"] + label:after{
 
 .stream-info{
     padding-top: 0;
+}
+
+.oval{
+    background: white;
+    color: black;
+    text-align: center;
+    margin: 1vh 0.5vw 1vh 0.5vw;
+    width: 8vw;
+    height: 100px;
+    -webkit-border-radius: 100px / 50px;
 }
