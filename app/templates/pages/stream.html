@@ -26,7 +26,7 @@
 								<script src="https://rawgit.com/muaz-khan/RTCMultiConnection/master/dist/RTCMultiConnection.min.js">
 								</script>
 								<script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
-								<img src="{% static 'Pictures/placeholder1.jpg' %}"
+								<img id="placeholder" src="{% static 'Pictures/placeholder1.jpg' %}"
 								     style="width: 100%;object-fit: cover;">
 							</div>
 						</div>
@@ -71,6 +71,11 @@
 				{% endblock chat %}
 			</div>
 		</div>
+        <div class="row" style="margin-top: 2vh; background-color: #424556;">
+            {% for i in '0123456789'|make_list %}
+                <div class="oval col-sm-5 col-md-2 col-lg-1">{{i}}</div>
+            {% endfor %}
+        </div>
 	</div>
 {% endblock %}
 
