@@ -133,15 +133,19 @@ def profile_page(req):
     context = {
         'menu': get_menu_context()
     }
+    print('\n\n'+str(req.user.is_authenticated)+'\n\n')
+    print('\n\n'+str(len(Profile.objects.filter(user=req.user)))+'\n\n')
     if req.user.is_authenticated:
-        print('\nNum of profile objects:\n'+str(len(Profile.objects.filter(user=req.user))))
         if len(Profile.objects.filter(user=req.user)) > 0:
             print('\n PROFILE PAGE START \n')
-            item = Profile.objects.filter(user=req.user)[len(Profile.objects.filter(user=req.user))-2]
-            print(item.email + '\n\n\n\n\n\n')
+            item = Profile.objects.filter(user=req.user)[len(Profile.objects.filter(user=req.user)) - 1]
             context['item'] = item
         else:
-            print('\n\nNO PROFILE INFO FOR THIS USER\n\n'+str(Profile.objects.filter(user=req.user).count()))
+            print('\n\nNO PROFILE INFO FOR THIS USER\n\n')
+            item = Profile()
+            # твой код
+
+        context['item'] = item
     else:
         return redirect('index')
 
@@ -153,24 +157,30 @@ def profile_settings_page(req):
         'menu': get_menu_context()
     }
     if req.user.is_authenticated:
+        num_of_profiles = len(Profile.objects.filter(user=req.user))
+        current_profile = Profile()
+
+        if num_of_profiles > 0:
+            current_profile = Profile.objects.filter(user=req.user)[num_of_profiles - 1]
+
+        context['item'] = current_profile
+
         if req.method == 'POST':
-            quote = str(req.POST.get('quotes'))
-            location = str(req.POST.get('location'))
-            email = str(req.POST.get('email'))
-            Vk = str(req.POST.get('Vk'))
-            instagram = str(req.POST.get('instagram'))
-            facebook = str(req.POST.get('facebook'))
-            twitter = str(req.POST.get('twitter'))
-            odnoklassniki = str(req.POST.get('odnoklassniki'))
-            youtube_play = str(req.POST.get('youtube_play'))
-            item = Profile(user=req.user, quotes=quote, email=email,
-                           location=location, Vk=Vk, instagram=instagram,
-                           facebook=facebook, twitter=twitter,
-                           odnoklassniki=odnoklassniki, youtube_play=youtube_play)
-            item.save()
-            if len(Profile.objects.filter(user=req.user)) > 0:
-                ite = Profile.objects.filter(user=req.user)[len(Profile.objects.filter(user=req.user))-1]
-                context['item'] = ite
+            fields_names = ['quotes', 'location', 'email', 'Vk', 'instagram', 'facebook', 'twitter', 'odnoklassniki',
+                            'youtube_play']
+            fields_content = dict()
+
+            for field in fields_names:
+                fields_content[field] = str(req.POST.get(field))
+
+            new_item = Profile(user=req.user, quotes=fields_content['quotes'], email=fields_content['email'],
+                               location=fields_content['location'], Vk=fields_content['Vk'],
+                               instagram=fields_content['instagram'], facebook=fields_content['facebook'],
+                               twitter=fields_content['twitter'], odnoklassniki=fields_content['odnoklassniki'],
+                               youtube_play=fields_content['youtube_play'])
+            new_item.save()
+    else:
+        return redirect('index')
     return render(req, 'pages/profile_settings.html', context)
 
 
