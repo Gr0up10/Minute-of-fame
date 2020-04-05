@@ -1208,6 +1208,7 @@ a, a:hover {
 }
 .login-input{
     height: 50px;
+    color: white;
     background-color: #2b2c36;
     width: 95%;
     border: None;
