@@ -68,7 +68,8 @@ class PollHandler(Handler):
 
     @staticmethod
     def vote(sender, like):
-        PollStat(user=sender.scope["user"], stream=get_current_stream(), vote=LikeDislike.LIKE if like else LikeDislike.DISLIKE).save()
+        PollStat(user=sender.scope["user"], stream=get_current_stream(),
+                 vote=LikeDislike.LIKE if like else LikeDislike.DISLIKE).save()
 
 
 class QueueHandler(Handler):
@@ -89,8 +90,8 @@ class QueueHandler(Handler):
         print(is_streaming)
         if is_streaming:
             print('someone streaming')
-            #sender.send_json({"error": "Someone is streaming right now"})
-            #return
+            # sender.send_json({"error": "Someone is streaming right now"})
+            # return
             stream = await sync_to_async(get_current_stream)()
             stream.active = False
             await sync_to_async(stream.save)()
@@ -105,6 +106,19 @@ class QueueHandler(Handler):
         #print('end')
 
 
+class ChatHandler(Handler):
+    name = 'chat'
+
+    @action(command='send_message')
+    async def send_message(self, sender, packet):
+        print('sending message packet', packet)
+        print('sending message sender', sender)
+        await self.send_broadcast('send_message', {
+            'message': packet['message'],
+            'nickname': packet['nickname']
+        })
+
+
 class WSConsumer(AsyncJsonWebsocketConsumer):
     GROUP_NAME = 'main'
 
@@ -115,10 +129,13 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for n, cls in self.handlers.items():
-            setattr(cls.__class__, 'send', lambda cl, c, p: self.send_packet(cl.name, c, p))
-            setattr(cls.__class__, 'send_broadcast', lambda cl, c, p: self.send_broadcast(cl.name, c, p))
-            setattr(cls.__class__, 'send_broadcast_but_me', lambda cl, c, p: self.send_broadcast(cl.name, c, p, self.channel_name))
+        self.handlers = [
+            PollHandler(self),
+            QueueHandler(self),
+            ChatHandler(self)
+        ]
+
+        self.handlers = {h.name: h for h in self.handlers}
 
     async def send_broadcast(self, handler, command, data, name=None):
         await self.channel_layer.group_send(self.GROUP_NAME, {
