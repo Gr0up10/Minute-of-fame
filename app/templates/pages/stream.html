@@ -4,15 +4,17 @@
 {% render_bundle 'main' %}
 
 {% block content %}
-    <style>
+<style>
 		video {
 			width: 900px;
 			height: 600px;
 		}
 
 
-    </style>
-    <script type="text/javascript">
+
+
+</style>
+<script type="text/javascript">
 		let l = 0;
 		let d = 0;
         function print() {
@@ -30,7 +32,9 @@
             d += 1;
             print();
         }
-    </script>
+
+
+</script>
 
 
 <div class="d-flex align-items-stretch">
@@ -66,36 +70,36 @@
                                         <h5 class="secondary-text">Viewers: <b>80082</b></h5>
                                     </div>
                                     <p id="likes"></p>
-                                    <button id="like-stream" onclick="kek();"
-                                            class="flex-sm-fill btn btn-outline-success align-self-stretch"
-                                            style="margin: 0 10px">
-                                        <img class="like-img inline-block center-align"
-                                             src="{% static 'thumb-green.svg' %}">
-                                        <br>
-                                        <h4 class="inline-block center-align">Kek</h4>
-                                    </button>
+                                    <div style="display: contents;">
+                                        <div class="progress">
+                                            <div id="likebar" class="progress-bar bg-success" role="progressbar"
+                                                 style="width:50px" aria-valuenow="30" aria-valuemin="0"
+                                                 aria-valuemax="100"></div>
+
+                                            <div id="dislikebar" class="progress-bar bg-danger" role="progressbar"
+                                                 style="width:50px" aria-valuenow="30" aria-valuemin="0"
+                                                 aria-valuemax="100"></div>
+                                        </div>
+
+                                        <button id="like-stream" onclick="kek();"
+                                                class="flex-sm-fill btn btn-outline-success align-self-stretch"
+                                                style="margin: 0 10px">
+                                            <img class="like-img inline-block center-align"
+                                                 src="/static/thumb-green.svg">
+                                            <br>
+                                            <h4 class="inline-block center-align">Kek</h4>
+                                        </button>
 
 
-                                    <div class="progress">
-                                        <div id="likebar" class="progress-bar bg-success" role="progressbar"
-                                             style="width: 50px" aria-valuenow="30" aria-valuemin="0"
-                                             aria-valuemax="100"></div>
-
-                                        <div id="dislikebar" class="progress-bar bg-danger" role="progressbar"
-                                             style="width: 50px" aria-valuenow="30" aria-valuemin="0"
-                                             aria-valuemax="100"></div>
+                                        <button id="dislike-stream" onclick="cringe();"
+                                                class="flex-sm-fill btn btn-outline-danger align-self-stretch"
+                                                style="margin: 0 10px">
+                                            <img class="dislike-img inline-block center-align"
+                                                 src="/static/thumb-red.svg">
+                                            <br>
+                                            <h4 class="inline-block center-align">Cringe</h4>
+                                        </button>
                                     </div>
-
-
-                                    <button id="dislike-stream" onclick="cringe();"
-                                            class="flex-sm-fill btn btn-outline-danger align-self-stretch"
-                                            style="margin: 0 10px">
-                                        <img class="dislike-img inline-block center-align"
-                                             src="{% static 'thumb-red.svg' %}">
-                                        <br>
-                                        <h4 class="inline-block center-align">Cringe</h4>
-                                    </button>
-
                                 </div>
                             </div>
                         </div>
