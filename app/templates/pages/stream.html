@@ -4,248 +4,82 @@
 {% render_bundle 'main' %}
 
 {% block content %}
-<style>
+	<style>
 		video {
 			width: 900px;
 			height: 600px;
-		"
 		}
 
+	</style>
 
+	<div class="d-flex align-items-stretch">
+		<div class="stream-container flex-fill">
+			<div class="row" style="margin-top: 2vh">
+				<div class="col-md-8">
+					<div class="row">
+						<div class="col-md-12">
+							<div id="stream-figure-overlay"></div>
+							<h4 id="stream-timer-overlay">5:12</h4>
+							<div id="stream-box">
+								<input type="hidden" id="user_room_id" value={{ stream_id }}>
+								<div id="videos-container"></div>
+								<script src="https://rawgit.com/muaz-khan/RTCMultiConnection/master/dist/RTCMultiConnection.min.js">
+								</script>
+								<script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
+								<img id="placeholder" src="{% static 'Pictures/placeholder1.jpg' %}"
+								     style="width: 100%;object-fit: cover;">
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="navbar navbar-expand-md mb-3">
+								<div class="container-fluid">
+									<h2>Stream title</h2>
+									<button type="button" class="navbar-toggler btn btn-outline-light"
+									        data-toggle="collapse"
+									        data-target="#navbarCollapse">
+										info
+									</button>
+									<div class="collapse navbar-collapse" id="navbarCollapse">
+										<div id="stream-info-container" class="bd-highlight w-50">
+											<h5 class="secondary-text">Streamer alias: <b>UltimateDoge487</b></h5>
+											<h5 class="secondary-text">Viewers: <b>80082</b></h5>
+										</div>
+										<p id="likes"></p>
+										<button id="like-stream"
+										        class="flex-sm-fill btn btn-outline-success align-self-stretch">
+											<img class="like-img inline-block center-align"
+											     src="{% static 'thumb-green.svg' %}">
+											<br>
+											<h4 class="inline-block center-align">Kek</h4>
+										</button>
 
-</style>
-
-<div class="d-flex align-items-stretch">
-    <div class="stream-container flex-fill">
-        <div class="row" style="margin-top: 2vh">
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="stream-figure-overlay"></div>
-                        <h4 id="stream-timer-overlay">5:12</h4>
-                        <div id="stream-box">
-                            <input type="hidden" id="user_room_id" value={{ stream_id }}>
-                            <div id="videos-container"></div>
-                            <script src="https://rawgit.com/muaz-khan/RTCMultiConnection/master/dist/RTCMultiConnection.min.js">
-                            </script>
-                            <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
-                            <!-- Перед вставкой видеопотока убрать в классе #stream-box в styles.css захардкоженую высоту (height: 500px;)            -->
-                            <img src="{% static 'Pictures/placeholder1.jpg' %}" style="width: 100%;object-fit: cover;">
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="navbar navbar-expand-md mb-3">
-                            <div class="container-fluid">
-                                <h2>Stream title</h2>
-                                <button type="button" class="navbar-toggler btn btn-outline-light"
-                                        data-toggle="collapse"
-                                        data-target="#navbarCollapse">
-                                    info
-                                </button>
-                                <div class="collapse navbar-collapse" id="navbarCollapse">
-                                    <div id="stream-info-container" class="bd-highlight w-50">
-                                        <h5 class="secondary-text">Streamer alias: <b>UltimateDoge487</b></h5>
-                                        <h5 class="secondary-text">Viewers: <b>80082</b></h5>
-                                    </div>
-                                    <button class="btn btn-light stream-btn"
-                                            onclick="var cs = new WebSocket('ws://localhost:8001/ws/')">CONNECT
-                                    </button>
-                                    <button class="btn btn-light stream-btn" onclick="cs.send(123)">SEND</button>
-
-                                    <p id="likes"></p>
-                                    <button id="like-stream"
-                                            class="flex-sm-fill btn btn-outline-success align-self-stretch">
-                                        <img class="like-img inline-block center-align"
-                                             src="{% static 'thumb-green.svg' %}">
-                                        <br>
-                                        <h4 class="inline-block center-align">Kek</h4>
-                                    </button>
-
-                                    <button id="dislike-stream"
-                                            class="flex-sm-fill btn btn-outline-danger align-self-stretch">
-                                        <img class="dislike-img inline-block center-align"
-                                             src="{% static 'thumb-red.svg' %}">
-                                        <br>
-                                        <h4 class="inline-block center-align">Cringe</h4>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div id="chat-box">
-                    <div class="chat-message d-flex">
-                        <p><b>Somebody: </b> once told me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-                    <div class="chat-message d-flex">
-                        <p><b>this_world: </b>is gonna roll me</p>
-                    </div>
-
-
-                </div>
-                <div class="d-flex justify-content-between">
-                    <textarea type="text" id="chat-message-input" class="inline-block flex-fill"></textarea>
-                    <div>
-                        <button type="button" class="btn btn-dark inline-block" id="send-chat-message">
-                            <img src="{% static 'send.svg' %}">
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+										<button id="dislike-stream"
+										        class="flex-sm-fill btn btn-outline-danger align-self-stretch">
+											<img class="dislike-img inline-block center-align"
+											     src="{% static 'thumb-red.svg' %}">
+											<br>
+											<h4 class="inline-block center-align">Cringe</h4>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% block chat %}
+					{% include 'chat/chat.html' %}
+				{% endblock chat %}
+			</div>
+		</div>
         <div class="row" style="margin-top: 2vh; background-color: #424556;">
             {% for i in '0123456789'|make_list %}
                 <div class="oval col-sm-5 col-md-2 col-lg-1">{{i}}</div>
             {% endfor %}
         </div>
-    </div>
-    {% endblock %}
+	</div>
+{% endblock %}
 
-    {% block extra_js %}
-    {% load static %}
-    {% render_bundle 'main' 'js' %}
-    {% endblock %}
+{% block extra_js %}
+	{% load static %}
+	{% render_bundle 'main' 'js' %}
+{% endblock %}

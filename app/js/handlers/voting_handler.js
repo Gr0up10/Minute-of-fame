@@ -1,6 +1,6 @@
 export default class VotingHandler {
     constructor(socket) {
-        this.socket = socket
+        this.socket = socket;
 
         this.bind_buttons()
     }
