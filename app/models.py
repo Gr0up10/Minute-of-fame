@@ -37,3 +37,17 @@ class PollStat(models.Model):
         choices=LikeDislike.choices,
         default=LikeDislike.LIKE,
     )
+
+
+class Profile(models.Model):
+    """User quotes"""
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    quotes = models.CharField(max_length=60)
+    email = models.CharField(max_length=60)
+    location = models.CharField(max_length=60)
+    Vk = models.CharField(max_length=60)
+    instagram = models.CharField(max_length=60)
+    facebook = models.CharField(max_length=60)
+    twitter = models.CharField(max_length=60)
+    odnoklassniki = models.CharField(max_length=60)
+    youtube_play = models.CharField(max_length=60)

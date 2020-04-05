@@ -8,6 +8,11 @@ from app.ws_handlers.chat_handler import ChatHandler
 class WSConsumer(AsyncJsonWebsocketConsumer):
     GROUP_NAME = 'main'
 
+    handlers = {
+        "poll": PollHandler(),
+        "queue": QueueHandler()
+    }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.handlers = [
@@ -19,7 +24,6 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
         self.handlers = {h.name: h for h in self.handlers}
 
     async def send_broadcast(self, handler, command, data, name=None):
-        print("broadcast", handler, command, data, name)
         await self.channel_layer.group_send(self.GROUP_NAME, {
             "type": "send.command", "handler": handler, "command": command, "data": data, "chan_name": name
         })
@@ -27,9 +31,9 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
     async def connect(self):
         await self.accept()
         await self.channel_layer.group_add(self.GROUP_NAME, self.channel_name)
-        for _, h in self.handlers.items():
-            await h.connection_opened()
-        print("connected", self.channel_name)
+        if await sync_to_async(is_stream_active)():
+            await self.send_packet('queue', 'set_stream', {"stream": await sync_to_async(get_current_stream_id)()})
+        print("connected")
 
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(self.GROUP_NAME, self.channel_name)
@@ -45,7 +49,8 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
         await self.send_json({"handler": handler, "command": command, "data": data})
 
     async def send_command(self, event):
-        print(event['chan_name'])
         if not event['chan_name'] or self.channel_name != event['chan_name']:
             print(self.channel_name, event['chan_name'])
             await self.send_packet(event["handler"], event["command"], event["data"])
+
+
