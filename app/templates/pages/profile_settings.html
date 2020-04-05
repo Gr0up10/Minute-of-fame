@@ -8,6 +8,7 @@
     <div class="card-exit">
         <div class="card-exit__times">
             <i class="fa fa-times card-exit__fa-times" aria-hidden="true"></i>
+            <!-- TODO: сделать ссылку картинку выше ссылкой на страницу профиля -->
         </div>
     </div>
     <div class="profile-container">
@@ -30,7 +31,7 @@
                         <h4 class="info__username">Username</h4>
                         <br>
                         <label for="firstname">Name</label>
-                        <input type="text" class="form-control settings-input" id="firstname">
+                        <input type="text" class="form-control settings-input" id="firstname" value="{{item.user}}">
                         <!--<label for="lastname">Surname</label>
                         <input type="text" class="form-control settings-input" id="lastname"> -->
                     </div>
@@ -113,7 +114,7 @@
                     <div class="col-sm-12 settings-aboutme-mobile">
                         <h4 class="aboutme-settings">About me:</h4>
                         <div class="container settings-text">
-                                  <textarea class="settings-textarea" name="quotes" value="{{item.quotes}}"></textarea>
+                                  <textarea class="settings-textarea" name="quotes"></textarea>
                         </div>
                     </div>
 
