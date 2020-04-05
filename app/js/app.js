@@ -21,3 +21,18 @@ $(document).ready(function () {
 
     socket.connect();
 });
+
+
+grecaptcha.ready(function() {
+    console.log('recapcha ready')
+  $('#register_btn').click(function(e){
+      var form = this;
+      e.preventDefault()
+      grecaptcha.execute('6Lc3K-MUAAAAAJM2Ho9U4tiTIZp-A9PPeGIyyw5z', {action: 'register_form'}).then(function(token) {
+            console.log(token);
+            console.log(document.getElementById("add_form"));
+          $('#recaptcha').val(token);
+          $('#register_form').submit()
+      });
+  })
+});
