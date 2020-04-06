@@ -1,6 +1,16 @@
 variables:
   DOCKER_DRIVER: overlay
 
+test:
+  stage: test
+  script:
+  - apt-get update -qy
+  - apt-get install -y python3 python3-pip
+  - pip install -r requirements.txt
+  - pytests tests
+  tags:
+    - main
+
 docker-build:
   # Official docker image.
   image: gitlab/dind:latest
