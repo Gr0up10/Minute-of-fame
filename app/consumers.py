@@ -55,4 +55,5 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
 
     async def send_internal(self, event):
         print("Received internal event {}".format(event))
+        print(find_action(self.handlers[event['handler']], event['command'], True))
         await find_action(self.handlers[event['handler']], event['command'], True)(self, event['data'] if 'data' in event else None)

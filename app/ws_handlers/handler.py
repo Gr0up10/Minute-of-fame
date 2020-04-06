@@ -11,7 +11,7 @@ class Handler:
         pass
 
     async def send_in(self, command, pack=None):
-        self.consumer.send_internal_broadcast_message(self.name, command, pack)
+        await self.consumer.send_internal_broadcast_message(self.name, command, pack)
 
     async def send(self, command, pack=None):
         await self.consumer.send_packet(self.name, command, pack)

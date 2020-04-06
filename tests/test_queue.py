@@ -49,7 +49,7 @@ async def test_queue_consumer(login):
 
     response = await communicator.receive_json_from(2)
     assert response == {'handler': 'stream', 'command': 'stop', 'data': None}
-    #response = await communicator.receive_json_from(2)
-    #assert response == {'handler': 'stream', 'command': 'set_stream', 'data': {'stream': '321'}}
+    response = await communicator.receive_json_from(2)
+    assert response == {'handler': 'stream', 'command': 'set_stream', 'data': {'stream': '321'}}
 
     await communicator.disconnect()

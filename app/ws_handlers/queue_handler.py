@@ -17,9 +17,12 @@ class QueueHandler(Handler):
         self.timer = None
 
     @database_sync_to_async
-    def get_pending(self):
+    def get_next_pending(self):
         stream = get_current_stream()
-        return list(Stream.objects.filter(date__gte=stream.date, pending=True))
+        if Stream.objects.filter(date__gte=stream.date, pending=True).exists():
+            pendings = list(Stream.objects.filter(date__gte=stream.date, pending=True))
+            return pendings[1].publisher.username, pendings[1].stream_id
+        return None
 
     @database_sync_to_async
     def get_pending_names(self):
@@ -75,22 +78,19 @@ class QueueHandler(Handler):
 
     @action('next', True)
     async def next(self, sender, data):
-        print("Next is {}".format(data.username))
-        if data.username == self.user.username:
-            await self.start_stream(data.id, self.START_TIME)
+        print("Next is {}".format(data))
+        if data[0] == self.user.username:
+            await self.start_stream(data[1], self.START_TIME)
 
     async def start_timer(self, time):
         for i in range(time, 0, -1):
             await self.send_broadcast('set_time', {'time': i})
             await asyncio.sleep(1)
-        # asyncio.get_event_loop().stop()
         await self.send('stop')
-        print('send stop')
+        pending = await self.get_next_pending()
+        if pending:
+            await self.send_in('next', pending)
+
         self.stream.pending = False
         self.stream.active = False
         await sync_to_async(self.stream.save)()
-        print('update model')
-        pendings = await self.get_pending()
-        print(pendings)
-        if pendings:
-            await self.send_in('next', pendings[0])
