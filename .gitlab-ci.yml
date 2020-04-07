@@ -2,11 +2,12 @@ variables:
   DOCKER_DRIVER: overlay
 
 test:
-  image: docker:latest
+  image: gitlab/dind:latest
   stage: test
   services:
     - docker:dind
   script:
+    - pip3 install docker-compose
     - docker-compose -f docker-compose.test.yml up --abort-on-container-exit
   tags:
     - main
