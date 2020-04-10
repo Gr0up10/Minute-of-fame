@@ -33,7 +33,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ecw==078()bm0#u^f6))--6jz3nk27rwy04wb6=2f_3rqrsvq*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (os.getenv('DEBUG', '1') != '0')
+DEBUG = (os.getenv('DEBUG', '0') != '0')
 DOCKER = (os.getenv('DOCKER', '0') != '0')
 
 ALLOWED_HOSTS = [os.getenv('ALLOWED_HOST', '*')]
@@ -151,8 +151,8 @@ EMAIL_HOST_PASSWORD = 'FTyNm.6GK*-vT,/'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 #RECAPTCHA BACKEND
-RECAPTCHA_SITE_KEY = "6Lc3K-MUAAAAAJM2Ho9U4tiTIZp-A9PPeGIyyw5z"
-RECAPTCHA_SECRET_KEY = "6Lc3K-MUAAAAAC1q7OCOcJbIyaRvax5UlLJkebiq"
+RECAPTCHA_SITE_KEY = "6LetidkUAAAAABFq06Yj16QMvjIpfRulOuOg40xR"
+RECAPTCHA_SECRET_KEY = "6LetidkUAAAAANLJj-extHvBVIxsbZ_b4eShKTjZ"
 
 
 ASGI_APPLICATION = 'minute_of_fame.routing.application'
