@@ -5,7 +5,7 @@
 <div class="d-flex align-items-stretch center">
         <div class="card-exit">
             <div class="card-exit__pencil">
-                <i class="fa fa-pencil-square-o card-exit__fa-pencil" aria-hidden="true"></i>
+                <a href="/profile-settings/" class="fa fa-pencil-square-o card-exit__fa-pencil" aria-hidden="true"></a>
             </div>
             <div class="card-exit__times">
                 <i class="fa fa-times card-exit__fa-times" aria-hidden="true"></i>
@@ -17,8 +17,7 @@
                     <div class="avatar-exit">
                         <div class="avatar-exit__pencil">
                             <i class="fa fa-pencil-square-o avatar-exit__fa-pencil" aria-hidden="true"></i>
-                            <!-- #TODO: сделать картинку выше ссылкой на траницу profile-settings -->
-                        </div>
+                            </div>
                         <div class="avatar-exit__times">
                             <i class="fa fa-times avatar-exit__fa-times" aria-hidden="true"></i>
                         </div>
@@ -47,6 +46,8 @@
                     <div class="row">
                         <div id="username" class="col-sm info__sm">
                             <h4 class="info__username">{{item.user}}</h4>
+                            <br>
+                            <h5 class="info__username">{{item.name}}</h5>
                         </div>
                         <div id="networks" class="col-sm">
                             <div class="container info__networks">
