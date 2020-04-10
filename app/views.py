@@ -141,7 +141,7 @@ def profile_page(req):
             item = Profile.objects.filter(user=req.user)[len(Profile.objects.filter(user=req.user)) - 1]
             context['item'] = item
         else:
-            item = Profile(user=req.user, quotes='No description')
+            item = Profile(user=req.user, quotes='No description', name=req.user)
 
         context['item'] = item
     else:
@@ -171,7 +171,7 @@ def profile_settings_page(req):
 
             for field in fields_names:
                 fields_content[field] = str(req.POST.get(field))
-            # TODO: Проверка quotes. Если поле пустое, то field_content['quotes']=current_profile.quotes
+
             new_item = Profile(user=req.user, quotes=fields_content['quotes'], email=fields_content['email'],
                                location=fields_content['location'], Vk=fields_content['Vk'],
                                instagram=fields_content['instagram'], facebook=fields_content['facebook'],
