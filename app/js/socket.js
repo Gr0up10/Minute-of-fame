@@ -12,10 +12,11 @@ export default class Socket {
 
     connect() {
         if(this.isConnected) return;
-        let addr = (DEBUG ? 'ws://' : 'wss://') + window.location.host +'/ws/';
+        let addr = `${(DEBUG ? 'ws://' : 'wss://')}${window.location.host}:${WS_PORT}/ws/`
+        console.log('connection to '+addr)
         this.socket = new WebSocket(addr);
         this.socket.onopen = this.connected;
-        console.log('Connecting to ' + addr);
+        console.log('Connected to ' + addr);
 
         this.socket.onmessage = (event) => {
             console.log(event.data);
@@ -29,6 +30,6 @@ export default class Socket {
 
     send(handler, message, packet) {
         console.log(handler, message, packet);
-        this.socket.send(JSON.stringify({'handler': handler, 'message': message, 'data': packet}))
+        this.socket.send(JSON.stringify({'handler': handler, 'command': message, 'data': packet}))
     }
 }
