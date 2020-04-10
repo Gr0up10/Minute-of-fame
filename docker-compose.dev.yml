@@ -12,3 +12,31 @@ services:
     hostname: redis
     ports:
       - 6379:6379
+
+  db:
+    env_file:
+      - ./db.env
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=database
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
+    hostname: db
+    ports:
+      - 5432:5432
+    networks:
+      - main
+    volumes:
+    - ./db_data:/var/lib/postgresql/
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - main
+
+networks:
+  main:

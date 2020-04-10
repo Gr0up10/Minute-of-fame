@@ -2,10 +2,13 @@
 {% load static %}
 
 {% block content %}
+<form action="/profile-settings/" method="POST">
+                {% csrf_token %}
 <div class="d-flex align-items-stretch center">
     <div class="card-exit">
         <div class="card-exit__times">
             <i class="fa fa-times card-exit__fa-times" aria-hidden="true"></i>
+            <!-- TODO: сделать ссылку картинку выше ссылкой на страницу профиля -->
         </div>
     </div>
     <div class="profile-container">
@@ -21,26 +24,27 @@
                 </div>
                 <img class="d-lg-flex justify-content-lg-center avatar__img" src="{% static 'setts.jpg' %}">
             </div>
+
             <div id="info" class="col-sm-6 info">
                 <div class="row">
                     <div id="username" class="col-sm info__sm">
                         <h4 class="info__username">Username</h4>
                         <br>
                         <label for="firstname">Name</label>
-                        <input type="text" class="form-control settings-input" id="firstname">
-                        <label for="lastname">Surname</label>
-                        <input type="text" class="form-control settings-input" id="lastname">
+                        <input type="text" class="form-control settings-input" id="firstname" value="{{item.user}}">
+                        <!--<label for="lastname">Surname</label>
+                        <input type="text" class="form-control settings-input" id="lastname"> -->
                     </div>
                     <div id="networks" class="col-sm">
                         <div class="container settings-networks">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                        <span class="input-group-text" id="location">
+                                        <span class="input-group-text" id="location" >
                                             <i class="fa fa-map-marker info__gold-color" aria-hidden="true"></i>
                                         </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Location" aria-label="Username"
-                                       aria-describedby="location">
+                                <input type="text" name="location" class="form-control settings-input" placeholder="Location" aria-label="Username"
+                                       aria-describedby="location" value="{{item.location}}">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -48,8 +52,8 @@
                                             <i class="fa fa-envelope info__gold-color" aria-hidden="true"></i>
                                         </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Email" aria-label="Username"
-                                       aria-describedby="email">
+                                <input type="text"  name="email" class="form-control settings-input" placeholder="Email" aria-label="Username"
+                                       aria-describedby="email" value="{{item.email}}" >
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -57,8 +61,8 @@
                                                 <i class="fa fa-vk info__network" aria-hidden="true"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Vk" aria-label="Username"
-                                       aria-describedby="vk">
+                                <input type="text"  name="Vk" class="form-control settings-input" placeholder="Vk" aria-label="Username"
+                                       aria-describedby="vk" value="{{item.Vk}}">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -66,8 +70,8 @@
                                                 <i class="fa fa-instagram info__network" aria-hidden="true"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Instagram"
-                                       aria-label="Username" aria-describedby="instagram">
+                                <input type="text" name="instagram" class="form-control settings-input" placeholder="Instagram"
+                                       aria-label="Username" aria-describedby="instagram" value="{{item.instagram}}">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -75,8 +79,8 @@
                                                 <i class="fa fa-facebook info__network" aria-hidden="true"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Facebook" aria-label="Username"
-                                       aria-describedby="facebook">
+                                <input type="text" name="facebook" class="form-control settings-input" placeholder="Facebook" aria-label="Username"
+                                       aria-describedby="facebook" value="{{item.facebook}}">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -84,8 +88,8 @@
                                                 <i class="fa fa-twitter info__network" aria-hidden="true"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Twitter" aria-label="Username"
-                                       aria-describedby="twitter">
+                                <input type="text" name="twitter" class="form-control settings-input" placeholder="Twitter" aria-label="Username"
+                                       aria-describedby="twitter" value="{{item.twitter}}">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -93,8 +97,8 @@
                                                 <i class="fa fa-odnoklassniki info__network" aria-hidden="true"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Odnoclassniki"
-                                       aria-label="Username" aria-describedby="odnoclassniki">
+                                <input type="text" name="odnoklassniki" class="form-control settings-input" placeholder="Odnoclassniki"
+                                       aria-label="Username" aria-describedby="odnoclassniki" value="{{item.odnoklassniki}}">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -102,25 +106,26 @@
                                                 <i class="fa fa-youtube-play info__network" aria-hidden="true"></i>
                                             </span>
                                 </div>
-                                <input type="text" class="form-control settings-input" placeholder="Youtube" aria-label="Username"
-                                       aria-describedby="youtube">
+                                <input type="text" name="youtube_play" class="form-control settings-input" placeholder="Youtube" aria-label="Username"
+                                       aria-describedby="youtube" value="{{item.youtube_play}}">
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-12 settings-aboutme-mobile">
                         <h4 class="aboutme-settings">About me:</h4>
                         <div class="container settings-text">
-                            <textarea class="settings-textarea"></textarea>
+                                  <textarea class="settings-textarea" name="quotes"></textarea>
                         </div>
                     </div>
 
                 </div>
             </div>
             <div class="container save-btn">
-                <button type="button" class="btn stream-btn btn_save">
+                <button type="submit" class="btn stream-btn btn_save">
                         Save
                 </button>
             </div>
+            </form>
         </div>
     </div>
 </div>

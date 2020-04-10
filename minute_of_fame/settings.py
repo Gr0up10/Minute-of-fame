@@ -33,7 +33,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ecw==078()bm0#u^f6))--6jz3nk27rwy04wb6=2f_3rqrsvq*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (os.getenv('DEBUG', '0') != '0')
+DEBUG = (os.getenv('DEBUG', '1') != '0')
 DOCKER = (os.getenv('DOCKER', '0') != '0')
 
 ALLOWED_HOSTS = [os.getenv('ALLOWED_HOST', '*')]
@@ -90,11 +90,14 @@ WSGI_APPLICATION = 'minute_of_fame.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('POSTGRES_DB', 'database'),
+        'USER': os.getenv('POSTGRES_USER', 'username'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'password'),
+        'HOST': 'localhost' if not DOCKER else os.getenv('POSTGRES_HOST', 'db'),
+        'PORT': '5432',
     }
 }
 
@@ -162,7 +165,6 @@ CHANNEL_LAYERS = {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
             "hosts": [('redis', 6379)] if DOCKER else [('localhost', 6379)],
-            'capacity': 1500000,
         },
     },
 }

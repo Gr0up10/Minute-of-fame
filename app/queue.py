@@ -3,8 +3,7 @@ Base class for streamers queue
 """
 
 
-class QueueBase:
-
+class QueueModel:
     def __init__(self, select_next):
         """
         select_next - функция, в которую надо передать id следующего
@@ -50,4 +49,4 @@ class QueueBase:
         self.current_streamer = self.queue[0]
         if len(self.queue):
             self.queue.pop(0)
-            self.next_streamer = self.queue[0]
+            self.next_streamer(self.queue[0])
