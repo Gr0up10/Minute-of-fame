@@ -46,6 +46,7 @@ export default class ChatHandler {
         let message = this.get_message(packet);
 
         chat_box.appendChild(message);
+        document.getElementById('chat-box').scrollTop = document.getElementById('chat-box').scrollHeight;
     }
 
     send_message() {
