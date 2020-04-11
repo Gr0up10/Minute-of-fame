@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.conf import settings
 import requests
+from django.views.decorators.cache import cache_control
+
 from .forms import *
 from .models import *
 from django.contrib.auth.decorators import login_required
@@ -58,14 +60,17 @@ def login_page(request):
             if user is not None:
                 print("login success")
                 login(request, user)
-                messages.add_message(request, messages.SUCCESS, "Авторизация успешна")
+                messages.add_message(
+                    request, messages.SUCCESS, "Авторизация успешна")
                 return redirect('index')
             else:
                 pass
-                messages.add_message(request, messages.ERROR, "Неправильный логин или пароль")
+                messages.add_message(
+                    request, messages.ERROR, "Неправильный логин или пароль")
         else:
             pass
-            messages.add_message(request, messages.ERROR, "Некорректные данные в форме авторизации")
+            messages.add_message(request, messages.ERROR,
+                                 "Некорректные данные в форме авторизации")
     else:
         login_form = LoginForm()
         context['form'] = login_form
@@ -74,7 +79,8 @@ def login_page(request):
 
 def logout_page(request):
     logout(request)
-    messages.add_message(request, messages.INFO, "Вы успешно вышли из аккаунта")
+    messages.add_message(request, messages.INFO,
+                         "Вы успешно вышли из аккаунта")
     return redirect('index')
 
 
@@ -105,7 +111,8 @@ def register_page(request):
                         'secret': secret_key,
                         'remoteip': get_client_ip(request)
                     }
-                    resp = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+                    resp = requests.post(
+                        'https://www.google.com/recaptcha/api/siteverify', data=data)
                     result_json = resp.json()
                     success = result_json.get('success')
                 else:
@@ -125,34 +132,71 @@ def register_page(request):
                 if _user.is_active:
                     print("register success")
                     login(request, new_user)
-                    messages.add_message(request, messages.SUCCESS, 'Вы успешно зарегистрировались')
+                    messages.add_message(
+                        request, messages.SUCCESS, 'Вы успешно зарегистрировались')
                     return redirect('index')
             else:
-                messages.add_message(request, messages.ERROR, 'Аккаунт с этой почтой уже существует')
+                messages.add_message(
+                    request, messages.ERROR, 'Аккаунт с этой почтой уже существует')
         else:
-            messages.add_message(request, messages.ERROR, 'Вы ввели неверные данные')
+            messages.add_message(request, messages.ERROR,
+                                 'Вы ввели неверные данные')
         # return render(request, 'registration/register.html', context)
     else:
         form = RegisterFormView()
         context['form'] = form
-        # return render(request, 'registration/register.html', context)
-        return render(request, 'pages/stream.html', context)
     return redirect('index')
 
 
+@cache_control(max_age=0, no_cache=True, no_store=True, must_revalidate=True)
 def profile_page(req):
     context = {
         'menu': get_menu_context()
     }
+    if req.user.is_authenticated:
+        if len(Profile.objects.filter(user=req.user)) > 0:
+            item = Profile.objects.filter(user=req.user)[len(Profile.objects.filter(user=req.user)) - 1]
+            context['item'] = item
+        else:
+            item = Profile(user=req.user, quotes='No description', name=req.user)
+
+        context['item'] = item
+    else:
+        return redirect('index')
 
     return render(req, 'pages/profile.html', context)
 
 
+@cache_control(max_age=0, no_cache=True, no_store=True, must_revalidate=True)
 def profile_settings_page(req):
     context = {
         'menu': get_menu_context()
     }
+    if req.user.is_authenticated:
+        num_of_profiles = len(Profile.objects.filter(user=req.user))
+        current_profile = Profile()
 
+        if num_of_profiles > 0:
+            current_profile = Profile.objects.filter(user=req.user)[num_of_profiles - 1]
+
+        context['item'] = current_profile
+
+        if req.method == 'POST':
+            fields_names = ['quotes', 'location', 'email', 'Vk', 'instagram', 'facebook', 'twitter', 'odnoklassniki',
+                            'youtube_play', 'name']
+            fields_content = dict()
+
+            for field in fields_names:
+                fields_content[field] = str(req.POST.get(field))
+
+            new_item = Profile(user=req.user, quotes=fields_content['quotes'], email=fields_content['email'],
+                               location=fields_content['location'], Vk=fields_content['Vk'],
+                               instagram=fields_content['instagram'], facebook=fields_content['facebook'],
+                               twitter=fields_content['twitter'], odnoklassniki=fields_content['odnoklassniki'],
+                               youtube_play=fields_content['youtube_play'], name=fields_content['name'])
+            new_item.save()
+    else:
+        return redirect('index')
     return render(req, 'pages/profile_settings.html', context)
 
 
@@ -168,16 +212,17 @@ def about_page(req):
 def report_page(request, badass_id):
     context = {
         'menu': get_menu_context(),
-        'Form': ReportForm(initial={'badass': badass_id,'sender': request.user.id}),
+        'Form': ReportForm(initial={'badass': badass_id, 'sender': request.user.id}),
     }
     if request.method == 'GET':
-        return render(request,'pages/report.html',context)
+        return render(request, 'pages/report.html', context)
     if request.method == 'POST':
         report = ReportForm(request.POST)
         if report.is_valid():
             report.cleaned_data['sender'] = request.user.id
             report.save()
-            messages.add_message(request, messages.SUCCESS, 'report was sent to moders team of (=^･ｪ･^=)')
+            messages.add_message(request, messages.SUCCESS,
+                                 'report was sent to moders team of (=^･ｪ･^=)')
             return render(request, 'pages/stream.html', context)
         else:
             messages.add_message(request, messages.ERROR, 'Form is not valid')
