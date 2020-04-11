@@ -7,6 +7,7 @@ export default class StreamHandler {
     }
 
     handle_message(name, packet) {
+        if (name === "set_time") $('#stream-timer-overlay').text(packet.time);
         if (name === "set_stream"){
             $('#placeholder').css('display', 'none');
             console.log('hide')
