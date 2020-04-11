@@ -4,8 +4,10 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Report(models.Model):
-    badass = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='badass_id', null=True)
-    sender = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='sender_id', null=True)
+    badass = models.ForeignKey(
+        to=User, on_delete=models.CASCADE, related_name='badass_id', null=True)
+    sender = models.ForeignKey(
+        to=User, on_delete=models.CASCADE, related_name='sender_id', null=True)
     date = models.DateTimeField(auto_now=True)
     # reason's
     multi_account = models.BooleanField(default=False)
@@ -15,12 +17,15 @@ class Report(models.Model):
 
 
 class Stream(models.Model):
+    date = models.DateField(auto_now=True)
+    pending = models.BooleanField(default=True)
+    active = models.BooleanField(default=False)
     publisher = models.ForeignKey(to=User, on_delete=models.CASCADE)
     stream_id = models.CharField(max_length=16)
-    active = models.BooleanField(default=True)
 
 
 class StreamView(models.Model):
+    date = models.DateField(auto_now=True)
     stream = models.ForeignKey(to=Stream, on_delete=models.CASCADE)
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
 
@@ -31,9 +36,25 @@ class LikeDislike(models.IntegerChoices):
 
 
 class PollStat(models.Model):
+    date = models.DateField(auto_now=True)
     stream = models.ForeignKey(to=Stream, on_delete=models.CASCADE)
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     vote = models.IntegerField(
         choices=LikeDislike.choices,
         default=LikeDislike.LIKE,
     )
+
+
+class Profile(models.Model):
+    """User quotes"""
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    quotes = models.CharField(max_length=60)
+    email = models.CharField(max_length=60)
+    location = models.CharField(max_length=60)
+    Vk = models.CharField(max_length=60)
+    instagram = models.CharField(max_length=60)
+    facebook = models.CharField(max_length=60)
+    twitter = models.CharField(max_length=60)
+    odnoklassniki = models.CharField(max_length=60)
+    youtube_play = models.CharField(max_length=60)
+    name = models.CharField(max_length=60)
