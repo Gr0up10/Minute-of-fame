@@ -22,6 +22,12 @@ export default class ChatHandler {
     get_message(packet) {
         let nickname = packet.nickname.toString();
         nickname += ': ';
+        let card = document.createElement('div');
+        card.className = "card";
+        card.style = "background-color: rgba(91,192,222,0.3); margin: 5px";
+
+        let card_body = document.createElement('div');
+        card_body.className = "card-body";
 
         let message = document.createElement('div'); // message block
         message.className = "chat-message d-flex";
@@ -38,7 +44,10 @@ export default class ChatHandler {
         p_tag.appendChild(text_message);
         message.appendChild(p_tag);
 
-        return message;
+        card_body.appendChild(message);
+        card.append(card_body);
+
+        return card;
     }
 
     handle_message(name, packet) {
@@ -46,6 +55,7 @@ export default class ChatHandler {
         let message = this.get_message(packet);
 
         chat_box.appendChild(message);
+        document.getElementById('chat-box').scrollTop = document.getElementById('chat-box').scrollHeight;
     }
 
     send_message() {
@@ -53,10 +63,8 @@ export default class ChatHandler {
         let message = messageInputDom.value.toString();
         console.log(message);
         if (message) {
-            let nickname = 'user';
             let packet = {
             'message': message,
-            'nickname': nickname
             };
             this.send('send_message', packet);
             messageInputDom.value = '';

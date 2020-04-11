@@ -7,6 +7,18 @@ export default class StreamHandler {
     }
 
     handle_message(name, packet) {
-        if (name === "set_stream") this.stream.watchStream(packet.stream);
+        if (name === "set_stream"){
+            $('#placeholder').css('display', 'none');
+            console.log('hide')
+            this.stream.watchStream(packet.stream);
+        }
+        if (name === "stop") {
+            this.stream.stopStream();
+            $('#placeholder').css('display', 'block');
+        }
+        if (name === "update_place"){
+            $('#placeholder').css('display', 'none');
+            console.log(packet);
+        }
     }
 }
