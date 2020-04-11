@@ -44,6 +44,16 @@ services:
     depends_on:
       - distributor
 
+  poll:
+    env_file:
+      - ./service.env
+    image: maplegend/mof-poll:master
+    hostname: chat
+    networks:
+      - main
+    depends_on:
+      - distributor
+
   multi_connection:
     image: maplegend/multi_connection:master
     command: node server --port 9001
@@ -67,6 +77,11 @@ services:
     hostname: db
     networks:
       - main
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   adminer:
     image: adminer
