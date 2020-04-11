@@ -85,7 +85,6 @@ class QueueHandler(Handler):
     async def start_timer(self, time):
         for i in range(time, 0, -1):
             await self.send_broadcast('set_time', {'time': i})
-            await self.send('tik', i)
             await asyncio.sleep(1)
         await self.send('stop')
         pending = await self.get_next_pending()

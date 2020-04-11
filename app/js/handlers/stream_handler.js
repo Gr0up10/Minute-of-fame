@@ -10,6 +10,6 @@ export default class StreamHandler {
         if (name === "set_stream") this.stream.watchStream(packet.stream);
         if (name === "stop") this.stream.stopStream();
         if (name === "update_place") console.log(packet);
-        if (name === "tik") $('#stream-timer-overlay').text(packet);
+        if (name === "set_time") $('#stream-timer-overlay').text(packet.time);
     }
 }
