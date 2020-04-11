@@ -16,7 +16,7 @@ module.exports = {
     new BundleTracker({filename: './webpack-stats.json'}),
     new webpack.SourceMapDevToolPlugin({}),
     new webpack.DefinePlugin({
-        'DEBUG': (process.env.DEBUG || '0') === '1',
+        'DEBUG': (process.env.DEBUG || '1') === '1',
         'WS_PORT': (process.env.WS_PORT || '4321')
     })
   ]

@@ -136,7 +136,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 STATIC_URL = '/static/'
 STATIC_ROOT = '/staticfiles/' if os.getenv('DOCKER', '0') != '0' else os.path.join(BASE_DIR, 'staticfiles/')
 LOGIN_URL = '/login/'
@@ -156,17 +156,11 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 RECAPTCHA_SITE_KEY = "6Lc3K-MUAAAAAJM2Ho9U4tiTIZp-A9PPeGIyyw5z"
 RECAPTCHA_SECRET_KEY = "6Lc3K-MUAAAAAC1q7OCOcJbIyaRvax5UlLJkebiq"
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'my_cache_table',
-    }
-}
 
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'CACHE': not DEBUG,
-        'BUNDLE_DIR_NAME': 'webpack_bundles/', # must end with slash
+        'CACHE': False,
+        'BUNDLE_DIR_NAME': 'webpack_bundles/',  # must end with slash
         'STATS_FILE': os.path.join(BASE_DIR, 'app/js/webpack-stats.json'),
         'POLL_INTERVAL': 0.1,
         'TIMEOUT': None,
