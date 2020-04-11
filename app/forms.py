@@ -57,4 +57,5 @@ class ReportForm(forms.ModelForm):
     class Meta:
         model = Report
         fields = '__all__'
-        widgets = {'badass': forms.HiddenInput(),'sender': forms.HiddenInput()}
+        widgets = {'badass': forms.HiddenInput(
+        ), 'sender': forms.HiddenInput()}

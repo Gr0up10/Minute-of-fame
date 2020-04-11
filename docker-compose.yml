@@ -3,26 +3,27 @@ services:
   web:
     image: maplegend/minute-of-fame
     build: .
-    command: daphne -b 0.0.0.0 -p 80 minute_of_fame.asgi:application
+    command: /bin/sh -c "python manage.py migrate && python manage.py createcachetable && daphne -b 0.0.0.0 -p 80 minute_of_fame.asgi:application"
     env_file:
       - ./web.env
+      - ./db.env
     ports:
       - 80:80
     environment:
       - NODE_ENV=production
       - RHOST=redis
     networks:
-      - redis-net
+      - main
     depends_on:
       - redis
-    links:
-      - "redis:db"
+      - db
+      - multi_connection
 
   multi_connection:
     image: maplegend/multi_connection:master
     command: node server --port 9001
     networks:
-      - redis-net
+      - main
     ports:
       - 9001:9001
 
@@ -31,12 +32,24 @@ services:
     command: ["redis-server", "--appendonly", "yes"]
     hostname: redis
     networks:
-      - redis-net
-    volumes:
-      - redis-data:/data
+      - main
+
+  db:
+    env_file:
+      - ./db.env
+    image: postgres
+    restart: always
+    hostname: db
+    networks:
+      - main
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - main
 
 networks:
-  redis-net:
-
-volumes:
-  redis-data:
+  main:

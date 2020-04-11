@@ -1,3 +1,5 @@
+version: '3'
+services:
   multi_connection:
     image: maplegend/multi_connection:master
     command: node server --port 9001
@@ -8,7 +10,33 @@
     image: redis:4.0.5-alpine
     command: ["redis-server", "--appendonly", "yes"]
     hostname: redis
-    volumes:
-      - redis-data:/data
     ports:
       - 6379:6379
+
+  db:
+    env_file:
+      - ./db.env
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=database
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
+    hostname: db
+    ports:
+      - 5432:5432
+    networks:
+      - main
+    volumes:
+    - ./db_data:/var/lib/postgresql/
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - main
+
+networks:
+  main:

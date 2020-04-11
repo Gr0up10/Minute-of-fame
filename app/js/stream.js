@@ -99,6 +99,8 @@ export default class Stream {
 
     watchStream(input_room_id) {
         if(this.streaming) this.stopStream()
+        console.log('start wactch stream ', input_room_id)
+        $('#placeholder').css('display', 'none');
         this.connection.checkPresence(input_room_id, (isRoomExist, room_id) => {
             if (isRoomExist === true) {
                 this.connection.session = {
