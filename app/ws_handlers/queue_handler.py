@@ -39,11 +39,15 @@ class QueueHandler(Handler):
             print("send connect")
             await self.send('set_stream', {"stream": await sync_to_async(get_current_stream_id)()})
 
+    async def disconnect(self):
+        await self.stop_stream(None, None)
+
     @action(command="stop_stream")
     async def stop_stream(self, sender, packet):
-        user = sender.scope["user"]
-        if user.is_anonymous and await sync_to_async(Stream.objects.filter(user=user).exists()):
-            stream = await sync_to_async(Stream.objects.get(user=user))
+        if not self.user.is_anonymous and await sync_to_async(Stream.objects.filter(publisher=self.user, active=True).exists)():
+            print("stop stream")
+            await sync_to_async(get_current_stream)()
+            stream = await sync_to_async(Stream.objects.get)(publisher=self.user, active=True)
             stream.active = False
             await sync_to_async(stream.save)()
 
@@ -64,6 +68,8 @@ class QueueHandler(Handler):
             await self.send('update_place', {'place': len(pending), 'others': pending})
         else:
             await self.start_stream(packet['id'], packet['duration'] if 'duration' in packet else False)
+            await asyncio.sleep(0.1)
+            await self.send('update_place', {'place': 1, 'others': await self.get_pending_names()})
 
     async def start_stream(self, id, duration):
         if duration > self.START_TIME:

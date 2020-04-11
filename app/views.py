@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.conf import settings
 import requests
+from django.views.decorators.cache import cache_control
+
 from .forms import *
 from .models import *
 from django.contrib.auth.decorators import login_required
@@ -143,24 +145,58 @@ def register_page(request):
     else:
         form = RegisterFormView()
         context['form'] = form
-        # return render(request, 'registration/register.html', context)
-        return render(request, 'pages/stream.html', context)
     return redirect('index')
 
 
+@cache_control(max_age=0, no_cache=True, no_store=True, must_revalidate=True)
 def profile_page(req):
     context = {
         'menu': get_menu_context()
     }
+    if req.user.is_authenticated:
+        if len(Profile.objects.filter(user=req.user)) > 0:
+            item = Profile.objects.filter(user=req.user)[len(Profile.objects.filter(user=req.user)) - 1]
+            context['item'] = item
+        else:
+            item = Profile(user=req.user, quotes='No description', name=req.user)
+
+        context['item'] = item
+    else:
+        return redirect('index')
 
     return render(req, 'pages/profile.html', context)
 
 
+@cache_control(max_age=0, no_cache=True, no_store=True, must_revalidate=True)
 def profile_settings_page(req):
     context = {
         'menu': get_menu_context()
     }
+    if req.user.is_authenticated:
+        num_of_profiles = len(Profile.objects.filter(user=req.user))
+        current_profile = Profile()
 
+        if num_of_profiles > 0:
+            current_profile = Profile.objects.filter(user=req.user)[num_of_profiles - 1]
+
+        context['item'] = current_profile
+
+        if req.method == 'POST':
+            fields_names = ['quotes', 'location', 'email', 'Vk', 'instagram', 'facebook', 'twitter', 'odnoklassniki',
+                            'youtube_play', 'name']
+            fields_content = dict()
+
+            for field in fields_names:
+                fields_content[field] = str(req.POST.get(field))
+
+            new_item = Profile(user=req.user, quotes=fields_content['quotes'], email=fields_content['email'],
+                               location=fields_content['location'], Vk=fields_content['Vk'],
+                               instagram=fields_content['instagram'], facebook=fields_content['facebook'],
+                               twitter=fields_content['twitter'], odnoklassniki=fields_content['odnoklassniki'],
+                               youtube_play=fields_content['youtube_play'], name=fields_content['name'])
+            new_item.save()
+    else:
+        return redirect('index')
     return render(req, 'pages/profile_settings.html', context)
 
 
