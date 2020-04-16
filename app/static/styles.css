@@ -1120,6 +1120,9 @@ a, a:hover {
 .modal-cont-set{
     height: 350px;
 }
+.modal-cont-start{
+    height: 350px;
+}
 .modal-header-back {
     padding: 0;
     border-top: 40px solid rgba(21, 29, 49, 0.5);
