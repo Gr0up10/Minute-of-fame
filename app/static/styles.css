@@ -46,7 +46,26 @@ a {
         padding-bottom: 10px;
         border-bottom: 3px solid #333645;
     }
+    .col-sm-6 {
+        flex: auto;
+        max-width: 100%;
+    }
+
+    .photo-modal-footer__text{
+        white-space: inherit;
+        margin: 0;
+    }
+
+    .modal-content {
+        width: 100%;
+    }
+
 }
+
+.settings-nets-col{
+    flex-basis: auto;
+}
+
 
 .menu-container{
     background-color: #333645;
@@ -1354,3 +1373,80 @@ input[type="checkbox"] + label:after{
     height: 100px;
     -webkit-border-radius: 100px / 50px;
 }
+
+input.error {
+    border: 1px solid #ff0000;
+}
+label.error {
+    color: #ff0000;
+    font-weight: normal;
+}
+
+/*----photo selection----*/
+.file_name{
+ margin: 0;
+ color: grey;
+}
+.example-1 .form-group {
+ padding: 1em;
+ margin: 0em 1em 0em 1em;
+}
+
+.photo-modal-footer{
+ display: flex;
+ justify-content: space-evenly;
+}
+
+.photo-modal-footer__text{
+ color: grey;
+ padding: 0;
+
+}
+
+.photo-modal-footer__btn{
+ border-radius: 0px;
+}
+
+.example-1 input[type=file] {
+ outline: 0;
+ opacity: 0;
+ pointer-events: none;
+ user-select: none
+}
+
+.example-1 .label {
+ border: 2px dashed grey;
+ border-radius: 5px;
+ display: block;
+ padding: 1.2em;
+ transition: border 300ms ease;
+ cursor: pointer;
+ text-align: center
+}
+
+.example-1 .label i {
+ display: block;
+ font-size: 42px;
+ padding-bottom: 16px
+}
+
+.example-1 .label i,
+.example-1 .label .title {
+ color: grey;
+ transition: 200ms color
+}
+
+.example-1 .label:hover {
+ border: 2px solid #28a745
+}
+
+.example-1 .label:hover i,
+.example-1 .label:hover .title {
+ color: #28a745
+}
+/*-----------------------*/
+
+.settings-nets-col{
+ flex-basis: auto;
+}
+

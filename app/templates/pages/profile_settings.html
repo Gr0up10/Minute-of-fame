@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<form action="/profile-settings/" method="POST">
+<form action="/profile-settings/" id="myForm" method="POST">
                 {% csrf_token %}
 <div class="d-flex align-items-stretch center">
     <div class="card-exit">
@@ -18,9 +18,9 @@
                         <i class="fa fa-times avatar-exit__fa-times" aria-hidden="true"></i>
                     </div>
                 </div>
-                <div class="avatar__upload">
+                <a class="avatar__upload" data-toggle="modal" data-target="#photoModal">
                     <i class="fa fa-camera avatar_camera" aria-hidden="true"></i>
-                </div>
+                </a>
                 <img class="d-lg-flex justify-content-lg-center avatar__img" src="{% static 'setts.jpg' %}">
             </div>
 
