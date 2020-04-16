@@ -2,36 +2,25 @@
   <div class="modal-dialog  modal-dialog-centered" role="document">
     <div class="modal-content modal-content-report">
         <div class="modal-header-back"></div>
-        <h3 class="modal-title" id="exampleModalLabel">Start Streaming</h3>
+        <h3 class="modal-title" id="exampleModalLabel">Start</h3>
       <div class="modal-body">
           	<div class="row">
 		<div class="col mt-3">
 				<div class="container">
 					<form method="POST" id="add_form" action="">
                         {% csrf_token %}
-                        <div class="col mb-3">
-                        <h4>Choose Reason</h4>
-                        </div>
-						<div class="custom-control custom-checkbox mb-3">
-      							<input type="checkbox" class="custom-control-input" id="multiCheck" name="checkbox">
-								<label class="custom-control-label" for="multiCheck"><h5>Multi Account</h5></label>
-    					</div>
-                        <div class="custom-control custom-checkbox mb-3">
-      							<input type="checkbox" class="custom-control-input" id="offenceCheck" name="checkbox">
-								<label class="custom-control-label" for="offenceCheck"><h5>Offensive</h5></label>
-    					</div>
-                        <div class="custom-control custom-checkbox mb-3">
-      							<input type="checkbox" class="custom-control-input" id="contentCheck" name="checkbox">
-								<label class="custom-control-label" for="contentCheck"><h5>Innapropriate video content</h5></label>
-    					</div>
-
+						<div class="input-group mb-3 login-input">
+								<!--<i class="fas fa-user login-icons"></i>-->
+								<input name="username" type="text" class="form-control login-input lp" placeholder="Title" aria-label="Title"
+                                                                                aria-describedby="basic-addon1">
+						</div>
                         <div class="form-group text-center">
-                                <textarea class="form-control textarea-report " id="exampleFormControlTextarea1" rows="3" placeholder="Enter additional information"></textarea>
+                                <textarea class="form-control textarea-start " id="exampleFormControlTextarea1" rows="3" placeholder="Description"></textarea>
                         </div>
 
                         <div class="form-group text-center mt-4">
 							<div class="submit">
-								<button type="submit" class="btn btn-lg btn-cust"><h2>SEND</h2></button>
+								<button type="submit" class="btn btn-lg btn-cust"><h2>START</h2></button>
 							</div>
 						</div>
 					</form>

@@ -1221,6 +1221,15 @@ input[type="checkbox"] + label:after{
     border: None;
     color: white;
 }
+.textarea-start{
+    background-color: #2b2c36;
+    border: None;
+}
+.textarea-start:focus{
+    background-color: #2b2c36;
+    border: None;
+    color: white;
+}
 
 .modal-content-reset{
     height: 350px;

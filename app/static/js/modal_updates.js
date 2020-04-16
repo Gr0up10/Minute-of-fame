@@ -19,6 +19,9 @@ $(".login-input").change(function(event){
 $(".textarea-report").change(function(event){
     this.style.color = 'white';
 });
+$(".textarea-start").change(function(event){
+    this.style.color = 'white';
+});
 //If you want to call error - use this func, also removes error.
 //name - name of error div
 //h - new height
