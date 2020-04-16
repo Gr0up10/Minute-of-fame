@@ -12,6 +12,12 @@ $('#loginModal').on('hidden.bs.modal', function (event) {
     error('login-warning', '500px', '450px');
 })
 
+
+$(".login-input").change(function(event){
+    console.log("CHANGED");
+    console.log(this.id);
+    this.style.color = 'white';
+});
 //If you want to call error - use this func, also removes error.
 //name - name of error div
 //h - new height

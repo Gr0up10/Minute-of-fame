@@ -10,8 +10,8 @@
 					<form method="POST" id="add_form" action="/register/">
                         {% csrf_token %}
 						<input type="hidden" name="g-recaptcha-response" id='recaptcha'>
-
-						<div class="input-group mb-3 login-input">
+						<!-- add class login-input-->
+						<div class="input-group  mb-3 login-input">
 								<!--<i class="fas fa-user login-icons"></i> -->
 								<input name="username" type="text" class="form-control login-input lp" placeholder="Username" aria-label="Username"
                                                                                 aria-describedby="basic-addon1">
