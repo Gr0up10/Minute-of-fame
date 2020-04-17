@@ -42,9 +42,9 @@ class PollHandler(Handler):
     def vote(sender, like):
         current = PollStat.objects.filter(user=sender.scope["user"], stream=get_current_stream())
         if current.exists():
-            current[0] = PollStat(user=sender.scope["user"], stream=get_current_stream(),
-                 vote=LikeDislike.LIKE if like else LikeDislike.DISLIKE)
-            current[0].save()
+            cur = current[0]
+            cur.vote = LikeDislike.LIKE if like else LikeDislike.DISLIKE
+            cur.save()
         else:
             PollStat(user=sender.scope["user"], stream=get_current_stream(),
                      vote=LikeDislike.LIKE if like else LikeDislike.DISLIKE).save()

@@ -57,3 +57,4 @@ class Profile(models.Model):
     twitter = models.CharField(max_length=60)
     odnoklassniki = models.CharField(max_length=60)
     youtube_play = models.CharField(max_length=60)
+    name = models.CharField(max_length=60)

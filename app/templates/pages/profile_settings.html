@@ -7,9 +7,8 @@
 <div class="d-flex align-items-stretch center">
     <div class="card-exit">
         <div class="card-exit__times">
-            <i class="fa fa-times card-exit__fa-times" aria-hidden="true"></i>
-            <!-- TODO: сделать ссылку картинку выше ссылкой на страницу профиля -->
-        </div>
+            <a href="/profile/" class="fa fa-times card-exit__fa-times" aria-hidden="true"></a>
+           </div>
     </div>
     <div class="profile-container">
         <div class="row no-gutters">
@@ -31,7 +30,7 @@
                         <h4 class="info__username">Username</h4>
                         <br>
                         <label for="firstname">Name</label>
-                        <input type="text" class="form-control settings-input" id="firstname" value="{{item.user}}">
+                        <input name="name" type="text" class="form-control settings-input" id="firstname" value="{{item.name}}">
                         <!--<label for="lastname">Surname</label>
                         <input type="text" class="form-control settings-input" id="lastname"> -->
                     </div>
@@ -114,7 +113,7 @@
                     <div class="col-sm-12 settings-aboutme-mobile">
                         <h4 class="aboutme-settings">About me:</h4>
                         <div class="container settings-text">
-                                  <textarea class="settings-textarea" name="quotes"></textarea>
+                                  <textarea class="settings-textarea" name="quotes" >{{item.quotes}}</textarea>
                         </div>
                     </div>
 

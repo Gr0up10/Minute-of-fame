@@ -158,7 +158,7 @@ def profile_page(req, id):
             item = Profile.objects.filter(user_id=id)[len(Profile.objects.filter(user_id=id)) - 1]
             context['item'] = item
         else:
-            item = Profile(user_id=id, quotes='No description')
+            item = Profile(user=req.user, quotes='No description', name=req.user, user_id=id)
 
         context['item'] = item
     else:
@@ -183,21 +183,17 @@ def profile_settings_page(req):
 
         if req.method == 'POST':
             fields_names = ['quotes', 'location', 'email', 'Vk', 'instagram', 'facebook', 'twitter', 'odnoklassniki',
-                            'youtube_play']
+                            'youtube_play', 'name']
             fields_content = dict()
 
             for field in fields_names:
                 fields_content[field] = str(req.POST.get(field))
 
-            # TODO: Проверка quotes. Если поле пустое, то field_content['quotes']=current_profile.quotes
-            # TODO: Проверка имени пользователя. Если поле не пустое, то изменить имя пользователя во всех
-            # предыдущих записях. Т.е. сохранить старое имя, сделать .filter(user= старое имя) и через for все записям
-            # изменить поле user на новое значение
             new_item = Profile(user=req.user, quotes=fields_content['quotes'], email=fields_content['email'],
                                location=fields_content['location'], Vk=fields_content['Vk'],
                                instagram=fields_content['instagram'], facebook=fields_content['facebook'],
                                twitter=fields_content['twitter'], odnoklassniki=fields_content['odnoklassniki'],
-                               youtube_play=fields_content['youtube_play'])
+                               youtube_play=fields_content['youtube_play'], name=fields_content['name'])
             new_item.save()
     else:
         return redirect('index')

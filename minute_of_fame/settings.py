@@ -36,6 +36,7 @@ SECRET_KEY = 'ecw==078()bm0#u^f6))--6jz3nk27rwy04wb6=2f_3rqrsvq*'
 DEBUG = (os.getenv('DEBUG', '1') != '0')
 DOCKER = (os.getenv('DOCKER', '0') != '0')
 
+
 ALLOWED_HOSTS = [os.getenv('ALLOWED_HOST', '*')]
 
 
