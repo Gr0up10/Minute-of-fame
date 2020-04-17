@@ -158,7 +158,7 @@ def profile_page(req, id):
             item = Profile.objects.filter(user_id=id)[len(Profile.objects.filter(user_id=id)) - 1]
             context['item'] = item
         else:
-            item = Profile(user=req.user, quotes='No description', name=req.user, user_id=id)
+            item = Profile(user=req.user, quotes='No description', name=req.user)
 
         context['item'] = item
     else:
