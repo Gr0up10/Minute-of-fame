@@ -4,23 +4,23 @@
 {% block content %}
 <div class="d-flex align-items-stretch center">
     <div class="card-exit">
-        <div class="card-exit__pencil">
-            <a href="/profile-settings/" class="fa fa-pencil-square-o card-exit__fa-pencil" aria-hidden="true"></a>
-        </div>
-        <!--<div class="card-exit__times">
+        <a class="card-exit__pencil" href="/profile-settings/">
+            <i class="fa fa-pencil-square-o card-exit__fa-pencil" aria-hidden="true"></i>
+        </a>
+        <a class="card-exit__times" href="/">
             <i class="fa fa-times card-exit__fa-times" aria-hidden="true"></i>
-        </div> -->
+        </a>
     </div>
     <div class="profile-container">
         <div class="row no-gutters">
             <div class="avatar">
                 <div class="avatar-exit">
-                    <div class="avatar-exit__pencil">
+                    <a class="avatar-exit__pencil" href="/profile-settings/">
                         <i class="fa fa-pencil-square-o avatar-exit__fa-pencil" aria-hidden="true"></i>
-                    </div>
-                    <div class="avatar-exit__times">
+                    </a>
+                    <a class="avatar-exit__times" href="/">
                         <i class="fa fa-times avatar-exit__fa-times" aria-hidden="true"></i>
-                    </div>
+                    </a>
                 </div>
                 <div class="avatar__upload">
                     <i class="fa fa-camera avatar_camera" aria-hidden="true"></i>
@@ -42,23 +42,26 @@
                     </div>
                 </div>
             </div>
-            <div id="info" class="col-sm-6 info">
+            <div class="col-sm-6 info">
                 <div class="row">
-                    <div id="username" class="col-sm info__sm">
-                        <!--<h4 class="info__username">{{item.user}}</h4>
-                        <br> -->
+                    <div class="col-sm info__sm">
                         <h4 class="info__username">{{item.name}}</h4>
                     </div>
-                    <div id="networks" class="col-sm">
+                    <div class="col-sm">
                         <div class="container info__networks">
                             <i class="fa fa-map-marker info__gold-color" aria-hidden="true"></i>
-                            <nobr>Location:<p>{{item.location}}</p></nobr>
+                            {% if item.location %}
+                            <nobr> {{item.location}}</nobr>
+                            {% else %}
+                            <nobr>Location</nobr>
+                            {% endif %}
                             <br>
                             <i class="fa fa-envelope info__gold-color" aria-hidden="true"></i>
-
-                            <nobr>Email:</nobr>
-                            <p>{{item.email}}</p>
-
+                            {% if item.email %}
+                            <nobr> {{item.email}}</nobr>
+                            {% else %}
+                            <nobr>Email</nobr>
+                            {% endif %}
                             <br><br>
                             {% if item.Vk %}
                             <a href="{{ item.Vk }}" class="fa fa-vk info__network" aria-hidden="true"></a>

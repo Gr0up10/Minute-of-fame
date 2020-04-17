@@ -4,7 +4,7 @@
     {% load static %}
 
     {% block extra_css %} {% endblock %}
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
@@ -35,26 +35,14 @@
             crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.js" crossorigin="anonymous"></script>
     <script src="https://d19m59y37dris4.cloudfront.net/dark-admin/1-4-5/vendor/chart.js/Chart.min.js"></script>
     <!--<script src="https://d19m59y37dris4.cloudfront.net/dark-admin/1-4-5/js/charts-home.js"></script>-->
     <script src="{% static 'js/modal_updates.js' %}"></script>
     <script src="https://www.google.com/recaptcha/api.js?render=6Lc3K-MUAAAAAJM2Ho9U4tiTIZp-A9PPeGIyyw5z"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
-    <script>
-        $("#myForm").validate({
-            rules: {
-                email: {
-                    email: true
-                },
-                name: {
-                    required: true,
-                    minlength: 2
-                }
-            }
-        });
-    </script>
+    <script src="{% static 'main.js' %}"></script>
 
     {% block extra_js %} {% endblock %}
     </body>
