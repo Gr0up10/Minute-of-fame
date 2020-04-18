@@ -28,15 +28,13 @@
             d += 1;
             print();
         }
-
-
 </script>
 
 
 <div class="d-flex align-items-stretch">
     <div class="stream-container flex-fill">
-        <div class="row" style="margin-top: 2vh">
-            <div class="col-md-8">
+        <div class="row top-padding">
+            <div class="col-md-8 resize">
                 <div class="row">
                     <div class="col-md-12">
                         <div id="stream-figure-overlay"></div>
@@ -51,8 +49,58 @@
                                  style="width: 100%;object-fit: cover;">
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="navbar navbar-expand-md mb-3">
+                    <div class="col-md-12" style="margin-top: 1em;">
+                        <div class="row">
+                            <div class="col-md-6 stream-title-resize">
+                                <h2>Stream title</h2>
+                                <h5 class="secondary-text">Streamer alias: <b>UltimateDoge487</b></h5>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-4 stream-viewers-resize">
+                                        <h5 class="secondary-text">Viewers: <b>80082</b></h5>
+                                        <div style="display: contents;">
+                                            <div class="progress">
+                                                <div id="likebar" class="progress-bar bg-success" role="progressbar"
+                                                     style="width:50px" aria-valuenow="30" aria-valuemin="0"
+                                                     aria-valuemax="100"></div>
+                                                <div id="dislikebar" class="progress-bar bg-danger" role="progressbar"
+                                                     style="width:50px" aria-valuenow="30" aria-valuemin="0"
+                                                     aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 dis-like-center" style="padding: 0; display: flex;">
+                                        <div style="display: contents;">
+                                            <button id="like-stream" onclick="kek();"
+                                                    class="flex-sm-fill btn btn-outline-success align-self-stretch"
+                                                    style="margin: 0 10px">
+                                                <img class="like-img inline-block center-align"
+                                                     src="/static/thumb-green.svg">
+                                                <br>
+                                                <h4 class="inline-block center-align">Kek</h4>
+                                            </button>
+
+
+                                            <button id="dislike-stream" onclick="cringe();"
+                                                    class="flex-sm-fill btn btn-outline-danger align-self-stretch"
+                                                    style="margin: 0 10px">
+                                                <img class="dislike-img inline-block center-align"
+                                                     src="/static/thumb-red.svg">
+                                                <br>
+                                                <h4 class="inline-block center-align">Cringe</h4>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="row" style="margin-top: 2vh; background-color: #333645;">
+                            {% for i in '0123456789'|make_list %}
+                            <div class="oval col-sm-5 col-md-2 col-lg-1">{{i}}</div>
+                            {% endfor %}
+                        </div>-->
+                        <!--<div class="navbar navbar-expand-md mb-3">
                             <div class="container-fluid">
                                 <h2>Stream title</h2>
                                 <button type="button" class="navbar-toggler btn btn-outline-light"
@@ -98,17 +146,23 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
             {% block chat %}
             {% include 'chat/chat.html' %}
             {% endblock chat %}
+			</div>
+			<h3>Очередь стримеров</h3>
+        <div class="row" style="margin-top: 2vh; background-color: #424556;">
+            {% for i in '0123'|make_list %}
+            <div class="oval col-10 col-sm-5 col-lg-2"><p class="oval-p">{{i}}: SomeTrash</p></div>
+            {% endfor %}
         </div>
-		<div class="row" style="margin-top: 2vh; background-color: #424556;">
-            {% for i in '0123456789'|make_list %}
-                <div class="oval col-sm-5 col-md-2 col-lg-1">{{i}}</div>
+        <div class="row" style="background-color: #424556;">
+            {% for i in '4567'|make_list %}
+            <div class="oval col-10 col-sm-5 col-lg-2"><p class="oval-p">{{i}}: SomeTrash</p></div>
             {% endfor %}
         </div>
     </div>
