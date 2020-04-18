@@ -1,4 +1,12 @@
-{% load static %} {% include 'modals/login-modal.html' %} {% include 'modals/registration-modal.html' %} {% include 'modals/report-modal.html' %} {% include 'modals/reset-intro-modal.html' %} {% include 'modals/reset-modal.html' %} {% include 'modals/settings-modal.html' %} {% include 'modals/profile-modal.html' %}
+{% load static %}
+{% include 'modals/login-modal.html' %}
+{% include 'modals/registration-modal.html' %}
+{% include 'modals/report-modal.html' %}
+{% include 'modals/change-photo-modal.html' %}
+{% include 'modals/reset-intro-modal.html' %}
+{% include 'modals/reset-modal.html' %}
+{% include 'modals/settings-modal.html' %}
+{% include 'modals/profile-modal.html' %}
 <div class="menu-container">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
 
@@ -39,7 +47,7 @@
 								    aria-haspopup="true" aria-expanded="false" id="username">
 									{{ request.user }} </h4>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<a class="dropdown-item" href="/profile/">View profile</a>
+									<a class="dropdown-item" href="/profile_{{ user.id }}/">View profile</a>
 									<a class="dropdown-item" data-toggle="modal" data-target="#settingsModal" href="#">Settings</a>
 									<a class="dropdown-item" href="/logout/">Logout</a></div>
 							</div>
