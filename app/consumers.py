@@ -1,4 +1,7 @@
+import redis
 from channels.generic.websocket import WebsocketConsumer, AsyncJsonWebsocketConsumer
+
+from minute_of_fame import settings
 from .utils import *
 from app.ws_handlers.poll_handler import PollHandler
 from app.ws_handlers.queue_handler import QueueHandler
@@ -38,6 +41,8 @@ class WSConsumer(AsyncJsonWebsocketConsumer):
         print("connected", self.channel_name)
 
     async def disconnect(self, close_code):
+        for _, h in self.handlers.items():
+            await h.disconnect()
         await self.channel_layer.group_discard(self.GROUP_NAME, self.channel_name)
         print("Disconnected")
 
