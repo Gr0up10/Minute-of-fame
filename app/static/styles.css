@@ -181,6 +181,9 @@ input[type="checkbox"]+label:after {
 
 /*------Stream_Page------*/
 /*Stream*/
+.top-padding{
+    margin-top: 2vh
+}
 .stream-container {
     position: relative;
     width: 60vw;
@@ -227,7 +230,13 @@ input[type="checkbox"]+label:after {
 .w-50 {
     width: 30vh !important;
 }
-
+.stream-viewers-resize{
+        padding: 1em 0em 0em;
+        padding-right: 2.5em;
+}
+.stream-title-resize{
+    padding-top: 1em;
+}
 #stream-timer-overlay {
     font-weight: 700;
     background-color: none;
@@ -254,17 +263,19 @@ input[type="checkbox"]+label:after {
 }
 
 .dislike-img {
-    margin-right: 20px;
-    margin-bottom: 25px;
+    /*margin-right: 20px;
+    margin-bottom: 25px;*/
     transform: rotate(-180deg);
     height: 80px;
+    margin: 10px 10px 0px;
 }
 
 .like-img {
-    margin-right: 20px;
-    top: -25px;
+    /*margin-right: 20px;
+    top: -25px;*/
     height: 80px;
-    margin-bottom: 20px;
+    margin: 10px 10px 0px;
+    /*margin-bottom: 20px;*/
 }
 
 #dislike-stream *,
@@ -1067,9 +1078,51 @@ input[type="checkbox"]+label:after {
         font-size: 48px;
         margin-right: 55px;
     }
+    .dislike-img {
+        height: 70px;
+    }
+
+    .like-img {
+        height: 70px;
+    }
+
+    #dislike-stream *,
+    #like-stream * {
+        font-size: 1.4em;
+    }
 }
 
 @media screen and (max-width: 768px) {
+    .navbar-expand-md .navbar-nav .nav-link {
+        padding-right: 0;
+    }
+    .resize{
+        max-width: 100%;
+        flex: auto;
+    }
+    .top-padding{
+        margin-top: 0;
+    }
+    #logo {
+        width: 60px;
+    }
+    #chat-box {
+        margin-top: 1rem;
+    }
+    #title {
+        margin: 0 0 0 10px;
+        font-size: 150%;
+    }
+    h4{
+        font-size: 1.2rem;
+    }
+    h3{
+        font-size: 1.3rem;
+    }
+    .login-768{
+        margin-right: 20px;
+        padding-left: 1rem;
+    }
     .avatar {
         width: 100%;
         height: 518px;
@@ -1248,6 +1301,31 @@ input[type="checkbox"]+label:after {
 }
 
 @media screen and (max-width: 576px) {
+    .col-md-12, .col-md-6{
+        padding-right: 0;
+    }
+    .top-padding {
+        margin-top: 10vh;
+    }
+    .resize{
+        padding-right: 0;
+    }
+    .stream-title-resize{
+        padding-top: 0;
+        text-align: center;
+    }
+    .stream-viewers-resize{
+        padding-left: 2.5em;
+    }
+    .secondary-text {
+        text-align: center;
+    }
+    .progress{
+        justify-content: center;
+    }
+    .dis-like-center{
+        justify-content: center;
+    }
     .avatar {
         height: 518px;
     }
