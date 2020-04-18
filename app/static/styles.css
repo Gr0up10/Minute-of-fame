@@ -394,7 +394,6 @@ input[type="checkbox"]+label:after {
 
 .login-input {
     height: 50px;
-    color: white;
     background-color: #2b2c36;
     width: 95%;
     border: None;
@@ -406,7 +405,6 @@ input[type="checkbox"]+label:after {
 }
 
 .login-input::placeholder {
-    color: #e5e4e2;
     font-family: 'Exo 2', sans-serif;
 }
 
@@ -442,12 +440,13 @@ input[type="checkbox"]+label:after {
     background-color: #333645;
     color: #FAEEEE;
     width: 500px;
-    height: 500px;
+    height: 550px;
 }
 
 .textarea-report {
     background-color: #2b2c36;
     border: None;
+    resize: None;
 }
 
 .textarea-report:focus {
@@ -455,7 +454,17 @@ input[type="checkbox"]+label:after {
     border: None;
     color: white;
 }
-
+.textarea-start{
+    background-color: #2b2c36;
+    width: 95%;
+    resize: None;
+    border: None;
+}
+.textarea-start:focus{
+    background-color: #2b2c36;
+    border: None;
+    color: white;
+}
 /*------*/
 .modal-content-reset {
     height: 350px;
@@ -490,6 +499,17 @@ input[type="checkbox"]+label:after {
 }
 
 .btn-cust:focus {
+    background-color: #2b2c36;
+    color: black;
+}
+.btn-start-cust{
+    background-color: #bebebe;
+    color: #2b2c36;
+    border: None;
+    width: 150px;
+    height: 65px;
+}
+.btn-start-cust:focus {
     background-color: #2b2c36;
     color: black;
 }
@@ -1617,7 +1637,7 @@ input[type="checkbox"]+label:after {
     background-color: #333645;
     color: #FAEEEE;
     width: 600px;
-    height: 550px;
+    height: 500px;
 }
 .modal-cont-prof{
     width: 100%;
@@ -1627,7 +1647,7 @@ input[type="checkbox"]+label:after {
     height: 350px;
 }
 .modal-cont-start{
-    height: 350px;
+    height: 420px;
 }
 .modal-header-back {
     padding: 0;
@@ -1675,16 +1695,6 @@ input[type="checkbox"]+label:after {
  color: grey;
  transition: 200ms color
 }
-.textarea-start{
-    background-color: #2b2c36;
-    border: None;
-}
-.textarea-start:focus{
-    background-color: #2b2c36;
-    border: None;
-    color: white;
-}
-
 .example-1 .label:hover {
  border: 2px solid #28a745
 }
