@@ -1670,4 +1670,24 @@ input[type="checkbox"]+label:after {
 .settings-nets-col{
  flex-basis: auto;
 }
+.stream-info{
+    padding-top: 0;
+}
 
+.oval{
+    background: white;
+    color: black;
+    text-align: center;
+    margin: 1vh auto 1vh auto;
+    height: 10vh;
+    -webkit-border-radius: 100px / 50px;
+}
+
+.oval-p{
+    font-size: x-large;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
