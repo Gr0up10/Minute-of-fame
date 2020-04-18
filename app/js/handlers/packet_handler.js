@@ -9,7 +9,7 @@ export default class PacketHandler {
 
     handle_packet(pack) {
         if(pack.handler in this.handlers) {
-            this.handlers[pack.handler].handle_message(pack.command, JSON.parse(pack.data))
+            this.handlers[pack.handler].handle_message(pack.command, pack.data)
         } else {
             console.error("Cannot find handler for packet command: "+pack.handler)
         }
