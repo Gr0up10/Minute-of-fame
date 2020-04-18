@@ -7,7 +7,7 @@
           	<div class="row">
 		<div class="col mt-3">
 				<div class="container">
-					<form method="POST" id="add_form" action="/register/">
+					<form method="POST" id="register_form" action="/register/">
                         {% csrf_token %}
 						<input type="hidden" name="g-recaptcha-response" id='recaptcha'>
 						<!-- add class login-input-->
@@ -39,7 +39,7 @@
 						-->
 						<div class="form-group text-center">
 							<div class="submit">
-								<button type="submit" class="btn btn-lg btn-cust"><h2>SIGN UP</h2></button>
+								<button id="register_btn" class="btn btn-lg btn-cust"><h2>SIGN UP</h2></button>
 							</div>
 						</div>
 						<br>

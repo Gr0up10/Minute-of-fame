@@ -1,7 +1,7 @@
 export default class Stream {
     constructor() {
         this.connection = new RTCMultiConnection();
-        this.connection.socketURL = 'http://' + location.hostname + ':9001/';
+        this.connection.socketURL = (DEBUG ? 'http://' : 'https://') + location.hostname + ':9001/';
         this.connection.videosContainer = document.getElementById('stream-box');
 
         this.connection.onstream = (event) => {
@@ -99,6 +99,8 @@ export default class Stream {
 
     watchStream(input_room_id) {
         if(this.streaming) this.stopStream()
+        console.log('start wactch stream ', input_room_id)
+        $('#placeholder').css('display', 'none');
         this.connection.checkPresence(input_room_id, (isRoomExist, room_id) => {
             if (isRoomExist === true) {
                 this.connection.session = {
