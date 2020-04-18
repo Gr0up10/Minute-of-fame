@@ -37,62 +37,52 @@
 
             <hr class="downdrop-hr">
 
-            {% block usermenu %}
-            <ul class="navbar-nav justify-content-end">
-                {% if request.user.is_authenticated %}
-                <div class="dropdown">
-                    <button class="btn stream-btn btn_start dropdown-toggle" type="button" id="dropdownMenuButton"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Start
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#" id="btn-connect-webcam">webcam stream</a>
-                        <a class="dropdown-item" href="#" id="btn-connect-screen">screen stream</a>
-                        <!--<button type="button" class="btn stream-btn btn_start" id="btn-connect-webcam">
-                            Start stream
-                        </button>
-                        <button type="button" class="btn stream-btn btn_start" id="btn-connect-screen">
-                            Start screen stream
-                        </button>-->
-                    </div>
-                </div>
-                <li class="nav-item active menu-item">
-                    <div class="dropdown">
-                        <h4 class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                            aria-haspopup="true" aria-expanded="false" id="username">
-                            {{ request.user }} </h4>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/profile/">View profile</a>
-                            <a class="dropdown-item" data-toggle="modal" data-target="#settingsModal"
-                               href="#">Settings</a>
-                            <a class="dropdown-item" href="#">Change password</a>
-                            <a class="dropdown-item" href="/logout/">Logout</a></div>
-                    </div>
-                    {% else %}
-                <li class="nav-item">
-                    <div class="row">
-                        <h4>
-                            <a class="nav-link" data-toggle="modal" data-target="#regModal">
-                                Sign up
-                            </a>
-                        </h4>
-                        <h4>
-                            <a class="nav-link login-768" data-toggle="modal" data-target="#loginModal">
-                                Login
-                            </a>
-                        </h4>
-                    </div>
-                </li>
-                {% endif %}
-                <!--<li>
-                    <h4>
-                        <a class="nav-link" data-toggle="modal" data-target="#reportModal">
-                            Report
-                        </a>
-                    </h4>
-                </li>-->
-            </ul>
-            {% endblock %}
-        </div>
-    </nav>
+			{% block usermenu %}
+				<ul class="navbar-nav justify-content-end">
+					{% if request.user.is_authenticated %}
+						<li>
+							<button type="button" class="btn stream-btn btn_start" id="btn-connect-webcam">
+								Start stream
+							</button>
+							<button type="button" class="btn stream-btn btn_start" id="btn-connect-screen">
+                                Start screen stream
+							</button>
+						</li>
+						<li class="nav-item active menu-item">
+							<div class="dropdown">
+								<h4 class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+								    aria-haspopup="true" aria-expanded="false" id="username">
+									{{ request.user }} </h4>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<a class="dropdown-item" href="/profile_{{ user.id }}/">View profile</a>
+									<a class="dropdown-item" data-toggle="modal" data-target="#settingsModal" href="#">Settings</a>
+									<a class="dropdown-item" href="/logout/">Logout</a></div>
+							</div>
+							{% else %}
+						<li class="nav-item">
+							<div class="row">
+								<h4>
+									<a class="nav-link" data-toggle="modal" data-target="#regModal">
+										Sign up
+									</a>
+								</h4>
+								<h4>
+									<a class="nav-link" data-toggle="modal" data-target="#loginModal">
+										Login
+									</a>
+								</h4>
+							</div>
+						</li>
+					{% endif %}
+					<li>
+						<h4>
+							<a class="nav-link" data-toggle="modal" data-target="#reportModal">
+								Report
+							</a>
+						</h4>
+					</li>
+				</ul>
+			{% endblock %}
+		</div>
+	</nav>
 </div>
