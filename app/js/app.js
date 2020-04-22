@@ -11,7 +11,7 @@ $(document).ready(function () {
     let socket = new Socket();
     let packet_handler = new PacketHandler({
         'poll': new VotingHandler(socket),
-        'stream': new StreamHandler(socket, stream),
+        'queue': new StreamHandler(socket, stream),
         'chat': new ChatHandler(socket)
 
     });

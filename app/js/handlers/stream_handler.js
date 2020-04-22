@@ -7,19 +7,9 @@ export default class StreamHandler {
     }
 
     handle_message(name, packet) {
-        if (name === "set_time") $('#stream-timer-overlay').text(packet.time);
-        if (name === "set_stream"){
-            $('#placeholder').css('display', 'none');
-            console.log('hide')
-            this.stream.watchStream(packet.stream);
-        }
-        if (name === "stop") {
-            this.stream.stopStream();
-            $('#placeholder').css('display', 'block');
-        }
-        if (name === "update_place"){
-            $('#placeholder').css('display', 'none');
-            console.log(packet);
-        }
+        if (name === "set_stream") this.stream.watchStream(packet.id);
+        if (name === "stop") this.stream.stopStream();
+        if (name === "update_places") console.log(packet);
+        if (name === "set_time") console.log(packet);
     }
 }

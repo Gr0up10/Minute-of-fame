@@ -8,7 +8,7 @@ export default class Stream {
             this.streaming = true
             console.log('on stream')
             if (event.type === 'local') {
-                this.onstream({'type': 'screen', 'id': this.user_room_id});
+                this.onstream({'stream_type': 'screen', 'id': this.user_room_id});
             }
             var video = event.mediaElement;
             video.id = event.streamid;
@@ -112,7 +112,7 @@ export default class Stream {
                 };
                 this.connection.join(room_id);
             } else {
-                alert('Такой комнаты не существует!');
+                alert('Room does not exists: '+input_room_id);
             }
         });
     }

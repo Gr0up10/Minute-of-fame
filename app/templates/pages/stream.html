@@ -111,12 +111,11 @@
                 <div class="oval col-sm-5 col-md-2 col-lg-1">{{i}}</div>
             {% endfor %}
         </div>
-    </div>
-</div>
-
+		</div>
+	</div>
 {% endblock %}
 
 {% block extra_js %}
-{% load static %}
-{% render_bundle 'main' 'js' %}
+	{% load static %}
+	{% render_bundle 'main' 'js' %}
 {% endblock %}

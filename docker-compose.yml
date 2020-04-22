@@ -3,10 +3,12 @@ services:
   web:
     image: maplegend/minute-of-fame
     build: .
-    command: /bin/sh -c "python manage.py migrate && python manage.py createcachetable && daphne -b 0.0.0.0 -p 80 minute_of_fame.asgi:application"
+    command: /bin/sh -c "python manage.py migrate && python manage.py createcachetable && python manage.py runserver 0.0.0.0:80"
     env_file:
+      - ./service.env
       - ./web.env
       - ./db.env
+      - ./secret.env
     ports:
       - 80:80
     environment:
@@ -18,6 +20,49 @@ services:
       - redis
       - db
       - multi_connection
+
+  distributor:
+    env_file:
+      - ./service.env
+      - ./secret.env
+    image: maplegend/websocket-distributor:master
+    hostname: distributor
+    networks:
+      - main
+    depends_on:
+      - web
+    ports:
+      - 4321:4321
+
+  chat:
+    env_file:
+      - ./service.env
+    image: maplegend/mof-chat:master
+    hostname: chat
+    networks:
+      - main
+    depends_on:
+      - distributor
+
+  queue:
+    env_file:
+      - ./service.env
+    image: maplegend/mof-queue:master
+    hostname: queue
+    networks:
+      - main
+    depends_on:
+      - distributor
+
+  poll:
+    env_file:
+      - ./service.env
+    image: maplegend/mof-poll:master
+    hostname: chat
+    networks:
+      - main
+    depends_on:
+      - distributor
 
   multi_connection:
     image: maplegend/multi_connection:master
@@ -42,6 +87,11 @@ services:
     hostname: db
     networks:
       - main
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
 
   adminer:
     image: adminer
