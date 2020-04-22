@@ -44,6 +44,16 @@ services:
     depends_on:
       - distributor
 
+  queue:
+    env_file:
+      - ./service.env
+    image: maplegend/mof-queue:master
+    hostname: queue
+    networks:
+      - main
+    depends_on:
+      - distributor
+
   poll:
     env_file:
       - ./service.env
@@ -80,7 +90,7 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
-      timeout: 5s
+      timeout: 10s
       retries: 5
 
   adminer:
