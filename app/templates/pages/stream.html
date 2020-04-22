@@ -165,12 +165,11 @@
             <div class="oval col-10 col-sm-5 col-lg-2"><p class="oval-p">{{i}}: SomeTrash</p></div>
             {% endfor %}
         </div>
-    </div>
-</div>
-
+		</div>
+	</div>
 {% endblock %}
 
 {% block extra_js %}
-{% load static %}
-{% render_bundle 'main' 'js' %}
+	{% load static %}
+	{% render_bundle 'main' 'js' %}
 {% endblock %}
