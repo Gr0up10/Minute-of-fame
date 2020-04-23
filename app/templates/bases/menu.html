@@ -17,13 +17,6 @@
                     <h3><a class="nav-link" href="{{ item.url }}">{{ item.name }}</a></h3>
                 </li>
                 {% endfor %}
-                <li class="nav-item active menu-item">
-                    <h3>
-                        <a class="nav-link" data-toggle="modal" data-target="#reportModal">
-                            Report
-                        </a>
-                    </h3>
-                </li>
             </ul>
             {% endblock %}
 
@@ -45,7 +38,7 @@
 								    aria-haspopup="true" aria-expanded="false" id="username">
 									{{ request.user }} </h4>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<a class="dropdown-item" href="/profile/">View profile</a>
+									<a class="dropdown-item" href="/profile_{{ user.id }}/">View profile</a>
 									<a class="dropdown-item" data-toggle="modal" data-target="#settingsModal" href="#">Settings</a>
 									<a class="dropdown-item" href="/logout/">Logout</a></div>
 							</div>
