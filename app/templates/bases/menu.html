@@ -1,12 +1,4 @@
-{% load static %}
-{% include 'modals/login-modal.html' %}
-{% include 'modals/registration-modal.html' %}
-{% include 'modals/report-modal.html' %}
-{% include 'modals/change-photo-modal.html' %}
-{% include 'modals/reset-intro-modal.html' %}
-{% include 'modals/reset-modal.html' %}
-{% include 'modals/settings-modal.html' %}
-{% include 'modals/profile-modal.html' %}
+{% load static %} {% include 'modals/login-modal.html' %} {% include 'modals/registration-modal.html' %} {% include 'modals/report-modal.html' %} {% include 'modals/reset-intro-modal.html' %} {% include 'modals/reset-modal.html' %} {% include 'modals/settings-modal.html' %} {% include 'modals/profile-modal.html' %} {% include 'modals/start-modal.html' %}
 <div class="menu-container">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
 
@@ -34,12 +26,11 @@
 				<ul class="navbar-nav justify-content-end">
 					{% if request.user.is_authenticated %}
 						<li>
-							<button type="button" class="btn stream-btn btn_start" id="btn-connect-webcam">
-								Start stream
-							</button>
-							<button type="button" class="btn stream-btn btn_start" id="btn-connect-screen">
-                                Start screen stream
-							</button>
+							<h4>
+								<a class="btn stream-btn btn_start" data-toggle="modal" data-target="#startModal">
+									Start stream
+								</a>
+							</h4>
 						</li>
 						<li class="nav-item active menu-item">
 							<div class="dropdown">
@@ -54,6 +45,7 @@
 							{% else %}
 						<li class="nav-item">
 							<div class="row">
+
 								<h4>
 									<a class="nav-link" data-toggle="modal" data-target="#regModal">
 										Sign up
@@ -73,6 +65,7 @@
 								Report
 							</a>
 						</h4>
+
 					</li>
 				</ul>
 			{% endblock %}
