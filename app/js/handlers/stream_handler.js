@@ -7,13 +7,13 @@ export default class StreamHandler {
     }
 
     handle_message(name, packet) {
-        if (name === "set_stream") this.stream.watchStream(packet.id);
-        if (name === "stop") this.stream.stopStream();
-        if (name === "update_places") console.log(packet);
-        if (name === "set_time") {
+        if (name === "set_stream") {
+            this.stream.watchStream(packet.id);
             let streamer_name = document.getElementById('streamer_name')
             streamer_name.innerHTML = packet.publisher
-            console.log(packet);
         }
+        if (name === "stop") this.stream.stopStream();
+        if (name === "update_places") console.log(packet);
+        if (name === "set_time") console.log(packet);
     }
 }
