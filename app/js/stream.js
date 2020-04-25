@@ -53,6 +53,8 @@ export default class Stream {
             OfferToReceiveVideo: false
         };
         this.connection.openOrJoin(this.user_room_id);
+        document.getElementById("stream_title").innerHTML = $("#title_input").val();
+        document.getElementById("stream_description").innerHTML = $("#description_input").val();
     }
 
     webcamStream() {
@@ -74,6 +76,8 @@ export default class Stream {
                 OfferToReceiveVideo: true
             };
             this.connection.openOrJoin(this.user_room_id);
+            document.getElementById("stream_title").innerHTML = $("#title_input").val();
+            document.getElementById("stream_description").innerHTML = $("#description_input").val();
 
         }, function () {
             // webcam is not available
