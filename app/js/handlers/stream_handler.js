@@ -3,10 +3,14 @@ export default class StreamHandler {
         this.socket = socket;
         this.stream = stream;
 
-        let name_input = document.getElementById("title_input")
-        let description_input = document.getElementById("description_input")
 
-        stream.onstream = (act) => this.send('queue', {'act': act , 'title': title_input , 'description': description_input});
+        stream.onstream = (act) => {
+            console.log("start stream")
+            let name_input = $("#title_input").val()
+            console.log(name_input)
+            let description_input = $("#description_input").val()
+            this.send('queue', {'stream_type': act.stream_type, 'id': act.id, 'title': name_input , 'description': description_input});
+        }
     }
 
     handle_message(name, packet) {
