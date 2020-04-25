@@ -25,7 +25,7 @@ services:
     env_file:
       - ./service.env
       - ./secret.env
-    image: maplegend/websocket-distributor:master
+    image: rg.nl-ams.scw.cloud/minuteoffame/websocket-distributor:master
     hostname: distributor
     networks:
       - main
@@ -37,7 +37,7 @@ services:
   chat:
     env_file:
       - ./service.env
-    image: maplegend/mof-chat:master
+    image: rg.nl-ams.scw.cloud/minuteoffame/mof-chat:master
     hostname: chat
     networks:
       - main
@@ -47,7 +47,7 @@ services:
   queue:
     env_file:
       - ./service.env
-    image: maplegend/mof-queue:master
+    image: rg.nl-ams.scw.cloud/minuteoffame/mof-queue:master
     hostname: queue
     networks:
       - main
@@ -57,7 +57,7 @@ services:
   poll:
     env_file:
       - ./service.env
-    image: maplegend/mof-poll:master
+    image: rg.nl-ams.scw.cloud/minuteoffame/mof-poll:master
     hostname: chat
     networks:
       - main
@@ -82,7 +82,7 @@ services:
   db:
     env_file:
       - ./db.env
-    image: postgres
+    image: postgres:alpine
     restart: always
     hostname: db
     networks:
@@ -90,8 +90,10 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
-      timeout: 10s
+      timeout: 5s
       retries: 5
+    volumes:
+      - ./pg_data:/var/lib/postgresql/pg_data
 
   adminer:
     image: adminer
