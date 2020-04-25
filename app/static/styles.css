@@ -286,8 +286,59 @@ input[type="checkbox"]+label:after {
 #stream-info-container {
     margin-left: 40px;
 }
+/*Queue*/
+.queue-slider{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    max-width: 1280px;
+}
+
+.queue-slider__arrow{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    background-size: 10px;
+}
+
+.queue-slider__ul{
+    display: flex;
+    list-style: none;
+    overflow: hidden;
+    padding: 1em 0;
+    margin: 0 1em;
+    width: 90%;
+}
+
+.queue-slider__ul__li{
+    text-align: center;
+    background-color: #333645;
+    margin: 1em;
+    position: relative;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.queue-slider__ul__li__img{
+    border-radius: 50%;
+    width: 130px;
+    height: 130px;
+}
+/*------*/
 /*------*/
 /*Chat*/
+.chat-emote{
+    vertical-align: middle;
+    width: 32px;
+    height: 32px;
+    font-style: italic;
+}
 #chat-box {
     padding: 10px;
     height: 35vh;
@@ -483,7 +534,7 @@ input[type="checkbox"]+label:after {
     width: 90%;
     margin: auto;
     top: 0;
-    padding-top: 40px;
+    padding-top: 0px;
 }
 
 .custom-control-label {
@@ -1045,6 +1096,12 @@ input[type="checkbox"]+label:after {
         margin-left: 0;
         padding-left: 0;
     }
+    .btn_start{
+        padding: 6px 12px;
+    }
+    #username {
+        padding-top: 10px;
+    }
 }
 
 @media screen and (max-width: 1200px) {
@@ -1052,6 +1109,23 @@ input[type="checkbox"]+label:after {
         width: 850px;
         transform: translate(5%);
 
+    }
+    #logo {
+        width: 70px;
+    }
+    #title {
+        margin: 0 0 0 20px;
+        font-size: 190%;
+    }
+    #username {
+        padding-top: 8px;
+    }
+    .navbar-expand-md .navbar-nav .nav-link {
+        padding-right: 0;
+        padding-left: .5rem;
+    }
+    .content-container {
+        padding-top: 40px;
     }
 
     .avatar {
@@ -1112,7 +1186,7 @@ input[type="checkbox"]+label:after {
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
     .navbar-expand-md .navbar-nav .nav-link {
         padding-right: 0;
     }
@@ -1194,10 +1268,12 @@ input[type="checkbox"]+label:after {
 
     .info__username {
         margin-top: 20px;
-        margin-left: 40px;
-        margin-right: 40px;
+        margin-left: 70px;
+        margin-right: 70px;
     }
-
+    .menu-item {
+        margin-left: 0;
+    }
     .info__card-aboutme {
         padding-left: 50px;
         padding-right: 50px;
@@ -1210,6 +1286,7 @@ input[type="checkbox"]+label:after {
         width: 100%;
         margin: 0;
         margin-top: -35px;
+        padding-top: 0;
     }
 
     .avatar__upload {
@@ -1318,6 +1395,12 @@ input[type="checkbox"]+label:after {
     .save-btn {
         margin-top: 20px;
     }
+    /*.col-sm{
+        flex-basis: auto;
+    }*/
+    .btn_start{
+        font-size: 1rem;
+    }
 }
 
 @media screen and (max-width: 576px) {
@@ -1399,7 +1482,7 @@ input[type="checkbox"]+label:after {
     .content-container {
         width: 100%;
         margin: 0;
-        margin-top: -140px;
+        margin-top: -115px;
     }
 
     .avatar__upload {
@@ -1563,12 +1646,6 @@ input[type="checkbox"]+label:after {
     }
 }
 @media screen and (min-width: 768px) {
-    .content-container {
-        width: 90%;
-        margin: auto;
-        padding-top: 0;
-    }
-
     .menu-container nav {
         width: 100%;
         padding-left: 5%;
