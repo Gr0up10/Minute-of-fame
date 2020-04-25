@@ -138,6 +138,19 @@ $(document).ready( function() {
     });
 });
 
+$(document).ready( function() {
+
+$('.queue-slider').on('click', function(e){
+    var scroll =  $(".queue-slider__ul").scrollLeft(),
+        $arrow = $(e.target).closest('.queue-slider__arrow'),
+        isLeftArrow = $arrow.hasClass('queue-slider__arrow_left'),
+        diff =  isLeftArrow ? scroll - 200: scroll + 200,
+        $ul = $(".queue-slider__ul");
+
+    $ul.scrollLeft(diff);
+});
+});
+
 jQuery.validator.addMethod("vk", function(value, element) {
   return this.optional(element) || /^http:\/\/vk.com\/id/.test(value);
 }, "Please enter the correct vk addres");
