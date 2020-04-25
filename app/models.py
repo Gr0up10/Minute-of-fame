@@ -22,6 +22,8 @@ class Stream(models.Model):
     active = models.BooleanField(default=False)
     publisher = models.ForeignKey(to=User, on_delete=models.CASCADE)
     stream_id = models.CharField(max_length=16)
+    description = models.CharField(max_length=40)
+    title = models.CharField(max_length=32)
 
 
 class StreamView(models.Model):
