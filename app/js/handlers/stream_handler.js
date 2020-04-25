@@ -20,6 +20,8 @@ export default class StreamHandler {
         document.getElementById("stream_title").innerHTML = packet.title;
         document.getElementById("stream_description").innerHTML = packet.description;
         this.stream.watchStream(packet.id);
+        let streamer_name = document.getElementById('streamer_name')
+        streamer_name.innerHTML = packet.publisher
         }
         if (name === "stop") this.stream.stopStream();
         if (name === "update_places") console.log(packet);
