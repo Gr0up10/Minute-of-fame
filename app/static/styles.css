@@ -439,7 +439,6 @@ input[type="checkbox"]+label:after {
 
 .login-input {
     height: 50px;
-    color: white;
     background-color: #2b2c36;
     width: 95%;
     border: None;
@@ -451,7 +450,6 @@ input[type="checkbox"]+label:after {
 }
 
 .login-input::placeholder {
-    color: #e5e4e2;
     font-family: 'Exo 2', sans-serif;
 }
 
@@ -487,12 +485,13 @@ input[type="checkbox"]+label:after {
     background-color: #333645;
     color: #FAEEEE;
     width: 500px;
-    height: 500px;
+    height: 550px;
 }
 
 .textarea-report {
     background-color: #2b2c36;
     border: None;
+    resize: None;
 }
 
 .textarea-report:focus {
@@ -500,7 +499,17 @@ input[type="checkbox"]+label:after {
     border: None;
     color: white;
 }
-
+.textarea-start{
+    background-color: #2b2c36;
+    width: 95%;
+    resize: None;
+    border: None;
+}
+.textarea-start:focus{
+    background-color: #2b2c36;
+    border: None;
+    color: white;
+}
 /*------*/
 .modal-content-reset {
     height: 350px;
@@ -535,6 +544,17 @@ input[type="checkbox"]+label:after {
 }
 
 .btn-cust:focus {
+    background-color: #2b2c36;
+    color: black;
+}
+.btn-start-cust{
+    background-color: #bebebe;
+    color: #2b2c36;
+    border: None;
+    width: 150px;
+    height: 65px;
+}
+.btn-start-cust:focus {
     background-color: #2b2c36;
     color: black;
 }
@@ -1677,6 +1697,37 @@ input[type="checkbox"]+label:after {
  justify-content: space-evenly;
 }
 
+.modal-content {
+    background-color: #333645;
+    color: #FAEEEE;
+    width: 600px;
+    height: 450px;
+    user-select: None;
+}
+.modal-cont-reg{
+    background-color: #333645;
+    color: #FAEEEE;
+    width: 600px;
+    height: 500px;
+}
+.modal-cont-prof{
+    width: 100%;
+    height: 400px;
+}
+.modal-cont-set{
+    height: 350px;
+}
+.modal-cont-start{
+    height: 420px;
+}
+.modal-header-back {
+    padding: 0;
+    border-top: 40px solid rgba(21, 29, 49, 0.5);
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    width: 200px;
+    height: 0;
+    
 .photo-modal-footer__text{
  color: grey;
  padding: 0;
@@ -1715,7 +1766,6 @@ input[type="checkbox"]+label:after {
  color: grey;
  transition: 200ms color
 }
-
 .example-1 .label:hover {
  border: 2px solid #28a745
 }
@@ -1741,4 +1791,24 @@ input[type="checkbox"]+label:after {
 .settings-nets-col{
  flex-basis: auto;
 }
+.stream-info{
+    padding-top: 0;
+}
 
+.oval{
+    background: white;
+    color: black;
+    text-align: center;
+    margin: 1vh auto 1vh auto;
+    height: 10vh;
+    -webkit-border-radius: 100px / 50px;
+}
+
+.oval-p{
+    font-size: x-large;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}

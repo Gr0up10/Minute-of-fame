@@ -149,13 +149,13 @@ def register_page(request):
 
 
 @cache_control(max_age=0, no_cache=True, no_store=True, must_revalidate=True)
-def profile_page(req):
+def profile_page(req, id):
     context = {
         'menu': get_menu_context()
     }
     if req.user.is_authenticated:
-        if len(Profile.objects.filter(user=req.user)) > 0:
-            item = Profile.objects.filter(user=req.user)[len(Profile.objects.filter(user=req.user)) - 1]
+        if len(Profile.objects.filter(user_id=id)) > 0:
+            item = Profile.objects.filter(user_id=id)[len(Profile.objects.filter(user_id=id)) - 1]
             context['item'] = item
         else:
             item = Profile(user=req.user, quotes='No description', name=req.user)
