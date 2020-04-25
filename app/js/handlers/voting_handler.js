@@ -12,6 +12,12 @@ export default class VotingHandler {
 
     handle_message(name, packet) {
         $('#likes').text(packet.likes + ' ' + packet.dislikes);
+        let l = Number(packet.likes);
+        let d = Number(packet.dislikes);
+        let l1 = (100/(l+d))*l;
+        let d1 = (100/(l+d))*d;
+        $('#likebar').attr('style','width:'+l1+'px');
+        $('#dislikebar').attr('style','width:'+d1+'px');
     }
 
     send_like() {

@@ -8,10 +8,10 @@ docker-build:
   services:
     - docker:dind
   before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
+    - docker login $DOCKER_REGISTRY -u nologin -p $REGISTRY_KEY
   script:
-    - docker build -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" --build-arg DEBUG=0 --no-cache .
-    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+    - docker build -t "$DOCKER_REGISTRY$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
+    - docker push "$DOCKER_REGISTRY$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
   tags:
     - main
   only:
