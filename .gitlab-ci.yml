@@ -10,7 +10,7 @@ docker-build:
   before_script:
     - docker login $DOCKER_REGISTRY -u nologin -p $REGISTRY_KEY
   script:
-    - docker build -t "$DOCKER_REGISTRY$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
+    - docker build -t "$DOCKER_REGISTRY$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" --build-arg DEBUG=0 .
     - docker push "$DOCKER_REGISTRY$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
   tags:
     - main
