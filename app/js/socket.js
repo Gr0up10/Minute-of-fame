@@ -12,7 +12,7 @@ export default class Socket {
 
     connect() {
         if(this.isConnected) return;
-        let addr = `${(DEBUG ? 'ws://' : 'wss://')}${window.location.host}:${DEBUG ? WS_PORT : ''}/`
+        let addr = `${(DEBUG ? 'ws://' : 'wss://')}${window.location.host}:${DEBUG ? WS_PORT : '/ws'}/`
         console.log('connection to '+addr)
         this.socket = new WebSocket(addr);
         this.socket.onopen = this.connected;
