@@ -38,7 +38,6 @@ export default class ChatHandler {
         let text_message = document.createElement('div'); // message text
         b_tag.innerHTML = nickname;
 
-
         let emote_list = "Smile AbsoluteLegend"
         let message_tokens = packet.message.split(" ")
         let final_message = ""
