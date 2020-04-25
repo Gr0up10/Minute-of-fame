@@ -157,6 +157,15 @@ def profile_page(req, id):
         if len(Profile.objects.filter(user_id=id)) > 0:
             item = Profile.objects.filter(user_id=id)[len(Profile.objects.filter(user_id=id)) - 1]
             context['item'] = item
+            context['likes'] = PollStat.objects.filter(user_id=id)
+            context['likes_count'] = 0
+            context['dislikes_count'] = 0
+            if len(context['likes'] > 0):
+                for i in context['likes']:
+                    if i.vote == 1:
+                        context['likes_count'] += 1
+                    else:
+                        context['dislikes_count'] += 1
         else:
             item = Profile(user=req.user, quotes='No description', name=req.user)
 
