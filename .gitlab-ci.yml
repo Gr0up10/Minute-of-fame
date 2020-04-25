@@ -14,8 +14,8 @@ docker-build:
     - docker push "$DOCKER_REGISTRY$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
   tags:
     - main
-  #only:
-  #  - "master"
+  only:
+    - "master"
 
 deploy:
   stage: deploy
