@@ -177,7 +177,7 @@
                                 Likes</h5>
                             <div class="progress">
                                 {% if likes_count != None %}
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ likes_count} }}%;"
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ likes_count }}%;"
                                          aria-valuenow="{{ likes_count }}" aria-valuemin="0" aria-valuemax="100">{{ likes_count }}
                                     </div>
                                 {% else %}
@@ -198,10 +198,6 @@
                                          aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0
                                     </div>
                                 {% endif %}
-                                <script>
-                                    console.log({{ likes_count }});
-                                    console.log({{ dislikes_count }});
-                                </script>
                             </div>
 
                             <h5 class="nowrap"><i class="fa fa-paper-plane-o progress__share" aria-hidden="true"></i>

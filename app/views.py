@@ -160,7 +160,7 @@ def profile_page(req, id):
             context['likes'] = PollStat.objects.filter(user_id=id)
             context['likes_count'] = 0
             context['dislikes_count'] = 0
-            if len(context['likes'] > 0):
+            if len(PollStat.objects.filter(user_id=id)) > 0:
                 for i in context['likes']:
                     if i.vote == 1:
                         context['likes_count'] += 1
