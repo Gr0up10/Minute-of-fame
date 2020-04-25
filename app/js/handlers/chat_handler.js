@@ -38,6 +38,21 @@ export default class ChatHandler {
         let text_message = document.createElement('div'); // message text
         b_tag.innerHTML = nickname;
 
+        let emote_list = "Smile AbsoluteLegend"
+        let message_tokens = packet.message.split(" ")
+        let final_message = ""
+        for (let i = 0; i < message_tokens.length; i++){
+            message_tokens[i] = message_tokens[i].replace('\n', '')
+            //if keyword emote is present, switch it with a corresponding image
+            if (message_tokens[i] != ''){
+                if (emote_list.includes(message_tokens[i])){
+                    message_tokens[i] = "<img class=\"chat-emote\" src=\"static\\Pictures\\emotes\\"+ message_tokens[i] +".png\" alt=\""+ message_tokens[i] +"\">"
+                }
+                final_message += message_tokens[i] + " "
+            }
+        }
+        packet.message = final_message
+
         text_message.innerHTML = packet.message;
         p_tag.appendChild(b_tag);
 

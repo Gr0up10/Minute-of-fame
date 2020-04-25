@@ -333,6 +333,12 @@ input[type="checkbox"]+label:after {
 /*------*/
 /*------*/
 /*Chat*/
+.chat-emote{
+    vertical-align: middle;
+    width: 32px;
+    height: 32px;
+    font-style: italic;
+}
 #chat-box {
     padding: 10px;
     height: 35vh;
