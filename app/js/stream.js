@@ -97,7 +97,7 @@ export default class Stream {
         this.connection.closeSocket();
     }
 
-    watchStream(input_room_id, stream_title, stream_description) {
+    watchStream(input_room_id) {
         if(this.streaming) this.stopStream()
         console.log('start wactch stream ', input_room_id)
         $('#placeholder').css('display', 'none');
@@ -111,8 +111,6 @@ export default class Stream {
                     OfferToReceiveVideo: true
                 };
                 this.connection.join(room_id);
-                document.getElementById("stream_title").innerHTML = stream_title
-                document.getElementById("stream_description").innerHTML = stream_description
             } else {
                 alert('Room does not exists: '+input_room_id);
             }

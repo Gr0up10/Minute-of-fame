@@ -23,7 +23,7 @@
                         <div id="stream-box">
                             <input type="hidden" id="user_room_id" value={{ stream_id }}>
                             <div id="videos-container"></div>
-                            <script src="https://rawgit.com/muaz-khan/RTCMultiConnection/master/dist/RTCMultiConnection.min.js">
+                            <script src="{% static 'js/RTCMultiConnection.min.js' %}">
                             </script>
                             <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
                             <img id="placeholder" src="{% static 'Pictures/placeholder1.jpg' %}"
@@ -33,7 +33,7 @@
                     <div class="col-md-12" style="margin-top: 1em;">
                         <div class="row">
                             <div class="col-md-6 stream-title-resize">
-                                <h2>Stream title</h2>
+                                <h2 id="stream_title">Stream title</h2>
                                 <h5 class="secondary-text">Streamer alias: <b>UltimateDoge487</b></h5>
                             </div>
                             <div class="col-md-6">

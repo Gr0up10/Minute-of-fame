@@ -15,6 +15,8 @@ export default class StreamHandler {
 
     handle_message(name, packet) {
         if (name === "set_stream") {
+        console.log("CHECK HERECHECK HERECHECK HERECHECK HERECHECK HERECHECK HERECHECK HERECHECK HERECHECK HERECHECK HERECHECK HERECHECK HERECHECK HERECHECK HERECHECK HERECHECK HERECHECK HERECHECK HERECHECK HERECHECK HERE");
+        console.log(packet);
         document.getElementById("stream_title").innerHTML = packet.title;
         document.getElementById("stream_description").innerHTML = packet.description;
         this.stream.watchStream(packet.id);
