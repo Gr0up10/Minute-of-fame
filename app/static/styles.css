@@ -587,19 +587,6 @@ input[type="checkbox"]+label:after {
     padding-top: 0;
 }
 
-.oval {
-    background: white;
-    color: black;
-    text-align: center;
-    margin: 1vh 0.5vw 1vh 0.5vw;
-    width: 8vw;
-    height: 100px;
-    -webkit-border-radius: 100px / 50px;
-}
-
-
-
-
 /*---Profile Settings---*/
 
 .settings-textarea {
