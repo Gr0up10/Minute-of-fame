@@ -6,7 +6,7 @@
 
 {% block content %}
 <style>
-		video {
+		.video {
 			width: 100%;
 			height: 100%;
 		}
@@ -22,12 +22,8 @@
                         <h4 id="stream-timer-overlay">5:12</h4>
                         <div id="stream-box">
                             <input type="hidden" id="user_room_id" value={{ stream_id }}>
-                            <div id="videos-container"></div>
-                            <script src="https://rawgit.com/muaz-khan/RTCMultiConnection/master/dist/RTCMultiConnection.min.js">
-                            </script>
-                            <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
-                            <img id="placeholder" src="{% static 'Pictures/placeholder1.jpg' %}"
-                                 style="width: 100%;object-fit: cover;">
+                            <video id="video" autoplay width="640px" height="480px" poster="{% static 'Pictures/placeholder1.jpg' %}"></video>
+                            <video id="local-video" autoplay width="640px" height="480px" poster="{% static 'Pictures/placeholder1.jpg' %}"></video>
                         </div>
                     </div>
                     <div class="col-md-12" style="margin-top: 1em;">
@@ -35,6 +31,7 @@
                             <div class="col-md-6 stream-title-resize">
                                 <h2 id="stream_title">Stream title</h2>
                                 <h5 class="secondary-text">Streamer alias: <b>UltimateDoge487</b></h5>
+                                <button class="debug">DEBUG</button>
                             </div>
                             <div class="col-md-6">
                                 <div class="row">

@@ -1,1 +1,1 @@
-cd app/js && npm run build && cd ../.. && python3 manage.py collectstatic --noinput && python manage.py migrate && python manage.py createcachetable && python manage.py runserver 0.0.0.0:80
+cd app/js && npm run build && cd ../.. && python3 manage.py collectstatic --noinput && python manage.py migrate && python manage.py createcachetable && python manage.py runserver localhost:80

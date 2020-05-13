@@ -17,9 +17,7 @@ services:
     networks:
       - main
     depends_on:
-      - redis
       - db
-      - multi_connection
 
   distributor:
     env_file:
@@ -58,26 +56,11 @@ services:
     env_file:
       - ./service.env
     image: rg.nl-ams.scw.cloud/minuteoffame/mof-poll:master
-    hostname: chat
+    hostname: poll
     networks:
       - main
     depends_on:
       - distributor
-
-  multi_connection:
-    image: maplegend/multi_connection:master
-    command: node server --port 9001
-    networks:
-      - main
-    ports:
-      - 9001:9001
-
-  redis:
-    image: redis:4.0.5-alpine
-    command: ["redis-server", "--appendonly", "yes"]
-    hostname: redis
-    networks:
-      - main
 
   db:
     env_file:
@@ -102,6 +85,29 @@ services:
       - 8080:8080
     networks:
       - main
+
+  kurento:
+    hostname: kurento
+    image: kurento/kurento-media-server
+    ports:
+      - 8888:8888
+    volumes:
+      - ./recs:/recs
+    networks:
+      - main
+
+  stream:
+    env_file:
+      - ./service.env
+    image: rg.nl-ams.scw.cloud/minuteoffame/mof-stream:master
+    hostname: stream
+    environment:
+      - KMS_URL=ws://kurento:8888/kurento
+    networks:
+      - main
+    depends_on:
+      - kurento
+      - distributor
 
 networks:
   main:
