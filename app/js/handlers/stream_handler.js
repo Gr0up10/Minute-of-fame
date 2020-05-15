@@ -2,24 +2,12 @@ export default class StreamHandler {
     constructor(socket, stream) {
         this.socket = socket;
         this.stream = stream;
-
-        stream.onstream = (act) => this.send('queue', act);
+        stream.viewer()
     }
 
     handle_message(name, packet) {
-        if (name === "set_time") $('#stream-timer-overlay').text(packet.time);
-        if (name === "set_stream"){
-            $('#placeholder').css('display', 'none');
-            console.log('hide')
-            this.stream.watchStream(packet.stream);
-        }
-        if (name === "stop") {
-            this.stream.stopStream();
-            $('#placeholder').css('display', 'block');
-        }
-        if (name === "update_place"){
-            $('#placeholder').css('display', 'none');
-            console.log(packet);
-        }
+        console.log(this.stream.sdp_answer, packet.answer, packet.presenter, name)
+        if (name === "sdp_answer") this.stream.sdp_answer(packet.answer, packet.presenter);
+        if (name === "ice_candidate") this.stream.ice_candidate(packet, packet.presenter);
     }
 }

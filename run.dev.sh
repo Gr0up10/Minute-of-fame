@@ -1,1 +1,1 @@
-cd app/js && npm run build && cd ../.. && python3 manage.py collectstatic --noinput && daphne -b 0.0.0.0 -p 8000 minute_of_fame.asgi:application
+cd app/js && npm run build && cd ../.. && python3 manage.py collectstatic --noinput && python manage.py migrate && python manage.py createcachetable && python manage.py runserver localhost:80

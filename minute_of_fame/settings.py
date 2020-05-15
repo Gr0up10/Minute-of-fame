@@ -29,13 +29,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ecw==078()bm0#u^f6))--6jz3nk27rwy04wb6=2f_3rqrsvq*'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.getenv('DEBUG', '1') != '0')
+print("DEBUG: {}".format(DEBUG))
 DOCKER = (os.getenv('DOCKER', '0') != '0')
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'not found') if DOCKER else 'ecw==078()bm0#u^f6))--6jz3nk27rwy04wb6=2f_3rqrsvq*'
 
 ALLOWED_HOSTS = [os.getenv('ALLOWED_HOST', '*')]
 
@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-    'channels',
     'webpack_loader',
 ]
 
@@ -138,7 +137,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 STATIC_URL = '/static/'
 STATIC_ROOT = '/staticfiles/' if os.getenv('DOCKER', '0') != '0' else os.path.join(BASE_DIR, 'staticfiles/')
 LOGIN_URL = '/login/'
@@ -158,24 +157,6 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 RECAPTCHA_SITE_KEY = "6Lc3K-MUAAAAAJM2Ho9U4tiTIZp-A9PPeGIyyw5z"
 RECAPTCHA_SECRET_KEY = "6Lc3K-MUAAAAAC1q7OCOcJbIyaRvax5UlLJkebiq"
 
-
-ASGI_APPLICATION = 'minute_of_fame.routing.application'
-
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('redis', 6379)] if DOCKER else [('localhost', 6379)],
-        },
-    },
-}
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'my_cache_table',
-    }
-}
 
 WEBPACK_LOADER = {
     'DEFAULT': {

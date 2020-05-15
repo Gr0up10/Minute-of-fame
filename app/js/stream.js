@@ -1,28 +1,16 @@
+var kurentoUtils = require('kurento-utils');
+
 export default class Stream {
-    constructor() {
-        this.connection = new RTCMultiConnection();
-        this.connection.socketURL = (DEBUG ? 'http://' : 'https://') + location.hostname + ':9001/';
-        this.connection.videosContainer = document.getElementById('stream-box');
+    constructor(send) {
+        console.log(send);
+        this.sendSocketMessage = send;
+        this.presenterPeer = null;
+        this.viewerPeer = null;
 
-        this.connection.onstream = (event) => {
-            this.streaming = true
-            console.log('on stream')
-            if (event.type === 'local') {
-                this.onstream({'type': 'screen', 'id': this.user_room_id});
-            }
-            var video = event.mediaElement;
-            video.id = event.streamid;
-            $('#videos-container').append(video) //document.body.insertBefore(video, document.body.firstChild);
-        };
 
-        this.connection.onstreamended = (event) => {
-            this.streaming = false
-            var video = document.getElementById(event.streamid);
-            if (video && video.parentNode) {
-                $('#videos-container').empty()
-            }
-        };
+              //  this.onstream({'stream_type': 'screen', 'id': this.user_room_id});
 
+        // $('#videos-container').empty()
         this.user_room_id = document.getElementById('user_room_id').value.toString();
 
         this.onstream = ()=>({});
@@ -35,85 +23,158 @@ export default class Stream {
     bind_buttons() {
         $('#btn-connect-screen').click(this.screenStream.bind(this))
         $('#btn-connect-webcam').click(this.webcamStream.bind(this))
-        $('#stop-stream').click(this.stopStream.bind(this))
+        $('.debug').click(() => {
+            console.log('Getting stats')
+            console.log(this.viewerPeer)
+            window.viewerPeer = this.viewerPeer
+            this.viewerPeer.getStats(function(stats) {console.log(stats)})
+        });
+        //$('#stop-stream').click(this.stopStream.bind(this))
 
     }
 
-    screenStream() {
+    ice_candidate(candidate, isStreamer) {
+        console.log("Received ice candidate "+isStreamer+candidate)
+        if(isStreamer)
+            this.presenterPeer.addIceCandidate(candidate, function(error) {
+                if (error)
+                    return console.error('Error adding candidate: ' + error);
+            });
+        else
+            this.viewerPeer.addIceCandidate(candidate, function(error) {
+                if (error)
+                    return console.error('Error adding candidate: ' + error);
+            });
+    }
 
+    sdp_answer(answer, isStreamer) {
+        console.log("Received sdp answer "+isStreamer+answer)
+        if(isStreamer)
+            this.presenterPeer.processAnswer(answer, function(error) {
+                if (error)
+                    return console.error(error);
+            });
+        else
+            this.viewerPeer.processAnswer(answer, function(error) {
+                if (error)
+                    return console.error(error);
+            });
+    }
+
+    presenter() {
+            var constraints = {
+                    audio: true,
+                    video: {
+                        mandatory : {
+                            chromeMediaSource: 'screen',
+                            maxWidth: 1920,
+                            maxHeight: 1080,
+                            maxFrameRate: 30,
+                            minFrameRate: 15,
+                            minAspectRatio: 1.6
+                        },
+                        optional: []
+                    }
+                }
+
+            var options = {
+                localVideo: document.getElementById('local-video'),
+                onicecandidate : this.onIceCandidatePresenter.bind(this),
+                //mediaConstraints : constraints,
+                //sendSource: 'screen',
+            }
+            this.presenterPeer = new kurentoUtils.WebRtcPeer.WebRtcPeerSendonly(options,
+                    (error) => {
+                        if (error) {
+                            return console.error(error);
+                        }
+                        this.presenterPeer.generateOffer(this.onOfferPresenter.bind(this));
+                    });
+
+    }
+
+    onOfferPresenter(error, offerSdp) {
+        if (error)
+            return console.error('Error generating the offer'+error);
+        console.info('Invoking SDP offer callback function ' + location.host);
+
+        this.sendSocketMessage('connect', {"offer": offerSdp, "presenter": true});
+    }
+
+    viewer() {
+            var options = {
+                remoteVideo : document.getElementById('video'),
+                onicecandidate : this.onIceCandidateViewer.bind(this)
+            }
+            this.viewerPeer = new kurentoUtils.WebRtcPeer.WebRtcPeerRecvonly(options,
+                    (error) => {
+                        if (error) {
+                            return console.error(error);
+                        }
+                        this.viewerPeer.generateOffer(this.onOfferViewer.bind(this));
+                    });
+
+
+    }
+
+    onOfferViewer(error, offerSdp) {
+        if (error)
+            return console.error('Error generating the offer');
+        console.info('Invoking SDP offer callback function ' + location.host);
+
+        this.sendSocketMessage('connect', {"offer": offerSdp, "presenter": false});
+    }
+
+    onIceCandidatePresenter(candidate) {
+        var cand = candidate.toJSON()
+        cand.presenter = true
+        console.log(cand)
+        this.sendSocketMessage('ice_candidate', cand);
+    }
+
+    onIceCandidateViewer(candidate) {
+        var cand = candidate.toJSON()
+        cand.presenter = false
+        console.log(cand)
+        this.sendSocketMessage('ice_candidate', cand);
+    }
+
+    dispose() {
+        if (presenterPeer) {
+            presenterPeer.dispose();
+            presenterPeer = null;
+        }
+        if (viewerPeer) {
+            viewerPeer.dispose();
+            viewerPeer = null;
+        }
+    }
+
+
+    screenStream() {
         this.streaming = true;
 
-        this.connection.session = {
-            screen: true,
-            oneway: true
-        };
+        this.presenter()
+        this.onstream({'stream_type': 'screen', 'id': '123'})
+        //$('#placeholder').css('display', 'none');
 
-        this.connection.sdpConstraints.mandatory = {
-            OfferToReceiveAudio: false,
-            OfferToReceiveVideo: false
-        };
-        this.connection.openOrJoin(this.user_room_id);
+        document.getElementById("stream_title").innerHTML = $("#title_input").val();
+        document.getElementById("stream_description").innerHTML = $("#description_input").val();
     }
 
     webcamStream() {
-        this.streaming = true;
-        navigator.getMedia = (navigator.getUserMedia || // use the proper vendor prefix
-            navigator.webkitGetUserMedia ||
-            navigator.mozGetUserMedia ||
-            navigator.msGetUserMedia);
+        document.getElementById("stream_title").innerHTML = $("#title_input").val();
+        document.getElementById("stream_description").innerHTML = $("#description_input").val();
 
-        navigator.getMedia({video: true, audio: true}, () => {
-            // webcam is available
-            this.connection.session = {
-                audio: true,
-                video: true
-            };
-
-            this.connection.sdpConstraints.mandatory = {
-                OfferToReceiveAudio: true,
-                OfferToReceiveVideo: true
-            };
-            this.connection.openOrJoin(this.user_room_id);
-
-        }, function () {
-            // webcam is not available
-            alert("Microphone or webcam are not connected with your system");
-
-        });
+        this.presenter()
+        this.onstream({'stream_type': 'screen', 'id': '123'})
+        //$('#placeholder').css('display', 'none');
     }
 
-    stopStream() {
-        this.streaming = false
-        this.connection.getAllParticipants().forEach((pid) => {
-            this.connection.disconnectWith(pid);
-        });
-
-        // stop all local cameras
-        this.connection.attachStreams.forEach(function (localStream) {
-            localStream.stop();
-        });
-
-        // close socket.io connection
-        this.connection.closeSocket();
-    }
 
     watchStream(input_room_id) {
-        if(this.streaming) this.stopStream()
         console.log('start wactch stream ', input_room_id)
-        $('#placeholder').css('display', 'none');
-        this.connection.checkPresence(input_room_id, (isRoomExist, room_id) => {
-            if (isRoomExist === true) {
-                this.connection.session = {
-                    data: true
-                };
-                this.connection.sdpConstraints.mandatory = {
-                    OfferToReceiveAudio: true,
-                    OfferToReceiveVideo: true
-                };
-                this.connection.join(room_id);
-            } else {
-                alert('Такой комнаты не существует!');
-            }
-        });
+        //$('#placeholder').css('display', 'none');
+        viewer()
     }
 }
