@@ -17,6 +17,7 @@ export default class QueueHandler {
         if (name === "set_stream") {
         document.getElementById("stream_title").innerHTML = packet.title;
         document.getElementById("stream_description").innerHTML = packet.description;
+        document.getElementById("streamer_name").innerHTML = packet.publisher
         //this.stream.watchStream(packet.id);
         }
         if (name === "stop") this.stream.stopStream();
