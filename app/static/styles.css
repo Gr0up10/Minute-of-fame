@@ -333,6 +333,11 @@ input[type="checkbox"]+label:after {
 /*------*/
 /*------*/
 /*Chat*/
+.chat-list-emote-container{
+    width:50px;
+    height: 80px;
+}
+}
 .chat-emote{
     vertical-align: middle;
     width: 32px;

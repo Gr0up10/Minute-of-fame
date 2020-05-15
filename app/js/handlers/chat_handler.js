@@ -19,14 +19,11 @@ export default class ChatHandler {
         };
     }
 
-    checkFileExist(url) {
-                http.open('HEAD', url, false);
-                http.send();
-                if (http.status === 200) {
-                    return true
-                } else {
-                    return false
-                }
+    ImageExist(url){
+       let img = new Image();
+       img.src = url;
+       console.log(img)
+       return img.height != 0;
     }
 
     get_message(packet) {
@@ -48,7 +45,7 @@ export default class ChatHandler {
         let text_message = document.createElement('div'); // message text
         b_tag.innerHTML = nickname;
 
-        let emote_list = "Ricardo AbsoluteLegend Doge JudgeLook Cry ThumbUp LatchBall SmugDance HamsterCam DogeDS"
+        let emote_list = "Ricardo AbsoluteLegend Doge JudgeLook Cry ThumbUp LatchBall SmugDance HamsterCam DogeDS HugeFlex"
         let file_types = [".png", ".gif", ".jpg"]
         let message_tokens = packet.message.split(" ")
         let final_message = ""
@@ -56,16 +53,17 @@ export default class ChatHandler {
             message_tokens[i] = message_tokens[i].replace('\n', '')
             //if keyword emote is present, switch it with a corresponding image
             if (message_tokens[i] != ''){
+                let type = ".png"
                 if (emote_list.includes(message_tokens[i])){
                     // Find file type
-                    let type = ".png"
-                    for (i in file_types){
-                        if (this.checkFileExist(""\"chat-emote\" src=\"static\\Pictures\\emotes\\"+ message_tokens[i] + i)){
-                            type = i
+                    for (let j in file_types){
+                        if (this.ImageExist("static/Pictures/emotes/"+ message_tokens[i] + file_types[j])){
+                            console.log("\"static\\Pictures\\emotes\\"+ message_tokens[i] + file_types[j])
+                            type = file_types[j]
                             break
                         }
                     }
-                    message_tokens[i] = "<img class=\"chat-emote\" src=\"static\\Pictures\\emotes\\"+ message_tokens[i] + type +" alt=\""+ message_tokens[i] +"\">"
+                    message_tokens[i] = "<img class=\"chat-emote\" src=\"static\\Pictures\\emotes\\"+ message_tokens[i] + type + "\" alt=\""+ message_tokens[i] +"\">"
                 }
                 final_message += message_tokens[i] + " "
             }
