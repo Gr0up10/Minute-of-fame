@@ -30,6 +30,7 @@
                             <div class="col-md-6 stream-title-resize">
                                 <h2 id="stream_title">Stream title</h2>
                                 <h5 class="secondary-text">Streamer alias: <b>UltimateDoge487</b></h5>
+                                <button onclick="stream_preview_toggle()" type="button" class="btn btn-outline-light">Stream Preview</button>
                                 <button class="debug">DEBUG</button>
                             </div>
                             <div class="col-md-6">
@@ -73,7 +74,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="stream-box">
+                        <div id="stream_preview" class="stream-box" style="display: none">
                             <video id="local-video" autoplay width="100%" height="100%" poster="{% static 'Pictures/placeholder1.jpg' %}"></video>
                         </div>
                         <div class="queue-slider">
@@ -165,5 +166,14 @@
 
 {% block extra_js %}
 	{% load static %}
+    <script>
+        function stream_preview_toggle() {
+            if (stream_preview.style.display == "none") {
+                stream_preview.style.display = "block"
+            } else {
+                stream_preview.style.display = "none"
+            }
+        }
+    </script>
 	{% render_bundle 'main' 'js' %}
 {% endblock %}
