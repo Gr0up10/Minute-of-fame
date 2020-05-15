@@ -20,10 +20,9 @@
                     <div class="col-md-12">
                         <div id="stream-figure-overlay"></div>
                         <h4 id="stream-timer-overlay">5:12</h4>
-                        <div id="stream-box">
+                        <div class="stream-box">
                             <input type="hidden" id="user_room_id" value={{ stream_id }}>
-                            <video id="video" autoplay width="640px" height="480px" poster="{% static 'Pictures/placeholder1.jpg' %}"></video>
-                            <video id="local-video" autoplay width="640px" height="480px" poster="{% static 'Pictures/placeholder1.jpg' %}"></video>
+                            <video id="video" autoplay width="100%" height="100%" poster="{% static 'Pictures/placeholder1.jpg' %}"></video>
                         </div>
                     </div>
                     <div class="col-md-12" style="margin-top: 1em;">
@@ -73,6 +72,9 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="stream-box">
+                            <video id="local-video" autoplay width="100%" height="100%" poster="{% static 'Pictures/placeholder1.jpg' %}"></video>
                         </div>
                         <div class="queue-slider">
                             <a class="queue-slider__arrow queue-slider__arrow_left">
