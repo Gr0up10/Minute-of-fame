@@ -160,11 +160,15 @@ export default class Stream {
 
         document.getElementById("stream_title").innerHTML = $("#title_input").val();
         document.getElementById("stream_description").innerHTML = $("#description_input").val();
+        document.getElementById("streamer_name").innerHTML = document.getElementById("username").innerText
+
     }
 
     webcamStream() {
         document.getElementById("stream_title").innerHTML = $("#title_input").val();
         document.getElementById("stream_description").innerHTML = $("#description_input").val();
+        document.getElementById("streamer_name").innerHTML = document.getElementById("username").innerText
+
 
         this.presenter()
         this.onstream({'stream_type': 'screen', 'id': '123'})
