@@ -30,6 +30,7 @@ export default class Socket {
 
     send(handler, message, packet) {
         console.log(handler, message, packet);
+        console.log("Sending: "+JSON.stringify({'handler': handler, 'command': message, 'data': packet || ''}))
         this.socket.send(JSON.stringify({'handler': handler, 'command': message, 'data': packet || ''}))
     }
 }
