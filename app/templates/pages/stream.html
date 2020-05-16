@@ -154,7 +154,15 @@
 {% endblock %}
 
 {% block extra_js %}
+	{% load static %}
     <script>
+        function stream_preview_toggle() {
+            if (stream_preview.style.display == "none") {
+                stream_preview.style.display = "block"
+            } else {
+                stream_preview.style.display = "none"
+            }
+        }
         $(document).ready(function() {
             let msg_box = document.querySelector('#chat-message-input')
             let emote_toggle = document.querySelector('#toggle-emote-list')
@@ -172,16 +180,6 @@
                 let emote_list_name = this.getAttribute("data-name");
                  $('#chat-message-input').value =  $('#chat-message-input').value + " " + emote_list_name + " "
             }));
-        }
-    </script>
-	{% load static %}
-    <script>
-        function stream_preview_toggle() {
-            if (stream_preview.style.display == "none") {
-                stream_preview.style.display = "block"
-            } else {
-                stream_preview.style.display = "none"
-            }
         }
     </script>
 	{% render_bundle 'main' 'js' %}
