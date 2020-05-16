@@ -6,7 +6,7 @@
 
 {% block content %}
 <style>
-		video {
+		.video {
 			width: 100%;
 			height: 100%;
 		}
@@ -20,21 +20,18 @@
                     <div class="col-md-12">
                         <div id="stream-figure-overlay"></div>
                         <h4 id="stream-timer-overlay">5:12</h4>
-                        <div id="stream-box">
+                        <div class="stream-box">
                             <input type="hidden" id="user_room_id" value={{ stream_id }}>
-                            <div id="videos-container"></div>
-                            <script src="https://rawgit.com/muaz-khan/RTCMultiConnection/master/dist/RTCMultiConnection.min.js">
-                            </script>
-                            <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
-                            <img id="placeholder" src="{% static 'Pictures/placeholder1.jpg' %}"
-                                 style="width: 100%;object-fit: cover;">
+                            <video id="video" autoplay width="100%" height="100%" poster="{% static 'Pictures/placeholder1.jpg' %}"></video>
                         </div>
                     </div>
                     <div class="col-md-12" style="margin-top: 1em;">
                         <div class="row">
                             <div class="col-md-6 stream-title-resize">
                                 <h2 id="stream_title">Stream title</h2>
-                                <h5 class="secondary-text">Streamer alias: <b>UltimateDoge487</b></h5>
+                                <h5 class="secondary-text">Streamer alias: <b id="streamer_name" >UltimateDoge487</b></h5>
+                                <button onclick="stream_preview_toggle()" type="button" class="btn btn-outline-light">Stream Preview</button>
+                                <button class="debug">DEBUG</button>
                             </div>
                             <div class="col-md-6">
                                 <div class="row">
@@ -77,6 +74,9 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div id="stream_preview" class="stream-box" style="display: none">
+                            <video id="local-video" autoplay width="100%" height="100%" poster="{% static 'Pictures/placeholder1.jpg' %}"></video>
                         </div>
                         <div class="queue-slider">
                             <a class="queue-slider__arrow queue-slider__arrow_left">
@@ -144,17 +144,6 @@
             {% include 'chat/chat.html' %}
             {% endblock chat %}
 			</div>
-			<h3>Очередь стримеров</h3>
-        <div class="row" style="margin-top: 2vh; background-color: #424556;">
-            {% for i in '0123'|make_list %}
-            <div class="oval col-10 col-sm-5 col-lg-2"><p class="oval-p">{{i}}: SomeTrash</p></div>
-            {% endfor %}
-        </div>
-        <div class="row" style="background-color: #424556;">
-            {% for i in '4567'|make_list %}
-            <div class="oval col-10 col-sm-5 col-lg-2"><p class="oval-p">{{i}}: SomeTrash</p></div>
-            {% endfor %}
-        </div>
         <div class="card" style="margin-top:20px;background-color: #424556;">
             <div class="card-body">
                  <h5 class="card-title">Stream Description</h5>
@@ -167,5 +156,32 @@
 
 {% block extra_js %}
 	{% load static %}
+    <script>
+        function stream_preview_toggle() {
+            if (stream_preview.style.display == "none") {
+                stream_preview.style.display = "block"
+            } else {
+                stream_preview.style.display = "none"
+            }
+        }
+        $(document).ready(function() {
+            let msg_box = document.querySelector('#chat-message-input')
+            let emote_toggle = document.querySelector('#toggle-emote-list')
+
+            emote_toggle.addEventListener("click", function(){
+                if (msg_box.style.display == "none") {
+                    msg_box.style.display = "block"
+                } else {
+                    msg_box.style.display = "none"
+                }
+            }
+
+            let emotes_list_elements = document.getElementsByClassName("chat-list-emote-container");
+            emotes_list_elements.forEach(el => el.addEventListener('click', event => {
+                let emote_list_name = this.getAttribute("data-name");
+                 $('#chat-message-input').value =  $('#chat-message-input').value + " " + emote_list_name + " "
+            }));
+        }
+    </script>
 	{% render_bundle 'main' 'js' %}
 {% endblock %}

@@ -12,6 +12,7 @@ export default class VotingHandler {
 
     handle_message(name, packet) {
         packet = JSON.parse(packet)
+        console.log(packet)
         $('#likes').text(packet.likes + ' ' + packet.dislikes);
         let l = Number(packet.likes);
         let d = Number(packet.dislikes);

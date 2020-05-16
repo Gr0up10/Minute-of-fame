@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "kurento-utils": "^6.13.1",
     "webpack-bundle-tracker": "^0.4.3"
   },
   "devDependencies": {
