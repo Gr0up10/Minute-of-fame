@@ -143,6 +143,8 @@ def register_page(request):
                                  'Вы ввели неверные данные')
         # return render(request, 'registration/register.html', context)
     else:
+        new_iteme = Profile.objects.get(name=req.user)
+        new_iteme.save()
         form = RegisterFormView()
         context['form'] = form
     return redirect('index')
@@ -158,7 +160,7 @@ def profile_page(req, id):
             item = Profile.objects.filter(name=id)[len(Profile.objects.filter(name=id)) - 1]
             context['item'] = item
         else:
-            item = Profile(user=req.user, quotes='No description', name=req.user)
+            item = Profile(quotes='No description', name=req.user)
 
         context['item'] = item
     else:
