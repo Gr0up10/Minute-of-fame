@@ -24,7 +24,19 @@
 					{% load static %}
 					<img src="{% static 'send.svg' %}" alt="send-button">
 				</button>
+                <button type="button" class="btn btn-dark inline-block" onclick="toggle-emote-list()">
+					{% load static %}
+					<img src="{% static 'smileys.svg' %}" alt="send-button">
+				</button>
 			</div>
 		</div>
+        <div class="d-flex flex-wrap chat-emote-list" style="display: none">
+            {% for emote in emotes_list %}
+            <div class="chat-list-emote-container">
+                <img class="chat-emote" src="{% static 'Pictures\emotes' %}\{{emote.0}}{{emote.1}}" alt=".~.">
+                <p>{{emote.0}}</p>
+            </div>
+            {% endfor %}
+        </div>
 	</div>
 {% endblock %}

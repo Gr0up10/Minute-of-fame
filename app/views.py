@@ -37,8 +37,10 @@ def stream_page(request):
                # 'Regform': RegisterFormView(),
                # 'Logform': LoginForm(),
                'stream_id': ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(16)),
-               'emotes_list': ['Ricardo', 'AbsoluteLegend', 'ThumbUp', 'SmugDance', 'Doge', 'DogeDS', 'LatchBall',
-                               'Cry', 'HamsterCam', 'JudgeLook']}
+               'emotes_names': [['Ricardo', '.png'], ['AbsoluteLegend', '.png'], ['ThumbUp', '.png'],
+                                ['SmugDance', '.gif'], ['Doge', '.png'], ['DogeDS', '.gif'], ['LatchBall', '.gif'],
+                                ['Cry', '.png'], ['HamsterCam', '.png'], ['JudgeLook', '.png']]
+               }
     return render(request, 'pages/stream.html', context)
 
 
