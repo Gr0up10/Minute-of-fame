@@ -15,6 +15,8 @@ export default class QueueHandler {
 
     handle_message(name, packet) {
         if (name === "set_stream") {
+        console.log('Set stream')
+        console.log(packet)
         document.getElementById("stream_title").innerHTML = packet.title;
         document.getElementById("stream_description").innerHTML = packet.description;
         //this.stream.watchStream(packet.id);
@@ -22,5 +24,6 @@ export default class QueueHandler {
         if (name === "stop") this.stream.stopStream();
         if (name === "update_places") console.log(packet);
         if (name === "set_time") console.log(packet);
+        if (name == "update_viewers") $(".secondary-text b").text(packet.count)
     }
 }
