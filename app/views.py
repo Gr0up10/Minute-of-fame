@@ -154,8 +154,8 @@ def profile_page(req, id):
         'menu': get_menu_context()
     }
     if req.user.is_authenticated:
-        if len(Profile.objects.filter(user_id=id)) > 0:
-            item = Profile.objects.filter(user_id=id)[len(Profile.objects.filter(user_id=id)) - 1]
+        if len(Profile.objects.filter(name=id)) > 0:
+            item = Profile.objects.filter(name=id)[len(Profile.objects.filter(name=id)) - 1]
             context['item'] = item
         else:
             item = Profile(user=req.user, quotes='No description', name=req.user)
