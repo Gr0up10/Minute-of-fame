@@ -152,7 +152,24 @@
 
 {% block extra_js %}
     <script>
+        $(document).ready(function() {
+            let msg_box = document.querySelector('#chat-message-input')
+            let emote_toggle = document.querySelector('#toggle-emote-list')
 
+            emote_toggle.addEventListener("click", function(){
+                if (msg_box.style.display == "none") {
+                    msg_box.style.display = "block"
+                } else {
+                    msg_box.style.display = "none"
+                }
+            }
+
+            let emotes_list_elements = document.getElementsByClassName("chat-list-emote-container");
+            emotes_list_elements.forEach(el => el.addEventListener('click', event => {
+                let emote_list_name = this.getAttribute("data-name");
+                 $('#chat-message-input').value =  $('#chat-message-input').value + " " + emote_list_name + " "
+            }));
+        }
     </script>
 	{% load static %}
 	{% render_bundle 'main' 'js' %}
