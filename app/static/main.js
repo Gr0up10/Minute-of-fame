@@ -144,7 +144,8 @@ $('.queue-slider').on('click', function(e){
     var scroll =  $(".queue-slider__ul").scrollLeft(),
         $arrow = $(e.target).closest('.queue-slider__arrow'),
         isLeftArrow = $arrow.hasClass('queue-slider__arrow_left'),
-        diff =  isLeftArrow ? scroll - 200: scroll + 200,
+        width = $(".queue-slider__ul__li").outerWidth(true),
+        diff =  isLeftArrow ? scroll - width: scroll + width,
         $ul = $(".queue-slider__ul");
 
     $ul.scrollLeft(diff);
