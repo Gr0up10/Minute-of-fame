@@ -159,11 +159,16 @@ def profile_page(req, id):
         'menu': get_menu_context()
     }
     if req.user.is_authenticated:
-        if len(Profile.objects.filter(name=id)) > 0:
-            item = Profile.objects.filter(name=id)[len(Profile.objects.filter(name=id)) - 1]
-            context['item'] = item
+        real_name = User.objects.filter(username=id)
+        if len(real_name) > 0:
+            id = real_name[0].id
+            if len(Profile.objects.filter(user=id)) > 0:
+                item = Profile.objects.filter(user=id)[len(Profile.objects.filter(user=id)) - 1]
+                context['item'] = item
+            else:
+                item = Profile(quotes='No description', name=real_name[0].username)
         else:
-            item = Profile(quotes='No description', user=req.user)
+            return render(req, 'pages/no_profile.html', context)
 
         context['item'] = item
     else:
