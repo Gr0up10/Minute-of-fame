@@ -24,7 +24,7 @@ export default class QueueHandler {
         }
         if (name === "stop") this.stream.stopStream();
         if (name === "update_places") console.log(packet);
-        if (name === "set_time") console.log(packet);
+        if (name === "set_time") document.getElementById("stream-timer-overlay").innerHTML = packet.time;
         if (name == "update_viewers") $(".secondary-text b").text(packet.count)
     }
 }
