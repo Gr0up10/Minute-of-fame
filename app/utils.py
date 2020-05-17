@@ -2,21 +2,26 @@ cache = {}
 
 
 def methods_with_decorator(cls, decorator):
+    """methods_with_decorator"""
     method_list = [getattr(cls, func)
                    for func in dir(cls) if callable(getattr(cls, func))]
-    return [m for m in method_list if hasattr(m, '__name__') and m.__name__ == 'wrapped_f' and m.__getattribute__('fn') == decorator]
+    return [m for m in method_list if
+            hasattr(m, '__name__') and m.__name__ == 'wrapped_f' and m.__getattribute__('fn') == decorator]
 
 
 def get_action_index(command, internal):
+    """get_action_index"""
     return command + ('1' if internal else '0')
 
 
 def get_actions(cls):
+    """get_actions"""
     return {get_action_index(m.__getattribute__('command'), m.__getattribute__('internal')): m
             for m in methods_with_decorator(cls, action)}
 
 
 def find_action(cls, command, internal=False):
+    """find_action"""
     if cls in cache:
         methods = cache[cls]
     else:
@@ -27,12 +32,15 @@ def find_action(cls, command, internal=False):
 
 
 def action(command, internal=False):
+    """action"""
     def wrap(f):
         async def wrapped_f(self, *args):
             await f(self, *args)
+
         wrapped_f.__setattr__('command', command)
         wrapped_f.__setattr__('internal', internal)
         wrapped_f.__setattr__('fn', action)
         wrapped_f.__setattr__('wrapped', f)
         return wrapped_f
+
     return wrap

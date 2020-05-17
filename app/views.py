@@ -1,3 +1,4 @@
+"""import"""
 import random
 import string
 
@@ -5,25 +6,28 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.conf import settings
-import requests
 from django.views.decorators.cache import cache_control
+import requests
 
-from .forms import *
-from .models import *
 from django.contrib.auth.decorators import login_required
+from .forms import RegisterFormView, LoginForm, ReportForm
+from .models import *
 
 
 def stream_test(request, num):
+    """stream_test"""
     item = PollStat(poll_result=0, likes=0, dislikes=0)
     item.save()
     return render(request, 'page{}.html'.format(num))
 
 
 def screen_share(request):
+    """screen_share"""
     return render(request, 'screen_share_test.html')
 
 
 def get_menu_context():
+    """get_menu_context"""
     return [
         {'url': '/', 'name': 'Home'},
         # {'url': '/categories', 'name': 'Categories'},
@@ -32,45 +36,40 @@ def get_menu_context():
 
 
 def stream_page(request):
-    context = {'pagename': 'Главная', 'menu': get_menu_context(),
-               'test': 1,
-               # 'Regform': RegisterFormView(),
-               # 'Logform': LoginForm(),
-               'stream_id': ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(16))}
+    """stream_page"""
+    context = {'pagename': 'Главная', 'menu': get_menu_context(), 'test': 1,
+               'stream_id': ''.join(random.choice(string.ascii_uppercase + string.digits)
+                                    for _ in range(16))}
     return render(request, 'pages/stream.html', context)
 
 
 def login_page(request):
+    """login_page"""
     context = {'pagename': 'Вход',
-               'menu': get_menu_context()
-               # 'Regform': RegisterFormView(),
-               # 'Logform': LoginForm()
-               }
+               'menu': get_menu_context()}
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
             username = login_form.data['username']
             password = login_form.data['password']
             if User.objects.filter(email=login_form.data['username']).exists():
-                # если пользователь найден, то в поле username вставить пользователя из бд
                 user = User.objects.get(email=login_form.data['username'])
                 username = str(user.username)
 
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                print("login success")
                 login(request, user)
                 messages.add_message(
                     request, messages.SUCCESS, "Авторизация успешна")
                 return redirect('index')
             else:
-                pass
                 messages.add_message(
-                    request, messages.ERROR, "Неправильный логин или пароль")
+                    request, messages.ERROR,
+                    "Неправильный логин или пароль")
         else:
-            pass
-            messages.add_message(request, messages.ERROR,
-                                 "Некорректные данные в форме авторизации")
+            messages.add_message(
+                request, messages.ERROR,
+                "Некорректные данные в форме авторизации")
     else:
         login_form = LoginForm()
         context['form'] = login_form
@@ -78,6 +77,7 @@ def login_page(request):
 
 
 def logout_page(request):
+    """logout_page"""
     logout(request)
     messages.add_message(request, messages.INFO,
                          "Вы успешно вышли из аккаунта")
@@ -85,6 +85,7 @@ def logout_page(request):
 
 
 def get_client_ip(request):
+    """get_client_ip"""
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[-1].strip()
@@ -94,6 +95,7 @@ def get_client_ip(request):
 
 
 def register_page(request):
+    """register_page"""
     context = dict()
     context['menu'] = get_menu_context()
     context['site_key'] = settings.RECAPTCHA_SITE_KEY
@@ -119,10 +121,7 @@ def register_page(request):
                     success = True
 
                 if not success:
-                    print("robot")
-                    # return render(request, 'registration/register.html', {'is_robot': True})
                     return render(request, 'pages/stream.html', {'is_robot': True})
-                # end captcha verification
 
                 new_user = form.save()
                 username = form.cleaned_data.get('username')
@@ -130,10 +129,10 @@ def register_page(request):
                 _user = authenticate(username=username, password=my_password)
 
                 if _user.is_active:
-                    print("register success")
                     login(request, new_user)
                     messages.add_message(
-                        request, messages.SUCCESS, 'Вы успешно зарегистрировались')
+                        request, messages.SUCCESS,
+                        'Вы успешно зарегистрировались')
                     new_variable = Profile()
                     new_variable.name = request.user
                     new_variable.user = request.user
@@ -141,7 +140,8 @@ def register_page(request):
                     return redirect('index')
             else:
                 messages.add_message(
-                    request, messages.ERROR, 'Аккаунт с этой почтой уже существует')
+                    request, messages.ERROR,
+                    'Аккаунт с этой почтой уже существует')
         else:
             messages.add_message(request, messages.ERROR,
                                  'Вы ввели неверные данные')
@@ -155,15 +155,16 @@ def register_page(request):
 
 @cache_control(max_age=0, no_cache=True, no_store=True, must_revalidate=True)
 def profile_page(req, id):
+    """profile_page"""
     context = {
         'menu': get_menu_context()
     }
     if req.user.is_authenticated:
-        if len(Profile.objects.filter(name=id)) > 0:
+        if len(Profile.objects.filter(name=id)) > (1-1):
             item = Profile.objects.filter(name=id)[len(Profile.objects.filter(name=id)) - 1]
             context['item'] = item
         else:
-            item = Profile(quotes='No description', user=req.user)
+            item = Profile(quotes='No description', user=req.user, name='no User')
 
         context['item'] = item
     else:
@@ -174,6 +175,7 @@ def profile_page(req, id):
 
 @cache_control(max_age=0, no_cache=True, no_store=True, must_revalidate=True)
 def profile_settings_page(req):
+    """profile_settings_page"""
     context = {
         'menu': get_menu_context()
     }
@@ -187,26 +189,33 @@ def profile_settings_page(req):
         context['item'] = current_profile
 
         if req.method == 'POST':
-            fields_names = ['quotes', 'location', 'email', 'Vk', 'instagram', 'facebook', 'twitter', 'odnoklassniki',
+            fields_names = ['quotes', 'location',
+                            'email', 'Vk', 'instagram',
+                            'facebook', 'twitter', 'odnoklassniki',
                             'youtube_play', 'name']
             fields_content = dict()
 
             for field in fields_names:
                 fields_content[field] = str(req.POST.get(field))
 
-            new_item = Profile(user=req.user, quotes=fields_content['quotes'], email=fields_content['email'],
-                               location=fields_content['location'], Vk=fields_content['Vk'],
-                               instagram=fields_content['instagram'], facebook=fields_content['facebook'],
-                               twitter=fields_content['twitter'], odnoklassniki=fields_content['odnoklassniki'],
-                               youtube_play=fields_content['youtube_play'], name=fields_content['name'])
+            new_item = Profile(user=req.user, quotes=fields_content['quotes'],
+                               email=fields_content['email'],
+                               location=fields_content['location'],
+                               Vk=fields_content['Vk'],
+                               instagram=fields_content['instagram'],
+                               facebook=fields_content['facebook'],
+                               twitter=fields_content['twitter'],
+                               odnoklassniki=fields_content['odnoklassniki'],
+                               youtube_play=fields_content['youtube_play'],
+                               name=fields_content['name'])
             new_item.save()
     else:
-
         return redirect('index')
     return render(req, 'pages/profile_settings.html', context)
 
 
 def about_page(req):
+    """about_page"""
     context = {
         'menu': get_menu_context()
     }
@@ -216,6 +225,7 @@ def about_page(req):
 
 @login_required()
 def report_page(request, badass_id):
+    """report_page"""
     context = {
         'menu': get_menu_context(),
         'Form': ReportForm(initial={'badass': badass_id, 'sender': request.user.id}),
@@ -230,6 +240,5 @@ def report_page(request, badass_id):
             messages.add_message(request, messages.SUCCESS,
                                  'report was sent to moders team of (=^･ｪ･^=)')
             return render(request, 'pages/stream.html', context)
-        else:
-            messages.add_message(request, messages.ERROR, 'Form is not valid')
-            return render(request, 'pages/report.html', context)
+        messages.add_message(request, messages.ERROR, 'Form is not valid')
+        return render(request, 'pages/report.html', context)
