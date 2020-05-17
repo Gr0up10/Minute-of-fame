@@ -134,6 +134,10 @@ def register_page(request):
                     login(request, new_user)
                     messages.add_message(
                         request, messages.SUCCESS, 'Вы успешно зарегистрировались')
+                    new_variable = Profile()
+                    new_variable.name = request.user
+                    new_variable.user = request.user
+                    new_variable.save()
                     return redirect('index')
             else:
                 messages.add_message(
@@ -143,10 +147,9 @@ def register_page(request):
                                  'Вы ввели неверные данные')
         # return render(request, 'registration/register.html', context)
     else:
-        new_iteme = Profile.objects.get(name=req.user)
-        new_iteme.save()
         form = RegisterFormView()
         context['form'] = form
+
     return redirect('index')
 
 
@@ -160,7 +163,7 @@ def profile_page(req, id):
             item = Profile.objects.filter(name=id)[len(Profile.objects.filter(name=id)) - 1]
             context['item'] = item
         else:
-            item = Profile(quotes='No description', name=req.user)
+            item = Profile(quotes='No description', user=req.user)
 
         context['item'] = item
     else:
@@ -198,6 +201,7 @@ def profile_settings_page(req):
                                youtube_play=fields_content['youtube_play'], name=fields_content['name'])
             new_item.save()
     else:
+
         return redirect('index')
     return render(req, 'pages/profile_settings.html', context)
 
