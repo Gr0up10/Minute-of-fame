@@ -36,10 +36,15 @@ def get_menu_context():
 
 
 def stream_page(request):
-    """stream_page"""
-    context = {'pagename': 'Главная', 'menu': get_menu_context(), 'test': 1,
-               'stream_id': ''.join(random.choice(string.ascii_uppercase + string.digits)
-                                    for _ in range(16))}
+    context = {'pagename': 'Главная', 'menu': get_menu_context(),
+               'test': 1,
+               # 'Regform': RegisterFormView(),
+               # 'Logform': LoginForm(),
+               'stream_id': ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(16)),
+               'emotes_list': [['Ricardo', '.png'], ['AbsoluteLegend', '.png'], ['ThumbUp', '.png'],
+                                ['SmugDance', '.gif'], ['Doge', '.png'], ['DogeDS', '.gif'], ['LatchBall', '.gif'],
+                                ['Cry', '.png'], ['HamsterCam', '.png'], ['JudgeLook', '.png']]
+               }
     return render(request, 'pages/stream.html', context)
 
 
