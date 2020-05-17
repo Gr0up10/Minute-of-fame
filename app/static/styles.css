@@ -196,7 +196,6 @@ input[type="checkbox"]+label:after {
     width: 100%;
     /*height: 600px;*/
     background-color: #333645;
-    box-shadow: 0px 7px 11px -4px rgba(0, 0, 0, 0.36);
 }
 
 #stream-figure-overlay {
@@ -641,6 +640,15 @@ input[type="checkbox"]+label:after {
 }
 
 /*---Profile Settings---*/
+
+.profile-settings{
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.profile-settings__networks{
+
+}
 
 .settings-textarea {
     overflow: auto;
@@ -1092,6 +1100,10 @@ input[type="checkbox"]+label:after {
         margin-left: 0px;
     }
 
+    .info__sm{
+        max-width: 60%;
+    }
+
     .info__networks {
         margin-left: 0px;
         padding-left: 0px;
@@ -1103,7 +1115,7 @@ input[type="checkbox"]+label:after {
     }
 
     .input-group {
-        width: 135%;
+        width: 100%;
     }
 
     .settings-networks {
@@ -1279,10 +1291,16 @@ input[type="checkbox"]+label:after {
     .info {
         position: relative;
         transform: translate(0%);
+        max-width: 100%;
+    }
+
+    .info__row{
+        display: block;
     }
 
     .info__sm {
         text-align: center;
+        max-width: 100%;
     }
 
     .info__networks {
@@ -1309,7 +1327,9 @@ input[type="checkbox"]+label:after {
         margin-top: 3%;
         margin-bottom: 5%;
     }
-
+    .profile-settings{
+        display: block;
+    }
     .content-container {
         width: 100%;
         margin: 0;
@@ -1526,6 +1546,14 @@ input[type="checkbox"]+label:after {
         margin-top: 5%;
     }
 
+    .settings-aboutme-mobile {
+        padding-right: 0;
+    }
+
+    .profile-settings__networks{
+        padding-right: 0;
+    }
+
     .content-container {
         width: 100%;
         margin: 0;
@@ -1551,10 +1579,6 @@ input[type="checkbox"]+label:after {
     .mobile {
         display: block;
         margin-bottom: 15px;
-    }
-
-    .container {
-        width: auto;
     }
 
     .chart {
@@ -1838,17 +1862,16 @@ input[type="checkbox"]+label:after {
 }
 /*-----------------------*/
 @media screen and (max-width: 768px){
- .col-sm-6 {
- flex: auto;
- max-width: 100%;
- }
+     .col-sm-6 {
+        flex: auto;
+        max-width: 100%;
+     }
 
- .photo-modal-footer__text{
- white-space: inherit;
- margin: 0;
+     .photo-modal-footer__text{
+        white-space: inherit;
+        margin: 0;
+     }
  }
- }
-
 
 .settings-nets-col{
  flex-basis: auto;
