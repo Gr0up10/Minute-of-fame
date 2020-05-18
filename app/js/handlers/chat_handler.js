@@ -1,3 +1,8 @@
+function easyPreventXss(value){
+    var lt = /</g, gt = />/g, ap = /'/g, ic = /"/g;
+    value = value.toString().replace(lt, "&lt;").replace(gt, "&gt;").replace(ap, "&#39;").replace(ic, "&#34;");
+    return value
+}
 export default class ChatHandler {
     constructor(socket) {
         this.socket = socket;
@@ -70,7 +75,7 @@ export default class ChatHandler {
         }
         packet.message = final_message
 
-        text_message.innerHTML = packet.message;
+        text_message.innerHTML = easyPreventXss(packet.message);
         p_tag.appendChild(b_tag);
 
         p_tag.appendChild(text_message);
