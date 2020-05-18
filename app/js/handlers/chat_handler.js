@@ -52,7 +52,7 @@ export default class ChatHandler {
 
         let emote_list = "Ricardo AbsoluteLegend Doge JudgeLook Cry ThumbUp LatchBall SmugDance HamsterCam DogeDS HugeFlex"
         let file_types = [".png", ".gif", ".jpg"]
-        let message_tokens = packet.message.split(" ")
+        let message_tokens = easyPreventXss(packet.message).split(" ")
         let final_message = ""
         for (let i = 0; i < message_tokens.length; i++){
             message_tokens[i] = message_tokens[i].replace('\n', '')
@@ -75,7 +75,7 @@ export default class ChatHandler {
         }
         packet.message = final_message
 
-        text_message.innerHTML = easyPreventXss(packet.message);
+        text_message.innerHTML = packet.message;
         p_tag.appendChild(b_tag);
 
         p_tag.appendChild(text_message);
