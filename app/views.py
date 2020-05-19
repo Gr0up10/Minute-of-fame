@@ -41,10 +41,12 @@ def top_page(req):
              random.randint(0, 1000),
              random.randint(0, 10000)
              ])
-    random_users = sorted(random_users, key=lambda x: x[3], reverse=True)
-    indexes = [[i+1] for i in range(len(random_users))]
+    random_users = sorted(random_users, key=lambda x: x[3], reverse=True)    # Сортировка по кол-ву просмотров
+    indexes = [[i+1] for i in range(len(random_users))]     # Получение индексов для оттображения в топе
     random_users = [x+y for x, y in zip(indexes, random_users)]
-    print(random_users)
+
+    # Формат передачи ин-фы о пользователе:
+    # [*Номер в топе*, *Ник*, *Общее кол-во лайков*, *Общее кол-во дизлайков*, *Общее кол-во просмотров*]
 
     context = {"pagename": "Топ пользователей", 'menu': get_menu_context(),
                "userbase": random_users
