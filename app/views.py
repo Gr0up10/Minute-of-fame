@@ -27,8 +27,26 @@ def get_menu_context():
     return [
         {'url': '/', 'name': 'Home'},
         # {'url': '/categories', 'name': 'Categories'},
+        {'url': '/top/', 'name': 'Top'},
         {'url': '/about/', 'name': 'About'},
     ]
+
+
+def top_page(req):
+    random_users = []
+    for i in range(50):
+        random_users.append(
+            [''.join([random.choice(string.ascii_letters + string.digits) for n in range(10)]),
+             random.randint(0, 1000),
+             random.randint(0, 1000),
+             random.randint(0, 10000)
+             ])
+    random_users = sorted(random_users, key=lambda x: x[3], reverse=True)
+
+    context = {"pagename": "Топ пользователей", 'menu': get_menu_context(),
+               "userbase": random_users,
+               "userindexes": []}
+    return render(req, 'pages/top.html', context)
 
 
 def stream_page(request):
@@ -38,8 +56,8 @@ def stream_page(request):
                # 'Logform': LoginForm(),
                'stream_id': ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(16)),
                'emotes_list': [['Ricardo', '.png'], ['AbsoluteLegend', '.png'], ['ThumbUp', '.png'],
-                                ['SmugDance', '.gif'], ['Doge', '.png'], ['DogeDS', '.gif'], ['LatchBall', '.gif'],
-                                ['Cry', '.png'], ['HamsterCam', '.png'], ['JudgeLook', '.png']]
+                               ['SmugDance', '.gif'], ['Doge', '.png'], ['DogeDS', '.gif'], ['LatchBall', '.gif'],
+                               ['Cry', '.png'], ['HamsterCam', '.png'], ['JudgeLook', '.png']]
                }
     return render(request, 'pages/stream.html', context)
 
