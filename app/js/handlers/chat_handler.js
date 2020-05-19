@@ -1,3 +1,8 @@
+function easyPreventXss(value){
+    var lt = /</g, gt = />/g, ap = /'/g, ic = /"/g;
+    value = value.toString().replace(lt, "&lt;").replace(gt, "&gt;").replace(ap, "&#39;").replace(ic, "&#34;");
+    return value
+}
 export default class ChatHandler {
     constructor(socket) {
         this.socket = socket;
@@ -47,7 +52,7 @@ export default class ChatHandler {
 
         let emote_list = "Ricardo AbsoluteLegend Doge JudgeLook Cry ThumbUp LatchBall SmugDance HamsterCam DogeDS HugeFlex"
         let file_types = [".png", ".gif", ".jpg"]
-        let message_tokens = packet.message.split(" ")
+        let message_tokens = easyPreventXss(packet.message).split(" ")
         let final_message = ""
         for (let i = 0; i < message_tokens.length; i++){
             message_tokens[i] = message_tokens[i].replace('\n', '')
