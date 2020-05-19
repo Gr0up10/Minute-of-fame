@@ -42,10 +42,13 @@ def top_page(req):
              random.randint(0, 10000)
              ])
     random_users = sorted(random_users, key=lambda x: x[3], reverse=True)
+    indexes = [[i+1] for i in range(len(random_users))]
+    random_users = [x+y for x, y in zip(indexes, random_users)]
+    print(random_users)
 
     context = {"pagename": "Топ пользователей", 'menu': get_menu_context(),
-               "userbase": random_users,
-               "userindexes": []}
+               "userbase": random_users
+               }
     return render(req, 'pages/top.html', context)
 
 
