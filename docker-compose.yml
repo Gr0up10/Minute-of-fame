@@ -17,15 +17,13 @@ services:
     networks:
       - main
     depends_on:
-      - redis
       - db
-      - multi_connection
 
   distributor:
     env_file:
       - ./service.env
       - ./secret.env
-    image: maplegend/websocket-distributor:master
+    image: rg.nl-ams.scw.cloud/minuteoffame/websocket-distributor:master
     hostname: distributor
     networks:
       - main
@@ -37,7 +35,7 @@ services:
   chat:
     env_file:
       - ./service.env
-    image: maplegend/mof-chat:master
+    image: rg.nl-ams.scw.cloud/minuteoffame/mof-chat:master
     hostname: chat
     networks:
       - main
@@ -47,7 +45,7 @@ services:
   queue:
     env_file:
       - ./service.env
-    image: maplegend/mof-queue:master
+    image: rg.nl-ams.scw.cloud/minuteoffame/mof-queue:master
     hostname: queue
     networks:
       - main
@@ -57,32 +55,17 @@ services:
   poll:
     env_file:
       - ./service.env
-    image: maplegend/mof-poll:master
-    hostname: chat
+    image: rg.nl-ams.scw.cloud/minuteoffame/mof-poll:master
+    hostname: poll
     networks:
       - main
     depends_on:
       - distributor
 
-  multi_connection:
-    image: maplegend/multi_connection:master
-    command: node server --port 9001
-    networks:
-      - main
-    ports:
-      - 9001:9001
-
-  redis:
-    image: redis:4.0.5-alpine
-    command: ["redis-server", "--appendonly", "yes"]
-    hostname: redis
-    networks:
-      - main
-
   db:
     env_file:
       - ./db.env
-    image: postgres
+    image: postgres:alpine
     restart: always
     hostname: db
     networks:
@@ -90,8 +73,10 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
-      timeout: 10s
+      timeout: 5s
       retries: 5
+    volumes:
+      - ./pg_data:/var/lib/postgresql/pg_data
 
   adminer:
     image: adminer
@@ -100,6 +85,29 @@ services:
       - 8080:8080
     networks:
       - main
+
+  kurento:
+    hostname: kurento
+    image: kurento/kurento-media-server
+    ports:
+      - 8888:8888
+    volumes:
+      - ./recs:/recs
+    networks:
+      - main
+
+  stream:
+    env_file:
+      - ./service.env
+    image: rg.nl-ams.scw.cloud/minuteoffame/mof-stream:master
+    hostname: stream
+    environment:
+      - KMS_URL=ws://kurento:8888/kurento
+    networks:
+      - main
+    depends_on:
+      - kurento
+      - distributor
 
 networks:
   main:

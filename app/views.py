@@ -154,20 +154,25 @@ def profile_page(req, id):
         'menu': get_menu_context()
     }
     if req.user.is_authenticated:
-        if len(Profile.objects.filter(user_id=id)) > 0:
-            item = Profile.objects.filter(user_id=id)[len(Profile.objects.filter(user_id=id)) - 1]
-            context['item'] = item
-            context['likes'] = PollStat.objects.filter(user_id=id)
-            context['likes_count'] = 0
-            context['dislikes_count'] = 0
-            if len(PollStat.objects.filter(user_id=id)) > 0:
-                for i in context['likes']:
-                    if i.vote == 1:
-                        context['likes_count'] += 1
-                    else:
-                        context['dislikes_count'] += 1
+        real_name = User.objects.filter(username=id)
+        if len(real_name) > 0:
+            id = real_name[0].id
+            if len(Profile.objects.filter(user=id)) > 0:
+                item = Profile.objects.filter(user_id=id)[len(Profile.objects.filter(user_id=id)) - 1]
+                context['item'] = item
+                context['likes'] = PollStat.objects.filter(user_id=id)
+                context['likes_count'] = 0
+                context['dislikes_count'] = 0
+                if len(PollStat.objects.filter(user_id=id)) > 0:
+                    for i in context['likes']:
+                        if i.vote == 1:
+                            context['likes_count'] += 1
+                        else:
+                            context['dislikes_count'] += 1
+            else:
+                item = Profile(quotes='No description', name=real_name[0].username)
         else:
-            item = Profile(user=req.user, quotes='No description', name=req.user)
+            return render(req, 'pages/no_profile.html', context)
 
         context['item'] = item
     else:
