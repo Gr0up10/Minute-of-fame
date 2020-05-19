@@ -109,7 +109,7 @@ export default class Stream {
 
     onOfferViewer(error, offerSdp) {
         if (error)
-            return console.error('Error generating the offer');
+            return console.error('Error generating the offer'+error);
         console.info('Invoking SDP offer callback function ' + location.host);
 
         this.sendSocketMessage('connect', {"offer": offerSdp, "presenter": false});
