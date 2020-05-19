@@ -61,21 +61,11 @@ export default class Stream {
             });
     }
 
-    presenter() {
-            var constraints = {
-                    audio: true,
-                    video: {
-                        mandatory : {
-                            chromeMediaSource: 'screen',
-                            maxWidth: 1920,
-                            maxHeight: 1080,
-                            maxFrameRate: 30,
-                            minFrameRate: 15,
-                            minAspectRatio: 1.6
-                        },
-                        optional: []
-                    }
-                }
+    presenter(input) {
+            if(input == 'screen') {
+                this.camMedia = navigator.mediaDevices.getUserMedia;
+                navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getDisplayMedia;
+            } else if(this.camMedia !== undefined) navigator.mediaDevices.getUserMedia = this.camMedia;
 
             var options = {
                 localVideo: document.getElementById('local-video'),
@@ -154,7 +144,7 @@ export default class Stream {
     screenStream() {
         this.streaming = true;
 
-        this.presenter()
+        this.presenter('screen')
         this.onstream({'stream_type': 'screen', 'id': '123'})
         //$('#placeholder').css('display', 'none');
 
@@ -170,7 +160,7 @@ export default class Stream {
         document.getElementById("streamer_name").innerHTML = document.getElementById("username").innerText
 
 
-        this.presenter()
+        this.presenter('cam')
         this.onstream({'stream_type': 'screen', 'id': '123'})
         //$('#placeholder').css('display', 'none');
     }
