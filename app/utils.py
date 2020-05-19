@@ -2,7 +2,7 @@ cache = {}
 
 
 def methods_with_decorator(cls, decorator):
-    """methods_with_decorator"""
+    """способы работы с декоратором"""
     method_list = [getattr(cls, func)
                    for func in dir(cls) if callable(getattr(cls, func))]
     return [m for m in method_list if
@@ -10,18 +10,18 @@ def methods_with_decorator(cls, decorator):
 
 
 def get_action_index(command, internal):
-    """get_action_index"""
+    """получить индекс действия"""
     return command + ('1' if internal else '0')
 
 
 def get_actions(cls):
-    """get_actions"""
+    """получение актавности """
     return {get_action_index(m.__getattribute__('command'), m.__getattribute__('internal')): m
             for m in methods_with_decorator(cls, action)}
 
 
 def find_action(cls, command, internal=False):
-    """find_action"""
+    """найти действие"""
     if cls in cache:
         methods = cache[cls]
     else:
@@ -32,7 +32,7 @@ def find_action(cls, command, internal=False):
 
 
 def action(command, internal=False):
-    """action"""
+    """действия """
     def wrap(f):
         async def wrapped_f(self, *args):
             await f(self, *args)

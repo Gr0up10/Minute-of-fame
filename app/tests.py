@@ -1,4 +1,4 @@
-"""import"""
+"""импортируется модули для проведения тестов"""
 from django.test import TestCase
-"""test"""
+"""тесты для сайта можно написать тут """
 # Create your tests here.

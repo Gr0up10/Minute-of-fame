@@ -1,4 +1,4 @@
-"""import"""
+"""импортируем все необходимые модули """
 import random
 import string
 
@@ -15,19 +15,19 @@ from .models import *
 
 
 def stream_test(request, num):
-    """stream_test"""
+    """создание стрима"""
     item = PollStat(poll_result=0, likes=0, dislikes=0)
     item.save()
     return render(request, 'page{}.html'.format(num))
 
 
 def screen_share(request):
-    """screen_share"""
+    """общий доступ к экрану"""
     return render(request, 'screen_share_test.html')
 
 
 def get_menu_context():
-    """get_menu_context"""
+    """меню"""
     return [
         {'url': '/', 'name': 'Home'},
         # {'url': '/categories', 'name': 'Categories'},
@@ -36,6 +36,7 @@ def get_menu_context():
 
 
 def stream_page(request):
+    """страница стрима"""
     context = {'pagename': 'Главная', 'menu': get_menu_context(),
                'test': 1,
                # 'Regform': RegisterFormView(),
@@ -49,7 +50,7 @@ def stream_page(request):
 
 
 def login_page(request):
-    """login_page"""
+    """вход пользователя в кабинет  """
     context = {'pagename': 'Вход',
                'menu': get_menu_context()}
     if request.method == 'POST':
@@ -82,7 +83,7 @@ def login_page(request):
 
 
 def logout_page(request):
-    """logout_page"""
+    """функция для выхода пользователя"""
     logout(request)
     messages.add_message(request, messages.INFO,
                          "Вы успешно вышли из аккаунта")
@@ -90,7 +91,7 @@ def logout_page(request):
 
 
 def get_client_ip(request):
-    """get_client_ip"""
+    """получение ip пользователей """
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[-1].strip()
@@ -100,7 +101,7 @@ def get_client_ip(request):
 
 
 def register_page(request):
-    """register_page"""
+    """страница регистрации"""
     context = dict()
     context['menu'] = get_menu_context()
     context['site_key'] = settings.RECAPTCHA_SITE_KEY
@@ -160,7 +161,7 @@ def register_page(request):
 
 @cache_control(max_age=0, no_cache=True, no_store=True, must_revalidate=True)
 def profile_page(req, id):
-    """profile_page"""
+    """страница пользователа и все что на ней есть """
     context = {
         'menu': get_menu_context()
     }
@@ -180,7 +181,7 @@ def profile_page(req, id):
 
 @cache_control(max_age=0, no_cache=True, no_store=True, must_revalidate=True)
 def profile_settings_page(req):
-    """profile_settings_page"""
+    """редактирование страницы пользователя"""
     context = {
         'menu': get_menu_context()
     }
@@ -220,7 +221,7 @@ def profile_settings_page(req):
 
 
 def about_page(req):
-    """about_page"""
+    """страница описывающяя сайт """
     context = {
         'menu': get_menu_context()
     }
@@ -230,7 +231,7 @@ def about_page(req):
 
 @login_required()
 def report_page(request, badass_id):
-    """report_page"""
+    """страница отчета"""
     context = {
         'menu': get_menu_context(),
         'Form': ReportForm(initial={'badass': badass_id, 'sender': request.user.id}),
