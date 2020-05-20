@@ -27,8 +27,31 @@ def get_menu_context():
     return [
         {'url': '/', 'name': 'Home'},
         # {'url': '/categories', 'name': 'Categories'},
+        {'url': '/top/', 'name': 'Top'},
         {'url': '/about/', 'name': 'About'},
     ]
+
+
+def top_page(req):
+    random_users = []
+    for i in range(50):
+        random_users.append(
+            [''.join([random.choice(string.ascii_letters + string.digits) for n in range(10)]),
+             random.randint(0, 1000),
+             random.randint(0, 1000),
+             random.randint(0, 10000)
+             ])
+    random_users = sorted(random_users, key=lambda x: x[3], reverse=True)    # Сортировка по кол-ву просмотров
+    indexes = [[i+1] for i in range(len(random_users))]     # Получение индексов для оттображения в топе
+    random_users = [x+y for x, y in zip(indexes, random_users)]
+
+    # Формат передачи ин-фы о пользователе:
+    # [*Номер в топе*, *Ник*, *Общее кол-во лайков*, *Общее кол-во дизлайков*, *Общее кол-во просмотров*]
+
+    context = {"pagename": "Топ пользователей", 'menu': get_menu_context(),
+               "userbase": random_users
+               }
+    return render(req, 'pages/top.html', context)
 
 
 def stream_page(request):
@@ -38,8 +61,8 @@ def stream_page(request):
                # 'Logform': LoginForm(),
                'stream_id': ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(16)),
                'emotes_list': [['Ricardo', '.png'], ['AbsoluteLegend', '.png'], ['ThumbUp', '.png'],
-                                ['SmugDance', '.gif'], ['Doge', '.png'], ['DogeDS', '.gif'], ['LatchBall', '.gif'],
-                                ['Cry', '.png'], ['HamsterCam', '.png'], ['JudgeLook', '.png']]
+                               ['SmugDance', '.gif'], ['Doge', '.png'], ['DogeDS', '.gif'], ['LatchBall', '.gif'],
+                               ['Cry', '.png'], ['HamsterCam', '.png'], ['JudgeLook', '.png']]
                }
     return render(request, 'pages/stream.html', context)
 
@@ -138,6 +161,10 @@ def register_page(request):
                     login(request, new_user)
                     messages.add_message(
                         request, messages.SUCCESS, 'Вы успешно зарегистрировались')
+                    new_variable = Profile()
+                    new_variable.name = request.user
+                    new_variable.user = request.user
+                    new_variable.save()
                     return redirect('index')
             else:
                 messages.add_message(
@@ -149,6 +176,7 @@ def register_page(request):
     else:
         form = RegisterFormView()
         context['form'] = form
+
     return redirect('index')
 
 
@@ -158,11 +186,16 @@ def profile_page(req, id):
         'menu': get_menu_context()
     }
     if req.user.is_authenticated:
-        if len(Profile.objects.filter(user_id=id)) > 0:
-            item = Profile.objects.filter(user_id=id)[len(Profile.objects.filter(user_id=id)) - 1]
-            context['item'] = item
+        real_name = User.objects.filter(username=id)
+        if len(real_name) > 0:
+            id = real_name[0].id
+            if len(Profile.objects.filter(user=id)) > 0:
+                item = Profile.objects.filter(user=id)[len(Profile.objects.filter(user=id)) - 1]
+                context['item'] = item
+            else:
+                item = Profile(quotes='No description', name=real_name[0].username)
         else:
-            item = Profile(user=req.user, quotes='No description', name=req.user)
+            return render(req, 'pages/no_profile.html', context)
 
         context['item'] = item
     else:
@@ -200,6 +233,7 @@ def profile_settings_page(req):
                                youtube_play=fields_content['youtube_play'], name=fields_content['name'])
             new_item.save()
     else:
+
         return redirect('index')
     return render(req, 'pages/profile_settings.html', context)
 

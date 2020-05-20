@@ -1,0 +1,39 @@
+{% extends 'bases/base.html' %}
+{% load static %}
+{% load render_bundle from webpack_loader %}
+{% render_bundle 'main' %}
+<!--<script type="text/javascript" src={% static "js/handlers/voting_handler.js" %}></script>-->
+
+{% block content %}
+
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col" class="col-sm-5">Nickname</th>
+      <th scope="col" class="col-sm-2">Total Likes</th>
+      <th scope="col" class="col-sm-2">Total Dislikes</th>
+      <th scope="col" class="col-sm-3">Total Views</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for user in userbase %}
+    <tr {% if user.0 <= 3 %}
+        class = "top3_streamer"
+        {% elif user.0 <= 10 %}
+        class = "top10_streamer"
+        {% else %}
+        class = "top_chart_row"
+        {% endif %}
+    >
+      <th scope="row">{{user.0}}</th>
+      <td><b>{{user.1}}</b></td>
+      <td class="top_chart_likes">{{user.2}}</td>
+      <td class="top_chart_dislikes">{{user.3}}</td>
+      <td>{{user.4}}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

@@ -336,6 +336,33 @@ input[type="checkbox"]+label:after {
 }
 /*------*/
 /*------*/
+/*Top page*/
+
+.top3_streamer{
+    height: 90px;
+    font-size: 1.3em;
+    border: 6px solid rgb(157, 144, 94);
+    background-color: rgb(157, 144, 94, 0.3);
+}
+.top10_streamer{
+    height: 75px;
+    font-size: 1.15em;
+    border: 6px solid rgb(89, 103, 117);
+    background-color: rgb(89, 103, 117, 0.3);
+}
+.top_chart_row{
+    height: 60px;
+    font-size: 1em;
+}
+.top_chart_likes{
+    color: rgb(152, 255, 143);
+}
+.top_chart_dislikes{
+    color: rgb(255, 143, 143);
+}
+
+/*------*/
+/*------*/
 /*Chat*/
 @media screen and (min-width: 768px) {
     #chat-emote-list{
