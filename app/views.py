@@ -11,6 +11,7 @@ from django.views.decorators.cache import cache_control
 from .forms import *
 from .models import *
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 
 def stream_test(request, num):
@@ -160,6 +161,7 @@ def profile_page(req, id):
             if len(Profile.objects.filter(user=id)) > 0:
                 item = Profile.objects.filter(user_id=id)[len(Profile.objects.filter(user_id=id)) - 1]
                 context['item'] = item
+                context['streams_titles'] = [i.title for i in Stream.objects.filter(publisher=item)[-10:]]
                 context['likes'] = PollStat.objects.filter(user_id=id)
                 context['likes_count'] = 0
                 context['dislikes_count'] = 0
@@ -241,3 +243,34 @@ def report_page(request, badass_id):
         else:
             messages.add_message(request, messages.ERROR, 'Form is not valid')
             return render(request, 'pages/report.html', context)
+
+
+def get_data_for_charts(request, id):
+    real_name = User.objects.filter(username=id)
+    likes = []
+    labels = []
+    dislikes = []
+    if len(real_name) > 0:
+        id = real_name[0].id
+        if len(Profile.objects.filter(user=id)) > 0:
+            user = Profile.objects.filter(user_id=id)[len(Profile.objects.filter(user_id=id)) - 1]
+            streams = Stream.objects.filter(publisher=user)[-10:]
+            likes = []
+            dislikes = []
+            for i in streams:
+                pollstats = PollStat.objects.filter(stream=i)
+                likes_count = 0
+                dislikes_count = 0
+                for j in pollstats:
+                    if j.vote == 1:
+                        likes_count += 1
+                    else:
+                        dislikes_count += 1
+                likes.append(likes_count)
+                dislikes.append(dislikes_count)
+    data = {
+        'labels': labels,
+        'likes': likes,
+        'dislikes': dislikes
+    }
+    return JsonResponse(data)
