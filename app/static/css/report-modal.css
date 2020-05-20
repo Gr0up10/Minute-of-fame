@@ -1,0 +1,17 @@
+.modal-content-report {
+    background-color: #333645;
+    color: #FAEEEE;
+    width: 500px;
+    height: 500px;
+}
+
+.textarea-report {
+    background-color: #2b2c36;
+    border: None;
+}
+
+.textarea-report:focus {
+    background-color: #2b2c36;
+    border: None;
+    color: white;
+}
