@@ -46,7 +46,8 @@ urlpatterns = [
     path('profile-settings/', views.profile_settings_page),
     path('about/', views.about_page),
     path('report/<int:badass_id>', views.report_page),
-    path('top/', views.top_page),
-    path('profile_<str:id>/', views.profile_page)
+    path('profile_<str:id>/', views.profile_page),
+    path('charts_data_<str:id>/', views.get_data_for_charts),
+    path('top/', views.top_page)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

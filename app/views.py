@@ -10,6 +10,7 @@ from django.views.decorators.cache import cache_control
 import requests
 
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from .forms import RegisterFormView, LoginForm, ReportForm
 from .models import *
 
@@ -178,7 +179,6 @@ def register_page(request):
     else:
         form = RegisterFormView()
         context['form'] = form
-
     return redirect('index')
 
 
@@ -193,8 +193,18 @@ def profile_page(req, id):
         if len(real_name) > 0:
             id = real_name[0].id
             if len(Profile.objects.filter(user=id)) > 0:
-                item = Profile.objects.filter(user=id)[len(Profile.objects.filter(user=id)) - 1]
+                item = Profile.objects.filter(user_id=id)[len(Profile.objects.filter(user_id=id)) - 1]
                 context['item'] = item
+                context['streams_titles'] = [i.title for i in Stream.objects.filter(publisher=item)[-10:]]
+                context['likes'] = PollStat.objects.filter(user_id=id)
+                context['likes_count'] = 0
+                context['dislikes_count'] = 0
+                if len(PollStat.objects.filter(user_id=id)) > 0:
+                    for i in context['likes']:
+                        if i.vote == 1:
+                            context['likes_count'] += 1
+                        else:
+                            context['dislikes_count'] += 1
             else:
                 item = Profile(quotes='No description', name=real_name[0].username)
         else:
@@ -274,5 +284,37 @@ def report_page(request, badass_id):
             messages.add_message(request, messages.SUCCESS,
                                  'report was sent to moders team of (=^･ｪ･^=)')
             return render(request, 'pages/stream.html', context)
-        messages.add_message(request, messages.ERROR, 'Form is not valid')
-        return render(request, 'pages/report.html', context)
+        else:
+            messages.add_message(request, messages.ERROR, 'Form is not valid')
+            return render(request, 'pages/report.html', context)
+
+
+def get_data_for_charts(request, id):
+    real_name = User.objects.filter(username=id)
+    likes = []
+    labels = []
+    dislikes = []
+    if len(real_name) > 0:
+        id = real_name[0].id
+        if len(Profile.objects.filter(user=id)) > 0:
+            user = Profile.objects.filter(user_id=id)[len(Profile.objects.filter(user_id=id)) - 1]
+            streams = Stream.objects.filter(publisher=user)[-10:]
+            likes = []
+            dislikes = []
+            for i in streams:
+                pollstats = PollStat.objects.filter(stream=i)
+                likes_count = 0
+                dislikes_count = 0
+                for j in pollstats:
+                    if j.vote == 1:
+                        likes_count += 1
+                    else:
+                        dislikes_count += 1
+                likes.append(likes_count)
+                dislikes.append(dislikes_count)
+    data = {
+        'labels': labels,
+        'likes': likes,
+        'dislikes': dislikes
+    }
+    return JsonResponse(data)
