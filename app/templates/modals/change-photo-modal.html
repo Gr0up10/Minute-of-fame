@@ -7,19 +7,56 @@
             <div class="modal-body">
                 <div class="example-1">
                     <form>
-                        <div class="form-group">
-                            <label class="label">
-                                <i class="material-icons">attach_file</i>
-                                <span class="title">Add photo</span>
-                                <input id="fl_inp" type="file" accept="image/jpeg,image/png">
-                                <p id="fl_nm" class="file_name">No photo selected</p>
-                            </label>
+                        <!--                        <div class="form-group">
+                                                    <label class="label">
+                                                        <i class="material-icons">attach_file</i>
+                                                        <span class="title">Add photo</span>
+                                                        <input id="fl_inp" type="file" accept="image/jpeg,image/png">
+                                                        <p id="fl_nm" class="file_name">No photo selected</p>
+                                                    </label>
+                                                </div>-->
+                        <div class="photo-modal__img">
+                            <a href="https://avatars.dicebear.com/api/male/Nika.svg" target="_blank">
+                                {% load static %}
+                                <img class="photo-modal__img__picture" src="https://avatars.dicebear.com/api/male/Nika.svg" alt="avatar">
+                            </a>
+                        </div>
+                        <div class="photo-modal__input">
+                            <div class="photo-modal__input__dropdown dropdown">
+                                <button type="button" class="btn btn-secondary dropdown-toggle"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">male</button>
+                                <div tabindex="-1" role="menu" aria-hidden="true" aria-labelledby="dropdownMenuButton" class="dropdown-menu">
+                                    <button type="button" data-id="male" tabindex="0" role="menuitem"
+                                            class="dropdown-item">male</button>
+                                    <button type="button" data-id="female" tabindex="0" role="menuitem"
+                                            class="dropdown-item">female</button>
+                                    <button type="button" data-id="human" tabindex="0" role="menuitem"
+                                            class="dropdown-item">human</button>
+                                    <button type="button" data-id="identicon" tabindex="0" role="menuitem"
+                                            class="dropdown-item">identicon</button>
+                                    <button type="button" data-id="initials" tabindex="0" role="menuitem"
+                                            class="dropdown-item">initials</button>
+                                    <button type="button" data-id="bottts" tabindex="0" role="menuitem"
+                                            class="dropdown-item">bottts</button>
+                                    <button type="button" data-id="avataaars" tabindex="0" role="menuitem"
+                                            class="dropdown-item">avataaars</button>
+                                    <button type="button" data-id="jdenticon" tabindex="0" role="menuitem"
+                                            class="dropdown-item">jdenticon</button>
+                                    <button type="button" data-id="gridy" tabindex="0" role="menuitem"
+                                            class="dropdown-item">gridy</button>
+                                    <button type="button" data-id="code" tabindex="0" role="menuitem"
+                                            class="dropdown-item">code</button>
+                                </div>
+                            </div>
+                            <input class="photo-modal__input__nickname" placeholder="your-nickname"
+                                   maxlength="512">
+                        </div>
+                        <div class="photo-modal-footer">
+                            <!--<p class="photo-modal-footer__text">P.S. photo must be in jpg or png format</p>-->
+                            <input type="submit" class="btn btn-light photo-modal-footer__btn" value="Upload">
                         </div>
                     </form>
-                    <div class="photo-modal-footer">
-                        <p class="photo-modal-footer__text">P.S. photo must be in jpg or png format</p>
-                        <input type="submit" class="btn btn-light photo-modal-footer__btn" value="Upload">
-                    </div>
                 </div>
             </div>
         </div>

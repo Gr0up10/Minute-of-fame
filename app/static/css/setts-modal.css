@@ -1,0 +1,20 @@
+.custom-control-label {
+    color: #bebebe;
+}
+
+.btn-cust {
+    background-color: #bebebe;
+    color: #2b2c36;
+    border: None;
+    width: 55%;
+    height: 65px;
+}
+
+.btn-cust:focus {
+    background-color: #2b2c36;
+    color: black;
+}
+
+.btn-sett {
+    width: 70%;
+}

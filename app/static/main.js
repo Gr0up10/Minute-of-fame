@@ -35,16 +35,15 @@ $(document).ready( function() {
 });
 
 $(document).ready( function() {
-
-$('.queue-slider').on('click', function(e){
-    var scroll =  $(".queue-slider__ul").scrollLeft(),
-        $arrow = $(e.target).closest('.queue-slider__arrow'),
-        isLeftArrow = $arrow.hasClass('queue-slider__arrow_left'),
-        diff =  isLeftArrow ? scroll - 200: scroll + 200,
-        $ul = $(".queue-slider__ul");
-
-    $ul.scrollLeft(diff);
-});
+    $('.queue-slider').on('click', function(e){
+        var scroll =  $(".queue-slider__ul").scrollLeft(),
+            $arrow = $(e.target).closest('.queue-slider__arrow'),
+            isLeftArrow = $arrow.hasClass('queue-slider__arrow_left'),
+            width = $(".queue-slider__ul__li").outerWidth(true),
+            diff =  isLeftArrow ? scroll - width: scroll + width,
+            $ul = $(".queue-slider__ul");
+        $ul.scrollLeft(diff);
+    });
 });
 
 jQuery.validator.addMethod("vk", function(value, element) {
@@ -100,5 +99,45 @@ $(document).ready( function() {
                     ok: true,
                 },
             }
-        });
+    });
 });
+
+$(document).ready( function() {
+    function changeName(event) {
+        let tagName = event.target.tagName.toLowerCase();
+        if (tagName === 'button'){
+            let text = event.target.textContent;
+            btn.textContent = text.trim();
+            img.src = 'https://avatars.dicebear.com/api/' + btn.textContent + '/' + input.value + '.svg';
+        }
+    }
+    function handleKeyUp(event){
+        img.src = 'https://avatars.dicebear.com/api/' + btn.textContent + '/' + input.value + '.svg';
+    }
+
+    var dropdown = document.querySelector('.photo-modal__input');
+    var btn = document.querySelector('.photo-modal__input__dropdown');
+    var input = document.querySelector('.photo-modal__input__nickname');
+    var img = document.querySelector('.photo-modal__img__picture');
+    dropdown.addEventListener('click', changeName);
+    input.addEventListener('keyup', handleKeyUp);
+
+});
+
+$(document).ready( function() {
+    function randomInteger(min, max) {
+        let rand = min - 0.5 + Math.random() * (max - min + 1);
+        return Math.round(rand);
+    }
+    function RandomUrl(event){
+        img.src = 'https://avatars.dicebear.com/api/' + sprites[randomInteger(0, 8)] + '/' + queueuser.innerText + '.svg';
+    }
+    var img = document.querySelector('.queue-slider__ul__li__img');// картинка в которую вставляется src
+    var queueuser = document.getElementById("username");
+    var rand = document.querySelector('.debug');
+    var sprites = ["male", "female", "human", "identicon", "bottts", "initials", "avataaars", "jdenticon", "gridy"];
+
+    rand.addEventListener('click', RandomUrl);// действует по клику кнопки debug, для примера. Нужно поменять на добавление в очередь
+});
+
+

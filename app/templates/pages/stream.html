@@ -41,15 +41,15 @@
                                             <!--Отображение лайков-->
                                             <div class="progress">
                                                 <div id="likebar" class="progress-bar bg-success" role="progressbar"
-                                                     style="width:0px" aria-valuenow="30" aria-valuemin="0"
+                                                     style="width:50px" aria-valuenow="30" aria-valuemin="0"
                                                      aria-valuemax="100"></div>
                                                 <div id="dislikebar" class="progress-bar bg-danger" role="progressbar"
-                                                     style="width:0px" aria-valuenow="30" aria-valuemin="0"
+                                                     style="width:50px" aria-valuenow="30" aria-valuemin="0"
                                                      aria-valuemax="100"></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-8 dis-like-center" style="padding: 0; display: flex;">
+                                    <div class="col-md-8 dis-like-stream">
                                         <div style="display: contents;">
                                             <button id="like-stream"
                                                     class="flex-sm-fill btn btn-outline-success align-self-stretch"
@@ -59,9 +59,6 @@
                                                 <br>
                                                 <h4 class="inline-block center-align">Kek</h4>
                                             </button>
-
-                                            <p id="likes"></p>
-
                                             <button id="dislike-stream"
                                                     class="flex-sm-fill btn btn-outline-danger align-self-stretch"
                                                     style="margin: 0 10px">
@@ -85,9 +82,9 @@
                             <ul class="queue-slider__ul">
                                 <li class="queue-slider__ul__li">
                                     <div>
-                                        <img class="queue-slider__ul__li__img" src="{% static 'queue.jpg' %}">
+                                        <img class="queue-slider__ul__li__img" src="https://avatars.dicebear.com/api/human/Nightmare.svg">
                                         <b>Stream title1</b>
-                                        <p>Author1</p>
+                                        <p>{{ request.user }}</p>
                                     </div>
                                 </li>
                                 <li class="queue-slider__ul__li">
