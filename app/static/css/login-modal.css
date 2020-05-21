@@ -1,0 +1,41 @@
+.login-icons {
+    margin-top: 15px;
+    margin-left: 10px;
+    background-color: #2b2c36;
+    width: 10px;
+    border: None;
+    color: #bebebe
+}
+
+.login-input {
+    height: 50px;
+    color: white;
+    background-color: #2b2c36;
+    width: 95%;
+    border: None;
+}
+
+.login-input:focus {
+    background-color: #2b2c36;
+    color: white;
+}
+
+.login-input::placeholder {
+    color: #e5e4e2;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.login-warning-error {
+    border-style: solid;
+    border-width: 1px;
+    border-color: red;
+    border-margin-bottom: 5px;
+}
+
+.login-warning-text {
+    color: red;
+}
+
+.lp {
+    margin-left: 20px;
+}
