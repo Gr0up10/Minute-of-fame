@@ -1,0 +1,125 @@
+.menu-container {
+    background-color: #333645;
+    margin-bottom: 1vh;
+    margin-left: 6vw;
+    padding: 40px;
+    border-bottom: 3px solid #333645;
+    display: inline-block;
+}
+
+.menu-container nav {
+    background-color: #333645;
+    border-bottom: 3px solid #333645;
+}
+
+
+.menu-container__logo {
+    width: 80px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.menu-container__title {
+    margin: 0 30px 0 20px;
+    font-weight: 700;
+    font-size: 200%;
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+.menu-container__username {
+    color: #FAEEEE
+}
+
+.menu-container__btn-start {
+    padding-left: 2em;
+    padding-right: 2em;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: #28a745;
+    border: 3px solid 2a9e45e8;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: bolder;
+    display: inline-block;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-container__btn-start:before {
+    content: "";
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 100%;
+    width: 3em;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -4.5em;
+    transform: skewX(-45deg) translateX(0);
+    transition: none;
+}
+
+.menu-container__btn-start:hover {
+    background-color: #28a745;
+    color: #fff;
+    border-bottom: 4px solid darken(#28a745, 10%);
+}
+
+.menu-container__btn-start:hover:before {
+    transform: skewX(-45deg) translateX(13.5em);
+    transition: all 0.5s ease-in-out;
+}
+
+.menu-container__item {
+    margin-left: 1.5vw;
+}
+
+.menu-container__item h3,
+.menu-container__item h4 {
+    margin: 0;
+}
+
+.menu-container__dropdown-menu {
+    background-color: #333645;
+    color: #EBEBEB;
+}
+
+.menu-container__dropdown-menu__item {
+    background-color: #333645;
+    padding-left: 10px;
+    color: #EBEBEB;
+}
+
+.menu-container__dropdown-menu__item:active {
+    background-color: grey;
+}
+
+.menu-container__dropdown-menu__item:focus {
+    background-color: grey;
+}
+
+
+
+.dropdown-toggle {
+    cursor: pointer;
+}
+
+.menu-container__dropdown-hr {
+    margin: 0px;
+    height: 6px;
+}
+
+.nav-link {
+    padding: 0;
+}
+
+
+
+#dropdownMenuLink {
+    width: 50%;
+    background-color: #2b2c36;
+    border: None;
+}

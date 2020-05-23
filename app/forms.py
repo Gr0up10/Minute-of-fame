@@ -1,31 +1,30 @@
-from django.views.generic.edit import FormView
+"""import"""
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import *
+from .models import Report
 
 
 class RegisterFormView(UserCreationForm):
-    # Ссылка, на которую будет перенаправляться пользователь в случае успешной регистрации.
-    # В данном случае указана ссылка на страницу входа для зарегистрированных пользователей.
+    """RegisterFormView"""
     success_url = "/login/"
-
-    # Шаблон, который будет использоваться при отображении представления.
     template_name = "registration/register.html"
-    email = forms.EmailField(max_length=254, help_text='Это поле обязательно')
+    email = forms.EmailField(max_length=254)
 
     def unique_email(self):
+        """email"""
         if User.objects.filter(email=self.data['email']).exists():
             return False
-        else:
-            return True
+        return True
 
-    class Meta:
+    class Meta(object):
+        """Meta"""
         model = User
         fields = ('username', 'email', 'password1', 'password2',)
 
 
 class LoginForm(forms.Form):
+    """LoginForm"""
     username = forms.CharField(
         label="Username",
         max_length=20,
@@ -50,11 +49,15 @@ class LoginForm(forms.Form):
     )
 
     def is_valid(self):
+        """is valid"""
         return super().is_valid() or '@' in self.data['username']
 
 
 class ReportForm(forms.ModelForm):
-    class Meta:
+    """ReportForm"""
+
+    class Meta(object):
+        """meta"""
         model = Report
         fields = '__all__'
         widgets = {'badass': forms.HiddenInput(

@@ -14,7 +14,7 @@
             </a>
         </div>
         <div class="profile-container">
-            <div class="row no-gutters">
+            <div class="row profile-settings">
                 <div class="avatar">
                     <div class="avatar-exit">
                         <a class="avatar-exit__pencil" href="/profile_{{item.name}}/">
@@ -30,7 +30,7 @@
                     <img class="d-lg-flex justify-content-lg-center avatar__img" src="{% static 'setts.jpg' %}">
                 </div>
                 <div class="col-sm-6 info">
-                    <div class="row">
+                    <div class="row info__row">
                         <div class="col-sm info__sm">
                             <h4 class="info__username">Username</h4>
                             <br>
@@ -38,7 +38,7 @@
                             <input name="name" type="text" class="form-control settings-input" id="firstname"
                                    value="{{item.name}}">
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm profile-settings__networks">
                             <div class="container settings-networks">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">

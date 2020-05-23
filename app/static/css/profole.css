@@ -1,0 +1,325 @@
+.nowrap {
+    white-space: nowrap;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+
+}
+
+.profile-container {
+    display: flex;
+    position: relative;
+    width: 1200px;
+    height: 100%;
+    padding: 10px;
+    background-color: #424556;
+    margin-bottom: 20px;
+    top: 50px;
+    border-bottom: 10px solid #d4c074;
+}
+
+.card-exit {
+    width: 1200px;
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    transform: translate(0, 40%);
+}
+
+.card-exit__pencil {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+}
+
+.card-exit__times {
+    height: 30px;
+    width: 30px;
+}
+
+.card-exit__fa-pencil {
+    font-size: xx-large !important;
+    color: #d4c074;
+}
+
+.card-exit__fa-times {
+    font-size: xx-large !important;
+    color: #d4c074;
+}
+
+.avatar {
+    width: 450px;
+    height: 650px;
+    position: relative;
+    transform: translate(-30%, -10%);
+}
+
+.avatar-exit {
+    width: 50%;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    justify-content: flex-end;
+    display: none;
+    z-index: 1;
+}
+
+.avatar-exit__pencil {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+}
+
+.avatar-exit__times {
+    height: 30px;
+    width: 30px;
+
+}
+
+.avatar-exit__fa-pencil {
+    font-size: xx-large !important;
+    color: #ffffff;
+}
+
+.avatar-exit__fa-times {
+    font-size: xx-large !important;
+    color: #ffffff;
+}
+
+.avatar__img {
+    width: 450px;
+    height: 650px;
+    object-fit: cover;
+}
+
+.avatar__upload {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1;
+}
+
+.avatar_camera {
+    font-size: xx-large !important;
+    z-index: 1;
+}
+
+.avatar__icons {
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+}
+
+.avatar__stars {
+    width: 300px;
+}
+
+.avatar__likes {
+    width: 50%;
+    text-align: end;
+}
+
+.avatar__dislikes {
+    width: 50%;
+    text-align: center;
+}
+
+.avatar__star {
+    color: #d4c074;
+    font-size: xx-large !important;
+    margin-right: 0px !important;
+}
+
+.avatar__like {
+    color: green;
+    font-size: xx-large !important;
+}
+
+.avatar__dislike {
+    color: red;
+    font-size: xx-large !important;
+}
+
+.info {
+    position: relative;
+    transform: translate(-15%);
+}
+
+.info__sm {
+    text-align: left;
+}
+
+.info__networks {
+    margin-top: 50px;
+    margin-left: 50px;
+    border-left: 3px solid #333645;
+    padding-left: 30px;
+}
+
+.info__network {
+    color: #ffffff;
+    font-size: larger !important;
+    margin-right: 10px;
+}
+
+.info__gold-color {
+    font-size: larger !important;
+    color: #d4c074;
+    margin-right: 5px;
+}
+
+.info__username {
+    margin-top: 40px;
+    margin-bottom: 10px;
+    display: inline-block;
+    font-size: 50px;
+    color: #d4c074;
+}
+
+.info__container {
+    padding: 0;
+}
+
+.info__card-aboutme {
+    margin-top: 15%;
+    padding-bottom: 50px;
+    border-bottom: none;
+}
+
+.info__text {
+    padding: 0;
+}
+
+.info__aboutme {
+    margin-top: 30px;
+    display: inline-block;
+    border-bottom: solid #d4c074 3px;
+}
+
+.tab {
+    margin-bottom: 30px;
+    margin-top: 10px
+}
+
+.tab__text {
+    text-align: center;
+}
+
+.tab__btn {
+    text-align: center;
+}
+
+.tab__last-stream {
+    color: white;
+    font-size: 18px;
+    border-bottom: 2px solid #d4c074;
+    margin-left: 80px;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.tab__a {
+    margin-right: 15px;
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.tab__a-border,
+.tab__a:hover {
+    border-bottom: 2px solid #d4c074;
+}
+
+.slider {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.slider__size {
+    width: 500px;
+    height: 400px;
+    margin: 0;
+}
+
+.carousel-caption {
+    text-shadow: 3px 2px black;
+}
+
+.slider__photo {
+    width: 470px;
+    height: 294px;
+    object-fit: cover;
+    filter: brightness(50%)
+}
+
+.chart {
+    display: flex;
+    justify-content: center;
+}
+
+.chart__js {
+    -webkit-animation: chartjs-render-animation 0.001s;
+    animation: chartjs-render-animation 0.001s;
+}
+
+.chart__size {
+    width: 400px;
+    height: 300px;
+}
+
+.progress {
+    background-color: #333645;
+    border-radius: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 1.25rem;
+    font-size: 1rem;
+}
+
+.progress__size {
+    width: 400px;
+    height: 300px;
+}
+
+.progress__share-bg {
+    background-color: #d4c074 !important;
+}
+
+.progress__like {
+    color: green;
+    font-size: x-large;
+}
+
+.progress__dislike {
+    color: red;
+    font-size: x-large;
+}
+
+.progress__share {
+    color: #d4c074;
+    font-size: x-large;
+}
+
+.progress__views {
+    text-align: end;
+    color: #d4c074;
+}
+
+.mobile {
+    display: none;
+    text-align: center;
+}
