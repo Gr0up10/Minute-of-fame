@@ -124,20 +124,3 @@ $(document).ready( function() {
 
 });
 
-$(document).ready( function() {
-    function randomInteger(min, max) {
-        let rand = min - 0.5 + Math.random() * (max - min + 1);
-        return Math.round(rand);
-    }
-    function RandomUrl(event){
-        img.src = 'https://avatars.dicebear.com/api/' + sprites[randomInteger(0, 8)] + '/' + queueuser.innerText + '.svg';
-    }
-    var img = document.querySelector('.queue-slider__ul__li__img');// картинка в которую вставляется src
-    var queueuser = document.getElementById("username");
-    var rand = document.querySelector('.debug');
-    var sprites = ["male", "female", "human", "identicon", "bottts", "initials", "avataaars", "jdenticon", "gridy"];
-
-    rand.addEventListener('click', RandomUrl);// действует по клику кнопки debug, для примера. Нужно поменять на добавление в очередь
-});
-
-
