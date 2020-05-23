@@ -19,6 +19,7 @@ export default class Stream {
                 credential: "password"
             },
         ];
+        console.log(JSON.stringify(this.ice_servers));
 
 
               //  this.onstream({'stream_type': 'screen', 'id': this.user_room_id});
@@ -112,7 +113,9 @@ export default class Stream {
             var options = {
                 localVideo: document.getElementById('local-video'),
                 onicecandidate : this.onIceCandidatePresenter.bind(this),
-                iceServers: this.ice_servers
+                iceServers: this.ice_servers,
+                iceTransportPolicy:"all",
+                iceCandidatePoolSize:"0"
                 //mediaConstraints : constraints,
                 //sendSource: 'screen',
             }
@@ -138,8 +141,11 @@ export default class Stream {
             var options = {
                 remoteVideo : document.getElementById('video'),
                 onicecandidate : this.onIceCandidateViewer.bind(this),
-                iceServers: this.ice_servers
+                iceServers: this.ice_servers,
+                iceTransportPolicy:"all",
+                iceCandidatePoolSize:"0"
             }
+            console.log("Presenter config: "+JSON.stringify(options));
             this.viewerPeer = new WebRtcPeer.WebRtcPeerRecvonly(options,
                     (error) => {
                         if (error) {
