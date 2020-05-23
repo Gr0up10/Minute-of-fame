@@ -11,7 +11,7 @@ export default class Stream {
         this.viewer_ready = false;
         this.ice_servers = [
             {
-                urls: ["stun:51.15.64.125:3478"],
+                urls: ["stun:51.15.64.125:3478", "stun:stun.l.google.com:19302", "stun:stun1.l.google.com:19302"],
                 //username: "username",
                 //credential: "password"
             },
