@@ -573,7 +573,7 @@ function WebRtcPeer(mode, options, callback) {
             }).catch(error => {
                 console.log('cannot autoplay')
                 $(".play-btn").css('display', 'block')
-                $(".play-btn").click(() => playVideo)
+                $(".play-btn").click(() => playVideo())
             });
         }
     }

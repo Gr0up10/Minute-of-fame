@@ -7,6 +7,8 @@ export default class Stream {
         this.presenterPeer = null;
         this.viewerPeer = null;
         this.ice_candidates = {};
+        this.presenter_ready = false;
+        this.viewer_ready = false;
         this.ice_servers = [
             {
                 urls: "stun:51.15.64.125:3478"
@@ -46,18 +48,24 @@ export default class Stream {
 
     ice_candidate(candidate, isStreamer) {
         console.log("Received ice candidate "+isStreamer+candidate)
-        if(isStreamer)
-            this.ice_candidates['pub'] = [candidate].concat(this.ice_candidates['pub'] || []);
-            //this.presenterPeer.addIceCandidate(candidate, function(error) {
-            //    if (error)
-            //        return console.error('Error adding candidate: ' + error);
-            //});
-        else
-            this.ice_candidates['view'] = [candidate].concat(this.ice_candidates['view'] || []);
-            //this.viewerPeer.addIceCandidate(candidate, function(error) {
-            //    if (error)
-            //        return console.error('Error adding candidate: ' + error);
-            //});
+        if(isStreamer){
+            if(!this.presenter_ready)
+                this.ice_candidates['pub'] = [candidate].concat(this.ice_candidates['pub'] || []);
+            else
+                this.presenterPeer.addIceCandidate(candidate, function(error) {
+                    if (error)
+                        return console.error('Error adding candidate: ' + error);
+                });
+        } else {
+            if(!this.presenter_ready)
+                this.ice_candidates['view'] = [candidate].concat(this.ice_candidates['view'] || []);
+            else
+                this.viewerPeer.addIceCandidate(candidate, function(error) {
+                    if (error)
+                        return console.error('Error adding candidate: ' + error);
+                });
+        }
+
     }
 
     sdp_answer(answer, isStreamer) {
@@ -67,12 +75,14 @@ export default class Stream {
             this.presenterPeer.processAnswer(answer, function(error) {
                 if (error)
                     return console.error(error);
-                self.ice_candidates['pub'].forEach((candidate) =>
-                self.presenterPeer.addIceCandidate(candidate, function(error) {
-                    if (error)
-                        return console.error('Error adding candidate: ' + error);
-                }
-            ));
+                self.presenter_ready = true
+                if(self.ice_candidates['pub'])
+                    self.ice_candidates['pub'].forEach((candidate) =>
+                        self.presenterPeer.addIceCandidate(candidate, function(error) {
+                            if (error)
+                                return console.error('Error adding candidate: ' + error);
+                        }
+                    ));
             });
             
         } else {
@@ -80,12 +90,14 @@ export default class Stream {
             this.viewerPeer.processAnswer(answer, function(error) {
                 if (error)
                     return console.error(error);
-                self.ice_candidates['view'].forEach((candidate) =>
-                self.viewerPeer.addIceCandidate(candidate, function(error) {
-                    if (error)
-                        return console.error('Error adding candidate: ' + error);
-                }
-            ));
+                self.viewer_ready = true
+                if(self.ice_candidates['view'])
+                    self.ice_candidates['view'].forEach((candidate) =>
+                        self.viewerPeer.addIceCandidate(candidate, function(error) {
+                            if (error)
+                                return console.error('Error adding candidate: ' + error);
+                        }
+                    ));
             });
             
         }
