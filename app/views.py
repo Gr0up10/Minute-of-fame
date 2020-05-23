@@ -195,7 +195,10 @@ def profile_page(req, id):
             if len(Profile.objects.filter(user=id)) > 0:
                 item = Profile.objects.filter(user_id=id)[len(Profile.objects.filter(user_id=id)) - 1]
                 context['item'] = item
-                context['streams_titles'] = [i.title for i in Stream.objects.filter(publisher=item)[-10:]]
+                stream_titles = list()
+                for i in Stream.objects.filter(publisher=real_name[0]):
+                    stream_titles.append(i.title)
+                context['streams_titles'] = stream_titles
                 context['likes'] = PollStat.objects.filter(user_id=id)
                 context['likes_count'] = 0
                 context['dislikes_count'] = 0
@@ -298,7 +301,10 @@ def get_data_for_charts(request, id):
         id = real_name[0].id
         if len(Profile.objects.filter(user=id)) > 0:
             user = Profile.objects.filter(user_id=id)[len(Profile.objects.filter(user_id=id)) - 1]
-            streams = Stream.objects.filter(publisher=user)[-10:]
+            streams_temp = list()
+            for i in Stream.objects.filter(publisher=real_name[0]):
+                streams_temp.append(i)
+            streams = streams_temp
             likes = []
             dislikes = []
             for i in streams:
