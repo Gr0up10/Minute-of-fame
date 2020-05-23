@@ -7,6 +7,16 @@ export default class Stream {
         this.presenterPeer = null;
         this.viewerPeer = null;
         this.ice_candidates = {};
+        this.ice_servers = [
+            {
+                urls: "stun:51.15.64.125:3478"
+            },
+            {
+                urls: "turn:51.15.64.125:3478",
+                username: "username",
+                credential: "password"
+            },
+        ];
 
 
               //  this.onstream({'stream_type': 'screen', 'id': this.user_room_id});
@@ -90,6 +100,7 @@ export default class Stream {
             var options = {
                 localVideo: document.getElementById('local-video'),
                 onicecandidate : this.onIceCandidatePresenter.bind(this),
+                iceServers: this.ice_servers
                 //mediaConstraints : constraints,
                 //sendSource: 'screen',
             }
@@ -114,7 +125,8 @@ export default class Stream {
     viewer() {
             var options = {
                 remoteVideo : document.getElementById('video'),
-                onicecandidate : this.onIceCandidateViewer.bind(this)
+                onicecandidate : this.onIceCandidateViewer.bind(this),
+                iceServers: this.ice_servers
             }
             this.viewerPeer = new WebRtcPeer.WebRtcPeerRecvonly(options,
                     (error) => {
