@@ -9,16 +9,18 @@ export default class Stream {
         this.ice_candidates = {};
         this.presenter_ready = false;
         this.viewer_ready = false;
-        this.ice_servers = [
+        this.ice_servers = [];/*[
             {
-                urls: ["stun:51.15.64.125:3478"]
+                urls: ["stun:51.15.64.125:3478"],
+                username: "username",
+                credential: "password"
             },
             {
                 urls: ["turn:51.15.64.125:3478"],
                 username: "username",
                 credential: "password"
             },
-        ];
+        ];*/
         console.log(JSON.stringify(this.ice_servers));
 
 
