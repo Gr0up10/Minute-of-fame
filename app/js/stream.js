@@ -145,7 +145,7 @@ export default class Stream {
                 iceTransportPolicy:"all",
                 iceCandidatePoolSize:"0"
             }
-            console.log("Presenter config: "+JSON.stringify(options));
+            //console.log("Presenter config: "+JSON.stringify(options));
             this.viewerPeer = new WebRtcPeer.WebRtcPeerRecvonly(options,
                     (error) => {
                         if (error) {
