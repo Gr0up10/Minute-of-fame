@@ -1,9 +1,11 @@
+"""импорт модулей для работы с моделями """
 from django.db import models
 from django.contrib.auth.models import User
 
 
 # Create your models here.
 class Report(models.Model):
+    """репот"""
     badass = models.ForeignKey(
         to=User, on_delete=models.CASCADE, related_name='badass_id', null=True)
     sender = models.ForeignKey(
@@ -17,6 +19,7 @@ class Report(models.Model):
 
 
 class Stream(models.Model):
+    """модель стрима"""
     date = models.DateField(auto_now=True)
     pending = models.BooleanField(default=True)
     active = models.BooleanField(default=False)
@@ -27,17 +30,20 @@ class Stream(models.Model):
 
 
 class StreamView(models.Model):
+    """просматривание стрима """
     date = models.DateField(auto_now=True)
     stream = models.ForeignKey(to=Stream, on_delete=models.CASCADE)
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
 
 
 class LikeDislike(models.IntegerChoices):
+    """счетчик айки и дизлайки """
     DISLIKE = 0
     LIKE = 1
 
 
 class PollStat(models.Model):
+    """Статистика Опроса"""
     date = models.DateField(auto_now=True)
     stream = models.ForeignKey(to=Stream, on_delete=models.CASCADE)
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
@@ -48,7 +54,7 @@ class PollStat(models.Model):
 
 
 class Profile(models.Model):
-    """User quotes"""
+    """модель пользователя """
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     quotes = models.CharField(max_length=60)
     email = models.CharField(max_length=60)
