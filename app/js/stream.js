@@ -14,15 +14,13 @@ export default class Stream {
             {
                 urls: ["turn:51.15.64.125:3478"],
                 username: "username",
-                credential: "password",
-                iceTransportPolicy:"relay",
-                iceCandidatePoolSize:"0"
+                credential: "password"
             },
-            //{
-            //    urls: ["stun:51.15.64.125:3478", "stun:stun.l.google.com:19302", "stun:stun1.l.google.com:19302"],
+            {
+                urls: ["stun:51.15.64.125:3478", "stun:stun.l.google.com:19302", "stun:stun1.l.google.com:19302"],
                 //username: "username",//"stun:51.15.64.125:3478",
                 //credential: "password"
-            //},
+            },
 
         ];
         console.log(JSON.stringify(this.ice_servers));
