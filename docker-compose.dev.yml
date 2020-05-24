@@ -24,7 +24,7 @@ services:
       - main
 
   kurento:
-    image: kurento/kurento-media-server
+    image: maplegend/kurento:latest
     ports:
       - 8888:8888
     volumes:

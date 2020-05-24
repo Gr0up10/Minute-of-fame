@@ -9,10 +9,11 @@ export default class Stream {
         this.ice_candidates = {};
         this.presenter_ready = false;
         this.viewer_ready = false;
+        this.stream_type = 'screen'
         this.ice_servers = [
             {
-                urls: ["stun:51.15.64.125:3478", "stun:stun.l.google.com:19302", "stun:stun1.l.google.com:19302"],
-                //username: "username",
+                urls: ["stun:stun.l.google.com:19302", "stun:stun1.l.google.com:19302"],
+                //username: "username",//"stun:51.15.64.125:3478",
                 //credential: "password"
             },
             //{
@@ -107,19 +108,20 @@ export default class Stream {
     }
 
     presenter(input) {
-            if(input == 'screen') {
-                this.camMedia = navigator.mediaDevices.getUserMedia;
-                navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getDisplayMedia;
-            } else if(this.camMedia !== undefined) navigator.mediaDevices.getUserMedia = this.camMedia;
+            this.screen_type = input
+            //if(input == 'screen') {
+            //    this.camMedia = navigator.mediaDevices.getUserMedia;
+            //    navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getDisplayMedia;
+            //} else if(this.camMedia !== undefined) navigator.mediaDevices.getUserMedia = this.camMedia;
 
             var options = {
                 localVideo: document.getElementById('local-video'),
                 onicecandidate : this.onIceCandidatePresenter.bind(this),
                 iceServers: this.ice_servers,
                 iceTransportPolicy:"all",
-                iceCandidatePoolSize:"0"
+                iceCandidatePoolSize:"0",
                 //mediaConstraints : constraints,
-                //sendSource: 'screen',
+                sendSource: input,
             }
             this.presenterPeer = new WebRtcPeer.WebRtcPeerSendonly(options,
                     (error) => {
@@ -137,6 +139,8 @@ export default class Stream {
         console.info('Invoking SDP offer callback function ' + location.host);
 
         this.sendSocketMessage('connect', {"offer": offerSdp, "presenter": true});
+
+        this.onstream({'stream_type': this.stream_type, 'id': this.user_room_id});
     }
 
     viewer() {
@@ -197,7 +201,7 @@ export default class Stream {
         this.streaming = true;
 
         this.presenter('screen')
-        this.onstream({'stream_type': 'screen', 'id': '123'})
+        //this.onstream({'stream_type': 'screen', 'id': this.user_room_id})
         //$('#placeholder').css('display', 'none');
 
         document.getElementById("stream_title").innerHTML = $("#title_input").val();
@@ -213,7 +217,7 @@ export default class Stream {
 
 
         this.presenter('cam')
-        this.onstream({'stream_type': 'screen', 'id': '123'})
+
         //$('#placeholder').css('display', 'none');
     }
 

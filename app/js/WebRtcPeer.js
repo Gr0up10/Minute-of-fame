@@ -754,7 +754,7 @@ function WebRtcPeer(mode, options, callback) {
     }
 
     if (mode !== 'recvonly' && !videoStream && !audioStream) {
-        function getMedia(constraints) {
+        function getMedia(constraints, input) {
             if (constraints === undefined) {
                 constraints = MEDIA_CONSTRAINTS
             }
@@ -766,26 +766,28 @@ function WebRtcPeer(mode, options, callback) {
                     start();
                 }, callback);
             } else {
-                navigator.mediaDevices.getUserMedia(constraints).then(function (
-                                                                      stream) {
-                    videoStream = stream;
+                if(input == 'cam')
+                    navigator.mediaDevices.getUserMedia(constraints).then(function (
+                                                                          stream) {
+                        videoStream = stream;
 
-                    start();
-                }).catch(callback);
+                        start();
+                    }).catch(callback);
+                else 
+                    navigator.mediaDevices.getDisplayMedia(constraints).then(function (stream) {
+                        videoStream = stream;
+                        return navigator.mediaDevices
+                          .getUserMedia({
+                            audio: true,
+                            video: false
+                          })
+                          
+
+                        //start();
+                    }).then(function (stream) {audioStream = stream; start(); }).catch(callback);
             }
         }
-        if (sendSource === 'webcam') {
-            getMedia(mediaConstraints)
-        } else {
-            getScreenConstraints(sendSource, function (error, constraints_) {
-                if (error)
-                    return callback(error)
-
-                constraints = [mediaConstraints]
-                constraints.unshift(constraints_)
-                getMedia(recursive.apply(undefined, constraints))
-            }, guid)
-        }
+        getMedia(mediaConstraints, sendSource)
     } else {
         setTimeout(start, 0)
     }
