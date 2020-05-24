@@ -12,15 +12,16 @@ export default class Stream {
         this.stream_type = 'screen'
         this.ice_servers = [
             {
-                urls: ["stun:stun.l.google.com:19302", "stun:stun1.l.google.com:19302"],
+                urls: ["turn:51.15.64.125:3478"],
+                username: "username",
+                credential: "password"
+            },
+            {
+                urls: ["stun:51.15.64.125:3478", "stun:stun.l.google.com:19302", "stun:stun1.l.google.com:19302"],
                 //username: "username",//"stun:51.15.64.125:3478",
                 //credential: "password"
             },
-            //{
-            //    urls: ["turn:51.15.64.125:3478"],
-            //    username: "username",
-            //    credential: "password"
-            //},
+
         ];
         console.log(JSON.stringify(this.ice_servers));
 

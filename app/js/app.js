@@ -14,6 +14,7 @@ $(document).ready(function () {
     socket.socket.onopen = (e) => {
         console.log('socket open')
         let stream = new Stream((cmd, p) => socket.send("stream", cmd, p));
+        window.stream = stream;
         let packet_handler = new PacketHandler({
             'poll': new VotingHandler(socket),
             'queue': new QueueHandler(socket, stream),
