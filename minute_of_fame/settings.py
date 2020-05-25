@@ -165,7 +165,7 @@ SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.yandex.YandexOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend'
 )
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
@@ -173,6 +173,9 @@ SOCIAL_AUTH_YANDEX_OAUTH2_KEY = '549063cd611c404795e8582bdf991ad5'
 SOCIAL_AUTH_YANDEX_OAUTH2_SECRET = '0b50137dd39840a4b4bb5f4c77391ba8'
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL= '/'
+SOCIAL_AUTH_UUID_LENGTH = 16
+
+SOCIAL_AUTH_USER_MODEL = 'foo.bar.User'
 
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
