@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'webpack_loader',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -81,6 +82,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -156,6 +159,18 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 #RECAPTCHA BACKEND
 RECAPTCHA_SITE_KEY = "6Lc3K-MUAAAAAJM2Ho9U4tiTIZp-A9PPeGIyyw5z"
 RECAPTCHA_SECRET_KEY = "6Lc3K-MUAAAAAC1q7OCOcJbIyaRvax5UlLJkebiq"
+
+#social_auth
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.yandex.YandexOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+SOCIAL_AUTH_YANDEX_OAUTH2_KEY = '549063cd611c404795e8582bdf991ad5'
+SOCIAL_AUTH_YANDEX_OAUTH2_SECRET = '0b50137dd39840a4b4bb5f4c77391ba8'
 
 
 WEBPACK_LOADER = {

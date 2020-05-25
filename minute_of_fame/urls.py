@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path
+from django.urls import include
 
 from app import views
 
@@ -48,6 +49,7 @@ urlpatterns = [
     path('report/<int:badass_id>', views.report_page),
     path('profile_<str:id>/', views.profile_page),
     path('charts_data_<str:id>/', views.get_data_for_charts),
-    path('top/', views.top_page)
+    path('top/', views.top_page),
+    path('', include('social_django.urls', namespace='social'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
