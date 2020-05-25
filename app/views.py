@@ -188,34 +188,31 @@ def profile_page(req, id):
     context = {
         'menu': get_menu_context()
     }
-    if req.user.is_authenticated:
-        real_name = User.objects.filter(username=id)
-        if len(real_name) > 0:
-            id = real_name[0].id
-            if len(Profile.objects.filter(user=id)) > 0:
-                item = Profile.objects.filter(user_id=id)[len(Profile.objects.filter(user_id=id)) - 1]
-                context['item'] = item
-                stream_titles = list()
-                for i in Stream.objects.filter(publisher=real_name[0]):
-                    stream_titles.append(i.title)
-                context['streams_titles'] = stream_titles
-                context['likes'] = PollStat.objects.filter(user_id=id)
-                context['likes_count'] = 0
-                context['dislikes_count'] = 0
-                if len(PollStat.objects.filter(user_id=id)) > 0:
-                    for i in context['likes']:
-                        if i.vote == 1:
-                            context['likes_count'] += 1
-                        else:
-                            context['dislikes_count'] += 1
-            else:
-                item = Profile(quotes='No description', name=real_name[0].username)
+    real_name = User.objects.filter(username=id)
+    if len(real_name) > 0:
+        id = real_name[0].id
+        if len(Profile.objects.filter(user=id)) > 0:
+            item = Profile.objects.filter(user_id=id)[len(Profile.objects.filter(user_id=id)) - 1]
+            context['item'] = item
+            stream_titles = list()
+            for i in Stream.objects.filter(publisher=real_name[0]):
+                stream_titles.append(i.title)
+            context['streams_titles'] = stream_titles
+            context['likes'] = PollStat.objects.filter(user_id=id)
+            context['likes_count'] = 0
+            context['dislikes_count'] = 0
+            if len(PollStat.objects.filter(user_id=id)) > 0:
+                for i in context['likes']:
+                    if i.vote == 1:
+                        context['likes_count'] += 1
+                    else:
+                        context['dislikes_count'] += 1
         else:
-            return render(req, 'pages/no_profile.html', context)
-
-        context['item'] = item
+            item = Profile(quotes='No description', name=real_name[0].username)
     else:
-        return redirect('index')
+        return render(req, 'pages/no_profile.html', context)
+
+    context['item'] = item
 
     return render(req, 'pages/profile.html', context)
 
