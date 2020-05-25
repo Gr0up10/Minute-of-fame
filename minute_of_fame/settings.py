@@ -174,6 +174,17 @@ SOCIAL_AUTH_YANDEX_OAUTH2_SECRET = '0b50137dd39840a4b4bb5f4c77391ba8'
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL= '/'
 
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
 
 WEBPACK_LOADER = {
     'DEFAULT': {
