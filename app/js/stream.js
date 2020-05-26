@@ -19,11 +19,11 @@ export default class Stream {
                 'stun:stun.l.google.com:19302?transport=udp',
             ]
             }
-            //{
-            //    urls: ["turn:51.15.64.125:3478"],
-            //    username: "username",
-            //    credential: "password"
-            //},
+            {
+                urls: ["turn:51.15.64.125:3478"],
+                username: "username",
+                credential: "password"
+            },
             //{
              //   urls: ["stun:51.15.64.125:3478", "stun:stun.l.google.com:19302", "stun:stun1.l.google.com:19302"],
                 //username: "username",//"stun:51.15.64.125:3478",
@@ -157,7 +157,7 @@ export default class Stream {
                 remoteVideo : document.getElementById('video'),
                 onicecandidate : this.onIceCandidateViewer.bind(this),
                 iceServers: this.ice_servers,
-                iceTransportPolicy:"all",
+                iceTransportPolicy:"rely",
                 iceCandidatePoolSize:"0"
             }
             //console.log("Presenter config: "+JSON.stringify(options));
