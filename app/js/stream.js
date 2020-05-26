@@ -127,6 +127,7 @@ export default class Stream {
                         self.viewerPeer.addIceCandidate(candidate, function(error) {
                             if (error)
                                 return console.error('Error adding candidate: ' + error);
+                            console.log("viewer connected")
                         }
                     ));
             });
@@ -171,15 +172,21 @@ export default class Stream {
 
     viewer() {
         console.log("Viewer started")
+        let w = 640;
+        let h = 480;
+        let canvas = Object.assign(document.createElement("canvas"), { w, h });
+        canvas.getContext('2d').fillRect(0, 0, w, h);
+        let blackStream = canvas.captureStream();
             var options = {
                 remoteVideo : document.getElementById('video'),
                 onicecandidate : this.onIceCandidateViewer.bind(this),
                 iceServers: this.ice_servers,
                 iceTransportPolicy:"rely",
-                iceCandidatePoolSize:"0"
+                iceCandidatePoolSize:"0",
+                videoStream: blackStream
             }
             //console.log("Presenter config: "+JSON.stringify(options));
-            this.viewerPeer = new WebRtcPeer.WebRtcPeerRecvonly(options,
+            this.viewerPeer = new WebRtcPeer.WebRtcPeerSendrecv(options,
                     (error) => {
                         if (error) {
                             return console.error(error);
