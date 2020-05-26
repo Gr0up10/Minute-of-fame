@@ -114,7 +114,7 @@ export default class Stream {
 
                     self.fakeDone = true;
                     console.log('fake done')
-                    self.viewer()
+                    setTimeout(() => self.viewer(), 1500)
                 });
             }
         } else {
