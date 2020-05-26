@@ -37,24 +37,87 @@ def get_menu_context():
     ]
 
 
-def top_page(req):
-    random_users = []
-    for i in range(50):
-        random_users.append(
-            [''.join([random.choice(string.ascii_letters + string.digits) for n in range(10)]),
-             random.randint(0, 1000),
-             random.randint(0, 1000),
-             random.randint(0, 10000)
-             ])
-    random_users = sorted(random_users, key=lambda x: x[3], reverse=True)    # Сортировка по кол-ву просмотров
-    indexes = [[i+1] for i in range(len(random_users))]     # Получение индексов для оттображения в топе
-    random_users = [x+y for x, y in zip(indexes, random_users)]
+def partition(arr, low, high):
+    i = (low - 1)  # index of smaller element
+    pivot = arr[high][0]  # pivot
 
+    for j in range(low, high):
+
+        # If current element is smaller than or
+        # equal to pivot
+        if arr[j][0] > pivot:
+            # increment index of smaller element
+            i = i + 1
+            arr[i], arr[j] = arr[j], arr[i]
+
+    arr[i + 1], arr[high] = arr[high], arr[i + 1]
+    return i + 1
+
+
+# The main function that implements QuickSort
+# arr[] --> Array to be sorted,
+# low  --> Starting index,
+# high  --> Ending index
+
+# Function to do Quick sort
+def quickSort(arr, low, high):
+    if low < high:
+        # pi is partitioning index, arr[p] is now
+        # at right place
+        pi = partition(arr, low, high)
+
+        # Separately sort elements before
+        # partition and after partition
+        quickSort(arr, low, pi - 1)
+        quickSort(arr, pi + 1, high)
+
+
+def top_page(req):
+    users = []
+    all_users = [[0, i] for i in User.objects.all()]
+    for user in all_users:
+        streams = Stream.objects.filter(publisher=user[1])
+        for stream in streams:
+            user[0] += len(StreamView.objects.filter(stream=stream))
+    quickSort(all_users, 0, len(all_users) - 1)
+    if len(all_users) < 10:
+        for i in range(len(all_users)):
+            likes_count = 0
+            dislikes_count = 0
+            if len(PollStat.objects.filter(user=all_users[i][1])) > 0:
+                for k in PollStat.objects.filter(user=all_users[i][1]):
+                    if k.vote == 1:
+                        likes_count += 1
+                    else:
+                        dislikes_count += 1
+            users.append([i + 1, all_users[i][1].username, likes_count, dislikes_count, all_users[i][0]])
+    elif len(all_users) < 40:
+        for i in range(10):
+            likes_count = 0
+            dislikes_count = 0
+            if len(PollStat.objects.filter(user=all_users[i][1])) > 0:
+                for k in PollStat.objects.filter(user=all_users[i][1]):
+                    if k.vote == 1:
+                        likes_count += 1
+                    else:
+                        dislikes_count += 1
+            users.append([i + 1, all_users[i][1].username, likes_count, dislikes_count, all_users[i][0]])
+    else:
+        for i in range(40):
+            likes_count = 0
+            dislikes_count = 0
+            if len(PollStat.objects.filter(user=all_users[i][1])) > 0:
+                for k in PollStat.objects.filter(user=all_users[i][1]):
+                    if k.vote == 1:
+                        likes_count += 1
+                    else:
+                        dislikes_count += 1
+            users.append([i + 1, all_users[i][1].username, likes_count, dislikes_count, all_users[i][0]])
     # Формат передачи ин-фы о пользователе:
     # [*Номер в топе*, *Ник*, *Общее кол-во лайков*, *Общее кол-во дизлайков*, *Общее кол-во просмотров*]
 
     context = {"pagename": "Топ пользователей", 'menu': get_menu_context(),
-               "userbase": random_users
+               "userbase": users
                }
     return render(req, 'pages/top.html', context)
 
