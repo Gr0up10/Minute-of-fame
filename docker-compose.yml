@@ -89,12 +89,9 @@ services:
   kurento:
     hostname: kurento
     image: kurento/kurento-media-server
-    ports:
-      - 8888:8888
+    network_mode: host
     volumes:
       - ./recs:/recs
-    networks:
-      - main
 
   stream:
     env_file:
@@ -102,12 +99,15 @@ services:
     image: rg.nl-ams.scw.cloud/minuteoffame/mof-stream:master
     hostname: stream
     environment:
-      - KMS_URL=ws://kurento:8888/kurento
+      - KMS_URL=ws://192.168.0.1:8888/kurento
     networks:
       - main
+      - dockernet
     depends_on:
       - kurento
       - distributor
 
 networks:
   main:
+  dockernet:
+    external: true
