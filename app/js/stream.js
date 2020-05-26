@@ -6,6 +6,8 @@ export default class Stream {
         this.sendSocketMessage = send;
         this.presenterPeer = null;
         this.viewerPeer = null;
+        this.fakePeer = null;
+        this.fakeDone = false;
         this.ice_candidates = {};
         this.presenter_ready = false;
         this.viewer_ready = false;
@@ -62,13 +64,20 @@ export default class Stream {
     ice_candidate(candidate, isStreamer) {
         console.log("Received ice candidate "+isStreamer+candidate)
         if(isStreamer){
-            if(!this.presenter_ready)
-                this.ice_candidates['pub'] = [candidate].concat(this.ice_candidates['pub'] || []);
-            else
-                this.presenterPeer.addIceCandidate(candidate, function(error) {
+            if(this.fakeDone) {
+                if(!this.presenter_ready)
+                    this.ice_candidates['pub'] = [candidate].concat(this.ice_candidates['pub'] || []);
+                else
+                    this.presenterPeer.addIceCandidate(candidate, function(error) {
+                        if (error)
+                            return console.error('Error adding candidate: ' + error);
+                    });
+            } else {
+                this.fakePeer.addIceCandidate(candidate, function(error) {
                     if (error)
                         return console.error('Error adding candidate: ' + error);
                 });
+            }
         } else {
             if(!this.presenter_ready)
                 this.ice_candidates['view'] = [candidate].concat(this.ice_candidates['view'] || []);
@@ -83,23 +92,32 @@ export default class Stream {
 
     sdp_answer(answer, isStreamer) {
         console.log("Received sdp answer "+isStreamer+answer)
+        var self = this
         if(isStreamer){
-            var self = this
-            this.presenterPeer.processAnswer(answer, function(error) {
-                if (error)
-                    return console.error(error);
-                self.presenter_ready = true
-                if(self.ice_candidates['pub'])
-                    self.ice_candidates['pub'].forEach((candidate) =>
-                        self.presenterPeer.addIceCandidate(candidate, function(error) {
-                            if (error)
-                                return console.error('Error adding candidate: ' + error);
-                        }
-                    ));
-            });
-            
+            if(this.fakeDone) {
+                this.presenterPeer.processAnswer(answer, function(error) {
+                    if (error)
+                        return console.error(error);
+                    self.presenter_ready = true
+                    if(self.ice_candidates['pub'])
+                        self.ice_candidates['pub'].forEach((candidate) =>
+                            self.presenterPeer.addIceCandidate(candidate, function(error) {
+                                if (error)
+                                    return console.error('Error adding candidate: ' + error);
+                            }
+                        ));
+                });
+            } else {
+                this.fakePeer.processAnswer(answer, function(error) {
+                    if (error)
+                        return console.error(error);
+
+                    self.fakeDone = true;
+                    console.log('fake done')
+                    self.viewer()
+                });
+            }
         } else {
-            var self = this
             this.viewerPeer.processAnswer(answer, function(error) {
                 if (error)
                     return console.error(error);
@@ -112,7 +130,6 @@ export default class Stream {
                         }
                     ));
             });
-            
         }
     }
 
@@ -147,12 +164,13 @@ export default class Stream {
             return console.error('Error generating the offer'+error);
         console.info('Invoking SDP offer callback function ' + location.host);
 
-        this.sendSocketMessage('connect', {"offer": offerSdp, "presenter": true});
+        this.sendSocketMessage('connect', {"offer": offerSdp, "presenter": true, "fake": false});
 
         this.onstream({'stream_type': this.stream_type, 'id': this.user_room_id});
     }
 
     viewer() {
+        console.log("Viewer started")
             var options = {
                 remoteVideo : document.getElementById('video'),
                 onicecandidate : this.onIceCandidateViewer.bind(this),
@@ -168,8 +186,6 @@ export default class Stream {
                         }
                         this.viewerPeer.generateOffer(this.onOfferViewer.bind(this));
                     });
-
-
     }
 
     onOfferViewer(error, offerSdp) {
@@ -177,12 +193,54 @@ export default class Stream {
             return console.error('Error generating the offer'+error);
         console.info('Invoking SDP offer callback function ' + location.host);
 
-        this.sendSocketMessage('connect', {"offer": offerSdp, "presenter": false});
+        this.sendSocketMessage('connect', {"offer": offerSdp, "presenter": false, "fake": false});
+    }
+
+    startFakeStream() {
+        console.log("Start fake stream")
+        let w = 640;
+        let h = 480;
+        let canvas = Object.assign(document.createElement("canvas"), { w, h });
+        canvas.getContext('2d').fillRect(0, 0, w, h);
+        let blackStream = canvas.captureStream();
+
+        var options = {
+            onicecandidate : this.onIceCandidateFake.bind(this),
+            iceServers: this.ice_servers,
+            iceTransportPolicy:"all",
+            iceCandidatePoolSize:"0",
+            videoStream: blackStream
+        }
+        //console.log("Presenter config: "+JSON.stringify(options));
+        this.fakePeer = new WebRtcPeer.WebRtcPeerSendonly(options,
+                (error) => {
+                    if (error) {
+                        return console.error(error);
+                    }
+                    this.fakePeer.generateOffer(this.onOfferFake.bind(this));
+                });
+    }
+
+
+    onOfferFake(error, offerSdp) {
+        if (error)
+            return console.error('Error generating the offer'+error);
+        console.info('Invoking fake SDP offer callback function ' + location.host);
+
+        this.sendSocketMessage('connect', {"offer": offerSdp, "presenter": true, "fake": true});
     }
 
     onIceCandidatePresenter(candidate) {
         var cand = candidate.toJSON()
         cand.presenter = true
+        console.log(cand)
+        this.sendSocketMessage('ice_candidate', cand);
+    }
+
+    onIceCandidateFake(candidate) {
+        var cand = candidate.toJSON()
+        cand.presenter = true
+        console.log("fake cand")
         console.log(cand)
         this.sendSocketMessage('ice_candidate', cand);
     }
@@ -231,9 +289,10 @@ export default class Stream {
     }
 
 
-    watchStream(input_room_id) {
-        console.log('start wactch stream ', input_room_id)
+    watchStream() {
+        //console.log('start wactch stream ', input_room_id)
         //$('#placeholder').css('display', 'none');
-        viewer()
+        //viewer()
+        this.startFakeStream()
     }
 }
