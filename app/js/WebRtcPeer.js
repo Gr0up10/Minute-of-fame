@@ -782,9 +782,6 @@ function WebRtcPeer(mode, options, callback) {
                             audio: true,
                             video: false
                           })
-                          
-
-                        //start();
                     }).then(function (stream) {audioStream = stream; start(); }).catch(callback);
             }
         }

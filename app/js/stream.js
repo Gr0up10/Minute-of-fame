@@ -65,26 +65,31 @@ export default class Stream {
         console.log("Received ice candidate "+isStreamer+candidate)
         if(isStreamer){
             if(this.fakeDone) {
+                console.log("Adding for presenter, save: "+this.presenter_ready)
                 if(!this.presenter_ready)
                     this.ice_candidates['pub'] = [candidate].concat(this.ice_candidates['pub'] || []);
                 else
                     this.presenterPeer.addIceCandidate(candidate, function(error) {
                         if (error)
                             return console.error('Error adding candidate: ' + error);
+                        console.log("Ice added successfully for presenter")
                     });
             } else {
                 this.fakePeer.addIceCandidate(candidate, function(error) {
                     if (error)
                         return console.error('Error adding candidate: ' + error);
+                    console.log("Ice added successfully for FAKE presenter")
                 });
             }
         } else {
-            if(!this.presenter_ready)
+            console.log("Adding for viewer, save: "+this.presenter_ready)
+            if(!this.viewer_ready)
                 this.ice_candidates['view'] = [candidate].concat(this.ice_candidates['view'] || []);
             else
                 this.viewerPeer.addIceCandidate(candidate, function(error) {
                     if (error)
                         return console.error('Error adding candidate: ' + error);
+                    console.log("Ice added successfully for viewer")
                 });
         }
 
