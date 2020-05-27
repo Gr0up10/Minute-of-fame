@@ -278,23 +278,24 @@ export default class Stream {
 
     screenStream() {
         this.streaming = true;
+        this.fakeDone = true;
 
         this.presenter('screen')
         //this.onstream({'stream_type': 'screen', 'id': this.user_room_id})
         //$('#placeholder').css('display', 'none');
 
-        document.getElementById("stream_title").innerHTML = $("#title_input").val();
-        document.getElementById("stream_description").innerHTML = $("#description_input").val();
-        document.getElementById("streamer_name").innerHTML = document.getElementById("username").innerText
+        //document.getElementById("stream_title").innerHTML = $("#title_input").val();
+        //document.getElementById("stream_description").innerHTML = $("#description_input").val();
+        //document.getElementById("streamer_name").innerHTML = document.getElementById("username").innerText
 
     }
 
     webcamStream() {
-        document.getElementById("stream_title").innerHTML = $("#title_input").val();
-        document.getElementById("stream_description").innerHTML = $("#description_input").val();
-        document.getElementById("streamer_name").innerHTML = document.getElementById("username").innerText
+        //document.getElementById("stream_title").innerHTML = $("#title_input").val();
+        //document.getElementById("stream_description").innerHTML = $("#description_input").val();
+        //document.getElementById("streamer_name").innerHTML = document.getElementById("username").innerText
 
-
+        this.fakeDone = true;
         this.presenter('cam')
 
         //$('#placeholder').css('display', 'none');
