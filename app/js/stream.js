@@ -181,7 +181,7 @@ export default class Stream {
         //let h = 480;
         //let canvas = Object.assign(document.createElement("canvas"), { w, h });
         //canvas.getContext('2d').fillRect(0, 0, w, h);
-        let blackStream = canvas.captureStream();
+        //let blackStream = canvas.captureStream();
             var options = {
                 remoteVideo : document.getElementById('video'),
                 onicecandidate : this.onIceCandidateViewer.bind(this),
