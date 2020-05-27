@@ -798,6 +798,7 @@ input[type="checkbox"]+label:after {
     height: 650px;
     position: relative;
     transform: translate(-30%, -10%);
+    background-color: #292d40;
 }
 
 .avatar-exit {
@@ -855,11 +856,14 @@ input[type="checkbox"]+label:after {
 .avatar__icons {
     display: flex;
     justify-content: space-between;
-    height: 30px;
+    height: 50px;
     position: absolute;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
+    bottom: 0px;
+    left: -1px;
+    right: 0px;
+    padding: 10px 20px;
+    background-color: #292d40c9;
+    vertical-align: middle;
 }
 
 .avatar__stars {
