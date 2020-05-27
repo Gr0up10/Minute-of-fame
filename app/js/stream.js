@@ -191,7 +191,7 @@ export default class Stream {
           //      videoStream: blackStream
             }
             //console.log("Presenter config: "+JSON.stringify(options));
-            this.viewerPeer = new WebRtcPeer.WebRtcPeerSendrecv(options,
+            this.viewerPeer = new WebRtcPeer.WebRtcPeerRecvonly(options,
                     (error) => {
                         if (error) {
                             return console.error(error);
