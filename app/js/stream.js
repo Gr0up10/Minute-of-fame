@@ -177,10 +177,10 @@ export default class Stream {
 
     viewer() {
         console.log("Viewer started")
-        let w = 640;
-        let h = 480;
-        let canvas = Object.assign(document.createElement("canvas"), { w, h });
-        canvas.getContext('2d').fillRect(0, 0, w, h);
+        //let w = 640;
+        //let h = 480;
+        //let canvas = Object.assign(document.createElement("canvas"), { w, h });
+        //canvas.getContext('2d').fillRect(0, 0, w, h);
         let blackStream = canvas.captureStream();
             var options = {
                 remoteVideo : document.getElementById('video'),
@@ -188,7 +188,7 @@ export default class Stream {
                 iceServers: this.ice_servers,
                 iceTransportPolicy:"rely",
                 iceCandidatePoolSize:"0",
-                videoStream: blackStream
+          //      videoStream: blackStream
             }
             //console.log("Presenter config: "+JSON.stringify(options));
             this.viewerPeer = new WebRtcPeer.WebRtcPeerSendrecv(options,
@@ -305,6 +305,7 @@ export default class Stream {
         //console.log('start wactch stream ', input_room_id)
         //$('#placeholder').css('display', 'none');
         //viewer()
-        this.startFakeStream()
+        //this.startFakeStream()
+        this.viewer()
     }
 }
