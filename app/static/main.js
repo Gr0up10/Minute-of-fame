@@ -123,4 +123,3 @@ $(document).ready( function() {
     input.addEventListener('keyup', handleKeyUp);
 
 });
-
