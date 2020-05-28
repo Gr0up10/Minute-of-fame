@@ -30,7 +30,6 @@
             {% endblock %}
 
             <hr class="downdrop-hr">
-
 			{% block usermenu %}
 				<ul class="navbar-nav justify-content-end">
 					{% if request.user.is_authenticated %}
@@ -68,14 +67,14 @@
 							</div>
 						</li>
 					{% endif %}
-					<li>
-						<h4>
-							<a class="nav-link" data-toggle="modal" data-target="#reportModal">
-								Report
-							</a>
-						</h4>
+                    <!--<li>
+                        <h4>
+                            <a class="nav-link" data-toggle="modal" data-target="#reportModal">
+                                Report
+                            </a>
+                        </h4>
 
-					</li>
+                    </li>-->
 				</ul>
 			{% endblock %}
 		</div>

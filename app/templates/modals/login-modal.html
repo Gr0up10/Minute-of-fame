@@ -1,72 +1,93 @@
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog  modal-dialog-centered" role="document">
-    <div class="modal-content">
-        <div class="modal-header-back"></div>
-        <h3 class="modal-title" id="exampleModalLabel">LOGIN</h3>
-      <div class="modal-body">
-          	<div class="row">
-		<div class="col mt-3">
+{% load static %}
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header-back"></div>
+            <h3 class="modal-title" id="exampleModalLabel">LOGIN</h3>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col mt-3">
 
-			<div class="container login-warning-error mb-3 d-none" id="login-warning">
-				<h5 class="login-warning-text text-center">Incorrect login or password</h5>
-				<p class="text-center">If you forget your password you can <a href="" class="link" data-toggle="modal"
-																				data-target="#resetIntroModal" data-dismiss="modal">Reset it</a></p>
-			</div>
-				<!--<button onclick="error('login-warning', '500px', '450px')">TMP</button>-->
-				<div class="container">
-					<form method="POST" id="add_form" action="/login/">
-                        {% csrf_token %}
-						<div class="input-group mb-3 login-input">
-								<!--<i class="fas fa-user login-icons"></i>-->
-								<input name="username" type="text" class="form-control login-input lp" placeholder="Username" aria-label="Username"
-                                                                                aria-describedby="basic-addon1">
-						</div>
-						<div class="input-group mb-3 login-input">
-								<!--<i class="fas fa-lock login-icons"></i>-->
-								<input name="password" type="password" class="form-control login-input lp" placeholder="Password" aria-label="Password"
-                                                                                aria-describedby="basic-addon1">
-						</div>
-						<div class="custom-control custom-checkbox mb-3">
-      							<input type="checkbox" class="custom-control-input" id="customCheck" name="checkbox">
-								<label class="custom-control-label" for="customCheck">Remember me</label>
-    					</div>
-                        <input type="hidden" value='' id="login_check" name="login_check">
-						<div class="form-group text-center">
-							<div class="submit">
-								<button type="submit" class="btn btn-lg btn-cust" onclick="getElementById('login_check').value = 'True';"><h2>SIGN IN</h2></button>
-							</div>
-						</div>
-						<br>
-						<div class="text-center">
-							<h6>Not registered yet, <a href="" class="link" data-toggle="modal" data-target="#regModal" data-dismiss="modal">Sing Up</a></h6>
-						</div>
-						<a href="{% url "social:begin" "yandex-oauth2" %}">yandex</a>
+                        <div class="container login-warning-error mb-3 d-none" id="login-warning">
+                            <h5 class="login-warning-text text-center">Incorrect login or password</h5>
+                            <p class="text-center">If you forget your password you can <a href="" class="link"
+                                                                                          data-toggle="modal"
+                                                                                          data-target="#resetIntroModal"
+                                                                                          data-dismiss="modal">Reset
+                                it</a></p>
+                        </div>
+                        <!--<button onclick="error('login-warning', '500px', '450px')">TMP</button>-->
+                        <div class="container">
+                            <form method="POST" id="add_form" action="/login/">
+                                {% csrf_token %}
+                                <div class="input-group mb-3 login-input">
+                                    <!--<i class="fas fa-user login-icons"></i>-->
+                                    <input name="username" type="text" class="form-control login-input lp"
+                                           placeholder="Username" aria-label="Username"
+                                           aria-describedby="basic-addon1">
+                                </div>
+                                <div class="input-group mb-3 login-input">
+                                    <!--<i class="fas fa-lock login-icons"></i>-->
+                                    <input name="password" type="password" class="form-control login-input lp"
+                                           placeholder="Password" aria-label="Password"
+                                           aria-describedby="basic-addon1">
+                                </div>
+                                <div class="custom-control custom-checkbox mb-3">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck"
+                                           name="checkbox">
+                                    <label class="custom-control-label" for="customCheck">Remember me</label>
+                                </div>
+                                <input type="hidden" value='' id="login_check" name="login_check">
 
-						<!--  АВАРИЙНЫЙ РЕЖИМ
-						<div class="form-group">
-							<label>Имя пользователя</label>
-							<div class="input"><input type="text" name="username" required="required"></div>
-							<div class="clear"></div>
-						</div>
-						<div class="form-group">
-							<label>Пароль</label>
-							<div class="input"><input type="password" name="password" required="required"></div>
-							<div class="clear"></div>
-						</div>
-						<div class="form-group">
-							<label></label>
-							<div class="submit">
-								<button type="submit" onclick="getElementById('login_check').value = 'True';" class="btn btn-success">Войти</button>
-							</div>
-							<div class="clear"></div>
-						</div>
-						-->
-					</form>
-				</div>
-		</div>
-	</div>
-      </div>
+                                <div class="form-group text-center">
+                                    <div class="submit">
+                                        <button type="submit" class="btn btn-lg btn-cust"
+                                                onclick="getElementById('login_check').value = 'True';"><h2
+                                                class="btn-cust__h2">SIGN IN</h2></button>
+                                    </div>
+                                </div>
+                                <div class="sign-up-text">
+                                    <h6>Not registered yet, <a href="" class="link" data-toggle="modal"
+                                                               data-target="#regModal" data-dismiss="modal">Sing Up</a>
+                                    </h6>
+                                </div>
+                                <h6 class="d-inline-block">Войти <br>с помощью:</h6>
+                                <h6 class="d-inline-block"><a class="yandex-login" href="{% url "social:begin" "yandex-oauth2" %}">
+                                    <img class="yandex-login-img" src="{% static 'Pictures/yandex.svg' %}"></a>
+                                </h6>
+                                <!--
+                                                        <a class="yandex-login" href="{% url "social:begin" "yandex-oauth2" %}"><img style="width:30px" src="{% static 'Pictures/yandex.svg' %}"></a>
+                                -->
+
+                                <!--<h6>Войти с помощью:</h6>-->
+                                <!--<a class="yandex-login" href="{% url 'social:begin' 'yandex-oauth2' %}"><img src="{% static 'Pictures/yandex.svg' %}"></a>-->
+
+                                <!--  АВАРИЙНЫЙ РЕЖИМ
+                                <div class="form-group">
+                                    <label>Имя пользователя</label>
+                                    <div class="input"><input type="text" name="username" required="required"></div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Пароль</label>
+                                    <div class="input"><input type="password" name="password" required="required"></div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label></label>
+                                    <div class="submit">
+                                        <button type="submit" onclick="getElementById('login_check').value = 'True';" class="btn btn-success">Войти</button>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                -->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
