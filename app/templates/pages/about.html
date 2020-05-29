@@ -2,67 +2,149 @@
 {% load static %}
 
 {% block content %}
-<div class="d-flex align-items-stretch">
-    <div class="stream-container flex-fill">
-        <h3>Разработчики</h3><br>
-        <div>
-            <h4>Ярослав Гончаров a.k.a. MapLegend a.k.a. AbsoluteLegend <img class="chat-emote" src="{% static 'Pictures\emotes' %}\AbsoluteLegend.png" alt=".~."></h4>
-            -Main Developer-- Докер, система CI/CD, развёртывание на сервере, доведение до рабочего состояния трансляций,
-            реализация очереди, разбивка на микросервисы, капча, юнит-тесты.
-            <br><br>
+    <h1>Разработчики</h1><br>
+    <div class="d-flex flex-wrap justify-content-center dev-info-container">
+
+        <div class="card dev-info-card dev-info-key">
+          <div class="card-body">
+            <h5 class="card-title">Ярослав Гончаров</h5>
+            <h6 class="card-subtitle mb-2 text-muted">a.k.a. MapLegend a.k.a. AbsoluteLegend</h6>
+            <h6 class="card-subtitle mb-2"><b>- Main Developer, Back End lead -</b></h6>
+            <p class="card-text">Докер, система CI/CD, развёртывание на сервере, доведение до рабочего состояния трансляций,
+                реализация очереди, разбивка на микросервисы, капча, юнит-тесты.
+            </p>
+          </div>
         </div>
-        <div>
-            <h4>Горшенев Леонид a.k.a. Leodroid</h4>
-            -Team Lead-- Конфигурация Django, фиксы страниц сайта и меню, создание страницы About. Фиксы кода клиентской части и работа с бд. Бекенд для модалов. Фиксы багов.<br><br>
+
+        <div class="card dev-info-card dev-info-key">
+          <div class="card-body">
+            <h5 class="card-title">Горшенев Леонид</h5>
+            <h6 class="card-subtitle mb-2 text-muted">a.k.a. Leodroid</h6>
+            <h6 class="card-subtitle mb-2"><b>- Team Lead -</b></h6>
+            <p class="card-text">Конфигурация Django, фиксы страниц сайта и меню, создание страницы About.
+                Фиксы кода клиентской части и работа с бд. Бекенд для модалов. Фиксы багов.
+            </p>
+          </div>
         </div>
-        <div>
-            <h4>Васильев Андрей a.k.a. Herr der Qual</h4>
-            -Backend-- Системы логина и регистрации, настройка уведомлений, система трансляции и просмотра стрима, полная реализация чата.<br><br>
+
+        <div class="card dev-info-card dev-info-back">
+          <div class="card-body">
+            <h5 class="card-title">Васильев Андрей</h5>
+            <h6 class="card-subtitle mb-2 text-muted">a.k.a. Herr der Qual</h6>
+            <h6 class="card-subtitle mb-2"><b>- Back End developer -</b></h6>
+            <p class="card-text">Cистемы логина и регистрации, настройка уведомлений,
+                система трансляции и просмотра стрима, полная реализация чата.
+            </p>
+          </div>
         </div>
-        <div>
-            <h4>Шутов Никита a.k.a. Wigiglenekit</h4>
-            -Backend-- Подстановка названия стрима и описания на страницу, реализация таймера,генерация очереди на странице, документация, report система (не вошла в релиз), улучшение кода для повышения безопасности.<br><br>
+
+        <div class="card dev-info-card dev-info-back">
+          <div class="card-body">
+            <h5 class="card-title">Шутов Никита</h5>
+            <h6 class="card-subtitle mb-2 text-muted">a.k.a. Wigiglenekit</h6>
+            <h6 class="card-subtitle mb-2"><b>- Back End developer -</b></h6>
+            <p class="card-text"> Подстановка названия стрима и описания на страницу, реализация таймера,
+                генерация очереди на странице, документация, улучшение кода для повышения безопасности.
+            </p>
+          </div>
         </div>
-        <div>
-            <h4>Беликов Григорий a.k.a. Manndarinchik</h4>
-            -Frontend-- Базовый шаблон, вёрстка прототипа главной страницы, оформление чата, кнопки лайков/дизлайков, работа над визуальной частью чата, эмоджи.<br><br>
+
+        <div class="card dev-info-card dev-info-back">
+          <div class="card-body">
+            <h5 class="card-title">Степанов Николай</h5>
+            <h6 class="card-subtitle mb-2 text-muted">a.k.a. KodKio</h6>
+            <h6 class="card-subtitle mb-2"><b>- Back End developer -</b></h6>
+            <p class="card-text">Прототип чата, работа с регистрацией, работа с БД, чартами в профиле и топом.
+            </p>
+          </div>
         </div>
-        <div>
-            <h4>Вероника Долгирева a.k.a. Nika</h4>
-            -Frontend-- Полная вёрстка страниц просмотра и редактирования профиля, фиксы основной страницы и модалов, визуальная составляющая очереди, адаптация под мобильные устройства, кнопка старта стрима, плейсхолдер.<br><br>
+
+        <div class="card dev-info-card dev-info-back">
+          <div class="card-body">
+            <h5 class="card-title">Кравцов Андрей</h5>
+            <h6 class="card-subtitle mb-2 text-muted">a.k.a. KRAVTANDR</h6>
+            <h6 class="card-subtitle mb-2"><b>- Back End developer -</b></h6>
+            <p class="card-text"> Система лайков, прототип таймера.
+            </p>
+          </div>
         </div>
-        <div>
-            <h4>Степанов Николай a.k.a. KodKio</h4>
-            -Backend-- Прототип чата, работа с регистрацией, работа с БД, чартами в профиле и топом.<br><br>
+
+        <div class="card dev-info-card dev-info-back">
+          <div class="card-body">
+            <h5 class="card-title">Бернов Андрей</h5>
+            <h6 class="card-subtitle mb-2 text-muted">a.k.a. Sparkle</h6>
+            <h6 class="card-subtitle mb-2"><b>- Back End developer -</b></h6>
+            <p class="card-text"> Работа с профилем: редактирование, ссылки на страницы пользователей, pylint.
+            </p>
+          </div>
         </div>
-        <div>
-            <h4>Попова Маргарита a.k.a. Fortys1xand2</h4>
-            -Frontend-- Начало работы с RTCMulticonnection, капча, первый прототип очереди, подстановка ника стримера на страницу.<br><br>
+
+        <div class="card dev-info-card dev-info-front">
+          <div class="card-body">
+            <h5 class="card-title">Беликов Григорий</h5>
+            <h6 class="card-subtitle mb-2 text-muted">a.k.a. Manndarinchik</h6>
+            <h6 class="card-subtitle mb-2"><b>- Front End lead -</b></h6>
+            <p class="card-text"> Базовый шаблон, вёрстка главной страницы, вёрстка страницы about, оформление чата,
+                кнопки лайков/дизлайков, работа над визуальной частью чата, эмоджи.
+            </p>
+          </div>
         </div>
-        <div>
-            <h4>Богдан Куликов a.k.a. Brem</h4>
-            -Frontend-- Работа с модалами (логин, регистрация, старт стрима).<br><br>
+
+        <div class="card dev-info-card dev-info-front">
+          <div class="card-body">
+            <h5 class="card-title">Вероника Долгирева</h5>
+            <h6 class="card-subtitle mb-2 text-muted">a.k.a. Nika</h6>
+            <h6 class="card-subtitle mb-2"><b>- Front End developer -</b></h6>
+            <p class="card-text">Полная вёрстка страниц просмотра и редактирования профиля,
+                фиксы основной страницы и модалов, визуальная составляющая очереди, адаптация под мобильные устройства,
+                кнопка старта стрима, плейсхолдер.
+            </p>
+          </div>
         </div>
-        <div>
-            <h4>Кравцов Андрей a.k.a. KRAVTANDR</h4>
-            -Backend-- Система лайков, прототип таймера.<br><br>
+
+        <div class="card dev-info-card dev-info-front">
+          <div class="card-body">
+            <h5 class="card-title">Попова Маргарита</h5>
+            <h6 class="card-subtitle mb-2 text-muted">a.k.a. Fortys1xand2</h6>
+            <h6 class="card-subtitle mb-2"><b>- Front End developer -</b></h6>
+            <p class="card-text">Начало работы с RTCMulticonnection, капча, первый прототип очереди, подстановка ника стримера на страницу.
+            </p>
+          </div>
         </div>
-        <div>
-            <h4>Кононов Артём a.k.a. Artem213101zse</h4>
-            -Frontend-- Работа над меню, тёмная тема, фронт лайков.<br><br>
+
+        <div class="card dev-info-card dev-info-front">
+          <div class="card-body">
+            <h5 class="card-title">Богдан Куликов</h5>
+            <h6 class="card-subtitle mb-2 text-muted">a.k.a. Brem</h6>
+            <h6 class="card-subtitle mb-2"><b>- Front End developer -</b></h6>
+            <p class="card-text">Работа с модалами (логин, регистрация, старт стрима).
+            </p>
+          </div>
         </div>
-        <div>
-            <h4>Бернов Андрей a.k.a. Sparkle</h4>
-            -Backend-- Работа с профилем: редактирование, ссылки на страницы пользователей, pylint.<br><br>
+
+        <div class="card dev-info-card dev-info-front">
+          <div class="card-body">
+            <h5 class="card-title">Кононов Артём</h5>
+            <h6 class="card-subtitle mb-2 text-muted">a.k.a. Artem213101zse</h6>
+            <h6 class="card-subtitle mb-2"><b>- Front End developer -</b></h6>
+            <p class="card-text"> Система лайков, прототип таймера.
+            </p>
+          </div>
         </div>
-        <div>
-            <h4>Тимченко даниил a.k.a. Danitim</h4>
-            -Frontend-- Первый прототип визуала очереди, небольшие фронтенд фиксы.<br><br>
+
+        <div class="card dev-info-card dev-info-front">
+          <div class="card-body">
+            <h5 class="card-title">Тимченко Даниил</h5>
+            <h6 class="card-subtitle mb-2 text-muted">a.k.a. Danitim</h6>
+            <h6 class="card-subtitle mb-2"><b>- Front End developer -</b></h6>
+            <p class="card-text"> Первый прототип визуала очереди, небольшие фронтенд фиксы.
+            </p>
+          </div>
         </div>
-        <br><br>
+    </div>
+<p>
         Avatars generated by <a href="https://avatars.dicebear.com/" title="Dicebear"> www.avatars.dicebear.com</a><br>
         Icons made by <a href="https://www.flaticon.com/authors/vitaly-gorbachev" title="Vitaly Gorbachev">Vitaly Gorbachev</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a><br>
         Streams (Kurento VS RTCMultiConnection)?
-    </div>
-</div>
+</p>
 {% endblock %}
