@@ -364,6 +364,32 @@ input[type="checkbox"]+label:after {
 
 /*------*/
 /*------*/
+/*About page*/
+.dev-info-container{
+    text-align: center;
+}
+.dev-info-container p {
+    text-align: start;
+}
+.dev-info-card{
+    margin: 0.51rem;
+    background-color: rgb(0, 0, 0, 0);
+    width: 18.5rem;
+    border: 2px solid #999aa2;
+}
+.dev-info-key{
+    border-color: #9b8c52;
+}
+.dev-info-front{
+    border-color: #5b777d;
+}
+.dev-info-back{
+    border-color: #6b5b7d;
+}
+
+
+/*------*/
+/*------*/
 /*Chat*/
 @media screen and (min-width: 768px) {
     #chat-emote-list{
