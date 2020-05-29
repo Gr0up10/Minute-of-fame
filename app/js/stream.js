@@ -1,4 +1,4 @@
-var kurentoUtils = require('kurento-utils');
+var WebRtcPeer = require('./WebRtcPeer.js');
 
 export default class Stream {
     constructor(send) {
@@ -6,6 +6,7 @@ export default class Stream {
         this.sendSocketMessage = send;
         this.presenterPeer = null;
         this.viewerPeer = null;
+        this.ice_candidates = {};
 
 
               //  this.onstream({'stream_type': 'screen', 'id': this.user_room_id});
@@ -36,46 +37,55 @@ export default class Stream {
     ice_candidate(candidate, isStreamer) {
         console.log("Received ice candidate "+isStreamer+candidate)
         if(isStreamer)
-            this.presenterPeer.addIceCandidate(candidate, function(error) {
-                if (error)
-                    return console.error('Error adding candidate: ' + error);
-            });
+            this.ice_candidates['pub'] = [candidate].concat(this.ice_candidates['pub'] || []);
+            //this.presenterPeer.addIceCandidate(candidate, function(error) {
+            //    if (error)
+            //        return console.error('Error adding candidate: ' + error);
+            //});
         else
-            this.viewerPeer.addIceCandidate(candidate, function(error) {
-                if (error)
-                    return console.error('Error adding candidate: ' + error);
-            });
+            this.ice_candidates['view'] = [candidate].concat(this.ice_candidates['view'] || []);
+            //this.viewerPeer.addIceCandidate(candidate, function(error) {
+            //    if (error)
+            //        return console.error('Error adding candidate: ' + error);
+            //});
     }
 
     sdp_answer(answer, isStreamer) {
         console.log("Received sdp answer "+isStreamer+answer)
-        if(isStreamer)
+        if(isStreamer){
+            var self = this
             this.presenterPeer.processAnswer(answer, function(error) {
                 if (error)
                     return console.error(error);
+                self.ice_candidates['pub'].forEach((candidate) =>
+                self.presenterPeer.addIceCandidate(candidate, function(error) {
+                    if (error)
+                        return console.error('Error adding candidate: ' + error);
+                }
+            ));
             });
-        else
+            
+        } else {
+            var self = this
             this.viewerPeer.processAnswer(answer, function(error) {
                 if (error)
                     return console.error(error);
+                self.ice_candidates['view'].forEach((candidate) =>
+                self.viewerPeer.addIceCandidate(candidate, function(error) {
+                    if (error)
+                        return console.error('Error adding candidate: ' + error);
+                }
+            ));
             });
+            
+        }
     }
 
-    presenter() {
-            var constraints = {
-                    audio: true,
-                    video: {
-                        mandatory : {
-                            chromeMediaSource: 'screen',
-                            maxWidth: 1920,
-                            maxHeight: 1080,
-                            maxFrameRate: 30,
-                            minFrameRate: 15,
-                            minAspectRatio: 1.6
-                        },
-                        optional: []
-                    }
-                }
+    presenter(input) {
+            if(input == 'screen') {
+                this.camMedia = navigator.mediaDevices.getUserMedia;
+                navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getDisplayMedia;
+            } else if(this.camMedia !== undefined) navigator.mediaDevices.getUserMedia = this.camMedia;
 
             var options = {
                 localVideo: document.getElementById('local-video'),
@@ -83,7 +93,7 @@ export default class Stream {
                 //mediaConstraints : constraints,
                 //sendSource: 'screen',
             }
-            this.presenterPeer = new kurentoUtils.WebRtcPeer.WebRtcPeerSendonly(options,
+            this.presenterPeer = new WebRtcPeer.WebRtcPeerSendonly(options,
                     (error) => {
                         if (error) {
                             return console.error(error);
@@ -106,7 +116,7 @@ export default class Stream {
                 remoteVideo : document.getElementById('video'),
                 onicecandidate : this.onIceCandidateViewer.bind(this)
             }
-            this.viewerPeer = new kurentoUtils.WebRtcPeer.WebRtcPeerRecvonly(options,
+            this.viewerPeer = new WebRtcPeer.WebRtcPeerRecvonly(options,
                     (error) => {
                         if (error) {
                             return console.error(error);
@@ -119,7 +129,7 @@ export default class Stream {
 
     onOfferViewer(error, offerSdp) {
         if (error)
-            return console.error('Error generating the offer');
+            return console.error('Error generating the offer'+error);
         console.info('Invoking SDP offer callback function ' + location.host);
 
         this.sendSocketMessage('connect', {"offer": offerSdp, "presenter": false});
@@ -154,7 +164,7 @@ export default class Stream {
     screenStream() {
         this.streaming = true;
 
-        this.presenter()
+        this.presenter('screen')
         this.onstream({'stream_type': 'screen', 'id': '123'})
         //$('#placeholder').css('display', 'none');
 
@@ -170,7 +180,7 @@ export default class Stream {
         document.getElementById("streamer_name").innerHTML = document.getElementById("username").innerText
 
 
-        this.presenter()
+        this.presenter('cam')
         this.onstream({'stream_type': 'screen', 'id': '123'})
         //$('#placeholder').css('display', 'none');
     }

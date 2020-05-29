@@ -15,7 +15,7 @@ export default class Socket {
         let addr = `${(DEBUG ? 'ws://' : 'wss://')}${window.location.host}:${DEBUG ? WS_PORT : '/ws'}/`
         console.log('connection to '+addr)
         this.socket = new WebSocket(addr);
-        this.socket.onopen = this.connected;
+        //this.socket.onopen = this.connected;
         console.log('Connected to ' + addr);
 
         this.socket.onmessage = (event) => {

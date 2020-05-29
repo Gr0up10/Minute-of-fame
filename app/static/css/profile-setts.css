@@ -1,0 +1,87 @@
+.settings-textarea {
+    overflow: auto;
+    width: 100%;
+    height: 50px;
+    background: #333645;
+    border: none;
+    padding: 8px 0 8px 10px;
+    margin-top: 10px;
+    color: #6c757d;
+}
+
+.settings-text {
+    padding: 0;
+}
+
+.settings-networks {
+    margin-top: 50px;
+    margin-left: 50px;
+    border-left: 3px solid #333645;
+    padding-left: 30px;
+}
+
+.save-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.aboutme-settings {
+    display: inline-block;
+    border-bottom: solid #d4c074 3px;
+}
+
+.btn_save {
+    padding-left: 2em;
+    padding-right: 2em;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: #ffffff00;
+    border: 3px solid #d4c074;
+    font-size: 20px;
+    font-weight: bolder;
+    display: inline-block;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn_save:before {
+    content: "";
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 100%;
+    width: 3em;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -4.5em;
+    transform: skewX(-45deg) translateX(0);
+    transition: none;
+}
+
+.btn_save:hover {
+    background-color: #d4c074;
+    color: #fff;
+    border-bottom: 4px solid darken(#28a745, 10%);
+}
+
+.btn_save:hover:before {
+    transform: skewX(-45deg) translateX(13.5em);
+    transition: all 0.5s ease-in-out;
+}
+
+.settings-input {
+    width: 100%;
+    font-size: 16px;
+    padding: 6px 0 4px 10px;
+    background: #333645;
+    border-radius: 0;
+    border: none;
+}
+
+.input-group-text {
+    width: 45px;
+    background-color: #424556;
+    border: none;
+}
