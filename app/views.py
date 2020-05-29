@@ -151,7 +151,7 @@ def login_page(request):
 
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                login(request, user)
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                 messages.add_message(
                     request, messages.SUCCESS, "Авторизация успешна")
                 return redirect('index')
@@ -287,10 +287,15 @@ def profile_settings_page(req):
         'menu': get_menu_context()
     }
     if req.user.is_authenticated:
+        if len(Profile.objects.filter(user=req.user)) == 0:
+            new_profile = Profile()
+            new_profile = Profile(user=req.user, name=req.user.username)
+            new_profile.save()
+
         num_of_profiles = len(Profile.objects.filter(user=req.user))
         current_profile = Profile()
 
-        if num_of_profiles > 0:
+        if num_of_profiles >= 1:
             current_profile = Profile.objects.filter(user=req.user)[num_of_profiles - 1]
 
         context['item'] = current_profile
