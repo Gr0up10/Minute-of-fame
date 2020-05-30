@@ -84,8 +84,9 @@ def top_page(req):
         for i in range(len(all_users)):
             likes_count = 0
             dislikes_count = 0
-            if len(PollStat.objects.filter(user=all_users[i][1])) > 0:
-                for k in PollStat.objects.filter(user=all_users[i][1]):
+            streams = Stream.objects.filter(publisher=all_users[i][1])
+            for j in streams:
+                for k in PollStat.objects.filter(stream=j):
                     if k.vote == 1:
                         likes_count += 1
                     else:
@@ -95,8 +96,9 @@ def top_page(req):
         for i in range(10):
             likes_count = 0
             dislikes_count = 0
-            if len(PollStat.objects.filter(user=all_users[i][1])) > 0:
-                for k in PollStat.objects.filter(user=all_users[i][1]):
+            streams = Stream.objects.filter(publisher=all_users[i][1])
+            for j in streams:
+                for k in PollStat.objects.filter(stream=j):
                     if k.vote == 1:
                         likes_count += 1
                     else:
@@ -106,8 +108,9 @@ def top_page(req):
         for i in range(40):
             likes_count = 0
             dislikes_count = 0
-            if len(PollStat.objects.filter(user=all_users[i][1])) > 0:
-                for k in PollStat.objects.filter(user=all_users[i][1]):
+            streams = Stream.objects.filter(publisher=all_users[i][1])
+            for j in streams:
+                for k in PollStat.objects.filter(stream=j):
                     if k.vote == 1:
                         likes_count += 1
                     else:
@@ -360,7 +363,6 @@ def get_data_for_charts(request, id):
     if len(real_name) > 0:
         id = real_name[0].id
         if len(Profile.objects.filter(user=id)) > 0:
-            user = Profile.objects.filter(user_id=id)[len(Profile.objects.filter(user_id=id)) - 1]
             streams_temp = list()
             for i in Stream.objects.filter(publisher=real_name[0]):
                 streams_temp.append(i)
@@ -368,6 +370,7 @@ def get_data_for_charts(request, id):
             likes = []
             dislikes = []
             for i in streams:
+                labels.append(i.title)
                 pollstats = PollStat.objects.filter(stream=i)
                 likes_count = 0
                 dislikes_count = 0
