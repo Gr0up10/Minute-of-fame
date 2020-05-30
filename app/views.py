@@ -225,7 +225,7 @@ def register_page(request):
                 _user = authenticate(username=username, password=my_password)
 
                 if _user.is_active:
-                    login(request, new_user)
+                    login(request, new_user, backend='django.contrib.auth.backends.ModelBackend')
                     messages.add_message(
                         request, messages.SUCCESS,
                         'Вы успешно зарегистрировались')
