@@ -22,7 +22,7 @@ export default class Stream {
                 ]
             },
             {
-                urls: ["turn:51.15.64.125:3478"],
+                urls: ["turn:51.15.91.233:3478"],
                 username: "username",
                 credential: "password"
             },
