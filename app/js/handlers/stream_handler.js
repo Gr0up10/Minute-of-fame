@@ -2,7 +2,7 @@ export default class StreamHandler {
     constructor(socket, stream) {
         this.socket = socket;
         this.stream = stream;
-        stream.viewer()
+        stream.watchStream()
     }
 
     handle_message(name, packet) {

@@ -258,10 +258,11 @@ function WebRtcPeer(mode, options, callback) {
     var dataChannel
 
     var guid = uuidv4()
-    var configuration = recursive({
-        iceServers: freeice()
-    },
-                                  options.configuration)
+    //var configuration = recursive({
+    //    iceServers: freeice()
+    //},
+    //                              options.configuration)
+    var configuration = options.configuration
 
     var onicecandidate = options.onicecandidate
     if (onicecandidate) this.on('icecandidate', onicecandidate)
@@ -573,7 +574,7 @@ function WebRtcPeer(mode, options, callback) {
             }).catch(error => {
                 console.log('cannot autoplay')
                 $(".play-btn").css('display', 'block')
-                $(".play-btn").click(() => playVideo)
+                $(".play-btn").click(() => playVideo())
             });
         }
     }
@@ -754,7 +755,7 @@ function WebRtcPeer(mode, options, callback) {
     }
 
     if (mode !== 'recvonly' && !videoStream && !audioStream) {
-        function getMedia(constraints) {
+        function getMedia(constraints, input) {
             if (constraints === undefined) {
                 constraints = MEDIA_CONSTRAINTS
             }
@@ -766,26 +767,25 @@ function WebRtcPeer(mode, options, callback) {
                     start();
                 }, callback);
             } else {
-                navigator.mediaDevices.getUserMedia(constraints).then(function (
-                                                                      stream) {
-                    videoStream = stream;
+                if(input == 'cam')
+                    navigator.mediaDevices.getUserMedia(constraints).then(function (
+                                                                          stream) {
+                        videoStream = stream;
 
-                    start();
-                }).catch(callback);
+                        start();
+                    }).catch(callback);
+                else 
+                    navigator.mediaDevices.getDisplayMedia(constraints).then(function (stream) {
+                        videoStream = stream;
+                        return navigator.mediaDevices
+                          .getUserMedia({
+                            audio: true,
+                            video: false
+                          })
+                    }).then(function (stream) {audioStream = stream; start(); }).catch(callback);
             }
         }
-        if (sendSource === 'webcam') {
-            getMedia(mediaConstraints)
-        } else {
-            getScreenConstraints(sendSource, function (error, constraints_) {
-                if (error)
-                    return callback(error)
-
-                constraints = [mediaConstraints]
-                constraints.unshift(constraints_)
-                getMedia(recursive.apply(undefined, constraints))
-            }, guid)
-        }
+        getMedia(mediaConstraints, sendSource)
     } else {
         setTimeout(start, 0)
     }

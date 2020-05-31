@@ -1,0 +1,18 @@
+{
+    "numAudioMedias": 1,
+    "numVideoMedias": 1,
+    "audioCodecs": [
+        {
+            "name": "opus/48000/2"
+        },
+        { "name": "PCMU/8000" },
+        { "name": "AMR/8000" },
+        {
+            "name": "MPEG4-GENERIC/44100/2"
+        }
+    ],
+    "videoCodecs": [
+        { "name": "VP8/90000" },
+        { "name": "H264/90000" }
+    ]
+}

@@ -1,6 +1,8 @@
 # minute of fame
 
-Что бы запустить проект через docker-compose используйте следующею комманду
+Что бы запустить проект через docker-compose используйте следующею комманды
+
+`docker network create -d bridge --subnet 192.168.0.0/24 --gateway 192.168.0.1 dockernet`
 
 `docker-compose up --build`
 
@@ -16,3 +18,4 @@
 На linux сервер будет доступен на 8000 порте на windows на 80
 
 Что бы применить нужные изменения теперь нужно будет только перезапусть скрипт `run.dev`
+
