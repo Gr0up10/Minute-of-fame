@@ -229,6 +229,7 @@ input[type="checkbox"]+label:after {
 .w-50 {
     width: 30vh !important;
 }
+
 .stream-viewers-resize{
         padding: 1em 0em 0em;
         padding-right: 2.5em;
@@ -360,6 +361,32 @@ input[type="checkbox"]+label:after {
 .top_chart_dislikes{
     color: rgb(255, 143, 143);
 }
+
+/*------*/
+/*------*/
+/*About page*/
+.dev-info-container{
+    text-align: center;
+}
+.dev-info-container p {
+    text-align: start;
+}
+.dev-info-card{
+    margin: 0.51rem;
+    background-color: rgb(0, 0, 0, 0);
+    width: 18.5rem;
+    border: 2px solid #999aa2;
+}
+.dev-info-key{
+    border-color: #9b8c52;
+}
+.dev-info-front{
+    border-color: #5b777d;
+}
+.dev-info-back{
+    border-color: #6b5b7d;
+}
+
 
 /*------*/
 /*------*/
@@ -526,6 +553,64 @@ input[type="checkbox"]+label:after {
 
 .lp {
     margin-left: 20px;
+}
+
+.yandex-login {
+    padding: 0.5em;
+    padding-left: 0.4em;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: #ffffff;
+    border: 3px solid 2a9e45e8;
+    font-size: 20px;
+    font-weight: bolder;
+    display: inline-block;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.yandex-login:before {
+    content: "";
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 100%;
+    width: 3em;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -4.5em;
+    transform: skewX(-45deg) translateX(0);
+    transition: none;
+}
+
+.yandex-login:hover {
+    background-color: #ffffff;
+    color: #fff;
+    border-bottom: 4px solid darken(#28a745, 10%);
+}
+
+.yandex-login:hover:before {
+    transform: skewX(-45deg) translateX(13.5em);
+    transition: all 0.5s ease-in-out;
+}
+
+.yandex-login-img{
+    width:30px;
+}
+
+.btn-cust__h2{
+    font-size: 2.5rem;
+}
+
+.d-inline-block{
+    display: inline-block;
+    margin: 5px;
+}
+
+.sign-up-text{
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 /*-----*/
@@ -825,6 +910,7 @@ input[type="checkbox"]+label:after {
     height: 650px;
     position: relative;
     transform: translate(-30%, -10%);
+    background-color: #292d40;
 }
 
 .avatar-exit {
@@ -882,11 +968,14 @@ input[type="checkbox"]+label:after {
 .avatar__icons {
     display: flex;
     justify-content: space-between;
-    height: 30px;
+    height: 50px;
     position: absolute;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
+    bottom: 0px;
+    left: -1px;
+    right: 0px;
+    padding: 10px 20px;
+    background-color: #292d40c9;
+    vertical-align: middle;
 }
 
 .avatar__stars {
@@ -1692,6 +1781,10 @@ input[type="checkbox"]+label:after {
     .row {
         margin-right: -0px;
     }
+
+    .btn-cust__h2{
+        font-size: 1.5rem;
+    }
 }
 
 @media screen and (max-width: 375px) {
@@ -2006,15 +2099,15 @@ input[type="checkbox"]+label:after {
 }
 
 .play-btn {
-  position: fixed; /* Sit on top of the page content */
-  display: none; /* Hidden by default */
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-  cursor: pointer; /* Add a pointer on hover */
+    display: none; /* Hidden by default */
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    width: 60px;
+    margin: auto;
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+
 }

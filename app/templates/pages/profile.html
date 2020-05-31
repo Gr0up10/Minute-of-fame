@@ -25,7 +25,7 @@
                 <a class="avatar__upload" data-toggle="modal" data-target="#photoModal">
                         <i class="fa fa-camera avatar_camera" aria-hidden="true"></i>
                 </a>
-                <img class="d-lg-flex justify-content-lg-center avatar__img" src="{% static 'avatar1.jpg' %}">
+                <img class="d-lg-flex justify-content-lg-center avatar__img" src="https://avatars.dicebear.com/api/human/{{item.name}}.svg">
                 <div class="avatar__icons">
                     <div class="avatar__stars">
                         <i class="fa fa-star avatar__star" aria-hidden="true"></i>
@@ -234,8 +234,7 @@
             setChart();
         },
         error: (error_data) => {
-            console.log('error');
-            console.log(error_data);
+            console.log('error_charts');
         }
     });
 

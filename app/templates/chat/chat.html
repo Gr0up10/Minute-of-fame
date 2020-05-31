@@ -33,11 +33,17 @@
         <div id="chat-emote-list" style="display: block">
             <div class="d-flex flex-wrap">
                 {% for emote in emotes_list %}
-                <div class="chat-list-emote-container" data-name="{{emote.0}}">
+                <div class="chat-list-emote-container" data-name="{{emote.0}}" onclick="SmileInput('{{emote.0}}')">
                     <img class="chat-emote" src="{% static 'Pictures\emotes' %}\{{emote.0}}{{emote.1}}" alt=".~.">
                     <p>{{emote.0}}</p>
                 </div>
                 {% endfor %}
+                <script>
+                    function SmileInput(str){
+                        var input = document.getElementById("chat-message-input");
+                        input.value = input.value + ` ${str} `;
+                    }
+                </script>
             </div>
         </div>
 	</div>
