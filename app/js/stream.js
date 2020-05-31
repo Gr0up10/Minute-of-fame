@@ -168,18 +168,9 @@ export default class Stream {
         this.onstream({'stream_type': 'screen', 'id': '123'})
         //$('#placeholder').css('display', 'none');
 
-        document.getElementById("stream_title").innerHTML = $("#title_input").val();
-        document.getElementById("stream_description").innerHTML = $("#description_input").val();
-        document.getElementById("streamer_name").innerHTML = document.getElementById("username").innerText
-
     }
 
     webcamStream() {
-        document.getElementById("stream_title").innerHTML = $("#title_input").val();
-        document.getElementById("stream_description").innerHTML = $("#description_input").val();
-        document.getElementById("streamer_name").innerHTML = document.getElementById("username").innerText
-
-
         this.presenter('cam')
         this.onstream({'stream_type': 'screen', 'id': '123'})
         //$('#placeholder').css('display', 'none');
