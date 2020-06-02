@@ -78,7 +78,7 @@ def top_page(req):
     for user in all_users:
         streams = Stream.objects.filter(publisher=user[1])
         for stream in streams:
-            user[0] += len(StreamView.objects.filter(stream=stream))
+            user[0] += stream.views
     quickSort(all_users, 0, len(all_users) - 1)
     if len(all_users) < 10:
         for i in range(len(all_users)):
