@@ -117,6 +117,6 @@ export default class QueueHandler {
 
 
         if (name === "set_time") document.getElementById("stream-timer-overlay").innerHTML = packet.time;
-        if (name == "update_viewers") $(".secondary-text b").text(packet.count)
+        if (name == "update_viewers") document.getElementById("view_count").innerText = packet.count;
     }
 }
