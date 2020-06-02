@@ -27,13 +27,7 @@ class Stream(models.Model):
     stream_id = models.CharField(max_length=16)
     description = models.CharField(max_length=40)
     title = models.CharField(max_length=32)
-
-
-class StreamView(models.Model):
-    """просматривание стрима """
-    date = models.DateField(auto_now=True)
-    stream = models.ForeignKey(to=Stream, on_delete=models.CASCADE)
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    views = models.IntegerField()
 
 
 class LikeDislike(models.IntegerChoices):
