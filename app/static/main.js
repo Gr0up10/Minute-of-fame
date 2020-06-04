@@ -136,7 +136,7 @@ $(document).ready( function() {
     var rand = document.querySelector('.debug');
     var sprites = ["male", "female", "human", "identicon", "bottts", "initials", "avataaars", "jdenticon", "gridy"];
 
-    rand.addEventListener('click', RandomUrl);// действует по клику кнопки debug, для примера. Нужно поменять на добавление в очередь
+    //rand.addEventListener('click', RandomUrl);// действует по клику кнопки debug, для примера. Нужно поменять на добавление в очередь
 });
 
 $(document).ready( function() {
