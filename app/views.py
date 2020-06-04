@@ -260,15 +260,13 @@ def profile_page(req, id):
         if len(Profile.objects.filter(user=id)) > 0:
             item = Profile.objects.filter(user_id=id)[len(Profile.objects.filter(user_id=id)) - 1]
             context['item'] = item
-            stream_titles = list()
-            for i in Stream.objects.filter(publisher=real_name[0]):
-                stream_titles.append(i.title)
-            context['streams_titles'] = stream_titles
-            context['likes'] = PollStat.objects.filter(user_id=id)
             context['likes_count'] = 0
             context['dislikes_count'] = 0
-            if len(PollStat.objects.filter(user_id=id)) > 0:
-                for i in context['likes']:
+            context['views'] = 0
+            streams = Stream.objects.filter(publisher=real_name[0])
+            for stream in streams:
+                context['views'] += len(StreamView.objects.filter(stream=stream))
+                for i in PollStat.objects.filter(stream=stream):
                     if i.vote == 1:
                         context['likes_count'] += 1
                     else:
