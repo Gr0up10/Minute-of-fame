@@ -104,7 +104,11 @@
                             <canvas id="lineCahrt" width="400" height="300" class="chart__js chart__size"></canvas>
                         </div>
                         <div id="view" class="hide container progress__size">
-                            <h4 class="progress__views">397 Views</h4>
+                            {% if views != None %}
+                                <h4 class="progress__views">{{ views }} Views</h4>
+                            {% else %}
+                                <h4 class="progress__views">0 Views</h4>
+                            {% endif %}
                             <h5 class="nowrap"><i class="fa fa-thumbs-o-up progress__like" aria-hidden="true"></i>
                                 Likes</h5>
                             <div class="progress">
@@ -130,14 +134,6 @@
                                          aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0
                                     </div>
                                 {% endif %}
-                            </div>
-
-                            <h5 class="nowrap"><i class="fa fa-paper-plane-o progress__share" aria-hidden="true"></i>
-                                Share</h5>
-                            <div class="progress">
-                                <div class="progress-bar progress__share-bg" role="progressbar" style="width: 67%"
-                                     aria-valuenow="67" aria-valuemin="0" aria-valuemax="100">67
-                                </div>
                             </div>
                         </div>
                     </div>
