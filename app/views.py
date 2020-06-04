@@ -265,7 +265,7 @@ def profile_page(req, id):
             context['views'] = 0
             streams = Stream.objects.filter(publisher=real_name[0])
             for stream in streams:
-                context['views'] += len(StreamView.objects.filter(stream=stream))
+                context['views'] += stream.views
                 for i in PollStat.objects.filter(stream=stream):
                     if i.vote == 1:
                         context['likes_count'] += 1
