@@ -263,7 +263,7 @@ def profile_page(req, id):
             context['likes_count'] = 0
             context['dislikes_count'] = 0
             context['views'] = 0
-            streams = Stream.objects.filter(publisher=real_name)
+            streams = Stream.objects.filter(publisher=real_name[0])
             for stream in streams:
                 context['views'] += len(StreamView.objects.filter(stream=stream))
                 for i in PollStat.objects.filter(stream=stream):
