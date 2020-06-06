@@ -6,7 +6,7 @@
     {% csrf_token %}
     <div class="d-flex align-items-stretch center">
         <div class="card-exit">
-            <a class="card-exit__pencil" href="/profile_{{item.name}}/">
+            <a class="card-exit__pencil" href="/profile_{{item.user.username}}/">
                 <i class="fa fa-arrow-left card-exit__fa-pencil"></i>
             </a>
             <a class="card-exit__times" href="/">
@@ -17,7 +17,7 @@
             <div class="row profile-settings">
                 <div class="avatar">
                     <div class="avatar-exit">
-                        <a class="avatar-exit__pencil" href="/profile_{{item.name}}/">
+                        <a class="avatar-exit__pencil" href="/">
                             <i class="fa fa-arrow-left avatar-exit__fa-pencil"></i>
                         </a>
                         <a class="avatar-exit__times" href="/">

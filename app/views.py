@@ -11,7 +11,7 @@ import requests
 
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from .forms import RegisterFormView, LoginForm, ReportForm
+from .forms import RegisterFormView, LoginForm, ReportForm, ChangePhotoForm
 from .models import *
 
 
@@ -325,6 +325,36 @@ def profile_settings_page(req):
     else:
         return redirect('index')
     return render(req, 'pages/profile_settings.html', context)
+
+
+def change_name(req):
+    """Модал смены имени"""
+    context = {
+        'menu': get_menu_context()
+    }
+    if req.user.is_authenticated:
+        if req.method == 'POST':
+            new_name = req.POST.get('new_name')
+            print(req.POST)
+            for k in req.POST:
+                print(k)
+            num_of_profiles = len(Profile.objects.filter(user=req.user))
+            current_profile = Profile()
+
+            if num_of_profiles >= 1:
+                current_profile = Profile.objects.filter(user=req.user)[num_of_profiles - 1]
+            new_profile = Profile(user=req.user, quotes=current_profile.quotes,
+                                  email=current_profile.email,
+                                  location=current_profile.location,
+                                  Vk=current_profile.Vk,
+                                  instagram=current_profile.instagram,
+                                  facebook=current_profile.facebook,
+                                  twitter=current_profile.twitter,
+                                  odnoklassniki=current_profile.odnoklassniki,
+                                  youtube_play=current_profile.youtube_play,
+                                  name=new_name)
+            new_profile.save()
+    return redirect('/profile_' + req.user.username)
 
 
 def about_page(req):
