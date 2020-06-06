@@ -6,7 +6,8 @@
             <h3 class="modal-title" id="exampleModalLabel">Change photo</h3>
             <div class="modal-body">
                 <div class="example-1">
-                    <form>
+                    <form method="POST" id="change_name_modal" action="/change_name/">
+                        {% csrf_token %}
                         <!--                        <div class="form-group">
                                                     <label class="label">
                                                         <i class="material-icons">attach_file</i>
@@ -50,11 +51,12 @@
                                 </div>
                             </div>
                             <input class="photo-modal__input__nickname" placeholder="your-nickname"
-                                   maxlength="512">
+                                   id="new_name" name="new_name" type="text"
+                                   maxlength="50">
                         </div>
                         <div class="photo-modal-footer">
                             <!--<p class="photo-modal-footer__text">P.S. photo must be in jpg or png format</p>-->
-                            <input type="submit" class="btn btn-light photo-modal-footer__btn" value="Upload">
+                            <input type="submit" class="btn btn-light photo-modal-footer__btn" value="Change it">
                         </div>
                     </form>
                 </div>

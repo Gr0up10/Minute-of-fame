@@ -2,7 +2,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import Report
+from .models import Report, Profile
 
 
 class RegisterFormView(UserCreationForm):
@@ -62,3 +62,9 @@ class ReportForm(forms.ModelForm):
         fields = '__all__'
         widgets = {'badass': forms.HiddenInput(
         ), 'sender': forms.HiddenInput()}
+
+
+class ChangePhotoForm(forms.ModelForm):
+    """New photoo modal"""
+    new_name = forms.CharField(max_length=50)
+    model = Profile
